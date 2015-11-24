@@ -1,0 +1,29 @@
+{
+  "data": {
+    "todo": []
+  },
+  "schema": {
+    "todo": {
+      "value": {
+        "type": "text"
+      },
+      "id": {
+        "type": "integer",
+        "autoIncrement": true,
+        "primaryKey": true,
+        "unique": true
+      },
+      "createdAt": {
+        "type": "datetime"
+      },
+      "updatedAt": {
+        "type": "datetime"
+      }
+    }
+  },
+  "counters": {
+    "todo": {
+      "id": 9
+    }
+  }
+}
