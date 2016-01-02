@@ -5,6 +5,8 @@ module.exports = {
     	var data = {
     		"username"	: request.param('username') ,
     		"password"	: request.param('password'),
+            "email"     : request.param('email'),
+            "permissionID"     : request.param('permissionID')
   	    };
   	    //call the business logic for creating a new user 
     	UserService.create( 
