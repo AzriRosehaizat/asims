@@ -20,11 +20,11 @@ Development Workflow
 -------------------------------
 1. `git checkout -b 'IssueNo-Your-Branch-Name'`
 2. Develop your feature
-2.5. Do more stuff
-3. Pull from `master` branch before commiting and ensure you have latest version
-4. Push to your branch
-5. Create a pull request
-6. Code will be reviewed by me and I will merge it
+3. Do more stuff
+4. Pull from `master` branch before commiting and ensure you have latest version
+5. Push to your branch
+6. Create a pull request
+7. Code will be reviewed by me and I will merge it
 
 
 Agile testing???
