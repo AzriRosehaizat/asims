@@ -25,19 +25,20 @@ module.exports.connections = {
     adapter: 'sails-disk'
   },
 
-  /***************************************************************************
-  *                                                                          *
-  * MySQL is the world's most popular relational database.                   *
-  * http://en.wikipedia.org/wiki/MySQL                                       *
-  *                                                                          *
-  * Run: npm install sails-mysql                                             *
-  *                                                                          *
-  ***************************************************************************/
+  //Adapter asims business application database
   MySQLServer: {
     adapter: 'sails-mysql',
-    host: process.env.IP,
-    user: 'jamesmackayuwpc',
-    password: '',
-    database: 'c9'
+    host: process.env.ASIMS_IP,
+    user: process.env.ASIMS_USER,
+    password: process.env.ASIMS_PW,
+    database: 'asims'
   },
+  //adapter to asims user administration database
+  MySQLServerMeta: {
+    adapter: 'sails-mysql',
+    host: process.env.ASIMS_IP,
+    user: process.env.ASIMS_USER,
+    password: process.env.ASIMS_PW,
+    database: 'asimsMeta'
+  }
 };
