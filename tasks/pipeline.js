@@ -1,21 +1,23 @@
 var cssFilesToInject = [
-'bower_components/bootswatch/dist/css/bootstrap.css',
-'styles/**/*.css'
+  'bower_components/bootstrap/dist/css/bootstrap.min.css',
+  'bower_components/angular-ui-grid/ui-grid.css',
+  'components/**/*.css'
 ];
-var jsFilesToInject = [
-  'js/dependencies/sails.io.js',
-  '/bower_components/jquery/dist/jquery.js',
-  '/bower_components/angular/angular.js',
-  '/bower_components/angular-route/angular-route.js',
-  '/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-  '/bower_components/bootstrap/dist/js/boostrap.js',
-  'js/dependencies/**/*.js',
 
-  'js/**/*.js'
-  ];
+var jsFilesToInject = [
+  'dependencies/sails.io.js',
+  'bower_components/jquery/dist/jquery.js',
+  'bower_components/angular/angular.js',
+  'bower_components/angular-ui-router/release/angular-ui-router.js',
+  'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+  'bower_components/angular-animate/angular-animate.js',
+  'bower_components/angular-ui-grid/ui-grid.js',
+  'app.js',
+  'components/**/*.js'
+];
 
 var templateFilesToInject = [
-'templates/*.html'
+  '**/*.html'
 ];
 
 module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
