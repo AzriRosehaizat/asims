@@ -28,9 +28,6 @@ module.exports.connections = {
   //Adapter asims business application database
   MySQLServer: {
     adapter: 'sails-mysql',
-    host: 'jabberbyte.me',
-    user: 'appUser',
-    password: 'UW_FoS@prjtasims',
     host: process.env.ASIMS_IP,
     user: process.env.ASIMS_USER,
     password: process.env.ASIMS_PW,
