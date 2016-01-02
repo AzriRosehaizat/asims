@@ -17,8 +17,13 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  connection: 'localDiskDb',
-
+  connection: 'MySQLServer',
+  //Schema database
+  schema: true,
+  //no extra fields needed
+  autoPK: false,
+  autoCreatedAt: false,
+  autoUpdatedAt: false,
   /***************************************************************************
   *                                                                          *
   * How and whether Sails will attempt to automatically rebuild the          *
