@@ -1,5 +1,0 @@
-<uib-tabset>
-    <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="view.tabShown = !view.tabShown" deselect="view.tabShown = !view.tabShown">
-        <div ui-grid="tab.gridOptions"  ng-if="view.tabShown" class="grid"></div>
-    </uib-tab>
-</uib-tabset>
