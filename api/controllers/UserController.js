@@ -1,4 +1,14 @@
-module.exports = {
+/**
+ * UserController.js 
+ * 
+ * @module      :: Controller
+ * @description :: Provides the base user
+ *                 actions used to make waterlock work.
+ *                 
+ * @docs        :: http://waterlock.ninja/documentation
+ */
+
+module.exports = require('waterlock').actions.user({
     // create user function
     create: function( request, response){
     	//pull relevant data from the request (could add validation here, but felt like it belonged in business logic)
@@ -39,4 +49,4 @@ module.exports = {
     		}
     	}, data );
     }
-};
+});
