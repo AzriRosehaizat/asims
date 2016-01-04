@@ -1,10 +1,10 @@
 var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate']);
 
-application.config(function($locationProvider, $stateProvider, $urlRouterProvider) {
+application.config(function($stateProvider, $urlRouterProvider, $locationProvider, AccessLevels) {
 	$urlRouterProvider.otherwise('/index');
 	$stateProvider
 		.state('index', {
-			url: '/',
+			url: '/index',
 			views: {
 				'': {
 					templateUrl: '/views/index/index.html'
@@ -15,7 +15,8 @@ application.config(function($locationProvider, $stateProvider, $urlRouterProvide
 				}
 			},
 			data: {
-				loginRequired: false
+				access: AccessLevels.anon
+					//loginRequired: false
 			}
 		})
 		.state('application', {
@@ -30,7 +31,8 @@ application.config(function($locationProvider, $stateProvider, $urlRouterProvide
 				}
 			},
 			data: {
-				loginRequired: true
+				access: AccessLevels.user
+					//loginRequired: true
 			}
 		}).state('application.root', {
 			url: '/application'
@@ -72,16 +74,15 @@ application.config(function($locationProvider, $stateProvider, $urlRouterProvide
 		});
 
 	// use the HTML5 History API
-	$locationProvider.html5Mode(true).hashPrefix('!')
+	//$locationProvider.html5Mode(true).hashPrefix('!')
 });
 
-application.run(function($rootScope, $state, $uibModal, loginModalService) {
+application.run(function($rootScope, $state, loginModalService, Auth) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-		if (toState.data.loginRequired && !$rootScope.loggedIn) {
+		if (!Auth.authorize(toState.data.access)) {
 			event.preventDefault();
 			loginModalService.open().result
 				.then(function(response) {
-					$rootScope.loggedIn = response;
 					$state.go(toState.name, toParams);
 				})
 				.catch(function(error) {
