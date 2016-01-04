@@ -82,9 +82,9 @@ module.exports.waterlock = {
     expiresProperty: 'expires',
 
     // configure whether or not to include
-    // the user in the respnse - this is useful if
+    // the user in the response - this is useful if
     // JWT is the default response for succesfull login
-    includeUserInJwtResponse: false
+    includeUserInJwtResponse: true
   },
 
   // Post Actions
@@ -103,7 +103,7 @@ module.exports.waterlock = {
       // obj - {controller: 'blog', action: 'post'}
       // string - 'custom json response string'
       // default - 'default'
-      success: 'default',
+      success: 'jwt',
 
       // This can be any one of the following
       //
