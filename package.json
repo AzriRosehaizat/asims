@@ -24,8 +24,8 @@
     "sails": "~0.11.2",
     "sails-disk": "~0.10.0",
     "sails-mysql": "",
-    "waterlock": "^0.1.0",
-    "waterlock-local-auth": "0.0.6"
+    "waterlock": "git+https://github.com/waterlock/waterlock.git",
+    "waterlock-local-auth": "git+https://github.com/waterlock/waterlock-local-auth.git"
   },
   "scripts": {
     "debug": "node debug app.js",

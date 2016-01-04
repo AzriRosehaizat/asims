@@ -13,7 +13,7 @@ module.exports.waterlock = {
   //
   // used by auth methods for callback URI's using oauth and for password
   // reset links.
-  baseUrl: 'http://localhost:1337',
+  baseUrl: 'https://asims-daeyoun24.c9users.io/',
 
   // Auth Method(s)
   //
@@ -44,7 +44,7 @@ module.exports.waterlock = {
           vars:{}
         }
       },
-      createOnNotFound: true
+      createOnNotFound: false
     }
   ],
 

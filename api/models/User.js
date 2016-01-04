@@ -10,49 +10,28 @@ module.exports = {
 
   connection: 'MySQLServerMeta',
 
-  tableName: 'User',
-
   attributes: require('waterlock').models.user.attributes({
 
-    userID: {
-      type: 'integer',
-      index: true,
-      primaryKey: true,
-      autoIncrement: true
-    },
-    username: {
-      type: 'string',
-      required: true,
-      unique: true
-    },
-    password: {
-      type: 'string',
-      required: true
-    },
-    email: {
-      type: 'email',
-      required: true,
-      unique: true
-    },
+    // username: {
+    //   type: 'string',
+    //   required: true,
+    //   unique: true
+    // },
 
-    //Add reference to Permissions (FK)
-    permissionID: {
-      model: 'Permission',
-      required: false
-    },
+    // email: {
+    //   type: 'email',
+    //   required: true,
+    //   unique: true
+    // },
 
-    //add referece to LoginRecord 1:m
-    logins: {
-      collection: 'LoginRecord',
-      via: 'userID'
-    },
+    // jsonWebTokens: {
+    //   collection: 'jwt',
+    //   via: 'owner'
+    // },
 
-    //K this attribute has to be last. it will cause problem otherwise
-    toJSON: function() {
-      var obj = this.toObject();
-      delete obj.password;
-      return obj;
-    }
+    username: 'string',
+    email: 'string',
+
   }),
 
   beforeCreate: require('waterlock').models.user.beforeCreate,
