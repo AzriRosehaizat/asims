@@ -28,7 +28,7 @@ module.exports = {
                         callback(new Error(error));
                         return;
                     }
-                    console.log("user login success");
+                    console.log("user creation success");
                 });
             });
         }).exec(callback);

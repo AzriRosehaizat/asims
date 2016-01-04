@@ -1,4 +1,4 @@
-application.service('loginModalService', function( $http, $q, $uibModal ) {
+application.service('loginModalService', function( $http, $q, $uibModal, Auth ) {
     return {
         'open': function () {
             return $uibModal.open( {
@@ -10,8 +10,8 @@ application.service('loginModalService', function( $http, $q, $uibModal ) {
         },
         'submit': function ( user ) {
             var defer = $q.defer();
-            $http.post('/auth/login', user).success( function( resp ){
-                defer.resolve( resp );
+            Auth.login(user).success( function( response ){
+                defer.resolve( response );
             }).error( function( err ) {
                 defer.reject( err );
             });
