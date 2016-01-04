@@ -10,7 +10,7 @@ application.service('loginModalService', function( $http, $q, $uibModal ) {
         },
         'submit': function ( user ) {
             var defer = $q.defer();
-            $http.post('/user/authenticate', user).success( function( resp ){
+            $http.post('/auth/login', user).success( function( resp ){
                 defer.resolve( resp );
             }).error( function( err ) {
                 defer.reject( err );
