@@ -1,3 +1,4 @@
+'use strict';
 /**
  * ResetToken
  *
@@ -7,6 +8,8 @@
  */
 
 module.exports = {
+  
+  connection: 'MySQLServerMeta',
 
   attributes: require('waterlock').models.resetToken.attributes({
     

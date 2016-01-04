@@ -7,12 +7,16 @@
  */
 
 module.exports = {
+  
+  connection: 'MySQLServerMeta',
 
   attributes: require('waterlock').models.auth.attributes({
     
-    /* e.g.
-    nickname: 'string'
-    */
+    username: 'string',
+    
+    password: {
+      minLength: 6
+    },
     
   }),
   

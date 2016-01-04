@@ -7,6 +7,8 @@
  */
 
 module.exports = {
+  
+  connection: 'MySQLServerMeta',
 
   attributes: require('waterlock').models.attempt.attributes({
     
