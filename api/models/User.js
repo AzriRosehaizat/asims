@@ -32,6 +32,14 @@ module.exports = {
     username: 'string',
     email: 'string',
 
+    toJSON: function() {
+      var obj = this.toObject();
+      if (typeof obj.auth === 'object' && obj.auth.password) {
+        delete obj.auth.password;
+      }
+      return obj;
+    }
+
   }),
 
   beforeCreate: require('waterlock').models.user.beforeCreate,
