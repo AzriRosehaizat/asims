@@ -5,7 +5,7 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
-    "bower":"",
+    "bower": "",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
     "grunt-contrib-clean": "~0.5.0",
@@ -22,8 +22,10 @@
     "include-all": "~0.1.3",
     "rc": "~0.5.0",
     "sails": "~0.11.2",
-    "sails-mysql":"",
-    "sails-disk": "~0.10.0"
+    "sails-disk": "~0.10.0",
+    "sails-mysql": "",
+    "waterlock": "git+https://github.com/waterlock/waterlock.git",
+    "waterlock-local-auth": "git+https://github.com/waterlock/waterlock-local-auth.git"
   },
   "scripts": {
     "debug": "node debug app.js",
