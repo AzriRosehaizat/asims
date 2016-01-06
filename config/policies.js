@@ -26,7 +26,20 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  //'*': true,
+  
+  PostController:{
+  	open:true,
+  	restricted:['sessionAuth'],
+  	jwt:['hasJsonWebToken'],
+  },
+  
+  '*': ['hasJsonWebToken'], // Everything resctricted here
+  
+  'AuthController': {
+    '*': true, // We dont need authorization here, allowing public access
+    //'register': ['hasJsonWebToken'] // necessory?
+  },
 
   /***************************************************************************
   *                                                                          *
