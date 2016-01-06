@@ -15,7 +15,6 @@ angular.module('application')
             login: function(credentials) {
                 var login = $http.post('/auth/login', credentials);
                 login.success(function(response) {
-                    console.log(JSON.stringify(response));
                     LocalService.set('auth_token', JSON.stringify(response));
                 });
                 return login;
@@ -44,7 +43,7 @@ angular.module('application')
                     token = angular.fromJson(LocalService.get('auth_token')).token;
                 }
                 if (token) {
-                    config.headers.Authorization = 'Bearer ' + token;
+                    config.headers.access_token = token;
                 }
                 return config;
             },
