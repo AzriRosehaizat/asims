@@ -1,4 +1,5 @@
 application.controller('profileController', function($scope, CurrentUser) {
     
-    $scope.user = CurrentUser.user;
+    $scope.username = CurrentUser.user.username;
+    $scope.email = CurrentUser.user.email;
 });
