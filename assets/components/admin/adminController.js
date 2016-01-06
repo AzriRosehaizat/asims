@@ -1,25 +1,23 @@
-application.controller('adminController', function($scope) {
+application.controller('adminController', function($scope, CurrentUser) {
+    
+    $scope.user = CurrentUser.user;
+    
     $scope.gridOptions = {
         enableRowSelection: true,
         enableSorting: true,
         columnDefs: [{
-            name: 'First Name',
-            field: 'firstName'
+            name: 'Name',
+            field: 'username'
         }, {
-            name: 'Last Name',
-            field: 'lastName'
-        }, {
-            name: 'Hire Date',
-            field: 'hireDate'
+            name: 'Email',
+            field: 'email'
         }, ],
         data: [{
-            firstName: 'James',
-            lastName: 'MacKay',
-            hireDate: '02/28/1991'
+            username: 'testing',
+            email: 'hello@foo.bar'
         }, {
-            firstName: 'Azri',
-            lastName: 'Don\'tRemember',
-            hireDate: 'Don\'t Know'
+            username: 'badguy',
+            email: 'badguy@foo.bar'
         }]
     };
 });
