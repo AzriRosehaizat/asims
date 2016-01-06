@@ -34,7 +34,8 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				access: AccessLevels.user
 					//loginRequired: true
 			}
-		}).state('application.root', {
+		})
+		.state('application.root', {
 			url: '/application'
 		})
 		.state('application.professor', {
