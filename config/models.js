@@ -21,7 +21,7 @@ module.exports.models = {
   //Schema database
   schema: true,
   //no extra fields needed
-  //autoPK: false,
+  autoPK: false,
   autoCreatedAt: false,
   autoUpdatedAt: false,
   /***************************************************************************
