@@ -9,25 +9,9 @@
 module.exports = {
 
   connection: 'MySQLServerMeta',
+  autoPK: true,
 
   attributes: require('waterlock').models.user.attributes({
-
-    // username: {
-    //   type: 'string',
-    //   required: true,
-    //   unique: true
-    // },
-
-    // email: {
-    //   type: 'email',
-    //   required: true,
-    //   unique: true
-    // },
-
-    // jsonWebTokens: {
-    //   collection: 'jwt',
-    //   via: 'owner'
-    // },
 
     username: 'string',
     email: 'string',

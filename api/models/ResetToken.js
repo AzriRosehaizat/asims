@@ -10,6 +10,7 @@
 module.exports = {
   
   connection: 'MySQLServerMeta',
+  autoPK: true,
 
   attributes: require('waterlock').models.resetToken.attributes({
     
