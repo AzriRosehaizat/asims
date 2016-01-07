@@ -10,6 +10,7 @@ module.exports = {
   
   connection: 'MySQLServerMeta',
   autoPK: true,
+  autoCreatedAt: true,
 
   attributes: require('waterlock').models.attempt.attributes({
     
