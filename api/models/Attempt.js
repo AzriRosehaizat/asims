@@ -9,6 +9,7 @@
 module.exports = {
   
   connection: 'MySQLServerMeta',
+  tableName: 'Attempt',
   autoPK: true,
   autoCreatedAt: true,
 
