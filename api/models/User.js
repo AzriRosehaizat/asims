@@ -9,6 +9,7 @@
 module.exports = {
 
   connection: 'MySQLServerMeta',
+  tableName: 'User',
   autoPK: true,
 
   attributes: require('waterlock').models.user.attributes({
