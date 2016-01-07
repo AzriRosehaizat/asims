@@ -10,47 +10,80 @@
 
 module.exports = require('waterlock').actions.user({
 
-  create: function(request, response) {
-    //pull relevant data from the request (could add validation here, but felt like it belonged in business logic)
-    var auth = {
-      username: request.param.username,
-      password: request.param.password
-    };
-    var userObj = {
-      username: request.param.username,
-      email: request.param.email
-    };
+  create: function(req, res) {
 
-    //call the business logic for creating a new user 
-    UserService.create(
-      //pass a callback to be triggered upon completion 
-      function(error, user) {
-        //if there is an error creating the user throw an error (could probably be handled/client currently sees internal server error)
-        if (error) {
-          console.log(error);
+    //pull relevant data from the request (could add validation here, but felt like it belonged in business logic)
+    var params = waterlock._utils.allParams(req);
+    var auth = {
+      username: params.username,
+      password: params.password
+    };
+    delete(params.password);
+
+    User.create(params).exec(function userCreated(err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+      waterlock.engine.attachAuthToUser(auth, user, function(err, ua) {
+        if (err) {
+          return res.negotiate(err);
         }
-        //if there is no error, return the newly created object in the response
         else {
-          response.json(user);
+          waterlock.cycle.loginSuccess(req, res, ua);
         }
-      },
-      // pass our created data to the create function 
-      auth, userObj
-    );
+      });
+    });
+
+    // UserService.create(
+    //   //pass a callback to be triggered upon completion 
+    //   function(err, user) {
+    //     //if there is an error creating the user throw an error (could probably be handled/client currently sees internal server error)
+    //     if (err) {
+    //       res.negotiate(err);
+    //     }
+    //     //if there is no error, return the newly created object in the response
+    //     else {
+    //       res.json(user);
+    //     }
+    //   },
+    //   // pass our created data to the create function 
+    //   auth, userObj
+    // );
   },
-  // //see above, no meaningful differences
-  // authenticate: function(request, response) {
-  //   var data = {
-  //     "username": request.param('username'),
-  //     "password": request.param('password'),
-  //   };
-  //   UserService.authenticate(function(error, data) {
-  //     if (error) {
-  //       console.log(error);
-  //     }
-  //     else {
-  //       response.json(data);
-  //     }
-  //   }, data);
-  // }
+
+  update: function(req, res) {
+
+    var params = waterlock._utils.allParams(req);
+    delete(params.username); // username can't be changed
+
+    User.findOne({id: params.id}).exec(function foundUser(err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+      if (!user) {
+        return res.badRequest('User doesn\'t exist.')
+      }
+
+      User.update({id: params.id}, params).exec(function userUpdated(err, user) {
+        if (err) {
+          return res.negotiate(err);
+        }
+        res.ok(user);
+      });
+    });
+
+    // UserService.update(
+    //   //pass a callback to be triggered upon completion 
+    //   function(err, user) {
+    //     if (err) {
+    //       res.negotiate(err);
+    //     }
+    //     else {
+    //       res.json(user);
+    //     }
+    //   },
+    //   userObj
+    // );
+  },
+
 });
