@@ -1,6 +1,22 @@
-<div ui-view="details">
-    <h1>{{ username }}</h1>
-    <h3>contact: {{ email }}</h3>
+<div class="jumbotron">
     
-    <a class="btn btn-primary btn-medium" ui-sref="application.admin">Edit</a>
+    <h2>{{ user.username }}</h2>
+
+    <form editable-form name="editableForm" onaftersave="updateUser()">
+        <div>
+            <!-- editable email (text with validation) -->
+            <span class="title">Email: </span>
+            <span editable-text="user.email" e-name="email" onbeforesave="checkEmail($data)" e-required>{{ user.email || 'empty' }}</span>
+        </div>
+        <div class="buttons">
+            <!-- button to show form -->
+            <button type="button" class="btn btn-default" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">Edit</button>
+            <!-- buttons to submit / cancel form -->
+            <span ng-show="editableForm.$visible">
+                <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">Save</button>
+                <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel()">Cancel</button>
+            </span>
+        </div>
+    </form>
+
 </div>
