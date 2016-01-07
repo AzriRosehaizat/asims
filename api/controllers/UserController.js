@@ -68,7 +68,7 @@ module.exports = require('waterlock').actions.user({
         if (err) {
           return res.negotiate(err);
         }
-        res.ok(user);
+        res.json(user);
       });
     });
 

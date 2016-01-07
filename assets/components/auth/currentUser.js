@@ -8,6 +8,17 @@ angular.module('application')
                 else {
                     return {};
                 }
+            },
+            
+            update: function(jsonData) {
+                if (LocalService.get('auth_token')) {
+                    var token = JSON.parse(LocalService.get('auth_token'));
+                    token.user.email = jsonData;  // only change email for now
+                    LocalService.set('auth_token', JSON.stringify(token));
+                }
+                else {
+                    return {};
+                }
             }
         };
     });
