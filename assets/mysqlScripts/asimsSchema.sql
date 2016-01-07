@@ -1,6 +1,6 @@
-DROP SCHEMA IF EXISTS asims2;
-CREATE SCHEMA asims2;
-Use asims2;
+DROP DATABASE IF EXISTS asims2;
+CREATE DATABASE IF NOT EXISTS asims2;
+USE asims2;
 
 CREATE TABLE AcademicStaff(
 	staffID INT NOT NULL AUTO_INCREMENT,
@@ -49,7 +49,7 @@ CREATE TABLE DefaultNormalLoad(
 	rankID INT NOT NULL,
 	departmentID INT NOT NULL,
 	startDate DATETIME NOT NULL,
-	FCEValue INT NOT NULL,
+	FCEValue FLOAT NOT NULL,
 	PRIMARY KEY(rankID, departmentID)
 );
 
@@ -71,7 +71,7 @@ CREATE TABlE Employment(
 	employmentID INT NOT NULL AUTO_INCREMENT,
 	staffID INT NOT NULL,
 	hireDate DATETIME NOT NULL,
-	fireDate DATETIME,
+	terminationDate DATETIME,
 	PRIMARY KEY(employmentID, staffID)
 );
 
@@ -85,7 +85,7 @@ CREATE TABLE Faculty(
 CREATE TABlE FCECredit(
 	FCECreditID INT NOT NULL AUTO_INCREMENT,
 	regularStaffID INT NOT NULL,
-	amount INT NOT NULL,
+	amount FLOAT NOT NULL,
 	description TEXT,
 	dateIssued DATETIME,
 	type VARCHAR(50),
@@ -95,7 +95,7 @@ CREATE TABlE FCECredit(
 CREATE TABLE FCEDebit(
 	FCEDebitID INT NOT NULL AUTO_INCREMENT,
 	regularStaffID INT NOT NULL,
-	amount INT NOT NULL,
+	amount FLOAT NOT NULL,
 	description TEXT,
 	dateIssued DATETIME,
 	type VARCHAR(50),
@@ -110,4 +110,53 @@ CREATE TABlE Grant(
 	duration INT,
 	amount FLOAT(10,2),
 	PRIMARY KEY(grantID)
+);
+
+
+CREATE TABLE Leave(
+	leaveID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INT NOT NULL,
+	leaveDebitID INT NOT NULL,
+	description TEXT, #NOT NULL,
+	startDate DATETIME NOT NULL,
+	endDate DATETIME NOT NULL,
+	leavePercentage FLOAT, #NOT NULL
+	wagePercentage FLOAT, #NOT NULL
+	PRIMARY KEY(leaveID)
+);
+
+CREATE TABLE LeaveCredit(
+	leaveCreditID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INt NOT NULL,
+	amount FLOAT NOT NULL,
+	description TEXT,
+	dateIssued DATETIME,
+	type VARCHAR(50) NOT NULL,
+	PRIMARY KEY(leaveCreditID)
+);
+
+CREATE TABLE LeaveDebit(
+	leaveDebitID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INt NOT NULL,
+	amount FLOAT NOT NULL,
+	description TEXT,
+	dateIssued DATETIME,
+	type VARCHAR(50) NOT NULL,
+	PRIMARY KEY(leaveDebitID)
+);
+
+CREATE TABLE LoadIncrease(
+	loadIncreaseID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INT NOT NULl,
+	startDate DATETIME NOT NULL,
+	endDate DATETIME NOT NULL,
+	FCEValue FLOAT NOT NULL
+);
+
+CREATE TABLE LoadReduction(
+	loadReductionID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INT NOT NULl,
+	startDate DATETIME NOT NULL,
+	endDate DATETIME NOT NULL,
+	FCEValue FLOAT NOT NULL
 );
