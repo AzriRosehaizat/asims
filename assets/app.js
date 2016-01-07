@@ -1,4 +1,8 @@
-var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate']);
+var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate', 'xeditable']);
+
+application.run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});
 
 application.config(function($stateProvider, $urlRouterProvider, $locationProvider, AccessLevels) {
 	$urlRouterProvider.otherwise('/index');
@@ -83,7 +87,7 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				}
 			},
 			data: {
-				access: AccessLevels.user  // should be admin
+				access: AccessLevels.user // should be admin
 			}
 		});
 
