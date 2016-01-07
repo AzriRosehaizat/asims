@@ -38,10 +38,10 @@ CREATE TABLE ContractStaff(
 	PRIMARY KEY(contractStaffID)
 );
 
-CREATE TABLE Courses(
+CREATE TABLE Course(
 	courseID INT NOT NULL AUTO_INCREMENT,
-	title VARCHAR(50) NOT NUll,
-	description VARCHAR(255)
+	title VARCHAR(100) NOT NULL,
+	description TEXT,
 	PRIMARY KEY(courseID)
 );
 
@@ -49,10 +49,65 @@ CREATE TABLE DefaultNormalLoad(
 	rankID INT NOT NULL,
 	departmentID INT NOT NULL,
 	startDate DATETIME NOT NULL,
-	FCEValue INT NOT NUll,
+	FCEValue INT NOT NULL,
 	PRIMARY KEY(rankID, departmentID)
 );
 
 CREATE TABLE Department(
-	departmentID
+	departmentID INT NOT NULL AUTO_INCREMENT,
+	facultyID INT NOT NULL,
+	title VARCHAR(50) NOT NULL,
+	description TEXT,
+	PRIMARY KEY(departmentID)
+);
+
+CREATE TABLE Department_Course(
+	departmentID INT NOT NULL,
+	courseID INT NOT NULL,
+	identifier VARCHAR(20),
+);
+
+CREATE TABlE Employment(
+	employmentID INT NOT NULL AUTO_INCREMENT,
+	staffID INT NOT NULL,
+	hireDate DATETIME NOT NULL,
+	fireDate DATETIME,
+	PRIMARY KEY(employmentID, staffID)
+);
+
+CREATE TABLE Faculty(
+	facultyID INT NOT NULL AUTO_INCREMENT,
+	title VARCHAR(50) NOT NULL,
+	PRIMARY KEY(facultyID)
+);
+
+
+CREATE TABlE FCECredit(
+	FCECreditID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INT NOT NULL,
+	amount INT NOT NULL,
+	description TEXT,
+	dateIssued DATETIME,
+	type VARCHAR(50),
+	PRIMARY KEY(FCECreditID)
+);
+
+CREATE TABLE FCEDebit(
+	FCEDebitID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INT NOT NULL,
+	amount INT NOT NULL,
+	description TEXT,
+	dateIssued DATETIME,
+	type VARCHAR(50),
+	PRIMARY KEY(FCEDebitID)
+);
+
+CREATE TABlE Grant(
+	grantID INT NOT NULL AUTO_INCREMENT,
+	researchID INT NOT NULL,
+	grantingAgency VARCHAR(50) NOT NULL,
+	yearAwarded YEAR,
+	duration INT,
+	amount FLOAT(10,2),
+	PRIMARY KEY(grantID)
 );
