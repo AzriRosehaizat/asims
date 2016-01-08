@@ -13,11 +13,12 @@ application.controller('profileController', function($scope, $http, CurrentUser)
     $scope.updateUser = function() {
         // $scope.user already updated!
         return $http.put('/user/update', $scope.user)
-        .success(function(res) {
+        .then(function(res) {
             // save modified user values to local storage
-            CurrentUser.update(res[0].email);
+            // will update whole user object in future
+            CurrentUser.update(res.data);  // pass updated user object
         })
-        .error(function(err) {
+        .catch(function(err) { 
             if (err.field && err.msg) {
                 // err like {field: "name", msg: "Server-side error for this username!"} 
                 $scope.editableForm.$setError(err.field, err.msg);
