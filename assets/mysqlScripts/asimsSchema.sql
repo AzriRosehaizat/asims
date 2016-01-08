@@ -160,3 +160,55 @@ CREATE TABLE LoadReduction(
 	endDate DATETIME NOT NULL,
 	FCEValue FLOAT NOT NULL
 );
+
+CREATE TABLE Rank(
+	rankID INT NOT NULL AUTO_INCREMENT,
+	title VARCHAR(50) NOT NULL,
+	description TEXT,
+	PRIMARY KEY(rankID)
+);
+
+CREATE TABLE RegularStaff(
+	regularStaffID INT NOT NULL AUTO_INCREMENT,
+	tenureDate DATETIME,
+	PRIMARY KEY(regularStaffID)
+);
+
+CREATE TABLE RegularStaff_Rank(
+	rankID INT NOT NULL,
+	regularStaffID INT NOT NULL,
+	startDate DATETIME NOT NULL,
+	endDate DATETIME,
+	PRIMARY KEY(rankID, regularStaffID, startDate)
+);
+
+CREATE TABLE RegularStaff_Research(
+	researchID INT NOT NULL,
+	regularStaffID INT NOT NULL
+	loadReductionID INT,
+	startDate DATETIME NOT NULL,
+	endDate DATETIME,
+	PRIMARY KEY(researchID, regularStaffID, startDate)
+);
+
+CREATE TABLE Research(
+	researchID INT NOT NULL AUTO_INCREMENT,
+	title VARCHAR(50) NOT NULL,
+	abstract TEXT,
+	startDate DATETIME NOT NULL,
+	endDate, #NOT NULL
+	PRIMARY KEY(researchID)
+);
+
+CREATE TABLE Section(
+	sectionID INT NOT NULL AUTO_INCREMENT,
+	courseID INT NOT NULL,
+	identifier VARCHAR(20) NOT NULL,
+	startTerm VARCHAR(25) NOT NULL,
+	endTerm VARCHAR(25) NOT NULL,
+	FCEValue FLOAT NOT NULL,
+	PRIMARY KEY(sectionID, courseID)
+);
+
+
+#BEGIN ALTER TABLE AND FK CONSTRAINTS
