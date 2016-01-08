@@ -1,14 +1,14 @@
 /**
 * AcademicStaff_Department.js
 *
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
+* @description :: TAssociates Academic Staff to the Departments to which they are associated, and provides contextual information describing the relationship.
+* @author: A.A
 */
 
 module.exports = {
 
-  attributes: {
-
-  },
-  tableName: 'AcademicStaff_Department'
+	attributes: {
+		
+	},
+  	tableName: 'AcademicStaff_Department'
 };
