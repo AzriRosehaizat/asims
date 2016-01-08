@@ -1,18 +1,29 @@
 /**
 * AcademicStaff.js
 *
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
+* @description :: Contains information pertaining to both Regular Academic Staff, and Contract Academic Staff.
+* @author      :: A.A.
 */
 
 module.exports = {
 
-  attributes: {
-
-  }
-  tableName: 'AcademicStaff'
+	attributes: {
+		staffID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		firstName: {
+			type: 'string',
+			size: 50,
+			required: true
+		},
+		lastName: {
+			type: 'string',
+			size: 50,
+			required: true
+		}
+	},
+	tableName: 'AcademicStaff'
 };
-<<<<<<< HEAD
-=======
-
->>>>>>> c8f63db38e398c6fe53ce20b24c456586c219e91
