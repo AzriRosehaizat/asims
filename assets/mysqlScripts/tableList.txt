@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 AcademicStaff
 AcademicStaff_Department
 AcademicStaff_Section
@@ -22,31 +21,5 @@ RegularStaff_Rank
 RegularStaff_Research
 Research
 ResearchGrant
-Section
-=======
-AcademicStaff            
-AcademicStaff_Department 
-AcademicStaff_Section    
-Chair                    
-ContractStaff            
-Course                   
-DefaultNormalLoad        
-Department               
-Department_Course        
-Employment               
-FCECredit                
-FCEDebit                 
-Faculty                  
-LeaveCredit              
-LeaveDebit               
-LoadIncrease             
-LoadReduction            
-Rank                     
-RegularStaff             
-RegularStaff_Rank        
-RegularStaff_Research    
-Research                 
-ResearchGrant            
-Section                  
->>>>>>> c8f63db38e398c6fe53ce20b24c456586c219e91
+Section        
 StaffLeave

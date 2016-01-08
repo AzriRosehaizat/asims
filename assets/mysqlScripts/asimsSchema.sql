@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS asims2;
-CREATE DATABASE IF NOT EXISTS asims2;
-USE asims2;
+DROP DATABASE IF EXISTS asims;
+CREATE DATABASE IF NOT EXISTS asims;
+USE asims;
 
 CREATE TABLE AcademicStaff(
 	staffID INT NOT NULL AUTO_INCREMENT,
@@ -117,11 +117,7 @@ CREATE TABLE StaffLeave(
 	leaveID INT NOT NULL AUTO_INCREMENT,
 	regularStaffID INT NOT NULL,
 	leaveDebitID INT NOT NULL,
-<<<<<<< HEAD
 	description TEXT, #NOT NULL,
-=======
-	description TEXT, #NOT NULL, 
->>>>>>> c8f63db38e398c6fe53ce20b24c456586c219e91
 	startDate DATETIME NOT NULL,
 	endDate DATETIME NOT NULL,
 	leavePercentage FLOAT, #NOT NULL
