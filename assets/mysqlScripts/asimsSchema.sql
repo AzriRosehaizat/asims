@@ -64,7 +64,7 @@ CREATE TABLE Department(
 CREATE TABLE Department_Course(
 	departmentID INT NOT NULL,
 	courseID INT NOT NULL,
-	identifier VARCHAR(20),
+	identifier VARCHAR(20)
 );
 
 CREATE TABlE Employment(
@@ -102,7 +102,7 @@ CREATE TABLE FCEDebit(
 	PRIMARY KEY(FCEDebitID)
 );
 
-CREATE TABlE Grant(
+CREATE TABlE ResearchGrant(
 	grantID INT NOT NULL AUTO_INCREMENT,
 	researchID INT NOT NULL,
 	grantingAgency VARCHAR(50) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABlE Grant(
 );
 
 
-CREATE TABLE Leave(
+CREATE TABLE StaffLeave(
 	leaveID INT NOT NULL AUTO_INCREMENT,
 	regularStaffID INT NOT NULL,
 	leaveDebitID INT NOT NULL,
@@ -150,7 +150,8 @@ CREATE TABLE LoadIncrease(
 	regularStaffID INT NOT NULl,
 	startDate DATETIME NOT NULL,
 	endDate DATETIME NOT NULL,
-	FCEValue FLOAT NOT NULL
+	FCEValue FLOAT NOT NULL,
+    PRIMARY KEY(loadIncreaseID)
 );
 
 CREATE TABLE LoadReduction(
@@ -158,7 +159,8 @@ CREATE TABLE LoadReduction(
 	regularStaffID INT NOT NULl,
 	startDate DATETIME NOT NULL,
 	endDate DATETIME NOT NULL,
-	FCEValue FLOAT NOT NULL
+	FCEValue FLOAT NOT NULL,
+    PRIMARY KEY(loadReductionID)
 );
 
 CREATE TABLE Rank(
@@ -184,7 +186,7 @@ CREATE TABLE RegularStaff_Rank(
 
 CREATE TABLE RegularStaff_Research(
 	researchID INT NOT NULL,
-	regularStaffID INT NOT NULL
+	regularStaffID INT NOT NULL,
 	loadReductionID INT,
 	startDate DATETIME NOT NULL,
 	endDate DATETIME,
@@ -196,7 +198,7 @@ CREATE TABLE Research(
 	title VARCHAR(50) NOT NULL,
 	abstract TEXT,
 	startDate DATETIME NOT NULL,
-	endDate, #NOT NULL
+	endDate DATETIME, #NOT NULL
 	PRIMARY KEY(researchID)
 );
 
