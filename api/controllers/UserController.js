@@ -56,21 +56,25 @@ module.exports = require('waterlock').actions.user({
     var params = waterlock._utils.allParams(req);
     delete(params.username); // username can't be changed
 
-    User.findOne({id: params.id}).exec(function foundUser(err, user) {
+    User.update({id: params.id}, params).exec(function userUpdated(err, users) {
       if (err) {
         return res.negotiate(err);
       }
-      if (!user) {
-        return res.badRequest('User doesn\'t exist.')
+      if (!users[0]) {
+        return res.badRequest('User doesn\'t exist.');
       }
-
-      User.update({id: params.id}, params).exec(function userUpdated(err, user) {
+      
+      User.find({id: users[0].id}).populate('auth').exec(function authPopulated(err, users) {
         if (err) {
           return res.negotiate(err);
         }
-        res.json(user);
+        
+        delete(users[0].auth.user);  // to make users[0] same as the object that client has
+        res.json(users[0]);
       });
+      // res.json(users[0]);
     });
+    
 
     // UserService.update(
     //   //pass a callback to be triggered upon completion 

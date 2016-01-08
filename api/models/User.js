@@ -15,7 +15,13 @@ module.exports = {
   attributes: require('waterlock').models.user.attributes({
 
     username: 'string',
+    
     email: 'string',
+    
+    // role: {
+    //   type: 'string',
+    //   enum: ['reader', 'writer', 'admin']
+    // },
 
     toJSON: function() {
       var obj = this.toObject();

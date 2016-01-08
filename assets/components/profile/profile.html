@@ -6,7 +6,7 @@
         <div>
             <!-- editable email (text with validation) -->
             <span class="title">Email: </span>
-            <span editable-text="user.email" e-name="email" onbeforesave="checkEmail($data)" e-required>{{ user.email || 'empty' }}</span>
+            <span editable-text="user.email" e-name="email" onbeforesave="checkEmail($data)" e-required>{{ user.email || form.$editables[ 0 ].error }}</span>
         </div>
         <div class="buttons">
             <!-- button to show form -->
