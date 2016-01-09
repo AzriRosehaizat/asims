@@ -1,4 +1,8 @@
-var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate']);
+var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate', 'xeditable']);
+
+application.run(function(editableOptions) {
+  editableOptions.theme = 'bs3';
+});
 
 application.config(function($stateProvider, $urlRouterProvider, $locationProvider, AccessLevels) {
 	$urlRouterProvider.otherwise('/index');
@@ -16,7 +20,6 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 			},
 			data: {
 				access: AccessLevels.anon
-					//loginRequired: false
 			}
 		})
 		.state('application', {
@@ -32,7 +35,6 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 			},
 			data: {
 				access: AccessLevels.user
-					//loginRequired: true
 			}
 		})
 		.state('application.root', {
@@ -58,7 +60,19 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 					controller: 'tabsetController'
 				}
 			},
-
+		})
+		.state('application.profile', {
+			url: '/profile',
+			views: {
+				'': {
+					templateUrl: '/components/profile/profile.html',
+					controller: 'profileController'
+				},
+				'details@application.profile': {
+					templateUrl: '/components/details/details.html',
+					controller: 'detailsController'
+				}
+			},
 		})
 		.state('application.admin', {
 			url: '/admin',
@@ -67,11 +81,14 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 					templateUrl: '/components/admin/admin.html',
 					controller: 'adminController'
 				},
-				'details@application.admin': {
-					templateUrl: '/components/details/details.html',
-					controller: 'detailsController'
+				'grid@application.admin': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
 				}
 			},
+			data: {
+				access: AccessLevels.user // should be admin
+			}
 		});
 
 	// use the HTML5 History API
