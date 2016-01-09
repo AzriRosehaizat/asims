@@ -17,12 +17,12 @@ module.exports = {
 			required: true
 		}, 
 		startDate:{
-			type: 'datetime',
+			type: 'date',
 			primaryKey: 'true',
 			index: 'true'
 		},
 		endDate:{
-			type: 'datetime'
+			type: 'date'
 		}
 		
 
