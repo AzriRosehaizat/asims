@@ -24,6 +24,10 @@ module.exports = {
 			size: 50,
 			required: true
 		},
+		//reference to employment table 1:M
+		hasEmployments:{
+			collection: 'Employment'
+		},
 		//Join table AcademicStaff_Department 1:M
 		staff_Dept:{
 			collection: 'AcademicStaff_Department',
