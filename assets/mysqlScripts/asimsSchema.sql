@@ -70,9 +70,9 @@ CREATE TABLE Department_Course(
 CREATE TABlE Employment(
 	employmentID INT NOT NULL AUTO_INCREMENT,
 	staffID INT NOT NULL,
-	hireDate DATETIME NOT NULL,
-	terminationDate DATETIME,
-	PRIMARY KEY(employmentID, staffID)
+	hireDate DATE NOT NULL,
+	terminationDate DATE,
+	PRIMARY KEY(employmentID)
 );
 
 CREATE TABLE Faculty(
@@ -214,3 +214,5 @@ CREATE TABLE Section(
 
 
 #BEGIN ALTER TABLE AND FK CONSTRAINTS
+
+ALTER TABLE Employment ADD CONSTRAINT belongsToStaff FOREIGN KEY(staffID) REFERENCES AcademicStaff (staffID);
