@@ -7,7 +7,31 @@
 
 module.exports = {
 
-  attributes: {
+	attributes: {
+  		departmentID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		facultyID: {
+			model: 'Faculty',
+			required: true
+		},
+		title:{
+			type: 'string',
+			size: 50,
+			required: true
+		},
+		description: {
+			type: 'text',
+		},
+		//Join table AcademicStaff_Department 1:M
+		Dept_Staff:{
+			collection: 'AcademicStaff_Department',
+			via: 'departmentID'
+		},
 
-  }
+	},
+	tableName: 'Department'
 };

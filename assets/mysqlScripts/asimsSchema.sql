@@ -21,7 +21,7 @@ CREATE TABLE AcademicStaff_Section(
 	staffID INT NOT NULL,
 	sectionID INT NOT NULL,
 	role VARCHAR(50),
-	weight INT NOT NULL,
+	weight FLOAT NOT NULL,
 	PRIMARY KEY(staffID, sectionID)
 );
 

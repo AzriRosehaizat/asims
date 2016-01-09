@@ -23,6 +23,21 @@ module.exports = {
 			type: 'string',
 			size: 50,
 			required: true
+		},
+		//reference to employment table 1:M
+		hasEmployments:{
+			collection: 'Employment'
+		}
+		//Join table AcademicStaff_Department 1:M
+		staff_Dept:{
+			collection: 'AcademicStaff_Department',
+			via: 'staffID'
+		},
+
+		//Join table AcademicStaff_Section 1:M
+		staff_Sect:{
+			collection: 'AcademicStaff_Section',
+			via: 'staffID'
 		}
 	},
 	tableName: 'AcademicStaff'

@@ -7,7 +7,12 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		sectionID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		}
+	}
 };

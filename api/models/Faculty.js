@@ -7,7 +7,23 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		facultyID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		title: {
+			type: 'string',
+			size: 50,
+			required: true
+		},
+		//has many Department 1:M
+		hasDept:{
+			collection: 'Department',
+			via: 'facultyID'
+		}
+	},
+	tableName: 'Faculty'
 };

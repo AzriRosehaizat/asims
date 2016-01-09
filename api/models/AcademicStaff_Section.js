@@ -1,13 +1,29 @@
 /**
 * AcademicStaff_Section.js
 *
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
+* @description :: Associates Academic Staff to Sections they teach, and provides contextual information describing the relationship.
+* @auth        :: A.A
 */
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		sectionID: {
+			type: 'integer',
+			primaryKey: true,
+			index: true
+		}, 
+		role:{
+			type: 'string',
+			size: 50
+		},
+		weight:{
+			type: 'float',
+			required: true
+		},
+		staffID: {
+			model: 'AcademicStaff',
+			required: true
+		} 
+	}
 };
