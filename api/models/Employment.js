@@ -14,5 +14,17 @@ module.exports = {
 			autoIncrement: true,
 			index: true
 		},
-	}
+		staffID: {
+			model: 'AcademicStaff',
+			required: true
+		},
+		hireDate: {
+			type: 'date',
+			required: true
+		},
+		terminationDate: {
+			type: 'date'
+		}
+	},
+	tableName: 'Employment'
 };
