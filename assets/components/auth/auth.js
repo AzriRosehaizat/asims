@@ -14,8 +14,8 @@ angular.module('application')
             },
             login: function(credentials) {
                 var login = $http.post('/auth/login', credentials);
-                login.success(function(response) {
-                    LocalService.set('auth_token', JSON.stringify(response));
+                login.success(function(res) {
+                    LocalService.set('auth_token', JSON.stringify(res));
                 });
                 return login;
             },
@@ -26,8 +26,8 @@ angular.module('application')
             register: function(formData) {
                 LocalService.unset('auth_token');
                 var register = $http.post('/auth/register', formData);
-                register.success(function(response) {
-                    LocalService.set('auth_token', JSON.stringify(response));
+                register.success(function(res) {
+                    LocalService.set('auth_token', JSON.stringify(res));
                 });
                 return register;
             }
@@ -47,12 +47,12 @@ angular.module('application')
                 }
                 return config;
             },
-            responseError: function(response) {
-                if (response.status === 401 || response.status === 403) {
+            responseError: function(res) {
+                if (res.status === 401 || res.status === 403) {
                     LocalService.unset('auth_token');
                     $injector.get('$state').go('index');
                 }
-                return $q.reject(response);
+                return $q.reject(res);
             }
         }
     })
