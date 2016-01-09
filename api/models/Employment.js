@@ -7,7 +7,12 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		employmentID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+	}
 };
