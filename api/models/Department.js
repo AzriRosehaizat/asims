@@ -27,10 +27,24 @@ module.exports = {
 			type: 'text',
 		},
 		//Join table AcademicStaff_Department 1:M
-		Dept_Staff:{
+		hasStaff:{
 			collection: 'AcademicStaff_Department',
 			via: 'departmentID'
 		},
+		//Join table 1:M
+		hasChair{
+			collection: 'Chair',
+			via: 'departmentID'
+		},
+		//has defaultNormal load
+		hasNormalLoad{
+			collection: 'DefaultNormalLoad'
+			via: 'departmentID'
+		},
+		hasCourse:{
+			collection: 'Department_Course',
+			via: 'departmentID'
+		}
 
 	},
 	tableName: 'Department'

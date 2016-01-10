@@ -7,7 +7,22 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		rankID: {
+			model: 'Rank',
+			required: true
+		},
+		regularStaffID: {
+			model: 'RegularStaff',
+			required: true
+		},
+		startDate: {
+			type: 'date',
+			required: true
+		},
+		endDate: {
+			type: 'date'
+		}
+	},
+	tableName: 'RegularStaff_Rank'
 };

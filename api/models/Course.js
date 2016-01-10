@@ -8,6 +8,25 @@
 module.exports = {
 
   attributes: {
-
-  }
+  	courseID: {
+		type: 'integer',
+		primaryKey: true,
+		autoIncrement: true,
+		index: true
+	},
+	title: {
+		type: 'string',
+		size: 100
+		required: true
+	},
+	description: {
+		type: 'text'
+	},
+	
+	belongsToDepartment: {
+		collection: 'Department_Course'
+		via: 'courseID'
+	}
+  },
+  tableName: 'Course'
 };
