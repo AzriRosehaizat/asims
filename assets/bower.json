@@ -30,6 +30,7 @@
     "jquery": "",
     "bootstrap": "",
     "angular-ui-router": "",
-    "angular-xeditable":""
+    "angular-xeditable":"",
+    "angular-schema-form":"",
   }
 }
