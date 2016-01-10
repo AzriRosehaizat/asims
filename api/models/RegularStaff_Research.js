@@ -7,7 +7,25 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		researchID: {
+			model: 'Research',
+			required: true
+		},
+		regularStaffID: {
+			model: 'RegularStaff',
+			required: true
+		},
+		loadReductionID: {
+			model: 'LoadReduction'
+		},
+		startDate: {
+			type: 'date'
+			required: true
+		},
+		endDate: {
+			type: 'date',
+		}
+	},
+	tableName: 'RegularStaff_Research'
 };

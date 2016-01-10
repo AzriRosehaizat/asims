@@ -6,7 +6,6 @@
 */
 
 module.exports = {
-
 	attributes: {
 		staffID: {
 			type: 'integer',
@@ -25,7 +24,7 @@ module.exports = {
 			required: true
 		},
 		//Join table AcademicStaff_Department 1:M
-		staff_Dept:{
+		belongsToDepartment:{
 			collection: 'AcademicStaff_Department',
 			via: 'staffID'
 		},
@@ -35,11 +34,21 @@ module.exports = {
 			via: 'staffID'
 		},
 		//Join table AcademicStaff_Section 1:M
-		staff_Sect:{
+		teachesSection:{
 			collection: 'AcademicStaff_Section',
 			via: 'staffID'
+		},
+		//has contract staffs 1:M
+		hasCAS:{
+			collection: 'ContractStaff',
+			via: 'contractStaffID'
+		},
+		//has regular staffs 1:M
+		hasRAS: {
+			collection: 'RegularStaff',
+			via: 'regularStaffID'
 		}
-		
+
 	},
 	tableName: 'AcademicStaff'
 };

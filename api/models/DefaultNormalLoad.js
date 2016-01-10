@@ -8,6 +8,22 @@
 module.exports = {
 
   attributes: {
-
-  }
+  	rankID: {
+		model: 'Rank',
+		required: true
+	},
+	departmentID: {
+		model: 'Department',
+		required: true
+	}, 
+	startDate: {
+		type: 'date',
+		required: true
+	},
+	FCEValue: {
+		type: 'float',
+		required: true
+	}
+  },
+  tableName: 'DefaultNormalLoad'
 };
