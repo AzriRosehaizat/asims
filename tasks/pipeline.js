@@ -17,6 +17,11 @@ var jsFilesToInject = [
   'bower_components/moment/min/moment.min.js',
   'bower_components/angular-moment/angular-moment.min.js',
   'bower_components/angular-xeditable/dist/js/xeditable.min.js',
+  'bower_components/angular-sanitize/angular-sanitize.min.js',
+  'bower_components/tv4/tv4.js',
+  'bower_components/objectpath/lib/ObjectPath.js',
+  'bower_components/angular-schema-form/dist/schema-form.min.js',
+  'bower_components/angular-schema-form/dist/bootstrap-decorator.min.js',
   'app.js',
   'components/**/*.js'
 ];
