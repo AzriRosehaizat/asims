@@ -7,7 +7,31 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		FCECreditID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		regularStaffID: {
+			model: 'RegularStaff',
+			required: true
+		},
+		amount: {
+			type: 'float',
+			required: true
+		},
+		description: {
+			type: 'text'
+		},
+		dateIssued: {
+			type: 'date'
+		},
+		FCECreditType: {
+			type: 'String',
+			size: 50
+		}
+	},
+	tableName: 'FCECredit'
 };

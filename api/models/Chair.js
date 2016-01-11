@@ -7,7 +7,26 @@
 
 module.exports = {
 
-  attributes: {
+	attributes: {
+		regularStaffID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		departmentID: {
+			model: 'Department',
+			required: true 
+		},
+		startDate:{
+			type: 'date',
+			primaryKey: 'true',
+			index: 'true'
+		},
+		endDate:{
+			type: 'date'
+		}
+	},
 
-  }
+	tableName: 'Chair'
 };

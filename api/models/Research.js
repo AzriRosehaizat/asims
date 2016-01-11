@@ -7,7 +7,20 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+	attributes: {
+		researchID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		tenureDate: {
+			type: 'date'
+		},
+		researchee:{
+			collection: 'RegularStaff_Research',
+			via: 'researchID'
+		}
+	},
+	tableName: 'Research'
 };
