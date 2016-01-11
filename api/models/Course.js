@@ -16,7 +16,7 @@ module.exports = {
 	},
 	title: {
 		type: 'string',
-		size: 100
+		size: 100,
 		required: true
 	},
 	description: {
@@ -24,7 +24,7 @@ module.exports = {
 	},
 	
 	belongsToDepartment: {
-		collection: 'Department_Course'
+		collection: 'Department_Course',
 		via: 'courseID'
 	},
 	hasSection: {
