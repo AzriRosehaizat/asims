@@ -1,8 +1,4 @@
-var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate', 'xeditable']);
-
-application.run(function(editableOptions) {
-  editableOptions.theme = 'bs3';
-});
+var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate', 'xeditable', 'schemaForm']);
 
 application.config(function($stateProvider, $urlRouterProvider, $locationProvider, AccessLevels) {
 	$urlRouterProvider.otherwise('/index');
@@ -108,4 +104,8 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 				});
 		}
 	});
+});
+
+application.run(function(editableOptions) {
+	editableOptions.theme = 'bs3';
 });
