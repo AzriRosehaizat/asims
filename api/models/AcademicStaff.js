@@ -37,17 +37,17 @@ module.exports = {
 		teachesSection:{
 			collection: 'AcademicStaff_Section',
 			via: 'staffID'
-		},
+		}
 		//has contract staffs 1:M
 		// hasCAS:{
 		// 	collection: 'ContractStaff',
 		// 	via: 'contractStaffID'
 		// },
 		//has regular staffs 1:M
-		hasRAS: {
-			collection: 'RegularStaff',
-			via: 'regularStaffID'
-		}
+		// hasRAS: {
+		// 	collection: 'RegularStaff',
+		// 	via: 'regularStaffID'
+		// }
 
 	},
 	tableName: 'AcademicStaff'

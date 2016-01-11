@@ -9,8 +9,9 @@ module.exports = {
 
 	attributes: {
 		regularStaffID: {
-			model: 'AcademicStaff',
-			required: true
+			type: 'integer',
+			required: true,
+			primaryKey: true
 		},
 		tenureDate: {
 			type: 'date'
