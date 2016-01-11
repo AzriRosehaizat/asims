@@ -20,7 +20,7 @@ module.exports = {
 			model: 'LoadReduction'
 		},
 		startDate: {
-			type: 'date'
+			type: 'date',
 			required: true
 		},
 		endDate: {

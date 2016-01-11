@@ -11,7 +11,7 @@ module.exports = {
 		contractStaffID: {
 			model: 'AcademicStaff',
 			required: true
-		},
+		}
 	},
 	tableName: 'ContractStaff'
 };
