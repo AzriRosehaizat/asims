@@ -43,6 +43,14 @@ module.exports = {
 		hasLeave: {
 			collection: 'StaffLeave',
 			via: 'regularStaffID'
+		},
+		hasLeaveCredit: {
+			collection: 'StaffLeave',
+			via: 'regularStaffID'
+		},
+		hasLeaveDebit: {
+			collection: 'StaffLeave',
+			via: 'regularStaffID'
 		}
 	},
 	tableName: 'RegularStaff'
