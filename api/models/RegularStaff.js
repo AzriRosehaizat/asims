@@ -15,7 +15,8 @@ module.exports = {
 		},
 		tenureDate: {
 			type: 'date'
-		},
+		}
+		,
 		hasChair:{
 			collection: 'Chair',
 			via: 'regularStaffID'
