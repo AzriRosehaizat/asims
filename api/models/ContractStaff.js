@@ -9,8 +9,10 @@ module.exports = {
 
 	attributes:{
 		contractStaffID: {
+			//columnName: 'contractStaffID',
 			type: 'integer',
 			primaryKey: true,
+			//model: 'AcademicStaff',
 			required: true
 		}
 	},
