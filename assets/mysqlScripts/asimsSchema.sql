@@ -220,7 +220,7 @@ ALTER TABLE AcademicStaff_Department ADD CONSTRAINT FOREIGN KEY(staffID) REFEREN
 ALTER TABLE AcademicStaff_Section ADD CONSTRAINT FOREIGN KEY(sectionID) REFERENCES Section(sectionID);
 ALTER TABLE AcademicStaff_Section ADD CONSTRAINT FOREIGN KEY(staffID) REFERENCES AcademicStaff(staffID);
 ALTER TABLE Chair ADD CONSTRAINT FOREIGN KEY(departmentID) REFERENCES Department(departmentID);
-ALTER TABLE Chair ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES AcademicStaff(staffID);
+ALTER TABLE Chair ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
 ALTER TABLE ContractStaff ADD CONSTRAINT FOREIGN KEY(contractStaffID) REFERENCES AcademicStaff(staffID);
 ALTER TABLE DefaultNormalLoad ADD CONSTRAINT FOREIGN KEY(rankID) REFERENCES Rank(rankID);
 ALTER TABLE DefaultNormalLoad ADD CONSTRAINT FOREIGN KEY(departmentID) REFERENCES Department(departmentID);
@@ -244,6 +244,7 @@ ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(regularStaffID) REF
 ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(researchID) REFERENCES Research(researchID);
 ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(loadReductionID) REFERENCES LoadReduction(loadReductionID);
 ALTER TABLE Section ADD CONSTRAINT FOREIGN KEY(courseID) REFERENCES Course(courseID);
+
 
 #BEGIN INSERT INTO TABLE
 INSERT INTO AcademicStaff (staffID,firstName,lastName) VALUES (1,"Nasim","Slater"),(2,"Justin","Merritt"),(3,"Hadassah","Irwin"),(4,"Nicole","Brock"),(5,"Simone","Stephenson"),(6,"Aubrey","Farley"),(7,"Lance","Benton"),(8,"Macy","Davidson"),(9,"Athena","Buchanan"),(10,"Phoebe","Greene"),(11,"Arsenio","Chen"),(12,"Brennan","Thompson"),(13,"Ignacia","Faulkner"),(14,"Aquila","Kane"),(15,"Lydia","Zamora"),(16,"Regina","Montoya"),(17,"Malik","West"),(18,"Briar","Roach"),(19,"Daria","Davenport"),(20,"Hermione","Holman"),(21,"Nina","Valenzuela"),(22,"Autumn","Daniels"),(23,"Alisa","Park"),(24,"Brianna","Duke"),(25,"Tanner","Wong"),(26,"Cailin","Boone"),(27,"Aquila","Rowe"),(28,"Yolanda","Terry"),(29,"Elijah","Ratliff"),(30,"Leo","Diaz"),(31,"Mara","Hunter"),(32,"Vaughan","Benton"),(33,"Baxter","Schmidt"),(34,"Gage","Stanley"),(35,"Mufutau","Levy"),(36,"Randall","Brown"),(37,"Sonia","Cunningham"),(38,"Driscoll","Hatfield"),(39,"Thane","Oneil"),(40,"Ariana","Monroe"),(41,"Holmes","Hudson"),(42,"Ishmael","Kennedy"),(43,"Tara","Barry"),(44,"Noelle","Hoffman"),(45,"Plato","Sullivan"),(46,"Rina","Mcgowan"),(47,"Nolan","Petersen"),(48,"Benjamin","Klein"),(49,"Hadassah","Galloway"),(50,"Reed","Richmond");

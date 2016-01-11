@@ -11,7 +11,7 @@ module.exports = {
   
   connection: 'MySQLServerMeta',
   autoPK: true,
-
+  migrate: 'alter',
   attributes: require('waterlock').models.resetToken.attributes({
     
     /* e.g.
