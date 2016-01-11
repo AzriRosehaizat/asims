@@ -13,8 +13,8 @@
             <button type="button" class="btn btn-primary" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">Edit</button>
             <!-- buttons to submit / cancel form -->
             <span ng-show="editableForm.$visible">
-                <button type="submit" class="btn btn-primary" ng-disabled="editableForm.$waiting">Save</button>
-                <button type="button" class="btn btn-default" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel(); restoreUser()">Cancel</button>
+                <button type="submit" class="btn btn-success" ng-disabled="editableForm.$waiting">Save</button>
+                <button type="button" class="btn btn-warning" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel(); restoreUser()">Cancel</button>
             </span>
         </div>
     </form>
