@@ -39,10 +39,10 @@ module.exports = {
 			via: 'staffID'
 		},
 		//has contract staffs 1:M
-		hasCAS:{
-			collection: 'ContractStaff',
-			via: 'contractStaffID'
-		},
+		// hasCAS:{
+		// 	collection: 'ContractStaff',
+		// 	via: 'contractStaffID'
+		// },
 		//has regular staffs 1:M
 		hasRAS: {
 			collection: 'RegularStaff',

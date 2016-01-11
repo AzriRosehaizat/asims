@@ -7,11 +7,11 @@
 
 module.exports = {
 
-	attributes:{
-		contractStaffID: {
-			model: 'AcademicStaff',
-			required: true
-		}
-	},
-	tableName: 'ContractStaff'
+	// attributes:{
+	// 	contractStaffID: {
+	// 		model: 'AcademicStaff',
+	// 		required: true
+	// 	}
+	// },
+	// tableName: 'ContractStaff'
 };
