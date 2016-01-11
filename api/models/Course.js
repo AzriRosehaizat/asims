@@ -26,6 +26,10 @@ module.exports = {
 	belongsToDepartment: {
 		collection: 'Department_Course'
 		via: 'courseID'
+	},
+	hasSection: {
+		collection: 'Section',
+		via: 'courseID'
 	}
   },
   tableName: 'Course'

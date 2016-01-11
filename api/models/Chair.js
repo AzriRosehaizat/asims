@@ -9,10 +9,8 @@ module.exports = {
 
 	attributes: {
 		regularStaffID: {
-			type: 'integer',
-			primaryKey: true,
-			autoIncrement: true,
-			index: true
+			model: 'RegularStaff',
+			required: true
 		},
 		departmentID: {
 			model: 'Department',

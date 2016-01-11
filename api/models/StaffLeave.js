@@ -1,5 +1,5 @@
 /**
-* Section.js
+* StaffLeave.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -8,35 +8,39 @@
 module.exports = {
 
 	attributes: {
-		sectionID: {
+		leaveID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
 			index: true
 		},
-		courseID: {
-			model: 'Course',
-			requireD: true
-		},
-		identifier: {
-			type: 'string',
-			size: 20,
+		regularStaffID: {
+			model: 'RegularStaff',
 			required: true
 		},
-		startTerm: {
-			type: 'string',
-			size: 25,
+		leaveDebitID: {
+			model: 'LeaveDebit',
 			required: true
 		},
-		endTerm: {
-			type: 'string',
-			size: 25,
+		description: {
+			type: 'text'
+		},
+		startDate: {
+			type: 'date',
 			required: true
 		},
-		FCEValue: {
-			type: 'float',
+		endDate: {
+			type: 'date',
 			required: true
+		},
+		leavePercentage: {
+			type: 'float'
+		},
+		wagePercentage: {
+			type: 'float'
 		}
+
 	},
-	tableName: 'Section'
+	tableName: 'StaffLeave'
 };
+

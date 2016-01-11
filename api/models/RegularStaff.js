@@ -15,6 +15,10 @@ module.exports = {
 		tenureDate: {
 			type: 'date'
 		},
+		hasChair:{
+			collection: 'Chair',
+			via: 'regularStaffID'
+		}
 		hasFCECredit:{
 			collection: 'FCECredit',
 			via: 'regularStaffID'
@@ -33,6 +37,10 @@ module.exports = {
 		},
 		doResearch: {
 			collection: 'RegularStaff_Research',
+			via: 'regularStaffID'
+		},
+		hasLeave: {
+			collection: 'StaffLeave',
 			via: 'regularStaffID'
 		}
 	},
