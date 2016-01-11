@@ -32,13 +32,13 @@ module.exports = {
 			via: 'departmentID'
 		},
 		//Join table 1:M
-		hasChair{
+		hasChair: {
 			collection: 'Chair',
 			via: 'departmentID'
 		},
 		//has defaultNormal load
-		hasNormalLoad{
-			collection: 'DefaultNormalLoad'
+		hasNormalLoad: {
+			collection: 'DefaultNormalLoad',
 			via: 'departmentID'
 		},
 		hasCourse:{

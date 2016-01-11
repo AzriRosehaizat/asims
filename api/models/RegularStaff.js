@@ -18,7 +18,7 @@ module.exports = {
 		hasChair:{
 			collection: 'Chair',
 			via: 'regularStaffID'
-		}
+		},
 		hasFCECredit:{
 			collection: 'FCECredit',
 			via: 'regularStaffID'
