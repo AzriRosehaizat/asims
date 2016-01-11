@@ -1,38 +1,39 @@
-application.controller('adminController', function($scope, $http, CurrentUser) {
-
-    //$scope.user = CurrentUser.user;
-
-    $http.get('/user')
-        .then(function(res) {
-            $scope.gridOptions.data = res.data;
-        })
-        .catch(function(err) {
-            if (err) {
-
-            }
-        });
-
-    $scope.deleteRow = function(row) {
-        var index = $scope.gridOptions.data.indexOf(row.entity);
-        $scope.gridOptions.data.splice(index, 1);
-    };
-
+application.controller('adminController', function($scope, $http, rowEditor) {
+    
     $scope.gridOptions = {
         enableRowSelection: true,
-        enableSorting: true,
         columnDefs: [{
-            name: 'ID',
-            field: 'id'
-        }, {
             name: 'Name',
             field: 'username'
         }, {
             name: 'Email',
             field: 'email'
         }, {
+            enableColumnMenu: false,
+            displayName: '',
+            name: 'Edit',
+            cellTemplate: '<button type="button" class="btn btn-primary btn-xs" ng-click="grid.appScope.editRow(grid, row)"><i class="glyphicon glyphicon-edit"></i></button>',
+            width: 34
+        }, {
+            enableColumnMenu: false,
+            displayName: '',
             name: 'Delete',
-            cellTemplate: '<button type="button" class="btn btn-danger btn-xs" ng-click="grid.appScope.deleteRow(row)"><i class="glyphicon glyphicon-remove"></i></button>'
+            cellTemplate: '<button type="button" class="btn btn-danger btn-xs" ng-click="grid.appScope.deleteRow(grid, row)"><i class="glyphicon glyphicon-remove"></i></button>',
+            width: 34
         }]
     };
+    
+    $scope.editRow = rowEditor.editRow;
+    $scope.deleteRow = rowEditor.deleteRow;
+
+    $http.get('/user')
+        .success(function(data) {
+            $scope.gridOptions.data = data;
+        })
+        .error(function(err) {
+            if (err) {
+
+            }
+        });
 
 });
