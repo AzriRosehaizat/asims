@@ -27,9 +27,13 @@ module.exports = {
 		dateIssued: {
 			type: 'date'
 		},
-		LeaveDebitType: {
+		leaveDebitType: {
 			type: 'String',
 			size: 50
+		},
+		indetifiesLeave:{
+			collection: 'StaffLeave',
+			via: 'leaveDebitID'
 		}
 	},
 	tableName: 'LeaveDebit'
