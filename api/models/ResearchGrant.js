@@ -7,8 +7,30 @@
 
 module.exports = {
 
-  attributes: {
-
-  },
-  tableName: 'ResearchGrant'
+	attributes: {
+		grantID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},	
+		researchID: {
+			model: 'Research',
+			required: true
+		},
+		grantingAgency: {
+			type: 'string'
+		},
+		yearAwarded: {
+			type: 'integers',
+			len: 4
+		},
+		duration: {
+			type: 'float'
+		},
+		amount: {
+			type: 'float'
+		}
+	},
+	tableName: 'ResearchGrant'
 };

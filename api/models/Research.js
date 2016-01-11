@@ -20,6 +20,10 @@ module.exports = {
 		researchee:{
 			collection: 'RegularStaff_Research',
 			via: 'researchID'
+		},
+		hasGrant:{
+			collection: 'ResearchGrant',
+			via: 'researchID'
 		}
 	},
 	tableName: 'Research'

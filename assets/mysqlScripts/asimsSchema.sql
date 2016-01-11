@@ -103,28 +103,6 @@ CREATE TABLE FCEDebit(
 	PRIMARY KEY(FCEDebitID)
 );
 
-CREATE TABlE ResearchGrant(
-	grantID INT NOT NULL AUTO_INCREMENT,
-	researchID INT NOT NULL,
-	grantingAgency VARCHAR(50) NOT NULL,
-	yearAwarded YEAR,
-	duration FLOAT(10,2),
-	amount FLOAT(10,2),
-	PRIMARY KEY(grantID)
-);
-
-
-CREATE TABLE StaffLeave(
-	leaveID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULL,
-	leaveDebitID INT NOT NULL,
-	description TEXT, #NOT NULL,
-	startDate DATE NOT NULL,
-	endDate DATE NOT NULL,
-	leavePercentage FLOAT, #NOT NULL
-	wagePercentage FLOAT, #NOT NULL
-	PRIMARY KEY(leaveID)
-);
 
 CREATE TABLE LeaveCredit(
 	leaveCreditID INT NOT NULL AUTO_INCREMENT,
@@ -203,6 +181,16 @@ CREATE TABLE Research(
 	PRIMARY KEY(researchID)
 );
 
+CREATE TABlE ResearchGrant(
+	grantID INT NOT NULL AUTO_INCREMENT,
+	researchID INT NOT NULL,
+	grantingAgency VARCHAR(50) NOT NULL,
+	yearAwarded YEAR(4),
+	duration FLOAT(10,2),
+	amount FLOAT(10,2),
+	PRIMARY KEY(grantID)
+);
+
 CREATE TABLE Section(
 	sectionID INT NOT NULL AUTO_INCREMENT,
 	courseID INT NOT NULL,
@@ -211,6 +199,18 @@ CREATE TABLE Section(
 	endTerm VARCHAR(25) NOT NULL,
 	FCEValue FLOAT NOT NULL,
 	PRIMARY KEY(sectionID, courseID)
+);
+
+CREATE TABLE StaffLeave(
+	leaveID INT NOT NULL AUTO_INCREMENT,
+	regularStaffID INT NOT NULL,
+	leaveDebitID INT NOT NULL,
+	description TEXT, #NOT NULL,
+	startDate DATE NOT NULL,
+	endDate DATE NOT NULL,
+	leavePercentage FLOAT, #NOT NULL
+	wagePercentage FLOAT, #NOT NULL
+	PRIMARY KEY(leaveID)
 );
 
 
