@@ -34,7 +34,7 @@ Development Workflow
 9. Code will be reviewed by me and I will merge it
 
 
-Agile testing???
+Agile testing
 -----------------
 Suggestions??
 
