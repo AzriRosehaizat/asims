@@ -6,8 +6,31 @@
 */
 
 module.exports = {
-
-  attributes: {
-
-  }
+	attributes: {
+		leaveCreditID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		regularStaffID: {
+			model: 'RegularStaff',
+			required: true
+		},
+		amount: {
+			type: 'float',
+			required: true
+		},
+		description: {
+			type: 'text'
+		},
+		dateIssued: {
+			type: 'date'
+		},
+		leaveCreditType: {
+			type: 'String',
+			size: 50
+		}
+	},
+	tableName: 'LeaveCredit'
 };

@@ -6,8 +6,31 @@
 */
 
 module.exports = {
-
-  attributes: {
-
-  }
+	attributes: {
+		leaveDebitID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		regularStaffID: {
+			model: 'RegularStaff',
+			required: true
+		},
+		amount: {
+			type: 'float',
+			required: true
+		},
+		description: {
+			type: 'text'
+		},
+		dateIssued: {
+			type: 'date'
+		},
+		LeaveDebitType: {
+			type: 'String',
+			size: 50
+		}
+	},
+	tableName: 'LeaveDebit'
 };

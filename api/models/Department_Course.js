@@ -8,6 +8,19 @@
 module.exports = {
 
   attributes: {
-
-  }
+		courseID: {
+			model: 'Course',
+			required: true
+		},
+		departmentID: {
+			model: 'Department',
+			required: true
+		},
+		identifier: {
+			type: 'string',
+			size: 20,
+			required: true
+		}
+	},
+	tableName: 'Department_Course'
 };
