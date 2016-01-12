@@ -33,22 +33,6 @@ module.exports = require('waterlock').actions.user({
         }
       });
     });
-
-    // UserService.create(
-    //   //pass a callback to be triggered upon completion 
-    //   function(err, user) {
-    //     //if there is an error creating the user throw an error (could probably be handled/client currently sees internal server error)
-    //     if (err) {
-    //       res.negotiate(err);
-    //     }
-    //     //if there is no error, return the newly created object in the response
-    //     else {
-    //       res.json(user);
-    //     }
-    //   },
-    //   // pass our created data to the create function 
-    //   auth, userObj
-    // );
   },
 
   update: function(req, res) {
@@ -73,20 +57,6 @@ module.exports = require('waterlock').actions.user({
         res.json(users[0]);
       });
     });
-    
-
-    // UserService.update(
-    //   //pass a callback to be triggered upon completion 
-    //   function(err, user) {
-    //     if (err) {
-    //       res.negotiate(err);
-    //     }
-    //     else {
-    //       res.json(user);
-    //     }
-    //   },
-    //   userObj
-    // );
   },
 
 });
