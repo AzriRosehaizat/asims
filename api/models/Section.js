@@ -14,28 +14,18 @@ module.exports = {
 			autoIncrement: true,
 			index: true
 		},
-		courseID: {
-			model: 'Course',
-			requireD: true
-		},
-		identifier: {
+		sectionNo: {
 			type: 'string',
-			size: 20,
-			required: true
+			size: 10,
+			unique: true
 		},
-		startTerm: {
+		title: {
 			type: 'string',
-			size: 25,
-			required: true
+			size: 50
 		},
-		endTerm: {
-			type: 'string',
-			size: 25,
-			required: true
-		},
-		FCEValue: {
-			type: 'float',
-			required: true
+		Course_Section: {
+			collection: 'Course_Section',
+			via: 'sectionID'
 		}
 	},
 	tableName: 'Section'

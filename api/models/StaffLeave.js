@@ -39,7 +39,6 @@ module.exports = {
 		wagePercentage: {
 			type: 'float'
 		}
-
 	},
 	tableName: 'StaffLeave'
 };

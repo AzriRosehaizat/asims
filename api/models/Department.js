@@ -18,6 +18,10 @@ module.exports = {
 			model: 'Faculty',
 			required: true
 		},
+		departmentCode: {
+			type: 'string',
+			required: true
+		}
 		title:{
 			type: 'string',
 			size: 50,
@@ -27,21 +31,21 @@ module.exports = {
 			type: 'text',
 		},
 		//Join table AcademicStaff_Department 1:M
-		hasStaff:{
+		AcademicStaff_Department:{
 			collection: 'AcademicStaff_Department',
 			via: 'departmentID'
 		},
 		//Join table 1:M
-		hasChair: {
+		Chair: {
 			collection: 'Chair',
 			via: 'departmentID'
 		},
 		//has defaultNormal load
-		hasNormalLoad: {
+		DefaultNormalLoad: {
 			collection: 'DefaultNormalLoad',
 			via: 'departmentID'
 		},
-		hasCourse:{
+		Department_Course:{
 			collection: 'Department_Course',
 			via: 'departmentID'
 		}

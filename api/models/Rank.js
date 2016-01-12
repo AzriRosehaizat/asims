@@ -22,11 +22,11 @@ module.exports = {
 		description: {
 			type: 'text'
 		},
-		identifiesDefaultNormalLoad:{
+		DefaultNormalLoad:{
 			collection: 'DefaultNormalLoad',
 			via: 'rankID'
 		},
-		identifiesStaffRank:{
+		RegularStaff_Rank:{
 			collection: 'RegularStaff_Rank',
 			via: 'rankID'
 		}

@@ -31,7 +31,8 @@ module.exports = {
 			type: 'String',
 			size: 50
 		},
-		indetifiesLeave:{
+		//Identifies leaves 1:M
+		StaffLeave:{
 			collection: 'StaffLeave',
 			via: 'leaveDebitID'
 		}

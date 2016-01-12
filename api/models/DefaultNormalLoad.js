@@ -8,6 +8,12 @@
 module.exports = {
 
   attributes: {
+	defaultNormalLoadID: {
+		type: 'integer',
+		primaryKey: true,
+		autoIncrement: true,
+		index: true
+	}, 	
   	rankID: {
 		model: 'Rank',
 		required: true

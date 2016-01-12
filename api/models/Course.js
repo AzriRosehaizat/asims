@@ -14,21 +14,14 @@ module.exports = {
 		autoIncrement: true,
 		index: true
 	},
-	title: {
+	courseNo: {
 		type: 'string',
-		size: 100,
-		required: true
-	},
-	description: {
-		type: 'text'
-	},
-	
-	belongsToDepartment: {
+		required: true,
+		unique: true
+	}
+	//has course 1:M
+	Department_Course: {
 		collection: 'Department_Course',
-		via: 'courseID'
-	},
-	hasSection: {
-		collection: 'Section',
 		via: 'courseID'
 	}
   },

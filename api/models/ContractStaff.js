@@ -9,11 +9,21 @@ module.exports = {
 
 	attributes:{
 		contractStaffID: {
-			//columnName: 'contractStaffID',
 			type: 'integer',
 			primaryKey: true,
-			//model: 'AcademicStaff',
+			autoIncrement: true,
+			index: true
+		},
+		academicStaffID: {
+			model: 'AcademicStaff',
 			required: true
+		},
+		startDate:{
+			type: 'date',
+			required: true 
+		},
+		endDate:{
+			type: 'date'
 		}
 	},
 	tableName: 'ContractStaff'
