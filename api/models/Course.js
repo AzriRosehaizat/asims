@@ -18,7 +18,7 @@ module.exports = {
 		type: 'string',
 		required: true,
 		unique: true
-	}
+	},
 	//has course 1:M
 	Department_Course: {
 		collection: 'Department_Course',

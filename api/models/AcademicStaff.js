@@ -26,7 +26,7 @@ module.exports = {
 		employeeNo: {
 			type: 'string',
 			size: 50
-		}
+		},
 		//Join table AcademicStaff_Department 1:M
 		AcademicStaff_Department:{
 			collection: 'AcademicStaff_Department',
@@ -36,13 +36,13 @@ module.exports = {
 		AcademicStaff_Section:{
 			collection: 'AcademicStaff_Section',
 			via: 'staffID'
-		}
-		has contract staffs 1:M
+		},
+		//has contract staffs 1:M
 		ContractStaff:{
 			collection: 'ContractStaff',
 			via: 'academicStaffID'
 		},
-		has regular staffs 1:M
+		//has regular staffs 1:M
 		RegularStaff: {
 			collection: 'RegularStaff',
 			via: 'academicStaffID'

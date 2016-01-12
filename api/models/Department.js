@@ -21,7 +21,7 @@ module.exports = {
 		departmentCode: {
 			type: 'string',
 			required: true
-		}
+		},
 		title:{
 			type: 'string',
 			size: 50,
