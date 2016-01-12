@@ -1,30 +1,19 @@
-application.factory('DataService', function($http, $q) {
+application.factory('DataService', function($http) {
     return {
         getUsers: function() {
             var req = $http.get('/user');
-            return (req.then(handleSuccess, handleError));
+            return (req.then(handleSuccess));
         },
         updateUser: function(user) {
             var req = $http.put('/user/update', user);
-            return (req.then(handleSuccess, handleError));
+            return (req.then(handleSuccess));
+        },
+        deleteUser: function(user) {
+            var req = $http.delete('/user/' + user.id);
+            return (req.then(handleSuccess));
         },
     };
-
-    // transform the error response, unwrapping the application data from the API response payload.
-    function handleError(res) {
-        // The API response from the server should be returned in a
-        // nomralized format. However, if the request was not handled by the
-        // server (or what not handles properly - ex. server error), then we
-        // may have to normalize it on our end, as best we can.
-        if (!angular.isObject(res.data) || !res.data.summary) {
-            console.log(res.data);
-            return ($q.reject("An unknown error occurred."));
-        }
-        // Otherwise, use expected error message.
-        return ($q.reject(res.data));
-    }
     
-    // transform the successful response, unwrapping the application data from the API response payload.
     function handleSuccess(res) {
         return (res.data);
     }
