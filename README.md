@@ -1,4 +1,4 @@
-# ASIMS
+# ASIMS 
 
 Academic Staff Information Management System (ASIMS) is a sails web application developed for the Dean's Office of the Faculty of Science, U of Winnipeg.
 
@@ -34,7 +34,7 @@ Development Workflow
 9. Code will be reviewed by me and I will merge it
 
 
-Agile testing???
+Agile testing
 -----------------
 Suggestions??
 
