@@ -8,6 +8,12 @@
 module.exports = {
 
 	attributes: {
+		academicStaffDepartmentID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
 		staffID: {
 			model: 'AcademicStaff',
 			required: true
@@ -18,8 +24,7 @@ module.exports = {
 		}, 
 		startDate:{
 			type: 'date',
-			primaryKey: 'true',
-			index: 'true'
+			required: true
 		},
 		endDate:{
 			type: 'date'

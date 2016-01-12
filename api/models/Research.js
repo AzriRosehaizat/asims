@@ -14,14 +14,26 @@ module.exports = {
 			autoIncrement: true,
 			index: true
 		},
-		tenureDate: {
+		title: {
+			type: 'string',
+			size: 50,
+			required: true
+		},
+		abstract: {
+			type: 'text'
+		},
+		startDate:{
+			type: 'date',
+			required: true 
+		},
+		endDate:{
 			type: 'date'
 		},
-		researchee:{
+		RegularStaff_Research:{
 			collection: 'RegularStaff_Research',
 			via: 'researchID'
 		},
-		hasGrant:{
+		ResearchGrant:{
 			collection: 'ResearchGrant',
 			via: 'researchID'
 		}

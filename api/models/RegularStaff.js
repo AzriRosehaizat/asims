@@ -10,47 +10,58 @@ module.exports = {
 	attributes: {
 		regularStaffID: {
 			type: 'integer',
-			required: true,
-			primaryKey: true
+			autoIncrement: true,
+			primaryKey: true,
+			index: true
 		},
 		tenureDate: {
 			type: 'date'
-		}
-		,
-		hasChair:{
+		},
+		academicStaffID: {
+			model: 'AcademicStaff',
+			required: true
+		},
+		startDate:{
+			type: 'date',
+			required: true 
+		},
+		endDate:{
+			type: 'date'
+		},
+		Chair:{
 			collection: 'Chair',
 			via: 'regularStaffID'
 		},
-		hasFCECredit:{
+		FCECredit:{
 			collection: 'FCECredit',
 			via: 'regularStaffID'
 		},
-		hasFCEDebit:{
+		FCEDebit:{
 			collection: 'FCEDebit',
 			via: 'regularStaffID'
 		},
-		hasLoadIncrease:{
+		LoadIncrease:{
 			collection: 'LoadIncrease',
 			via: 'regularStaffID'
 		},
-		hasLoadReduction:{
+		LoadReduction:{
 			collection: 'LoadReduction',
 			via: 'regularStaffID'
 		},
-		doResearch: {
+		RegularStaff_Research: {
 			collection: 'RegularStaff_Research',
 			via: 'regularStaffID'
 		},
-		hasLeave: {
+		StaffLeave: {
 			collection: 'StaffLeave',
 			via: 'regularStaffID'
 		},
-		hasLeaveCredit: {
-			collection: 'StaffLeave',
+		LeaveCredit: {
+			collection: 'LeaveCredit',
 			via: 'regularStaffID'
 		},
-		hasLeaveDebit: {
-			collection: 'StaffLeave',
+		LeaveDebit: {
+			collection: 'leaveDebit',
 			via: 'regularStaffID'
 		}
 	},
