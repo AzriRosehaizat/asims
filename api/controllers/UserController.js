@@ -38,9 +38,12 @@ module.exports = require('waterlock').actions.user({
   update: function(req, res) {
 
     var params = waterlock._utils.allParams(req);
-    delete(params.username); // username can't be changed
+    var userObj = {
+      id: params.id,
+      email: params.email
+    };
 
-    User.update({id: params.id}, params).exec(function userUpdated(err, users) {
+    User.update({id: userObj.id}, userObj).exec(function userUpdated(err, users) {
       if (err) {
         return res.negotiate(err);
       }

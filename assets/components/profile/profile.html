@@ -1,11 +1,12 @@
 <div class="jumbotron">
 
-    <h2>{{ user.username }}</h2>
     <form name="editForm">
+        <div class="buttons pull-right">
+            <button class="btn btn-success" ng-hide="editForm.$invalid || !editForm.$dirty" ng-click="onSubmit(editForm)">Save</button>
+            <button class="btn btn-warning" ng-hide="!editForm.$dirty" ng-click="onCancel(editForm)">Cancel</button>
+        </div>
+        <br>
         <div sf-schema="schema" sf-form="form" sf-model="user"></div>
-
-        <button class="btn btn-success" ng-click="onSubmit(editForm)">Save</button>
-        <button class="btn btn-warning" ng-click="goBack()">Cancel</button>
     </form>
 
 </div>
