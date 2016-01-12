@@ -17,6 +17,9 @@ module.exports = {
 		tenureDate: {
 			type: 'date'
 		},
+		contApptDate: {
+			type: 'date'
+		},
 		academicStaffID: {
 			model: 'AcademicStaff',
 			required: true
