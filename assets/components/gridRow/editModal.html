@@ -6,7 +6,7 @@
         <form name="editForm" sf-schema="schema" sf-form="form" sf-model="entity"></form>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-success" ng-click="onSubmit(editForm)">Save</button>
+        <button class="btn btn-success" ng-disabled="editForm.$invalid" ng-click="onSubmit(editForm)">Save</button>
         <button class="btn btn-warning" ng-click="$close()">Cancel</button>
     </div>
 </div>
