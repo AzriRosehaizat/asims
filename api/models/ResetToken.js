@@ -10,6 +10,7 @@
 module.exports = {
   
   connection: 'MySQLServerMeta',
+  tableName: 'ResetToken',
   autoPK: true,
   migrate: 'alter',
   tableName: 'ResetToken',
