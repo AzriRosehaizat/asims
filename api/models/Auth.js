@@ -11,7 +11,8 @@ module.exports = {
   connection: 'MySQLServerMeta',
   tableName: 'Auth',
   autoPK: true,
-
+  migrate: 'alter',
+  tableName: 'Auth',
   attributes: require('waterlock').models.auth.attributes({
     
     username: 'string',

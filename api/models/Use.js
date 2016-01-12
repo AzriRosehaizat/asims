@@ -8,15 +8,16 @@
 
 module.exports = {
   
-  connection: 'MySQLServerMeta',
-  tableName: 'Use',
-  autoPK: true,
+	connection: 'MySQLServerMeta',
+	autoPK: true,
+	migrate: 'alter',
+	tableName: 'Use',
 
-  attributes: require('waterlock').models.use.attributes({
-    
-    /* e.g.
-    nickname: 'string'
-    */
-    
-  })
+	attributes: require('waterlock').models.use.attributes({
+
+	/* e.g.
+	nickname: 'string'
+	*/
+
+	})
 };
