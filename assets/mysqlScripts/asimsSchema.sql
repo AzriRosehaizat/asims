@@ -14,7 +14,7 @@ CREATE TABLE AcademicStaff_Department(
 	academicStaffDepartmentID INT NOT NULL AUTO_INCREMENT,
 	departmentID INT NOT NULL,
 	staffID INT NOT NULL,
-	startDate DATE NOT NULL, #DEFAULT 20100101,
+	startDate DATE NOT NULL DEFAULT 20100101,
 	endDate DATE,
 	PRIMARY KEY(academicStaffDepartmentID)
 );
@@ -32,7 +32,7 @@ CREATE TABLE Chair(
 	chairID INT NOT NULL AUTO_INCREMENT,
 	regularStaffID INT NOT NULL,
 	departmentID INT NOT NULL,
-	startDate DATE NOT NULL, #DEFAULT 20100101,
+	startDate DATE NOT NULL DEFAULT 20100101,
 	endDate DATE,
 	PRIMARY KEY (chairID)
 );
@@ -40,7 +40,7 @@ CREATE TABLE Chair(
 CREATE TABLE ContractStaff(
 	contractStaffID INT NOT NULL AUTO_INCREMENT,
 	academicStaffID INT NOT NULL,
-	startDate DATE NOT NULL, #DEFAULT 20100101,
+	startDate DATE NOT NULL DEFAULT 20100101,
 	endDate DATE,
 	PRIMARY KEY(contractStaffID)
 );
@@ -56,8 +56,8 @@ CREATE TABLE Course_Section(
 	courseSectionID INT NOT NULL AUTO_INCREMENT,
 	departmentCourseID INT NOT NULL,
 	sectionID INT NOT NULL,
-	startDate DATE NOT NULL, #DEFAULT 20150901,
-	endDate DATE NOT NULL, #DEFAULT 20160501,
+	startDate DATE NOT NULL DEFAULT 20150901,
+	endDate DATE NOT NULL DEFAULT 20160501,
 	FCEValue FLOAT NOT NULL,
 	PRIMARY KEY(courseSectionID)
 );
@@ -66,7 +66,7 @@ CREATE TABLE DefaultNormalLoad(
 	defaultNormalLoadID INT NOT NULL AUTO_INCREMENT,
 	rankID INT NOT NULL,
 	departmentID INT NOT NULL,
-	startDate DATE NOT NULL, #DEFAULT 20100101,
+	startDate DATE NOT NULL DEFAULT 20100101,
 	FCEValue FLOAT NOT NULL,
 	PRIMARY KEY(defaultNormalLoadID)
 );
@@ -166,7 +166,7 @@ CREATE TABLE Rank(
 CREATE TABLE RegularStaff(
 	academicStaffID INT NOT NULL,
 	regularStaffID INT NOT NULL AUTO_INCREMENT,
-	startDate DATE NOT NULL, #DEFAULT 20100101,
+	startDate DATE NOT NULL DEFAULT 20100101,
 	endDate DATE,
 	contApptDate DATE,
 	tenureDate DATE,
@@ -177,7 +177,7 @@ CREATE TABLE RegularStaff_Rank(
 	regularStaffRankID INT NOT NULL AUTO_INCREMENT,
 	rankID INT NOT NULL,
 	regularStaffID INT NOT NULL,
-	startDate DATE NOT NULL, #DEFAULT 20100101,
+	startDate DATE NOT NULL DEFAULT 20100101,
 	endDate DATE,
 	PRIMARY KEY(regularStaffRankID)
 );
@@ -197,7 +197,7 @@ CREATE TABLE Research(
 	title VARCHAR(50) NOT NULL,
 	abstract TEXT,
 	startDate DATE NOT NULL,
-	endDate DATE, #NOT NULL
+	endDate DATE NOT NULL
 	PRIMARY KEY(researchID)
 );
 
@@ -224,11 +224,11 @@ CREATE TABLE StaffLeave(
 	leaveID INT NOT NULL AUTO_INCREMENT,
 	regularStaffID INT NOT NULL,
 	leaveDebitID INT NOT NULL,
-	description TEXT, #NOT NULL,
+	description TEXT NOT NULL,
 	startDate DATE NOT NULL,
 	endDate DATE NOT NULL,
-	leavePercentage FLOAT, #NOT NULL
-	wagePercentage FLOAT, #NOT NULL
+	leavePercentage FLOAT NOT NULL
+	wagePercentage FLOAT NOT NULL
 	PRIMARY KEY(leaveID)
 );
 
