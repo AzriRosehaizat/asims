@@ -1,4 +1,4 @@
-angular.module('application')
+application
     .factory('Auth', function($http, LocalService, AccessLevels) {
         return {
             authorize: function(access) {
@@ -13,10 +13,10 @@ angular.module('application')
                 return LocalService.get('auth_token');
             },
             login: function(credentials) {
-                var login = $http.post('/auth/login', credentials);
-                login.success(function(res) {
-                    LocalService.set('auth_token', JSON.stringify(res));
-                });
+                var login = $http.post('/auth/login', credentials)
+                    .then(function(res) {
+                        LocalService.set('auth_token', JSON.stringify(res.data));
+                    });
                 return login;
             },
             logout: function() {
@@ -25,10 +25,10 @@ angular.module('application')
             },
             register: function(formData) {
                 LocalService.unset('auth_token');
-                var register = $http.post('/auth/register', formData);
-                register.success(function(res) {
-                    LocalService.set('auth_token', JSON.stringify(res));
-                });
+                var register = $http.post('/auth/register', formData)
+                    .then(function(res) {
+                        LocalService.set('auth_token', JSON.stringify(res.data));
+                    });
                 return register;
             }
         };
@@ -48,11 +48,11 @@ angular.module('application')
                 return config;
             },
             responseError: function(res) {
-                if (res.status === 401 || res.status === 403) {
+                if (res.data.status === 401 || res.data.status === 403) {
                     LocalService.unset('auth_token');
                     $injector.get('$state').go('index');
                 }
-                return $q.reject(res);
+                return $q.reject(res.data);
             }
         }
     })
