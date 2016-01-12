@@ -23,6 +23,7 @@ var jsFilesToInject = [
   'bower_components/angular-schema-form/dist/schema-form.min.js',
   'bower_components/angular-schema-form/dist/bootstrap-decorator.min.js',
   'app.js',
+  'config.js',
   'components/**/*.js'
 ];
 
