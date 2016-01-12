@@ -15,7 +15,7 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				}
 			},
 			data: {
-				access: AccessLevels.anon
+				access: AccessLevels.guest
 			}
 		})
 		.state('application', {
@@ -83,7 +83,7 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				}
 			},
 			data: {
-				access: AccessLevels.user // should be admin
+				access: AccessLevels.admin
 			}
 		});
 
@@ -98,8 +98,7 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 			loginModalService.open().result
 				.then(function(res) {
 					$state.go(toState.name, toParams);
-				})
-				.catch(function(err) {
+				}, function(err) {
 					$state.go('index');
 				});
 		}

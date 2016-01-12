@@ -25,10 +25,11 @@ module.exports = {
       unique: true
     },
     
-    // role: {
-    //   type: 'string',
-    //   enum: ['reader', 'writer', 'admin']
-    // },
+    role: {
+      type: 'string',
+      enum: ['user', 'admin'],
+      defaultsTo: 'user'
+    },
 
     toJSON: function() {
       var obj = this.toObject();
