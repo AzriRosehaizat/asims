@@ -8,6 +8,12 @@
 module.exports = {
 
   attributes: {
+  		departmentCourseID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
 		courseID: {
 			model: 'Course',
 			required: true
@@ -16,10 +22,17 @@ module.exports = {
 			model: 'Department',
 			required: true
 		},
-		identifier: {
+		title: {
 			type: 'string',
-			size: 20,
-			required: true
+			size: 50		
+		},
+		description: {
+			type: 'text'
+		},
+		//Offers Course_Section 1:M
+		Course_Section: {
+			collection: 'Course_Section',
+			via: 'departmentCourseID'
 		}
 	},
 	tableName: 'Department_Course'

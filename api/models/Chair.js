@@ -8,6 +8,12 @@
 module.exports = {
 
 	attributes: {
+		chairID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
 		regularStaffID: {
 			model: 'RegularStaff',
 			required: true
@@ -18,8 +24,7 @@ module.exports = {
 		},
 		startDate:{
 			type: 'date',
-			primaryKey: 'true',
-			index: 'true'
+			required: true 
 		},
 		endDate:{
 			type: 'date'

@@ -22,8 +22,7 @@ module.exports = {
 			type: 'string'
 		},
 		yearAwarded: {
-			type: 'integers',
-			len: 4
+			type: 'date'
 		},
 		duration: {
 			type: 'float'

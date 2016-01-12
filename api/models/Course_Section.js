@@ -1,5 +1,5 @@
 /**
-* Employment.js
+* Course_Section.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -8,23 +8,34 @@
 module.exports = {
 
 	attributes: {
-		employmentID: {
+		courseSectionID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
 			index: true
 		},
-		staffID: {
-			model: 'AcademicStaff',
+		departmentCourseID: {
+			model: 'Department_Course',
 			required: true
 		},
-		hireDate: {
+		sectionID: {
+			model: 'Section',
+			required: true
+		},
+		startDate:{
 			type: 'date',
-			required: true
+			required: true 
 		},
-		terminationDate: {
-			type: 'date'
+		endDate:{
+			type: 'date',
+			required: true 
+
+		},
+		FCEValue: {
+			type: 'float',
+			required: true
 		}
-	},
-	tableName: 'Employment'
+	}
+
 };
+
