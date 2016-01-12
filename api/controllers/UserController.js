@@ -56,7 +56,6 @@ module.exports = require('waterlock').actions.user({
           return res.negotiate(err);
         }
         
-        delete(users[0].auth.user);  // to make users[0] same as the object that client has
         res.json(users[0]);
       });
     });

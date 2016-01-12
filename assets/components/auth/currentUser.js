@@ -1,22 +1,23 @@
-application.factory('CurrentUser', function(LocalService) {
+application.factory('CurrentUser', function(LocalService, DataService) {
     return {
-        user: function() {
-            if (LocalService.get('auth_token')) {
-                return angular.fromJson(LocalService.get('auth_token')).user;
-            }
-            else {
-                return {};
-            }
+        getUser: function() {
+            var id = getID();
+            return DataService.getUser(id)
+                .then(function(data) {
+                    return data;
+                });
         },
-        update: function(user) {
-            if (LocalService.get('auth_token')) {
-                var token = JSON.parse(LocalService.get('auth_token'));
-                token.user = user; // update user object
-                LocalService.set('auth_token', JSON.stringify(token));
-            }
-            else {
-                return {};
-            }
-        }
+        getRole: function() {
+            return angular.fromJson(LocalService.get('auth_token')).user.role;
+        },
     };
+
+    function getID() {
+        if (LocalService.get('auth_token')) {
+            return angular.fromJson(LocalService.get('auth_token')).user.id;
+        }
+        else {
+            return {};
+        }
+    }
 });

@@ -1,8 +1,11 @@
 application
-    .factory('Auth', function($http, LocalService, AccessLevels) {
+    .factory('Auth', function($http, LocalService, CurrentUser, AccessLevels) {
         return {
             authorize: function(access) {
-                if (access === AccessLevels.user) {
+                if (access === AccessLevels.admin) {
+                    return this.isAdmin();
+                }
+                else if (access === AccessLevels.user) {
                     return this.isAuthenticated();
                 }
                 else {
@@ -11,6 +14,9 @@ application
             },
             isAuthenticated: function() {
                 return LocalService.get('auth_token');
+            },
+            isAdmin: function() {
+                return (CurrentUser.getRole() === AccessLevels.admin);
             },
             login: function(credentials) {
                 var login = $http.post('/auth/login', credentials)

@@ -15,7 +15,6 @@ application.controller('profileController', function($scope, DataService, Curren
             DataService.updateUser($scope.user)
                 .then(function(data) {
                     form.$setPristine(); // to hide buttons
-                    CurrentUser.update(data); // update user saved in local storage
                 }, function(err) {
                     console.warn(err);
                 });
@@ -28,6 +27,11 @@ application.controller('profileController', function($scope, DataService, Curren
     };
 
     function getUser() {
-        $scope.user = CurrentUser.user();
+        CurrentUser.getUser()
+            .then(function(data) {
+                $scope.user = data;
+            }, function(err) {
+                console.warn(err);
+            });
     };
 });
