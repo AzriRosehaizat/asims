@@ -1,11 +1,16 @@
-application.service('rowEditor', function($uibModal) {
+application.factory('RowEditor', function($uibModal) {
     return {
-        editRow: function(grid, row) {
+        editRow: function(schema, form, grid, row) {
             return $uibModal.open({
                 templateUrl: '/components/gridRow/editModal.html',
                 controller: 'rowEditController',
-                controllerAs: 'vm',
                 resolve: {
+                    schema: function() {
+                        return schema;
+                    },
+                    form: function() {
+                        return form;
+                    },
                     grid: function() {
                         return grid;
                     },
@@ -18,8 +23,7 @@ application.service('rowEditor', function($uibModal) {
         deleteRow: function(grid, row) {
             return $uibModal.open({
                 templateUrl: '/components/gridRow/deleteModal.html',
-                controller: 'rowEditController',
-                controllerAs: 'vm',
+                controller: 'rowDeleteController',
                 resolve: {
                     grid: function() {
                         return grid;

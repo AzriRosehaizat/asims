@@ -1,41 +1,17 @@
-application.controller('rowEditController', function($uibModalInstance, grid, row) {
+application.controller('rowEditController', function($scope, $uibModalInstance, schema, form, grid, row) {
 
-    var vm = this;
+    $scope.entity = angular.copy(row.entity);
+    $scope.schema = schema;
+    $scope.form = form;
 
-    vm.entity = angular.copy(row.entity);
-    vm.schema = {
-        type: 'object',
-        properties: {
-            username: {
-                type: 'string',
-                title: 'Name'
-            },
-            email: {
-                type: 'string',
-                title: 'Email',
-                pattern: '^\\S+@\\S+$'
-            }
-        },
-        required: [
-            'username',
-            'email'
-        ]
-    };
-    vm.form = [
-        'username',
-        'email'
-    ];
+    $scope.onSubmit = function(form) {
+        // First we broadcast an event so all fields validate themselves
+        $scope.$broadcast('schemaFormValidate');
 
-    vm.save = function() {
-        // Copy row values over
-        row.entity = angular.extend(row.entity, vm.entity);
-        $uibModalInstance.close(row.entity);
-    }
-    
-    vm.delete = function() {
-        // Delete row
-        var index = grid.appScope.gridOptions.data.indexOf(row.entity);
-        grid.appScope.gridOptions.data.splice(index, 1);
-        $uibModalInstance.close(row.entity);
+        if (form.$valid) {
+            // Copy row values over
+            row.entity = angular.extend(row.entity, $scope.entity);
+            $uibModalInstance.close(row.entity);
+        }
     }
 });
