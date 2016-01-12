@@ -1,7 +1,6 @@
-application.controller('adminController', function($scope, $http, rowEditor) {
-    
+application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, UserForm) {
+
     $scope.gridOptions = {
-        enableRowSelection: true,
         columnDefs: [{
             name: 'Name',
             field: 'username'
@@ -12,7 +11,7 @@ application.controller('adminController', function($scope, $http, rowEditor) {
             enableColumnMenu: false,
             displayName: '',
             name: 'Edit',
-            cellTemplate: '<button type="button" class="btn btn-primary btn-xs" ng-click="grid.appScope.editRow(grid, row)"><i class="glyphicon glyphicon-edit"></i></button>',
+            cellTemplate: '<button type="button" class="btn btn-primary btn-xs" ng-click="grid.appScope.editRow(grid.appScope.schema, grid.appScope.form, grid, row)"><i class="glyphicon glyphicon-edit"></i></button>',
             width: 34
         }, {
             enableColumnMenu: false,
@@ -22,18 +21,22 @@ application.controller('adminController', function($scope, $http, rowEditor) {
             width: 34
         }]
     };
-    
-    $scope.editRow = rowEditor.editRow;
-    $scope.deleteRow = rowEditor.deleteRow;
 
-    $http.get('/user')
-        .success(function(data) {
-            $scope.gridOptions.data = data;
-        })
-        .error(function(err) {
-            if (err) {
+    $scope.schema = UserSchema;
+    $scope.form = UserForm;
+    $scope.editRow = RowEditor.editRow;
+    $scope.deleteRow = RowEditor.deleteRow;
 
-            }
-        });
+    if ($scope.gridOptions.data === undefined) {
+        getUsers();
+    }
 
+    function getUsers() {
+        DataService.getUsers()
+            .then(function(data) {
+                $scope.gridOptions.data = data;
+            }, function(err) {
+                console.warn(err);
+            });
+    };
 });
