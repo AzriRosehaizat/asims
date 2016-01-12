@@ -9,6 +9,7 @@
 module.exports = {
   
   connection: 'MySQLServerMeta',
+  tableName: 'Auth',
   autoPK: true,
   migrate: 'alter',
   tableName: 'Auth',

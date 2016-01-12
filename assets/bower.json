@@ -29,6 +29,7 @@
     "angular-ui-grid": "",
     "jquery": "",
     "bootstrap": "",
-    "angular-ui-router": ""
+    "angular-ui-router": "",
+    "angular-xeditable":""
   }
 }
