@@ -1,22 +1,11 @@
 <div class="jumbotron">
-    
-    <h2>{{ user.username }}</h2>
 
-    <form editable-form name="editableForm" onshow="copyUser()" onaftersave="updateUser()">
-        <div>
-            <!-- editable email (text with validation) -->
-            <span class="title">Email: </span>
-            <span editable-text="user.email" e-name="email" onbeforesave="checkEmail($data)" e-required>{{ user.email || 'empty' }}</span>
-        </div>
-        <div class="buttons">
-            <!-- button to show form -->
-            <button type="button" class="btn btn-primary" ng-click="editableForm.$show()" ng-show="!editableForm.$visible">Edit</button>
-            <!-- buttons to submit / cancel form -->
-            <span ng-show="editableForm.$visible">
-                <button type="submit" class="btn btn-success" ng-disabled="editableForm.$waiting">Save</button>
-                <button type="button" class="btn btn-warning" ng-disabled="editableForm.$waiting" ng-click="editableForm.$cancel(); restoreUser()">Cancel</button>
-            </span>
-        </div>
+    <h2>{{ user.username }}</h2>
+    <form name="editForm">
+        <div sf-schema="schema" sf-form="form" sf-model="user"></div>
+
+        <button class="btn btn-success" ng-click="onSubmit(editForm)">Save</button>
+        <button class="btn btn-warning" ng-click="goBack()">Cancel</button>
     </form>
 
 </div>
