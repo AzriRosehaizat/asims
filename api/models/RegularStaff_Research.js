@@ -8,6 +8,12 @@
 module.exports = {
 
 	attributes: {
+		regularStaffResearchID: {
+			type: 'integer',
+			autoIncrement: true,
+			primaryKey: true,
+			index: true
+		},
 		researchID: {
 			model: 'Research',
 			required: true

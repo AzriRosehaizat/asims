@@ -8,10 +8,15 @@
 module.exports = {
 
 	attributes: {
-		sectionID: {
+		academicStaffSectionID: {
 			type: 'integer',
 			primaryKey: true,
+			autoIncrement: true,
 			index: true
+		},
+		courseSectionID: {
+			mode: 'Course_Section',
+			required: true
 		}, 
 		role:{
 			type: 'string',
@@ -25,5 +30,6 @@ module.exports = {
 			model: 'AcademicStaff',
 			required: true
 		} 
-	}
+	},
+	tableName: 'AcademicStaff_Section'
 };

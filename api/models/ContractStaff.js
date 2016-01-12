@@ -11,7 +11,19 @@ module.exports = {
 		contractStaffID: {
 			type: 'integer',
 			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
+		academicStaffID: {
+			model: 'AcademicStaff',
 			required: true
+		},
+		startDate:{
+			type: 'date',
+			required: true 
+		},
+		endDate:{
+			type: 'date'
 		}
 	},
 	tableName: 'ContractStaff'

@@ -23,31 +23,30 @@ module.exports = {
 			size: 50,
 			required: true
 		},
+		employeeNo: {
+			type: 'string',
+			size: 50
+		},
 		//Join table AcademicStaff_Department 1:M
-		belongsToDepartment:{
+		AcademicStaff_Department:{
 			collection: 'AcademicStaff_Department',
 			via: 'staffID'
 		},
-		//reference to employment table 1:M
-		hasEmployments:{
-			collection: 'Employment',
-			via: 'staffID'
-		},
 		//Join table AcademicStaff_Section 1:M
-		teachesSection:{
+		AcademicStaff_Section:{
 			collection: 'AcademicStaff_Section',
 			via: 'staffID'
-		}
+		},
 		//has contract staffs 1:M
-		// hasCAS:{
-		// 	collection: 'ContractStaff',
-		// 	via: 'contractStaffID'
-		// },
+		ContractStaff:{
+			collection: 'ContractStaff',
+			via: 'academicStaffID'
+		},
 		//has regular staffs 1:M
-		// hasRAS: {
-		// 	collection: 'RegularStaff',
-		// 	via: 'regularStaffID'
-		// }
+		RegularStaff: {
+			collection: 'RegularStaff',
+			via: 'academicStaffID'
+		}
 
 	},
 	tableName: 'AcademicStaff'

@@ -8,6 +8,12 @@
 module.exports = {
 
 	attributes: {
+		regularStaffRankID: {
+			type: 'integer',
+			autoIncrement: true,
+			primaryKey: true,
+			index: true
+		},
 		rankID: {
 			model: 'Rank',
 			required: true
