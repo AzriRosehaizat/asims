@@ -2,11 +2,10 @@ application.controller('loginModalController', function($scope, loginModalServic
     $scope.cancel = $scope.$dismiss;
     $scope.submit = function() {
         loginModalService.submit($scope.user)
-            .then(function(response) {
-                $scope.$close(response);
-            })
-            .catch(function(error) {
-                $scope.$dismiss(error);
+            .then(function(res) {
+                $scope.$close(res);
+            }, function(err) {
+                $scope.$dismiss(err);
             });
     };
 });

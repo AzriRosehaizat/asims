@@ -48,9 +48,12 @@ application
                 return config;
             },
             responseError: function(res) {
-                if (res.data.status === 401 || res.data.status === 403) {
+                if (res.status === 401 || res.status === 403) {
                     LocalService.unset('auth_token');
                     $injector.get('$state').go('index');
+                }
+                else if (!angular.isObject(res.data)) {
+                    return $q.reject("An unknown error occurred.");
                 }
                 return $q.reject(res.data);
             }

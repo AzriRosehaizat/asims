@@ -10,11 +10,12 @@ application.service('loginModalService', function($http, $q, $uibModal, Auth) {
         },
         'submit': function(user) {
             var defer = $q.defer();
-            Auth.login(user).success(function(response) {
-                defer.resolve(response);
-            }).error(function(err) {
-                defer.reject(err);
-            });
+            Auth.login(user)
+                .then(function(res) {
+                    defer.resolve(res);
+                }, function(err) {
+                    defer.reject(err);
+                });
             return defer.promise;
         }
     };

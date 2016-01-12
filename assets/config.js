@@ -21,7 +21,7 @@ application
         "username",
         {
             key: "email",
-            validationMessages: {
+            validationMessage: {
                 202: "{{viewValue}} is not a valid email.",
             }
         }

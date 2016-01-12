@@ -1,26 +1,33 @@
 application.controller('profileController', function($scope, DataService, CurrentUser, UserSchema, UserForm) {
 
-    $scope.user = {
-        id: CurrentUser.user().id,
-        username: CurrentUser.user().username,
-        email: CurrentUser.user().email
-    };
+    if ($scope.user === undefined) {
+        getUser();
+    }
 
     $scope.schema = UserSchema;
     $scope.form = UserForm;
 
     $scope.onSubmit = function(form) {
-        // First we broadcast an event so all fields validate themselves
+        // first we broadcast an event so all fields validate themselves
         $scope.$broadcast('schemaFormValidate');
 
         if (form.$valid) {
             DataService.updateUser($scope.user)
                 .then(function(data) {
-                    console.log(data);
-                    CurrentUser.update(data);
+                    form.$setPristine(); // to hide buttons
+                    CurrentUser.update(data); // update user saved in local storage
                 }, function(err) {
                     console.warn(err);
                 });
         }
     }
+
+    $scope.onCancel = function(form) {
+        getUser();
+        form.$setPristine(); // to hide buttons
+    };
+
+    function getUser() {
+        $scope.user = CurrentUser.user();
+    };
 });

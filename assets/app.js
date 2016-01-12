@@ -1,4 +1,4 @@
-var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate', 'xeditable', 'schemaForm']);
+var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate', 'schemaForm']);
 
 application.config(function($stateProvider, $urlRouterProvider, $locationProvider, AccessLevels) {
 	$urlRouterProvider.otherwise('/index');
@@ -96,16 +96,12 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 		if (!Auth.authorize(toState.data.access)) {
 			event.preventDefault();
 			loginModalService.open().result
-				.then(function(response) {
+				.then(function(res) {
 					$state.go(toState.name, toParams);
 				})
-				.catch(function(error) {
+				.catch(function(err) {
 					$state.go('index');
 				});
 		}
 	});
-});
-
-application.run(function(editableOptions) {
-	editableOptions.theme = 'bs3';
 });
