@@ -11,7 +11,8 @@ module.exports = {
   connection: 'MySQLServerMeta',
   tableName: 'Jwt',
   autoPK: true,
-
+  migrate: 'alter',
+  tableName: 'Jwt',
   attributes: require('waterlock').models.jwt.attributes({
     
     /* e.g.
