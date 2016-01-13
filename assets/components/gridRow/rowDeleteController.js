@@ -10,5 +10,5 @@ application.controller('rowDeleteController', function($scope, $uibModalInstance
             }, function(err) {
                 console.warn(err);
             });
-    }
+    };
 });

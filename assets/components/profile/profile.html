@@ -1,12 +1,25 @@
 <div class="jumbotron">
-
-    <form name="editForm">
-        <div class="buttons pull-right">
-            <button class="btn btn-success" ng-hide="editForm.$invalid || !editForm.$dirty" ng-click="onSubmit(editForm)">Save</button>
-            <button class="btn btn-warning" ng-hide="!editForm.$dirty" ng-click="onCancel(editForm)">Cancel</button>
+    <h2> Profile </h2>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+            <div>
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span class="sr-only">User:</span> {{ user.username }}
+            </div>
+            
+            <div>
+                <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                <span class="sr-only">Email:</span> {{ user.email }}
+            </div>
+            
+            <div>
+                <span class="glyphicon glyphicon-king" aria-hidden="true"></span>
+                <span class="sr-only">Role:</span> {{ user.role.role }}
+            </div>
+            <br>
+            <button class="btn btn-primary" ng-click="openEditModal()">Edit</button>
         </div>
-        <br>
-        <div sf-schema="schema" sf-form="form" sf-model="user"></div>
-    </form>
-
+        <div class="col-sm-6"></div>
+    </div>
 </div>
