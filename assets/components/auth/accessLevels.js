@@ -1,5 +1,6 @@
 application.constant('AccessLevels', {
-    guest: 'guest',
-    user: 'user',
-    admin: 'admin'
+    guest: 0,
+    reader: 1,
+    writer: 2,
+    admin: 3
 });

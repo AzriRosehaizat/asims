@@ -30,7 +30,7 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				}
 			},
 			data: {
-				access: AccessLevels.user
+				access: AccessLevels.reader
 			}
 		})
 		.state('application.root', {
@@ -64,10 +64,10 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 					templateUrl: '/components/profile/profile.html',
 					controller: 'profileController'
 				},
-				'details@application.profile': {
-					templateUrl: '/components/details/details.html',
-					controller: 'detailsController'
-				}
+				// 'details@application.profile': {
+				// 	templateUrl: '/components/details/details.html',
+				// 	controller: 'detailsController'
+				// }
 			},
 		})
 		.state('application.admin', {
@@ -99,6 +99,7 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 				.then(function(res) {
 					$state.go(toState.name, toParams);
 				}, function(err) {
+					console.warn(err);
 					$state.go('index');
 				});
 		}

@@ -1,11 +1,10 @@
-application
-    .factory('Auth', function($http, LocalService, CurrentUser, AccessLevels) {
+application.factory('Auth', function($http, LocalService, CurrentUser, AccessLevels) {
         return {
             authorize: function(access) {
                 if (access === AccessLevels.admin) {
                     return this.isAdmin();
                 }
-                else if (access === AccessLevels.user) {
+                else if (access === AccessLevels.reader) {
                     return this.isAuthenticated();
                 }
                 else {
@@ -39,9 +38,7 @@ application
             }
         };
     })
-    .factory('AuthInterceptor', function($q, $injector) {
-        var LocalService = $injector.get('LocalService');
-
+    .factory('AuthInterceptor', function($q, $injector, LocalService) {
         return {
             request: function(config) {
                 var token;
@@ -59,11 +56,12 @@ application
                     $injector.get('$state').go('index');
                 }
                 else if (!angular.isObject(res.data)) {
-                    return $q.reject("An unknown error occurred.");
+                    // return $q.reject("An unknown error occurred.");
+                    return $q.reject(res);
                 }
                 return $q.reject(res.data);
             }
-        }
+        };
     })
     .config(function($httpProvider) {
         $httpProvider.interceptors.push('AuthInterceptor');
