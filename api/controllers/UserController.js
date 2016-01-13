@@ -40,7 +40,8 @@ module.exports = require('waterlock').actions.user({
     var params = waterlock._utils.allParams(req);
     var userObj = {
       id: params.id,
-      email: params.email
+      email: params.email,
+      role: params.role.id
     };
 
     User.update({id: userObj.id}, userObj).exec(function userUpdated(err, users) {
@@ -51,13 +52,7 @@ module.exports = require('waterlock').actions.user({
         return res.badRequest('User doesn\'t exist.');
       }
       
-      User.find({id: users[0].id}).populate('auth').exec(function authPopulated(err, users) {
-        if (err) {
-          return res.negotiate(err);
-        }
-        
-        res.json(users[0]);
-      });
+      res.json(users[0]);
     });
   },
 
