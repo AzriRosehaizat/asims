@@ -1,29 +1,25 @@
-application.controller('profileController', function($scope, DataService, CurrentUser, UserSchema, UserForm) {
+application.controller('profileController', function($scope, $uibModal, CurrentUser) {
 
     if ($scope.user === undefined) {
         getUser();
     }
 
-    $scope.schema = UserSchema;
-    $scope.form = UserForm;
+    $scope.openEditModal = function() {
+        var modalInstance = $uibModal.open({
+            templateUrl: '/components/profile/profileModal.html',
+            controller: 'profileModalController',
+            resolve: {
+                user: function() {
+                    return $scope.user;
+                }
+            }
+        });
 
-    $scope.onSubmit = function(form) {
-        // first we broadcast an event so all fields validate themselves
-        $scope.$broadcast('schemaFormValidate');
-
-        if (form.$valid) {
-            DataService.updateUser($scope.user)
-                .then(function(data) {
-                    form.$setPristine(); // to hide buttons
-                }, function(err) {
-                    console.warn(err);
-                });
-        }
-    }
-
-    $scope.onCancel = function(form) {
-        getUser();
-        form.$setPristine(); // to hide buttons
+        modalInstance.result.then(function(updatedUser) {
+            $scope.user = updatedUser
+        }, function(err) {
+            console.log(err);
+        });
     };
 
     function getUser() {
@@ -33,5 +29,5 @@ application.controller('profileController', function($scope, DataService, Curren
             }, function(err) {
                 console.warn(err);
             });
-    };
+    }
 });

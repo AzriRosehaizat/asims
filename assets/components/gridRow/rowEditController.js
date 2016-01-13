@@ -9,6 +9,7 @@ application.controller('rowEditController', function($scope, $uibModalInstance, 
         $scope.$broadcast('schemaFormValidate');
 
         if (form.$valid) {
+            updateRole();  // update role.role because only role.id got changed
             DataService.updateUser($scope.entity)
                 .then(function(data) {
                     // copy row values over
@@ -17,6 +18,20 @@ application.controller('rowEditController', function($scope, $uibModalInstance, 
                 }, function(err) {
                     console.warn(err);
                 });
+        }
+    };
+
+    function updateRole() {
+        switch ($scope.entity.role.id) {
+            case 1:
+                $scope.entity.role.role = 'reader';
+                break;
+            case 2:
+                $scope.entity.role.role = 'writer';
+                break;
+            case 3:
+                $scope.entity.role.role = 'admin';
+                break;
         }
     }
 });
