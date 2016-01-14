@@ -1,6 +1,12 @@
 application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, UserForm) {
 
     $scope.gridOptions = {
+        multiSelect: false,
+        enableRowHeaderSelection: false,
+        enableExpandableRowHeader: false,
+        expandableRowTemplate: '/components/gridRow/expandableRow.html',
+        expandableRowHeight: 27,
+
         columnDefs: [{
             name: 'Name',
             field: 'username'
@@ -10,29 +16,44 @@ application.controller('adminController', function($scope, DataService, RowEdito
         }, {
             name: 'Role',
             field: 'role.role'
-        }, {
-            enableColumnMenu: false,
-            displayName: '',
-            name: 'Edit',
-            cellTemplate: '<button type="button" class="btn btn-primary btn-block" aria-label="Edit" ng-click="grid.appScope.editRow(grid.appScope.schema, grid.appScope.form, grid, row)"><i class="glyphicon glyphicon-edit"></i></button>',
-            width: 35
-        }, {
-            enableColumnMenu: false,
-            displayName: '',
-            name: 'Delete',
-            cellTemplate: '<button type="button" class="btn btn-danger btn-block" aria-label="Delete" ng-click="grid.appScope.deleteRow(grid, row)"><i class="glyphicon glyphicon-remove"></i></button>',
-            width: 35
         }]
     };
-    
-    if ($scope.gridOptions.data === undefined) {
+
+    if (!angular.isObject($scope.gridOptions.data)) {
         getUsers();
     }
 
-    $scope.schema = UserSchema;
-    $scope.form = UserForm;
-    $scope.editRow = RowEditor.editRow;
-    $scope.deleteRow = RowEditor.deleteRow;
+    $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.row = row;
+            // when a row is selected, open/close its expandable row.
+            row.isExpanded = !row.isExpanded;
+            if (row.isExpanded) {
+                // close other rows.
+                angular.forEach(row.grid.rows, function(value, key) {
+                   if (value.isExpanded && value.uid !== row.uid) {
+                       value.isExpanded = false;
+                   }
+                });
+            }
+        });
+    };
+
+    $scope.editRow = function() {
+        var modalInstance = RowEditor.editRow(UserSchema, UserForm, $scope.row);
+        // I'm doing this because only role.id gets modified by the edit form.
+        // role.role is updated corresponding to role.id here.
+        modalInstance.result.then(function(data) {
+            if (angular.isObject(data))
+                updateRole(data.role.id);
+        }, function(err) {
+            console.warn(err);
+        });
+    };
+
+    $scope.deleteRow = function() {
+        RowEditor.deleteRow($scope.row);
+    };
 
     function getUsers() {
         DataService.getUsers()
@@ -41,5 +62,10 @@ application.controller('adminController', function($scope, DataService, RowEdito
             }, function(err) {
                 console.warn(err);
             });
+    }
+
+    function updateRole(roleID) {
+        var roles = ['reader', 'writer', 'admin'];
+        $scope.row.entity.role.role = roles[roleID - 1];
     }
 });
