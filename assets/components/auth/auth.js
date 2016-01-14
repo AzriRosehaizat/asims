@@ -18,7 +18,7 @@ application.factory('Auth', function($http, LocalService, CurrentUser, AccessLev
                 return (CurrentUser.getRole() === AccessLevels.admin);
             },
             login: function(credentials) {
-                var login = $http.post('/auth/login', credentials)
+                var login = $http.post('/auth/login/', credentials)
                     .then(function(res) {
                         LocalService.set('auth_token', JSON.stringify(res.data));
                     });
@@ -30,7 +30,7 @@ application.factory('Auth', function($http, LocalService, CurrentUser, AccessLev
             },
             register: function(formData) {
                 LocalService.unset('auth_token');
-                var register = $http.post('/auth/register', formData)
+                var register = $http.post('/auth/register/', formData)
                     .then(function(res) {
                         LocalService.set('auth_token', JSON.stringify(res.data));
                     });

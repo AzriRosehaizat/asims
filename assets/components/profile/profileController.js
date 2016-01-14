@@ -1,6 +1,6 @@
 application.controller('profileController', function($scope, $uibModal, CurrentUser) {
 
-    if ($scope.user === undefined) {
+    if (!angular.isObject($scope.user)) {
         getUser();
     }
 
@@ -15,10 +15,11 @@ application.controller('profileController', function($scope, $uibModal, CurrentU
             }
         });
 
-        modalInstance.result.then(function(updatedUser) {
-            $scope.user = updatedUser
+        modalInstance.result.then(function(data) {
+            if (angular.isObject(data))
+                $scope.user = data;
         }, function(err) {
-            console.log(err);
+            console.warn(err);
         });
     };
 
