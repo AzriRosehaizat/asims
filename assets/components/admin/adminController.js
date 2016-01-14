@@ -1,3 +1,7 @@
+// To create a controller that uses ui-grid,
+// copy and paste this code except updateRole().
+// Then, change $scope.girdOptions.columnDefs and getUsers().
+
 application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, UserForm) {
 
     $scope.gridOptions = {
@@ -24,9 +28,10 @@ application.controller('adminController', function($scope, DataService, RowEdito
     }
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        // listen for a selected row.
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
-            // when a row is selected, open/close its expandable row.
+            // open/close expandable row.
             row.isExpanded = !row.isExpanded;
             if (row.isExpanded) {
                 // close other rows.
