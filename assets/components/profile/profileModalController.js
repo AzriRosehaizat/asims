@@ -18,8 +18,4 @@ application.controller('profileModalController', function($scope, $uibModalInsta
                 });
         }
     };
-    
-    $scope.onClose = function() {
-        $uibModalInstance.close(user);
-    }
 });

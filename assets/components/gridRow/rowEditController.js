@@ -1,5 +1,5 @@
-application.controller('rowEditController', function($scope, $uibModalInstance, DataService, schema, form, grid, row) {
-
+application.controller('rowEditController', function($scope, $uibModalInstance, DataService, schema, form, row) {
+    
     $scope.entity = angular.copy(row.entity);
     $scope.schema = schema;
     $scope.form = form;
@@ -9,7 +9,6 @@ application.controller('rowEditController', function($scope, $uibModalInstance, 
         $scope.$broadcast('schemaFormValidate');
 
         if (form.$valid) {
-            updateRole();  // update role.role because only role.id got changed
             DataService.updateUser($scope.entity)
                 .then(function(data) {
                     // copy row values over
@@ -20,18 +19,4 @@ application.controller('rowEditController', function($scope, $uibModalInstance, 
                 });
         }
     };
-
-    function updateRole() {
-        switch ($scope.entity.role.id) {
-            case 1:
-                $scope.entity.role.role = 'reader';
-                break;
-            case 2:
-                $scope.entity.role.role = 'writer';
-                break;
-            case 3:
-                $scope.entity.role.role = 'admin';
-                break;
-        }
-    }
 });
