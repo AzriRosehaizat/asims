@@ -7,10 +7,10 @@ application.controller('professorController', function( $scope ) {
             { name: 'First Name', field: 'firstName' },
             { name: 'Last Name', field: 'lastName' },
             { name: 'Hire Date', field: 'hireDate' },
+            { name: 'Termination Date', field: 'terminationDate' }
         ],
         data:[
-            {firstName:'James', lastName:'MacKay', hireDate:'02/28/1991'},
-            {firstName:'Azri', lastName:'Don\'tRemember', hireDate:'Don\'t Know'}
+
         ]
     };
     
@@ -27,7 +27,7 @@ application.controller('professorController', function( $scope ) {
                 ]
             } 
         },
-        {   title:'Related Table 2', 
+        {   title:'Teaching Activities', 
             gridOptions:{
                 enableSorting: true,
                 columnDefs: [
