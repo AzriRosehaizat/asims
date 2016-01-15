@@ -1,2 +1,5 @@
-application.controller('loginButtonController', function($scope, $state) {
+application.controller('loginButtonController', function($scope, loginModalService) {
+    $scope.openLoginModal = function() {
+        loginModalService.open();
+    }
 });
