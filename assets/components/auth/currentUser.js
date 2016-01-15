@@ -10,7 +10,7 @@ application.factory('CurrentUser', function(LocalService, DataService) {
             }
         },
         getUser: function() {
-            return DataService.getUser(this.getID())
+            return DataService.getById('/user/', this.getID())
                 .then(function(data) {
                     return data;
                 });

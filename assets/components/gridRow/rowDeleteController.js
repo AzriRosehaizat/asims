@@ -1,7 +1,7 @@
-application.controller('rowDeleteController', function($scope, $uibModalInstance, DataService, row) {
+application.controller('rowDeleteController', function($scope, $uibModalInstance, DataService, row, url) {
 
     $scope.onDelete = function() {
-        DataService.deleteUser(row.entity.id)
+        DataService.delete(url, row.entity.id)
             .then(function(data) {
                 // delete row
                 var index = row.grid.appScope.gridOptions.data.indexOf(row.entity);

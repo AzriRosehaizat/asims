@@ -1,4 +1,4 @@
-application.controller('rowEditController', function($scope, $uibModalInstance, DataService, schema, form, row) {
+application.controller('rowEditController', function($scope, $uibModalInstance, DataService, schema, form, row, url) {
     
     $scope.entity = angular.copy(row.entity);
     $scope.schema = schema;
@@ -9,7 +9,7 @@ application.controller('rowEditController', function($scope, $uibModalInstance, 
         $scope.$broadcast('schemaFormValidate');
 
         if (form.$valid) {
-            DataService.updateUser($scope.entity)
+            DataService.update(url, $scope.entity)
                 .then(function(data) {
                     // copy row values over
                     row.entity = angular.extend(row.entity, $scope.entity);

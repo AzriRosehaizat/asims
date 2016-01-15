@@ -1,6 +1,6 @@
-application.controller('profileModalController', function($scope, $uibModalInstance, user, DataService, UserSchema, ProfileForm) {
+application.controller('profileModalController', function($scope, $uibModalInstance, DataService, UserSchema, ProfileForm, user, url) {
 
-    $scope.user = angular.copy(user);
+    $scope.model = angular.copy(user);
     $scope.schema = UserSchema;
     $scope.form = ProfileForm;
 
@@ -9,9 +9,9 @@ application.controller('profileModalController', function($scope, $uibModalInsta
         $scope.$broadcast('schemaFormValidate');
 
         if (form.$valid) {
-            DataService.updateUser($scope.user)
+            DataService.update(url, $scope.model)
                 .then(function(data) {
-                    user = angular.extend(user, $scope.user);
+                    user = angular.extend(user, $scope.model);
                     $uibModalInstance.close(user);
                 }, function(err) {
                     console.warn(err);
