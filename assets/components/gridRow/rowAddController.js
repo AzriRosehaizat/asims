@@ -1,6 +1,6 @@
-application.controller('rowEditController', function($scope, $uibModalInstance, DataService, schema, form, url) {
+application.controller('rowAddController', function($scope, $uibModalInstance, DataService, schema, form, url) {
     
-    $scope.title = '';
+    $scope.title = 'User';
     $scope.entity = {};
     $scope.schema = schema;
     $scope.form = form;
@@ -12,7 +12,6 @@ application.controller('rowEditController', function($scope, $uibModalInstance, 
         if (form.$valid) {
             DataService.post(url, $scope.entity)
                 .then(function(data) {
-                    // copy row values over
                     $uibModalInstance.close($scope.entity);
                 }, function(err) {
                     console.warn(err);
