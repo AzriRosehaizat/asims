@@ -2,7 +2,7 @@
 // copy and paste this code except updateRole().
 // Then, change $scope.girdOptions.columnDefs and getUsers().
 
-application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, UserForm) {
+application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, EditUserForm, AddUserForm) {
 
     $scope.gridOptions = {
         multiSelect: false,
@@ -28,32 +28,41 @@ application.controller('adminController', function($scope, DataService, RowEdito
     }
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
-        // listen for a selected row.
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
-            // open/close expandable row.
+            // open/close expandable row
             row.isExpanded = !row.isExpanded;
             if (row.isExpanded) {
-                // close other rows.
-                angular.forEach(row.grid.rows, function(value, key) {
-                   if (value.isExpanded && value.uid !== row.uid) {
-                       value.isExpanded = false;
-                   }
-                });
+                row.isSelected = true;
+                // close the last expanded row
+                if (angular.isObject($scope.lastRow) && row.uid !== $scope.lastRow.uid)
+                    $scope.lastRow.isExpanded = false;
+                    $scope.lastRow = row;
             }
         });
     };
 
+    $scope.addRow = function() {
+        RowEditor.addRow(UserSchema, AddUserForm, '/user/create/')
+            .result.then(function(data) {
+                if (angular.isObject(data)) {
+                    // reload grid data. better idea?
+                    getUsers();
+                }
+            });
+    };
+
     $scope.editRow = function() {
-        var modalInstance = RowEditor.editRow(UserSchema, UserForm, $scope.row);
-        // I'm doing this because only role.id gets modified by the edit form.
-        // role.role is updated corresponding to role.id here.
-        modalInstance.result.then(function(data) {
-            if (angular.isObject(data))
-                updateRole(data.role.id);
-        }, function(err) {
-            console.warn(err);
-        });
+        RowEditor.editRow(UserSchema, EditUserForm, $scope.row)
+            .result.then(function(data) {
+                if (angular.isObject(data)) {
+                    // I'm doing this because only role.id gets modified by the edit form
+                    // role.role is updated corresponding to role.id here. or we can just run getUsers()
+                    updateRole(data.role.id);
+                    // close the expanded row
+                    $scope.row.isExpanded = false;
+                }
+            });
     };
 
     $scope.deleteRow = function() {
@@ -64,8 +73,6 @@ application.controller('adminController', function($scope, DataService, RowEdito
         DataService.getUsers()
             .then(function(data) {
                 $scope.gridOptions.data = data;
-            }, function(err) {
-                console.warn(err);
             });
     }
 
