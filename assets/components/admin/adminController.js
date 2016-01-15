@@ -2,7 +2,7 @@
 // copy and paste this code except updateRole().
 // Then, change $scope.girdOptions.columnDefs and getUsers().
 
-application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, EditUserForm, AddUserForm) {
+application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, AddUserForm, EditUserForm) {
 
     $scope.gridOptions = {
         multiSelect: false,
@@ -37,7 +37,7 @@ application.controller('adminController', function($scope, DataService, RowEdito
                 // close the last expanded row
                 if (angular.isObject($scope.lastRow) && row.uid !== $scope.lastRow.uid)
                     $scope.lastRow.isExpanded = false;
-                    $scope.lastRow = row;
+                $scope.lastRow = row;
             }
         });
     };
