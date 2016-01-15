@@ -1,7 +1,7 @@
-application.controller('profileModalController', function($scope, $uibModalInstance, user, DataService, ProfileSchema, ProfileForm) {
+application.controller('profileModalController', function($scope, $uibModalInstance, user, DataService, UserSchema, ProfileForm) {
 
     $scope.user = angular.copy(user);
-    $scope.schema = ProfileSchema;
+    $scope.schema = UserSchema;
     $scope.form = ProfileForm;
 
     $scope.onSubmit = function(form) {
