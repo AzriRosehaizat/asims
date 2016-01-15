@@ -1,22 +1,11 @@
-application.service('loginModalService', function($q, $uibModal, Auth) {
+application.service('loginModalService', function($state, $uibModal) {
     return {
-        'open': function() {
+        open: function() {
             return $uibModal.open({
-                animation: true,
                 templateUrl: '/components/loginModal/loginModal.html',
                 controller: 'loginModalController',
                 size: 'sm'
             });
-        },
-        'submit': function(user) {
-            var defer = $q.defer();
-            Auth.login(user)
-                .then(function(res) {
-                    defer.resolve(res);
-                }, function(err) {
-                    defer.reject(err);
-                });
-            return defer.promise;
         }
     };
 });
