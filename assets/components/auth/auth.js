@@ -1,4 +1,4 @@
-application.factory('Auth', function($http, LocalService, CurrentUser, AccessLevels) {
+application.factory('Auth', function($http, $state, LocalService, CurrentUser, AccessLevels) {
         return {
             authorize: function(access) {
                 if (access === AccessLevels.admin) {
@@ -27,6 +27,7 @@ application.factory('Auth', function($http, LocalService, CurrentUser, AccessLev
             logout: function() {
                 // The backend doesn't care about logouts, delete the token and you're good to go.
                 LocalService.unset('auth_token');
+                $state.go('index');
             },
             register: function(formData) {
                 LocalService.unset('auth_token');
