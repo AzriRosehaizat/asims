@@ -18,8 +18,8 @@ How to deploy application in development:
 
 Remote Database Setup:
 -------------------------------
-1. Open config\local.js in the c9 shared repo. Copy credentials manually and create your own local.js. Never place this anywhere else.
-
+1. Open config/local.js in the c9 shared repo. Copy credentials manually and create your own local.js. Never place this anywhere else.
+2. Or setup the above as $ENV corresponding to the one setup in config/connection.js
 
 Development Workflow
 -------------------------------
