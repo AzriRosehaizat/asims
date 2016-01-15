@@ -1,45 +1,42 @@
-application.factory('Auth', function($http, $state, LocalService, CurrentUser, AccessLevels) {
-        return {
-            authorize: function(access) {
-                if (access === AccessLevels.admin) {
-                    return this.isAdmin();
-                }
-                else if (access === AccessLevels.reader) {
-                    return this.isAuthenticated();
-                }
-                else {
-                    return true;
-                }
-            },
-            isAuthenticated: function() {
-                return LocalService.get('auth_token');
-            },
-            isAdmin: function() {
-                return (CurrentUser.getRole() === AccessLevels.admin);
-            },
-            login: function(credentials) {
-                var login = $http.post('/auth/login/', credentials)
-                    .then(function(res) {
-                        LocalService.set('auth_token', JSON.stringify(res.data));
-                    });
-                return login;
-            },
-            logout: function() {
-                // The backend doesn't care about logouts, delete the token and you're good to go.
-                LocalService.unset('auth_token');
-                $state.go('index');
-            },
-            register: function(formData) {
-                LocalService.unset('auth_token');
-                var register = $http.post('/auth/register/', formData)
-                    .then(function(res) {
-                        LocalService.set('auth_token', JSON.stringify(res.data));
-                    });
-                return register;
+application.factory('Auth', function($state, DataService, LocalService, CurrentUser, AccessLevels) {
+    return {
+        authorize: function(access) {
+            if (access === AccessLevels.admin) {
+                return this.isAdmin();
             }
-        };
-    })
-    .factory('AuthInterceptor', function($q, $injector, LocalService) {
+            else if (access === AccessLevels.reader) {
+                return this.isAuthenticated();
+            }
+            else {
+                return true;
+            }
+        },
+        isAuthenticated: function() {
+            return LocalService.get('auth_token');
+        },
+        isWriter: function() {
+            return (CurrentUser.getRole() === AccessLevels.writer);
+        },
+        isAdmin: function() {
+            return (CurrentUser.getRole() === AccessLevels.admin);
+        },
+        login: function(credentials) {
+            var login = DataService.post('/auth/login/', credentials)
+                .then(function(data) {
+                    LocalService.set('auth_token', JSON.stringify(data));
+                });
+            return login;
+        },
+        logout: function() {
+            // The backend doesn't care about logouts, delete the token and you're good to go.
+            // Is that true?
+            LocalService.unset('auth_token');
+            $state.go('index');
+        }
+    };
+});
+
+application.factory('AuthInterceptor', function($q, $injector, LocalService) {
         return {
             request: function(config) {
                 var token;

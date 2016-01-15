@@ -1,4 +1,4 @@
-application.service('loginModalService', function($http, $q, $uibModal, Auth) {
+application.service('loginModalService', function($q, $uibModal, Auth) {
     return {
         'open': function() {
             return $uibModal.open({

@@ -17,7 +17,7 @@ application.factory('RowEditor', function($uibModal) {
                 }
             });
         },
-        editRow: function(schema, form, row) {
+        editRow: function(schema, form, row, url) {
             return $uibModal.open({
                 templateUrl: '/components/gridRow/editModal.html',
                 controller: 'rowEditController',
@@ -30,17 +30,23 @@ application.factory('RowEditor', function($uibModal) {
                     },
                     row: function() {
                         return row;
+                    },
+                    url: function() {
+                        return url;
                     }
                 }
             });
         },
-        deleteRow: function(row) {
+        deleteRow: function(row, url) {
             return $uibModal.open({
                 templateUrl: '/components/gridRow/deleteModal.html',
                 controller: 'rowDeleteController',
                 resolve: {
                     row: function() {
                         return row;
+                    },
+                    url: function() {
+                        return url;
                     }
                 }
             });

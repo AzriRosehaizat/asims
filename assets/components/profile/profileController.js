@@ -1,5 +1,7 @@
 application.controller('profileController', function($scope, $uibModal, CurrentUser) {
 
+    $scope.url = '/user/update/';
+
     if (!angular.isObject($scope.user)) {
         getUser();
     }
@@ -11,6 +13,9 @@ application.controller('profileController', function($scope, $uibModal, CurrentU
             resolve: {
                 user: function() {
                     return $scope.user;
+                },
+                url: function() {
+                    return $scope.url;
                 }
             }
         });
@@ -18,8 +23,6 @@ application.controller('profileController', function($scope, $uibModal, CurrentU
         modalInstance.result.then(function(data) {
             if (angular.isObject(data))
                 $scope.user = data;
-        }, function(err) {
-            console.warn(err);
         });
     };
 

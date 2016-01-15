@@ -53,7 +53,7 @@ application.controller('adminController', function($scope, DataService, RowEdito
     };
 
     $scope.editRow = function() {
-        RowEditor.editRow(UserSchema, EditUserForm, $scope.row)
+        RowEditor.editRow(UserSchema, EditUserForm, $scope.row, '/user/update/')
             .result.then(function(data) {
                 if (angular.isObject(data)) {
                     // I'm doing this because only role.id gets modified by the edit form
@@ -66,11 +66,11 @@ application.controller('adminController', function($scope, DataService, RowEdito
     };
 
     $scope.deleteRow = function() {
-        RowEditor.deleteRow($scope.row);
+        RowEditor.deleteRow($scope.row, '/user/delete/');
     };
 
     function getUsers() {
-        DataService.getUsers()
+        DataService.get('/user/')
             .then(function(data) {
                 $scope.gridOptions.data = data;
             });
