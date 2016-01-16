@@ -10,9 +10,10 @@ module.exports = {
   
 	connection: 'MySQLServerMeta',
 	autoPK: true,
-	 autoCreatedAt: true,
+	autoCreatedAt: true,
 	migrate: 'alter',
 	tableName: 'Attempt',
+	
 	attributes: require('waterlock').models.attempt.attributes({
 
 	/* e.g.

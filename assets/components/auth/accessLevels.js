@@ -1,6 +1,6 @@
-angular.module('application')
-    .constant('AccessLevels', {
-        anon: 0,
-        user: 1,
-        admin: 2
-    });
+application.constant('AccessLevels', {
+    guest: 0,
+    reader: 1,
+    writer: 2,
+    admin: 3
+});

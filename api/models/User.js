@@ -9,10 +9,10 @@
 module.exports = {
 
   connection: 'MySQLServerMeta',
-  tableName: 'User',
   autoPK: true,
   migrate: 'alter',
   tableName: 'User',
+  
   attributes: require('waterlock').models.user.attributes({
 
     username: {
@@ -26,10 +26,9 @@ module.exports = {
       unique: true
     },
     
-    // role: {
-    //   type: 'string',
-    //   enum: ['reader', 'writer', 'admin']
-    // },
+    role: {
+      model: 'Role'
+    },
 
     toJSON: function() {
       var obj = this.toObject();

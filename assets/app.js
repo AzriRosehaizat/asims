@@ -1,8 +1,4 @@
-var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ngAnimate', 'xeditable']);
-
-application.run(function(editableOptions) {
-  editableOptions.theme = 'bs3';
-});
+var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ui.grid', 'ui.grid.selection', 'ui.grid.expandable', 'schemaForm']);
 
 application.config(function($stateProvider, $urlRouterProvider, $locationProvider, AccessLevels) {
 	$urlRouterProvider.otherwise('/index');
@@ -19,7 +15,7 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				}
 			},
 			data: {
-				access: AccessLevels.anon
+				access: AccessLevels.guest
 			}
 		})
 		.state('application', {
@@ -34,7 +30,7 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				}
 			},
 			data: {
-				access: AccessLevels.user
+				access: AccessLevels.reader
 			}
 		})
 		.state('application.root', {
@@ -68,10 +64,10 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 					templateUrl: '/components/profile/profile.html',
 					controller: 'profileController'
 				},
-				'details@application.profile': {
-					templateUrl: '/components/details/details.html',
-					controller: 'detailsController'
-				}
+				// 'details@application.profile': {
+				// 	templateUrl: '/components/details/details.html',
+				// 	controller: 'detailsController'
+				// }
 			},
 		})
 		.state('application.admin', {
@@ -87,7 +83,7 @@ application.config(function($stateProvider, $urlRouterProvider, $locationProvide
 				}
 			},
 			data: {
-				access: AccessLevels.user // should be admin
+				access: AccessLevels.admin
 			}
 		});
 
@@ -100,10 +96,10 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 		if (!Auth.authorize(toState.data.access)) {
 			event.preventDefault();
 			loginModalService.open().result
-				.then(function(response) {
+				.then(function(res) {
 					$state.go(toState.name, toParams);
-				})
-				.catch(function(error) {
+				}, function(err) {
+					console.warn(err);
 					$state.go('index');
 				});
 		}

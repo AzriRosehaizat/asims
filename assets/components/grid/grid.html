@@ -1,1 +1,8 @@
-<div ui-grid="gridOptions" class="grid"></div>
+<div class="container">
+    <div class="buttons pull-right">
+        <button type="button" class="btn btn-primary btn-sm" ng-click="addRow()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+<div ui-grid="gridOptions" ui-grid-selection ui-grid-expandable class="grid"></div>
