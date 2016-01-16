@@ -1,2 +1,2 @@
-application.controller('gridController', function( $scope ) {
+application.controller('gridController', function($scope) {
 });

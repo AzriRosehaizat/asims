@@ -1,8 +1,6 @@
 application.controller('professorController', function( $scope ) {
     
     $scope.gridOptions = {
-        enableRowSelection: true,
-        enableSorting: true,
         columnDefs: [
             { name: 'First Name', field: 'firstName' },
             { name: 'Last Name', field: 'lastName' },

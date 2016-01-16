@@ -33,30 +33,18 @@ module.exports = require('waterlock').actions.user({
         }
       });
     });
-
-    // UserService.create(
-    //   //pass a callback to be triggered upon completion 
-    //   function(err, user) {
-    //     //if there is an error creating the user throw an error (could probably be handled/client currently sees internal server error)
-    //     if (err) {
-    //       res.negotiate(err);
-    //     }
-    //     //if there is no error, return the newly created object in the response
-    //     else {
-    //       res.json(user);
-    //     }
-    //   },
-    //   // pass our created data to the create function 
-    //   auth, userObj
-    // );
   },
 
   update: function(req, res) {
 
     var params = waterlock._utils.allParams(req);
-    delete(params.username); // username can't be changed
+    var userObj = {
+      id: params.id,
+      email: params.email,
+      role: params.role.id
+    };
 
-    User.update({id: params.id}, params).exec(function userUpdated(err, users) {
+    User.update({id: userObj.id}, userObj).exec(function userUpdated(err, users) {
       if (err) {
         return res.negotiate(err);
       }
@@ -64,29 +52,8 @@ module.exports = require('waterlock').actions.user({
         return res.badRequest('User doesn\'t exist.');
       }
       
-      User.find({id: users[0].id}).populate('auth').exec(function authPopulated(err, users) {
-        if (err) {
-          return res.negotiate(err);
-        }
-        
-        delete(users[0].auth.user);  // to make users[0] same as the object that client has
-        res.json(users[0]);
-      });
+      res.json(users[0]);
     });
-    
-
-    // UserService.update(
-    //   //pass a callback to be triggered upon completion 
-    //   function(err, user) {
-    //     if (err) {
-    //       res.negotiate(err);
-    //     }
-    //     else {
-    //       res.json(user);
-    //     }
-    //   },
-    //   userObj
-    // );
   },
 
 });
