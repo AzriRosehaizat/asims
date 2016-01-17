@@ -86,7 +86,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			}
 		});
 
-	$urlRouterProvider.otherwise("/index");
+	$urlRouterProvider.otherwise(function($injector) {
+		var $state = $injector.get("$state");
+		$state.go("index");
+	});
 });
 
 application.run(function($rootScope, $state, loginModalService, Auth) {
