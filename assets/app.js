@@ -35,22 +35,22 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		.state("application.root", {
 			url: "/application"
 		})
-		.state("application.professor", {
-			url: "/professor",
+		.state("application.academicStaff", {
+			url: "/academicStaff",
 			views: {
 				"": {
 					templateUrl: "/components/content/content.html",
-					controller: "professorController"
+					controller: "academicStaffController"
 				},
-				"grid@application.professor": {
+				"grid@application.academicStaff": {
 					templateUrl: "/components/grid/grid.html",
 					controller: "gridController"
 				},
-				"details@application.professor": {
+				"details@application.academicStaff": {
 					templateUrl: "/components/details/details.html",
 					controller: "detailsController"
 				},
-				"tabset@application.professor": {
+				"tabset@application.academicStaff": {
 					templateUrl: "/components/tabset/tabset.html",
 					controller: "tabsetController"
 				}
@@ -86,13 +86,16 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			}
 		});
 
-	$urlRouterProvider.otherwise("/index");
+	$urlRouterProvider.otherwise(function($injector) {
+		var $state = $injector.get("$state");
+		$state.go("index");
+	});
 });
 
 application.run(function($rootScope, $state, loginModalService, Auth) {
 	$rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState) {
 
-		var shouldLogin = (toState.data !== undefined) && (fromState.name !== "index") && (!Auth.authorize(toState.data.access));
+		var shouldLogin = (toState.data !== undefined) && (!Auth.authorize(toState.data.access));
 
 		// NOT authenticated - wants any private stuff
 		if (shouldLogin) {
@@ -102,35 +105,15 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 			return;
 		}
 
-		// authenticated (previously) comming not to application.root
+		// authenticated (previously) comming to index
 		if (Auth.isAuthenticated()) {
-			var shouldGoToApp = (fromState.name === "index") && (toState.name !== "application.root");
+			var shouldGoToApp = (fromState.name === "") && (toState.name === "index");
 
 			if (shouldGoToApp) {
 				$state.go("application.root");
 				event.preventDefault();
+				return;
 			}
-			return;
 		}
-
-		// NOT authenticated (previously) comming not to index
-		var shouldGoToIndex = (fromState.name === "index");
-
-		if (shouldGoToIndex) {
-			$state.go("index");
-			console.log('p');
-			event.preventDefault();
-		}
-
-		// if (!Auth.authorize(toState.data.access)) {
-		// 	event.preventDefault();
-		// 	loginModalService.open().result
-		// 		.then(function(res) {
-		// 			$state.go(toState.name, toParams);
-		// 		}, function(err) {
-		// 			console.warn(err);
-		// 			$state.go("index");
-		// 		});
-		// }
 	});
 });
