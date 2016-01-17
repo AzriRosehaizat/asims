@@ -9,7 +9,6 @@ module.exports = {
 
   connection: 'MySQLServerMeta',
   autoPK: true,
-  migrate: 'alter',
   tableName: 'Role',
 
   attributes: {
