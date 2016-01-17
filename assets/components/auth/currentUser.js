@@ -16,18 +16,21 @@ application.factory('CurrentUser', function(LocalService, DataService) {
                 });
         },
         getRole: function() {
-            var localRole = angular.fromJson(LocalService.get('auth_token')).user.role;
-            this.getUser().then(function(data) {
-                if (localRole !== data.role.id) {
-                    console.warn("User's role has been modified! local: " + localRole + ", server: " + data.role.id);
-                    // don't need to do this after we set a policy to handle roles
-                    return LocalService.unset('auth_token');
-                }
-                console.log("User's role has been verified. local: " + localRole + ", server: " + data.role.id);
-            }, function(err) {
-                console.warn(err);
-            });
-            return localRole;
+            if (LocalService.get('auth_token')) {
+                var localRole = angular.fromJson(LocalService.get('auth_token')).user.role;
+                
+                this.getUser().then(function(data) {
+                    if (localRole !== data.role.id) {
+                        console.warn("User's role has been modified! local: " + localRole + ", server: " + data.role.id);
+                        // don't need to do this after we set a policy to handle roles
+                        return LocalService.unset('auth_token');
+                    }
+                }, function(err) {
+                    console.warn(err);
+                });
+                return localRole;
+            }
+            return {};
         },
     };
 });

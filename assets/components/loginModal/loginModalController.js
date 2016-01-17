@@ -1,11 +1,13 @@
-application.controller('loginModalController', function($scope, loginModalService) {
-    $scope.cancel = $scope.$dismiss;
+application.controller('loginModalController', function($scope, $state, $uibModalInstance, Auth) {
+
     $scope.submit = function() {
-        loginModalService.submit($scope.user)
-            .then(function(res) {
-                $scope.$close(res);
+        Auth.login($scope.user)
+            .then(function(data) {
+                $uibModalInstance.close();
+                $scope.userForm.$setPristine();
+                $state.go("application.root");
             }, function(err) {
-                $scope.$dismiss(err);
+                console.warn(err);
             });
     };
 });
