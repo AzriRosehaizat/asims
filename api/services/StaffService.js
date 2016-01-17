@@ -9,9 +9,13 @@
  */
 
 module.export = {
+	/**
+	* Return a list of all RAS ID
+	* @req None
+	* @res list of all RAS ID
+	*/
 	getRAS: function(req, res){
-			//Return a list of all RAS ID
-			RegularStaff.find({ select: ['academicStaffID'] ;
+		RegularStaff.find({ select: ['academicStaffID'] ;
 		},function(err, RAS){
 			if (err) return res.negotiate(err);           
 	  		return res.json(RAS); 
