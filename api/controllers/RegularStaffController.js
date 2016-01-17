@@ -6,14 +6,6 @@
  */
 
 module.exports = {
-	getRAS: function(req, res){
-			RegularStaff.find({ select: ['academicStaffID'] 
-			
 
-		}, function(err, RAS){
-			if (err) return res.negotiate(err);               //#C
-      		return res.json(RAS); 
-		});
-	}
 };
 
