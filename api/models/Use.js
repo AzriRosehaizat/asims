@@ -10,7 +10,6 @@ module.exports = {
   
 	connection: 'MySQLServerMeta',
 	autoPK: true,
-	migrate: 'alter',
 	tableName: 'Use',
 
 	attributes: require('waterlock').models.use.attributes({
