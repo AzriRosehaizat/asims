@@ -2,7 +2,8 @@ var cssFilesToInject = [
   'bower_components/bootstrap/dist/css/bootstrap.min.css',
   'bower_components/angular-ui-grid/ui-grid.css',
   'bower_components/angular-xeditable/dist/css/xeditable.css',
-  'components/**/*.css'
+  'components/**/*.css',
+  'custom.css'
 ];
 
 var jsFilesToInject = [
