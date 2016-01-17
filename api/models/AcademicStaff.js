@@ -1,9 +1,9 @@
 /**
-* AcademicStaff.js
-*
-* @description :: Contains information pertaining to both Regular Academic Staff, and Contract Academic Staff.
-* @author      :: A.A.
-*/
+ * AcademicStaff.js
+ *
+ * @description :: Contains information pertaining to both Regular Academic Staff, and Contract Academic Staff.
+ * @author      :: A.A.
+ */
 
 module.exports = {
 	attributes: {
@@ -28,17 +28,17 @@ module.exports = {
 			size: 50
 		},
 		//Join table AcademicStaff_Department 1:M
-		AcademicStaff_Department:{
+		AcademicStaff_Department: {
 			collection: 'AcademicStaff_Department',
 			via: 'staffID'
 		},
 		//Join table AcademicStaff_Section 1:M
-		AcademicStaff_Section:{
+		AcademicStaff_Section: {
 			collection: 'AcademicStaff_Section',
 			via: 'staffID'
 		},
 		//has contract staffs 1:M
-		ContractStaff:{
+		ContractStaff: {
 			collection: 'ContractStaff',
 			via: 'academicStaffID'
 		},
@@ -47,7 +47,6 @@ module.exports = {
 			collection: 'RegularStaff',
 			via: 'academicStaffID'
 		}
-
 	},
 	tableName: 'AcademicStaff'
 };
