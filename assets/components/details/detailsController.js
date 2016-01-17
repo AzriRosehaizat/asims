@@ -1,2 +1,2 @@
-application.controller('detailsController', function( $scope ) {
+application.controller('detailsController', function($scope) {
 });

@@ -1,8 +1,8 @@
 application.factory('DataService', function($http) {
     return {
         get: function(url) {
-            var req = $http.get(url);
-            return (req.then(handleSuccess));
+            return $http.get(url)
+                .then(handleSuccess);
         },
         getById: function(url, id) {
             var req = $http.get(url + id);

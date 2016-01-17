@@ -12,13 +12,19 @@ application.factory('Auth', function($state, DataService, LocalService, CurrentU
             }
         },
         isAuthenticated: function() {
-            return LocalService.get('auth_token');
+            return angular.isString(LocalService.get('auth_token'));
         },
         isWriter: function() {
-            return (CurrentUser.getRole() === AccessLevels.writer);
+            if (this.isAuthenticated()) {
+                return (CurrentUser.getRole() === AccessLevels.writer);
+            }
+            return false;
         },
         isAdmin: function() {
-            return (CurrentUser.getRole() === AccessLevels.admin);
+            if (this.isAuthenticated()) {
+                return (CurrentUser.getRole() === AccessLevels.admin);
+            }
+            return false;
         },
         login: function(credentials) {
             var login = DataService.post('/auth/login/', credentials)
