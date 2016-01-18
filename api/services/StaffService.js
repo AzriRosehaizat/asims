@@ -29,13 +29,12 @@ module.export = {
 		else if (type === "cas")
 			ContractStaff.find(selObj, cbHell);
 		else
-			return res.json({notFound:true})
+			RegularStaff.find(selObj, cbHell);
 	},
 
 	//Get department given a related staff ID
 	getDepartment: function(req, res){
-		var ID = req.param
-		AcademicStaff.findOne({staffID: ID})
+		AcademicStaff.findOne({staffID: 1})
 		.then(function(AcademicStaff){
 			if(AcademicStaff===undefined)
 			return res.json({notFound:true});
@@ -56,5 +55,9 @@ module.export = {
 	    }).catch(function(err) {
 	    	return res.serverError(err);
 	    })
+	},
+
+	getDepartment2: function(ID) {
+		AcademicStaff.findOne({staffID: ID})
 	}
 };
