@@ -6,6 +6,15 @@
  */
 
 module.exports = {
-
+	find: function(req, res){
+		var selObj = {select: ['academicStaffID']};
+		RegularStaff.find(selObj).exec(function ras(err, ras){
+	      	if (err) {
+    			return res.negotiate(err);
+      		} else {
+        		return res.json(ras)
+      		}
+		});
+	}
 };
 
