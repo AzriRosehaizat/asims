@@ -1,4 +1,4 @@
-application.controller('academicStaffController', function($scope, DataService, RowEditor, StaffSchema, EditStaffForm) {
+application.controller('academicStaffController', function($scope, DataService, StaffSchema, EditStaffForm) {
     
     $scope.title = "Academic Staff";
     $scope.schema = StaffSchema;
@@ -7,10 +7,7 @@ application.controller('academicStaffController', function($scope, DataService, 
     $scope.gridOptions = {
         multiSelect: false,
         enableRowHeaderSelection: false,
-        enableExpandableRowHeader: false,
-        expandableRowTemplate: '/components/gridRow/expandableRow.html',
-        expandableRowHeight: 27,
-
+        
         columnDefs: [{
             name: 'First Name',
             field: 'firstName'
@@ -70,14 +67,15 @@ application.controller('academicStaffController', function($scope, DataService, 
         //     DataService.update('/academicStaff/', $scope.model)
         //         .then(function(data) {
         //             // copy row values over
-        //             $scope.row.entity = angular.extend($scope.row.entity, $scope.model);
+        //             angular.extend($scope.row.entity, $scope.model);
         //         }, function(err) {
         //             console.warn(err);
         //         });
         // }
     };
     
-    $scope.onCancel = function() {
-        $scope.model = $scope.row.entity;
+    $scope.cancel = function() {
+        angular.extend($scope.model, $scope.row.entity);
+        $scope.model.switch = false;
     };
 });

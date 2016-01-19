@@ -1,17 +1,26 @@
-// To create a controller that uses ui-grid,
-// copy and paste this code except updateRole().
-// Then, change $scope.girdOptions.columnDefs and getUsers().
-
 application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, AddUserForm, EditUserForm) {
+
+    $scope.title = "Admin page";
+    $scope.schema = UserSchema;
+    $scope.form = EditUserForm;
 
     $scope.gridOptions = {
         multiSelect: false,
         enableRowHeaderSelection: false,
-        enableExpandableRowHeader: false,
-        expandableRowTemplate: '/components/gridRow/expandableRow.html',
-        expandableRowHeight: 27,
 
         columnDefs: [{
+            name: 'Status',
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                if (angular.isObject(row.entity.auth)) {
+                    return 'glyphicon glyphicon-ok text-center';
+                }
+                else {
+                    return 'glyphicon glyphicon-remove text-center';
+                }
+            },
+            width: 80,
+            enableColumnMenus: false
+        }, {
             name: 'Name',
             field: 'username'
         }, {
@@ -23,24 +32,26 @@ application.controller('adminController', function($scope, DataService, RowEdito
         }]
     };
 
+    $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.row = row;
+            // copy the row for details view
+            $scope.model = angular.copy(row.entity);
+            // to toggle details form
+            $scope.model.switch = false;
+        });
+    };
+
     if (!angular.isObject($scope.gridOptions.data)) {
         getUsers();
     }
 
-    $scope.gridOptions.onRegisterApi = function(gridApi) {
-        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            $scope.row = row;
-            // open/close expandable row
-            row.isExpanded = !row.isExpanded;
-            if (row.isExpanded) {
-                row.isSelected = true;
-                // close the last expanded row
-                if (angular.isObject($scope.lastRow) && row.uid !== $scope.lastRow.uid)
-                    $scope.lastRow.isExpanded = false;
-                $scope.lastRow = row;
-            }
-        });
-    };
+    function getUsers() {
+        DataService.get('/user/')
+            .then(function(data) {
+                $scope.gridOptions.data = data;
+            });
+    }
 
     $scope.addRow = function() {
         RowEditor.addRow(UserSchema, AddUserForm, '/user/create/')
@@ -52,29 +63,40 @@ application.controller('adminController', function($scope, DataService, RowEdito
             });
     };
 
-    $scope.editRow = function() {
-        RowEditor.editRow(UserSchema, EditUserForm, $scope.row, '/user/update/')
-            .result.then(function(data) {
-                if (angular.isObject(data)) {
+    // $scope.disableRow = function() {
+    //     RowEditor.deleteChildInRow($scope.row, $scope.row.entity.auth.id, '/auth/');
+    // };
+
+    // $scope.deleteRow = function() {
+    //     RowEditor.deleteRow($scope.row, '/user/');
+    // };
+
+    $scope.onSubmit = function(form) {
+        delete($scope.model.switch);
+        $scope.$broadcast('schemaFormValidate');
+        
+        if (form.$valid) {
+            DataService.update('/user/update/', $scope.model)
+                .then(function(data) {
+                    // copy row values over
+                    angular.extend($scope.row.entity, $scope.model);
                     // I'm doing this because only role.id gets modified by the edit form
                     // role.role is updated corresponding to role.id here. or we can just run getUsers()
                     updateRole(data.role.id);
-                    // close the expanded row
-                    $scope.row.isExpanded = false;
-                }
-            });
+                }, function(err) {
+                    console.warn(err);
+                });
+        }
+    };
+    
+    $scope.delete = function() {
+        console.log("Deleted!");
     };
 
-    $scope.deleteRow = function() {
-        RowEditor.deleteRow($scope.row, '/user/delete/');
+    $scope.cancel = function() {
+        angular.extend($scope.model, $scope.row.entity);
+        $scope.model.switch = false;
     };
-
-    function getUsers() {
-        DataService.get('/user/')
-            .then(function(data) {
-                $scope.gridOptions.data = data;
-            });
-    }
 
     function updateRole(roleID) {
         var roles = ['reader', 'writer', 'admin'];

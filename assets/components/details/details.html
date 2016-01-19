@@ -6,7 +6,7 @@
     <div class="detail-body">
         <div class="row">
             <div class="col-sm-6">
-                <form name="editForm" sf-schema="schema" sf-form="form" sf-model="model" sf-options="{formDefaults: {feedback: false}}"></form>
+                <form name="editForm" sf-schema="schema" sf-form="form" sf-model="model" sf-options="{formDefaults: {feedback: false}}" ng-submit="onSubmit(editForm)"></form>
             </div>
             <div class="col-sm-6">
 
@@ -14,10 +14,11 @@
         </div>
     </div>
     <div class="detail-footer">
-        <button class="btn btn-primary" ng-hide="model.switch" ng-disabled="!model" ng-click="model.switch = !model.switch">Edit</button>
-        <div class="buttons" ng-show="model.switch">
-            <button class="btn btn-success" ng-disabled="editForm.$invalid" ng-click="onSubmit(editForm)">Save</button>
-            <button class="btn btn-warning" ng-click="onCancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-hide="model.switch" ng-disabled="!model" ng-click="model.switch = !model.switch">Edit</button>
+        <!--<div class="buttons" ng-show="model.switch">-->
+            <!--<button type="submit" class="btn btn-success" ng-disabled="editForm.$invalid" ng-click="onSubmit(editForm)">Save</button>-->
+            <!--<button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>-->
+            <!--<button type="button" class="btn btn-danger pull-right" ng-click="delete()">Delete</button>-->
         </div>
     </div>
 </div>

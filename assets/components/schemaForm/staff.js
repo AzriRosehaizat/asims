@@ -24,6 +24,8 @@ application
     .constant("EditStaffForm", [{
         key: "firstName",
         condition: "!model.switch",
+        disableSuccessState: true,
+        disableErrorState: true,
         readonly: true
     }, {
         key: "firstName",
@@ -31,6 +33,8 @@ application
     }, {
         key: "lastName",
         condition: "!model.switch",
+        disableSuccessState: true,
+        disableErrorState: true,
         readonly: true
     }, {
         key: "lastName",
@@ -38,6 +42,8 @@ application
     }, {
         key: "employeeNo",
         condition: "!model.switch",
+        disableSuccessState: true,
+        disableErrorState: true,
         readonly: true
     }, {
         key: "employeeNo",
