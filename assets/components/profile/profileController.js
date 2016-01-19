@@ -1,37 +1,45 @@
-application.controller('profileController', function($scope, $uibModal, CurrentUser) {
+application.controller('profileController', function($scope, $http, $uibModal, CurrentUser, UserSchema, ProfileForm) {
 
-    $scope.url = '/user/update/';
+    $scope.title = "Profile";
+    $scope.schema = UserSchema;
+    $scope.form = ProfileForm;
 
     if (!angular.isObject($scope.user)) {
         getUser();
     }
 
-    $scope.openEditModal = function() {
-        var modalInstance = $uibModal.open({
-            templateUrl: '/components/profile/profileModal.html',
-            controller: 'profileModalController',
-            resolve: {
-                user: function() {
-                    return $scope.user;
-                },
-                url: function() {
-                    return $scope.url;
-                }
-            }
-        });
-
-        modalInstance.result.then(function(data) {
-            if (angular.isObject(data))
-                $scope.user = data;
-        });
-    };
-
     function getUser() {
         CurrentUser.getUser()
             .then(function(data) {
                 $scope.user = data;
+                $scope.model = angular.copy($scope.user);
+                $scope.model.switch = false;
             }, function(err) {
                 console.warn(err);
             });
     }
+
+    $scope.onSubmit = function(form) {
+        delete($scope.model.switch);
+        $scope.$broadcast('schemaFormValidate');
+
+        if (form.$valid) {
+            $http.put('/user/update/', $scope.model)
+                .then(function(res) {
+                    $scope.user = angular.extend($scope.user, $scope.model);
+                    $scope.model.switch = false;
+                }, function(err) {
+                    console.warn(err);
+                });
+        }
+    };
+
+    $scope.delete = function() {
+        console.log("Deleted!");
+    };
+
+    $scope.cancel = function() {
+        $scope.model = angular.extend($scope.model, $scope.user);
+        $scope.model.switch = false;
+    };
 });

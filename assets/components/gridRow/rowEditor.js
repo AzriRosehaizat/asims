@@ -50,6 +50,23 @@ application.factory('RowEditor', function($uibModal) {
                     }
                 }
             });
+        },
+        deleteChildInRow: function(row, child, url) {
+            return $uibModal.open({
+                templateUrl: '/components/gridRow/deleteModal.html',
+                controller: 'rowDeleteChildController',
+                resolve: {
+                    row: function() {
+                        return row;
+                    },
+                    child: function() {
+                        return child;
+                    },
+                    url: function() {
+                        return url;
+                    }
+                }
+            });
         }
     };
 });

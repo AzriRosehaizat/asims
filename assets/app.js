@@ -1,4 +1,4 @@
-var application = angular.module("application", ["ui.router", "ui.bootstrap", "ngAnimate", "ui.grid", "ui.grid.selection", "ui.grid.expandable", "schemaForm"]);
+var application = angular.module("application", ["ui.router", "ui.bootstrap", "ngAnimate", "ui.grid", "ui.grid.selection", "schemaForm"]);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
@@ -63,10 +63,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					templateUrl: "/components/profile/profile.html",
 					controller: "profileController"
 				},
-				// "details@application.profile": {
-				// 	templateUrl: "/components/details/details.html",
-				// 	controller: "detailsController"
-				// }
+				"details@application.profile": {
+					templateUrl: "/components/details/details.html",
+					controller: "detailsController"
+				}
 			},
 		})
 		.state("application.admin", {
@@ -79,6 +79,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				"grid@application.admin": {
 					templateUrl: "/components/grid/grid.html",
 					controller: "gridController"
+				},
+				"details@application.admin": {
+					templateUrl: "/components/details/details.html",
+					controller: "detailsController"
 				}
 			},
 			data: {
