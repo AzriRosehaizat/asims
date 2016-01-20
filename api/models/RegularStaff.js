@@ -20,6 +20,10 @@ module.exports = {
 		contApptDate: {
 			type: 'date'
 		},
+		RegularStaffEmployment: {
+			collection: 'RegularStaffEmployment',
+			via: 'regularStaffID'
+		},
 		academicStaffID: {
 			model: 'AcademicStaff',
 			required: true
@@ -58,10 +62,6 @@ module.exports = {
 		},
 		LeaveDebit: {
 			collection: 'LeaveDebit',
-			via: 'regularStaffID'
-		},
-		RegularStaffEmployment: {
-			collection: 'RegularStaffEmployment',
 			via: 'regularStaffID'
 		}
 	},
