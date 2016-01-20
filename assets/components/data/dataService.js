@@ -5,23 +5,23 @@ application.factory('DataService', function($http) {
                 .then(handleSuccess);
         },
         getById: function(url, id) {
-            var req = $http.get(url + id);
-            return (req.then(handleSuccess));
+            return $http.get(url + id)
+                .then(handleSuccess);
         },
-        update: function(url, data) {
-            var req = $http.put(url, data);
-            return (req.then(handleSuccess));
+        put: function(url, data) {
+            return $http.put(url, data)
+                .then(handleSuccess);
         },
         post: function(url, data) {
-            var req = $http.post(url, data);
-            return (req.then(handleSuccess));
+            return $http.post(url, data)
+                .then(handleSuccess);
         },
         delete: function(url, id) {
-            var req = $http.delete(url + id);
-            return (req.then(handleSuccess));
+            return $http.delete(url + id)
+                .then(handleSuccess);
         }
     };
-    
+
     function handleSuccess(res) {
         return (res.data);
     }

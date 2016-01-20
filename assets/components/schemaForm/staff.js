@@ -1,3 +1,23 @@
+var buttons = {
+    type: "actions",
+    condition: "model.switch",
+    items: [{
+        type: 'submit',
+        style: 'btn-success',
+        title: 'Save'
+    }, {
+        type: 'button',
+        style: 'btn-info',
+        title: 'Cancel',
+        onClick: "cancel()"
+    }, {
+        type: 'button',
+        style: 'btn-danger pull-right',
+        title: 'Delete',
+        onClick: "delete()"
+    }]
+};
+
 application
     .constant("StaffSchema", {
         type: "object",
@@ -48,4 +68,4 @@ application
     }, {
         key: "employeeNo",
         condition: "model.switch"
-    }]);
+    }, buttons]);

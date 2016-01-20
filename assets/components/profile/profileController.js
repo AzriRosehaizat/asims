@@ -1,22 +1,13 @@
-application.controller('profileController', function($scope, $http, $uibModal, CurrentUser, UserSchema, ProfileForm) {
+application.controller('profileController', function($scope, user, DataService, UserSchema, ProfileForm) {
 
     $scope.title = "Profile";
     $scope.schema = UserSchema;
     $scope.form = ProfileForm;
 
     if (!angular.isObject($scope.user)) {
-        getUser();
-    }
-
-    function getUser() {
-        CurrentUser.getUser()
-            .then(function(data) {
-                $scope.user = data;
-                $scope.model = angular.copy($scope.user);
-                $scope.model.switch = false;
-            }, function(err) {
-                console.warn(err);
-            });
+        $scope.user = user;
+        $scope.model = angular.copy($scope.user);
+        $scope.model.switch = false;
     }
 
     $scope.onSubmit = function(form) {
@@ -24,8 +15,8 @@ application.controller('profileController', function($scope, $http, $uibModal, C
         $scope.$broadcast('schemaFormValidate');
 
         if (form.$valid) {
-            $http.put('/user/update/', $scope.model)
-                .then(function(res) {
+            DataService.put('/user/update/', $scope.model)
+                .then(function(data) {
                     $scope.user = angular.extend($scope.user, $scope.model);
                     $scope.model.switch = false;
                 }, function(err) {

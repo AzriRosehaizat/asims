@@ -55,6 +55,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: "tabsetController"
 				}
 			},
+			resolve: {
+				academicStaffs: function(DataService) {
+					return DataService.get('/academicStaff/');
+				} 
+			}
 		})
 		.state("application.profile", {
 			url: "/profile",
@@ -68,6 +73,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: "detailsController"
 				}
 			},
+			resolve: {
+				user: function(CurrentUser) {
+					return CurrentUser.getUser();
+				}
+			}
 		})
 		.state("application.admin", {
 			url: "/admin",
@@ -83,6 +93,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				"details@application.admin": {
 					templateUrl: "/components/details/details.html",
 					controller: "detailsController"
+				}
+			},
+			resolve: {
+				users: function(DataService) {
+					return DataService.get('/user/');
 				}
 			},
 			data: {
