@@ -1,6 +1,6 @@
-application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, AddUserForm, EditUserForm) {
+application.controller('adminController', function($scope, users, DataService, RowEditor, UserSchema, AddUserForm, EditUserForm) {
 
-    $scope.title = "Admin page";
+    $scope.title = "Edit a user";
     $scope.schema = UserSchema;
     $scope.form = EditUserForm;
 
@@ -18,8 +18,7 @@ application.controller('adminController', function($scope, DataService, RowEdito
                     return 'glyphicon glyphicon-remove text-center';
                 }
             },
-            width: 80,
-            enableColumnMenus: false
+            width: 80
         }, {
             name: 'Name',
             field: 'username'
@@ -43,14 +42,7 @@ application.controller('adminController', function($scope, DataService, RowEdito
     };
 
     if (!angular.isObject($scope.gridOptions.data)) {
-        getUsers();
-    }
-
-    function getUsers() {
-        DataService.get('/user/')
-            .then(function(data) {
-                $scope.gridOptions.data = data;
-            });
+        $scope.gridOptions.data = users;
     }
 
     $scope.addRow = function() {
@@ -58,7 +50,7 @@ application.controller('adminController', function($scope, DataService, RowEdito
             .result.then(function(data) {
                 if (angular.isObject(data)) {
                     // reload grid data. better idea?
-                    getUsers();
+                    $scope.gridOptions.data = users;
                 }
             });
     };
@@ -76,9 +68,8 @@ application.controller('adminController', function($scope, DataService, RowEdito
         $scope.$broadcast('schemaFormValidate');
         
         if (form.$valid) {
-            DataService.update('/user/update/', $scope.model)
+            DataService.put('/user/update/', $scope.model)
                 .then(function(data) {
-                    // copy row values over
                     angular.extend($scope.row.entity, $scope.model);
                     // I'm doing this because only role.id gets modified by the edit form
                     // role.role is updated corresponding to role.id here. or we can just run getUsers()
