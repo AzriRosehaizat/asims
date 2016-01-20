@@ -56,9 +56,6 @@ CREATE TABLE Course_Section(
 	courseSectionID INT NOT NULL AUTO_INCREMENT,
 	departmentCourseID INT NOT NULL,
 	sectionID INT NOT NULL,
-	startDate DATE NOT NULL DEFAULT 20150901,
-	endDate DATE NOT NULL DEFAULT 20160501,
-	FCEValue FLOAT NOT NULL,
 	PRIMARY KEY(courseSectionID)
 );
 
@@ -143,7 +140,7 @@ CREATE TABLE LoadIncrease(
 	regularStaffID INT NOT NULl,
 	startDate DATE NOT NULL,
 	endDate DATE NOT NULL,
-	FCEValue FLOAT NOT NULL,
+	FCEValue FLOAT NOT NULL DEFAULT 0.5,
     PRIMARY KEY(loadIncreaseID)
 );
 
@@ -152,7 +149,7 @@ CREATE TABLE LoadReduction(
 	regularStaffID INT NOT NULl,
 	startDate DATE NOT NULL,
 	endDate DATE NOT NULL,
-	FCEValue FLOAT NOT NULL,
+	FCEValue FLOAT NOT NULL DEFAULT 0.5,
     PRIMARY KEY(loadReductionID)
 );
 
@@ -197,7 +194,7 @@ CREATE TABLE Research(
 	title VARCHAR(50) NOT NULL,
 	abstract TEXT,
 	startDate DATE NOT NULL,
-	endDate DATE NOT NULL
+	endDate DATE NOT NULL,
 	PRIMARY KEY(researchID)
 );
 
@@ -211,6 +208,14 @@ CREATE TABlE ResearchGrant(
 	PRIMARY KEY(grantID)
 );
 
+CREATE TABLE RightToRefusal(
+	rightToRefusalID INT NOT NULL AUTO_INCREMENT,
+	courseSectionID INT NOT NULL,
+	contractStaffID INT NOT NULL,
+	startTerm VARCHAR(10) NOT NULL,
+	endTerm VARCHAR(10) NOT NULL,
+	PRIMARY KEY(rightToRefusalID)
+);
 
 CREATE TABLE Section(
 	sectionID INT NOT NULL AUTO_INCREMENT,
@@ -227,11 +232,20 @@ CREATE TABLE StaffLeave(
 	description TEXT NOT NULL,
 	startDate DATE NOT NULL,
 	endDate DATE NOT NULL,
-	leavePercentage FLOAT NOT NULL
-	wagePercentage FLOAT NOT NULL
+	leavePercentage FLOAT NOT NULL,
+	wagePercentage FLOAT NOT NULL,
 	PRIMARY KEY(leaveID)
 );
 
+CREATE TABLE TeachingActivities(
+	teachingActivitiesID INT NOT NULL AUTO_INCREMENT,
+	courseSectionID INT NOT NULL,
+	academicStaffID INT NOT NULL,
+	startDate DATE NOT NULL DEFAULT 20150905,
+	endDate DATE NOT NULL DEFAULT 20160425,
+	FCEValue FLOAT NOT NULL DEFAULT 0.5,
+	PRIMARY KEY(teachingActivitiesID)
+);
 
 #BEGIN ALTER TABLE AND FK CONSTRAINTS
 ALTER TABLE AcademicStaff_Department ADD CONSTRAINT FOREIGN KEY(departmentID) REFERENCES Department(departmentID);
@@ -263,6 +277,10 @@ ALTER TABLE RegularStaff_Rank ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFEREN
 ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
 ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(researchID) REFERENCES Research(researchID);
 ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(loadReductionID) REFERENCES LoadReduction(loadReductionID);
+ALTER TABLE TeachingActivities ADD CONSTRAINT FOREIGN KEY(academicStaffID) REFERENCES AcademicStaff(staffID);
+ALTER TABLE TeachingActivities ADD CONSTRAINT FOREIGN KEY(courseSectionID) REFERENCES Course_Section(courseSectionID);
+ALTER TABLE RightToRefusal ADD CONSTRAINT FOREIGN KEY(contractStaffID) REFERENCES ContractStaff(contractStaffID);
+ALTER TABLE RightToRefusal ADD CONSTRAINT FOREIGN KEY(courseSectionID) REFERENCES Course_Section(courseSectionID);
 
 #BEGIN INSERT INTO TABLE
 INSERT INTO AcademicStaff (staffID,firstName,lastName) VALUES (1,"Nasim","Slater"),(2,"Justin","Merritt"),(3,"Hadassah","Irwin"),(4,"Nicole","Brock"),(5,"Simone","Stephenson"),(6,"Aubrey","Farley"),(7,"Lance","Benton"),(8,"Macy","Davidson"),(9,"Athena","Buchanan"),(10,"Phoebe","Greene"),(11,"Arsenio","Chen"),(12,"Brennan","Thompson"),(13,"Ignacia","Faulkner"),(14,"Aquila","Kane"),(15,"Lydia","Zamora"),(16,"Regina","Montoya"),(17,"Malik","West"),(18,"Briar","Roach"),(19,"Daria","Davenport"),(20,"Hermione","Holman"),(21,"Nina","Valenzuela"),(22,"Autumn","Daniels"),(23,"Alisa","Park"),(24,"Brianna","Duke"),(25,"Tanner","Wong"),(26,"Cailin","Boone"),(27,"Aquila","Rowe"),(28,"Yolanda","Terry"),(29,"Elijah","Ratliff"),(30,"Leo","Diaz"),(31,"Mara","Hunter"),(32,"Vaughan","Benton"),(33,"Baxter","Schmidt"),(34,"Gage","Stanley"),(35,"Mufutau","Levy"),(36,"Randall","Brown"),(37,"Sonia","Cunningham"),(38,"Driscoll","Hatfield"),(39,"Thane","Oneil"),(40,"Ariana","Monroe"),(41,"Holmes","Hudson"),(42,"Ishmael","Kennedy"),(43,"Tara","Barry"),(44,"Noelle","Hoffman"),(45,"Plato","Sullivan"),(46,"Rina","Mcgowan"),(47,"Nolan","Petersen"),(48,"Benjamin","Klein"),(49,"Hadassah","Galloway"),(50,"Reed","Richmond");
@@ -276,6 +294,9 @@ INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,sta
 INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,staffID) VALUES (51,25,51),(52,30,52),(53,26,53),(54,24,54),(55,28,55),(56,22,56),(57,25,57),(58,21,58),(59,27,59),(60,20,60),(61,27,61),(62,31,62),(63,20,63),(64,30,64),(65,21,65),(66,27,66),(67,22,67),(68,20,68),(69,30,69),(70,24,70),(71,20,71),(72,20,72),(73,29,73),(74,31,74),(75,20,75),(76,23,76),(77,28,77),(78,31,78),(79,23,79),(80,30,80),(81,28,81),(82,23,82),(83,22,83),(84,26,84),(85,22,85),(86,31,86),(87,20,87),(88,23,88),(89,26,89),(90,21,90),(91,31,91),(92,27,92),(93,21,93),(94,25,94),(95,27,95),(96,23,96),(97,24,97),(98,31,98),(99,31,99),(100,20,100);
 INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,staffID) VALUES (101,25,101),(102,31,102),(103,28,103),(104,27,104),(105,26,105),(106,20,106),(107,21,107),(108,25,108),(109,21,109),(110,22,110),(111,26,111),(112,20,112),(113,31,113),(114,23,114),(115,28,115),(116,22,116),(117,22,117),(118,22,118),(119,22,119),(120,22,120),(121,23,121),(122,22,122),(123,27,123),(124,27,124),(125,22,125),(126,24,126),(127,27,127),(128,23,128),(129,27,129),(130,24,130),(131,24,131),(132,26,132),(133,31,133),(134,28,134),(135,27,135),(136,22,136),(137,25,137),(138,23,138),(139,22,139),(140,27,140),(141,27,141),(142,23,142),(143,28,143),(144,29,144),(145,24,145),(146,30,146),(147,26,147),(148,26,148),(149,22,149),(150,25,150);
 INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,staffID) VALUES (151,28,151),(152,27,152),(153,21,153),(154,20,154),(155,29,155),(156,24,156),(157,27,157),(158,30,158),(159,26,159),(160,24,160),(161,29,161),(162,27,162),(163,27,163),(164,24,164),(165,21,165),(166,21,166),(167,22,167),(168,28,168),(169,27,169),(170,27,170),(171,21,171),(172,29,172),(173,31,173),(174,20,174),(175,31,175),(176,24,176),(177,30,177),(178,26,178),(179,27,179),(180,30,180),(181,28,181),(182,23,182),(183,26,183),(184,30,184),(185,26,185),(186,20,186),(187,25,187),(188,26,188),(189,29,189),(190,20,190),(191,24,191),(192,20,192),(193,20,193),(194,24,194),(195,21,195),(196,22,196),(197,28,197),(198,20,198),(199,21,199),(200,21,200);
+INSERT INTO Course (courseID,courseNo) VALUES (1,2678),(2,4339),(3,3718),(4,4461),(5,2340),(6,3288),(7,2155),(8,3328),(9,1811),(10,1121),(11,1975),(12,2041),(13,3978),(14,4966),(15,1042),(16,3403),(17,4958),(18,3221),(19,2708),(20,1422),(21,3527),(22,2729),(23,2494),(24,2727),(25,1451),(26,2561),(27,1578),(28,2456),(29,2096),(30,4954),(31,4872),(32,2147),(33,4457),(34,1834),(35,2467),(36,1634),(37,4741),(38,3689),(39,2417),(40,1337),(41,4865),(42,3438),(43,4011),(44,3247),(45,1423),(46,4930),(47,4769),(48,1826),(49,4641),(50,4401);
+INSERT INTO Course (courseID,courseNo) VALUES (51,1593),(52,3869),(53,4137),(54,1803),(55,1396),(56,4780),(57,2153),(58,4693),(59,4104),(60,1225),(61,3717),(62,1483),(63,4711),(64,4927),(65,4288),(66,3046),(67,1291),(68,1520),(69,1448),(70,4646),(71,1279),(72,2491),(73,1376),(74,3134),(75,3547),(76,4231),(77,2070),(78,2515),(79,1935),(80,1012),(81,4595),(82,4993),(83,3802),(84,3528),(85,3900),(86,2373),(87,3647),(88,2663),(89,3141),(90,2395),(91,4720),(92,3600),(93,1145),(94,2098),(95,1114),(96,1329),(97,3982),(98,1205),(99,1487),(100,4817);
+INSERT INTO Section (sectionID, sectionNo, title) VALUES (1,"001","Day Class I"),(2,"002","Day Class II"),(3,"003","Day Class III"),(4,"004","Day Class IV"),(5,"050","Evening Class I"),(6,"051","Evening Class II"),(7,"052","Evening Class III"),(8,"0053","Evening Class IV"),(9,"072L","Lab I"),(10,"073L","Lab II"),(11,"074L","Lab III"),(12,"750","Web Based VOD 1"),(13,"760","LMS Online");
 
 #All Start dates set to 2010-01-01.
 INSERT INTO RegularStaff (regularStaffID,academicStaffID) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
@@ -286,5 +307,3 @@ INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES 
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (51,2,51),(52,4,52),(53,5,53),(54,6,54),(55,6,55),(56,5,56),(57,3,57),(58,4,58),(59,2,59),(60,5,60),(61,5,61),(62,3,62),(63,4,63),(64,5,64),(65,3,65),(66,4,66),(67,3,67),(68,1,68),(69,5,69),(70,7,70),(71,1,71),(72,6,72),(73,4,73),(74,1,74),(75,3,75),(76,2,76),(77,4,77),(78,1,78),(79,7,79),(80,1,80),(81,2,81),(82,2,82),(83,7,83),(84,6,84),(85,5,85),(86,4,86),(87,1,87),(88,6,88),(89,6,89),(90,6,90),(91,3,91),(92,4,92),(93,7,93),(94,3,94),(95,2,95),(96,6,96),(97,3,97),(98,5,98),(99,2,99),(100,4,100);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (101,6,101),(102,1,102),(103,4,103),(104,6,104),(105,2,105),(106,7,106),(107,2,107),(108,3,108),(109,3,109),(110,1,110),(111,7,111),(112,3,112),(113,6,113),(114,2,114),(115,4,115),(116,1,116),(117,6,117),(118,4,118),(119,2,119),(120,2,120),(121,2,121),(122,3,122),(123,4,123),(124,3,124),(125,4,125),(126,2,126),(127,1,127),(128,2,128),(129,3,129),(130,3,130),(131,4,131),(132,4,132),(133,4,133),(134,7,134),(135,3,135),(136,4,136),(137,2,137),(138,7,138),(139,3,139),(140,1,140),(141,5,141),(142,5,142),(143,4,143),(144,2,144),(145,3,145),(146,3,146),(147,6,147),(148,2,148),(149,4,149),(150,1,150);
 INSERT INTO Chair (chairID,regularStaffID,departmentID) VALUES (1,37,23),(2,85,26),(3,67,30),(4,99,20),(5,113,27),(6,58,29),(7,103,24),(8,79,31),(9,74,21),(10,141,22),(11,45,25),(12,107,28)
-
-

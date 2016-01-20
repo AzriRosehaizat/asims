@@ -10,7 +10,7 @@ module.exports = {
 
 	attributes: {
 		contractEmploymentID: {
-			type: 'integer'.
+			type: 'integer',
 			index: true,
 			autoIncrement: true,
 			primaryKey: true

@@ -10,7 +10,7 @@ module.exports = {
 
 	attributes: {
 		regularEmploymentID: {
-			type: 'integer'.
+			type: 'integer',
 			index: true,
 			autoIncrement: true,
 			primaryKey: true
