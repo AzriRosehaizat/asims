@@ -18,12 +18,10 @@ module.exports = {
 			model: 'AcademicStaff',
 			required: true
 		},
-		startDate:{
-			type: 'date',
-			required: true 
-		},
-		endDate:{
-			type: 'date'
+
+		ContractStaffEmployment: {
+			collection: 'ContractStaffEmployment',
+			via: 'contractStaffID'
 		}
 	},
 	tableName: 'ContractStaff'

@@ -57,7 +57,7 @@ module.export = {
 	    })
 	},
 
-	getDepartment2: function(ID) {
-		AcademicStaff.findOne({staffID: ID})
+	getStaff2: function(ID) {
+		return AcademicStaff.findOne({staffID: ID})
 	}
 };

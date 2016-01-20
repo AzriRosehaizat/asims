@@ -35,7 +35,7 @@ module.exports.routes = {
   // '/': {
   //   view: 'homepage'
   // }
-  'GET /AcademicStaff/test' : 'AcademicStaffController.test',
+  'GET /RegularStaff/test' : 'RegularStaffController.test',
 
 
   /***************************************************************************
