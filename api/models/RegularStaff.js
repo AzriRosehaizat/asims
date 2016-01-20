@@ -24,13 +24,6 @@ module.exports = {
 			model: 'AcademicStaff',
 			required: true
 		},
-		startDate:{
-			type: 'date',
-			required: true 
-		},
-		endDate:{
-			type: 'date'
-		},
 		Chair:{
 			collection: 'Chair',
 			via: 'regularStaffID'
@@ -65,6 +58,10 @@ module.exports = {
 		},
 		LeaveDebit: {
 			collection: 'LeaveDebit',
+			via: 'regularStaffID'
+		},
+		RegularStaffEmployment: {
+			collection: 'RegularStaffEmployment',
 			via: 'regularStaffID'
 		}
 	},
