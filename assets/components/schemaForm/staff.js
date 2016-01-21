@@ -12,7 +12,7 @@ var buttons = {
         onClick: "cancel()"
     }, {
         type: 'button',
-        style: 'btn-danger pull-right',
+        style: 'btn-danger',
         title: 'Delete',
         onClick: "delete()"
     }]
