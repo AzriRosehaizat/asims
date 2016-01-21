@@ -61,7 +61,6 @@ var roleReadOnly = {
 };
 var roleReadOnlyProfile = {
     key: "role.role",
-    type: "string",
     disableSuccessState: true,
     disableErrorState: true,
     readonly: true
@@ -89,6 +88,10 @@ var passwordsInEdit = {
         key: "password_confirm",
         type: "password"
     }]
+};
+var changePassword = {
+    key: "changePassword",
+    condition: "model.switch"
 };
 var buttons = {
     type: "actions",
@@ -128,7 +131,6 @@ var toggleButton = {
     type: "radiobuttons",
     notitle: true,
     style: {
-        name: "toggleButton",
         selected: "btn-primary btn-xs",
         unselected: "btn-default btn-xs"
     },
@@ -208,5 +210,5 @@ application
         ]
     })
     .constant("AddUserForm", [toggleButton, addTitle, username, email, role, passwords, buttonsNoDelete])
-    .constant("EditUserForm", [toggleButton, editTitle, usernameReadOnly, emailReadOnly, email, roleReadOnly, role, "changePassword", passwordsInEdit, buttons])
-    .constant("ProfileForm", [toggleButton, profileTitle, usernameReadOnly, emailReadOnly, email, roleReadOnlyProfile, buttonsNoDelete]);
+    .constant("EditUserForm", [toggleButton, editTitle, usernameReadOnly, emailReadOnly, email, roleReadOnly, role, changePassword, passwordsInEdit, buttons])
+    .constant("ProfileForm", [toggleButton, profileTitle, usernameReadOnly, emailReadOnly, email, roleReadOnlyProfile, changePassword, passwordsInEdit, buttonsNoDelete]);
