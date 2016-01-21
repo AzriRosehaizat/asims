@@ -1,4 +1,4 @@
-application.factory('CurrentUser', function(DataService, LocalService) {
+application.service('CurrentUser', function(DataService, LocalService) {
     return {
         getID: function() {
             if (LocalService.get('auth_token')) {
@@ -17,11 +17,14 @@ application.factory('CurrentUser', function(DataService, LocalService) {
             if (LocalService.get('auth_token')) {
                 var localRole = angular.fromJson(LocalService.get('auth_token')).user.role;
 
+                // verify localRole against data from server
+                // if it's false, delete token and do something
                 this.getUser().then(function(data) {
                     if (localRole !== data.role.id) {
-                        console.warn("User's role has been modified! local: " + localRole + ", server: " + data.role.id);
-                        // don't need to do this after we set a policy to handle roles
-                        return LocalService.unset('auth_token');
+                        console.warn("User's role has been modified. local: " + localRole + ", server: " + data.role.id);
+                        // TODO: show message and redirect to login page after deleting the token
+                        LocalService.unset('auth_token');
+                        return;
                     }
                 });
                 return localRole;

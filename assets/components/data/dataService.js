@@ -1,4 +1,4 @@
-application.factory('DataService', function($http) {
+application.service('DataService', function($http) {
     return {
         get: function(url) {
             return $http.get(url)
