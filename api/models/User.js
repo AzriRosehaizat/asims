@@ -31,8 +31,8 @@ module.exports = {
 
     toJSON: function() {
       var obj = this.toObject();
-      if (typeof obj.auth === 'object' && obj.auth.password) {
-        delete obj.auth.password;
+      if (typeof obj.auth === 'object' && obj.auth && obj.auth.password) {
+          delete obj.auth.password;
       }
       return obj;
     }

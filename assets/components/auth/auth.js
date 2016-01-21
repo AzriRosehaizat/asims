@@ -1,4 +1,4 @@
-application.factory('Auth', function($state, DataService, LocalService, CurrentUser, AccessLevels) {
+application.service('Auth', function($state, DataService, LocalService, CurrentUser, AccessLevels) {
     return {
         authorize: function(access) {
             if (access === AccessLevels.admin) {
@@ -13,12 +13,6 @@ application.factory('Auth', function($state, DataService, LocalService, CurrentU
         },
         isAuthenticated: function() {
             return angular.isString(LocalService.get('auth_token'));
-        },
-        isWriter: function() {
-            if (this.isAuthenticated()) {
-                return (CurrentUser.getRole() === AccessLevels.writer);
-            }
-            return false;
         },
         isAdmin: function() {
             if (this.isAuthenticated()) {
@@ -42,7 +36,7 @@ application.factory('Auth', function($state, DataService, LocalService, CurrentU
     };
 });
 
-application.factory('AuthInterceptor', function($q, $injector, LocalService) {
+application.service('AuthInterceptor', function($q, $injector, LocalService) {
         return {
             request: function(config) {
                 var token;
