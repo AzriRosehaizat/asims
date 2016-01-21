@@ -5,16 +5,12 @@ application.controller('loginModalController', function($scope, $state, $uibModa
     $scope.model = {};
 
     $scope.onSubmit = function(form) {
-        $scope.$broadcast('schemaFormValidate');
-
-        if (form.$valid) {
-            Auth.login($scope.model)
-                .then(function(data) {
-                    $uibModalInstance.close();
-                    $state.go("application.root");
-                }, function(err) {
-                    console.warn(err);
-                });
-        }
+        Auth.login($scope.model)
+            .then(function(data) {
+                $uibModalInstance.close();
+                $state.go("application.root");
+            }, function(err) {
+                console.warn(err);
+            });
     };
 });

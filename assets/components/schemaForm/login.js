@@ -10,11 +10,7 @@ application
                 type: "string",
                 title: "Password"
             }
-        },
-        required: [
-            "username",
-            "password"
-        ]
+        }
     })
     .constant("LoginForm", [
         "username", {
@@ -23,6 +19,6 @@ application
         }, {
             type: "submit",
             style: "btn-primary",
-            title: "Submit"
+            title: "Log in"
         }
     ]);
