@@ -59,7 +59,7 @@ application.controller('academicStaffController', function($scope, academicStaff
         // if (form.$valid) {
         //     DataService.update('/academicStaff/', $scope.model)
         //         .then(function(data) {
-        //             angular.extend($scope.row.entity, $scope.model);
+        //             angular.merge($scope.row.entity, $scope.model);
         //         }, function(err) {
         //             console.warn(err);
         //         });
@@ -67,7 +67,7 @@ application.controller('academicStaffController', function($scope, academicStaff
     };
 
     $scope.cancel = function() {
-        angular.extend($scope.model, $scope.row.entity);
+        angular.merge($scope.model, $scope.row.entity);
         $scope.model.switch = false;
     };
 });

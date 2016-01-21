@@ -8,7 +8,7 @@ application.factory('CurrentUser', function(DataService, LocalService) {
             return {};
         },
         getUser: function() {
-            return DataService.get('/user/', this.getID())
+            return DataService.getById('/user/', this.getID())
                 .then(function(data) {
                     return data;
                 });

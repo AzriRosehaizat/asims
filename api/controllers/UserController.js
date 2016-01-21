@@ -12,13 +12,11 @@ module.exports = require('waterlock').actions.user({
 
   create: function(req, res) {
 
-    //pull relevant data from the request (could add validation here, but felt like it belonged in business logic)
     var params = waterlock._utils.allParams(req);
     var auth = {
       username: params.username,
       password: params.password
     };
-    delete(params.password);
 
     User.create(params).exec(function userCreated(err, user) {
       if (err) {
@@ -51,9 +49,33 @@ module.exports = require('waterlock').actions.user({
       if (!users[0]) {
         return res.badRequest('User doesn\'t exist.');
       }
-      
+
       res.json(users[0]);
     });
   },
+
+  register: function(req, res) {
+
+    var params = waterlock._utils.allParams(req);
+    var auth = {
+      username: params.username,
+      password: params.password
+    };
+
+    User.findOne({id: params.id}).exec(function userFound(err, user) {
+      if (err) {
+        return res.negotiate(err);
+      }
+      
+      waterlock.engine.attachAuthToUser(auth, user, function(err, ua) {
+        if (err) {
+          return res.negotiate(err);
+        }
+        else {
+          waterlock.cycle.loginSuccess(req, res, ua);
+        }
+      });
+    });
+  }
 
 });

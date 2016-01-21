@@ -1,25 +1,14 @@
-application.controller('adminController', function($scope, users, DataService, RowEditor, UserSchema, AddUserForm, EditUserForm) {
+application.controller('adminController', function($scope, users, DataService, ModalLoader, UserSchema, AddUserForm, EditUserForm) {
 
-    $scope.title = "Edit a user";
+    /* Initialization */
+
     $scope.schema = UserSchema;
-    $scope.form = EditUserForm;
+    initAddForm();
 
     $scope.gridOptions = {
         multiSelect: false,
         enableRowHeaderSelection: false,
-
         columnDefs: [{
-            name: 'Status',
-            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-                if (angular.isObject(row.entity.auth)) {
-                    return 'glyphicon glyphicon-ok text-center';
-                }
-                else {
-                    return 'glyphicon glyphicon-remove text-center';
-                }
-            },
-            width: 80
-        }, {
             name: 'Name',
             field: 'username'
         }, {
@@ -31,66 +20,77 @@ application.controller('adminController', function($scope, users, DataService, R
         }]
     };
 
-    $scope.gridOptions.onRegisterApi = function(gridApi) {
-        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            $scope.row = row;
-            // copy the row for details view
-            $scope.model = angular.copy(row.entity);
-            // to toggle details form
-            $scope.model.switch = false;
-        });
-    };
-
     if (!angular.isObject($scope.gridOptions.data)) {
         $scope.gridOptions.data = users;
     }
 
+    $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.row = row;
+            initEditForm(row);
+        });
+    };
+    
+    /* Generic functions: need minor tweaks for another view */
+
     $scope.addRow = function() {
-        RowEditor.addRow(UserSchema, AddUserForm, '/user/create/')
-            .result.then(function(data) {
-                if (angular.isObject(data)) {
-                    // reload grid data. better idea?
-                    $scope.gridOptions.data = users;
-                }
-            });
+        initAddForm();
     };
 
-    // $scope.disableRow = function() {
-    //     RowEditor.deleteChildInRow($scope.row, $scope.row.entity.auth.id, '/auth/');
-    // };
-
-    // $scope.deleteRow = function() {
-    //     RowEditor.deleteRow($scope.row, '/user/');
-    // };
-
     $scope.onSubmit = function(form) {
-        delete($scope.model.switch);
         $scope.$broadcast('schemaFormValidate');
         
-        if (form.$valid) {
+        if (form.$valid && confirmPassword($scope.model.password, $scope.model.password_confirm)) {
             DataService.put('/user/update/', $scope.model)
                 .then(function(data) {
-                    angular.extend($scope.row.entity, $scope.model);
-                    // I'm doing this because only role.id gets modified by the edit form
-                    // role.role is updated corresponding to role.id here. or we can just run getUsers()
-                    updateRole(data.role.id);
+                    updateRole(data.role);
+                    angular.merge($scope.row.entity, $scope.model);
+                    $scope.model.switch = false;
                 }, function(err) {
                     console.warn(err);
                 });
         }
     };
-    
+
     $scope.delete = function() {
-        console.log("Deleted!");
+        ModalLoader.delete($scope.row, '/user/')
+            .result.then(function(data) {
+                if (angular.isObject(data))
+                    delete($scope.model);
+            });
     };
 
     $scope.cancel = function() {
-        angular.extend($scope.model, $scope.row.entity);
+        if ($scope.form === AddUserForm)
+            $scope.model = {};
+        if ($scope.form === EditUserForm)
+            angular.merge($scope.model, $scope.row.entity);
+            
         $scope.model.switch = false;
     };
+    
+    function initAddForm() {
+        $scope.form = AddUserForm;
+        $scope.model = {};
+    }
 
-    function updateRole(roleID) {
+    function initEditForm(row) {
+        $scope.form = EditUserForm;
+        $scope.model = angular.copy(row.entity);
+    }
+
+    /* adminController specific functions */
+
+    function confirmPassword(password, password_confirm) {
+        if (password === password_confirm) {
+            return true;
+        }
+        console.log("Passwords do not match!");
+        return false;
+    }
+
+    function updateRole(roleId) {
         var roles = ['reader', 'writer', 'admin'];
-        $scope.row.entity.role.role = roles[roleID - 1];
+        $scope.model.role.role = roles[roleId - 1];
     }
 });
