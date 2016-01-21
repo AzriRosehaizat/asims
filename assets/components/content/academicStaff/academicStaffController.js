@@ -7,7 +7,6 @@ application.controller('academicStaffController', function($scope, academicStaff
     $scope.gridOptions = {
         multiSelect: false,
         enableRowHeaderSelection: false,
-
         columnDefs: [{
             name: 'First Name',
             field: 'firstName'
@@ -35,6 +34,9 @@ application.controller('academicStaffController', function($scope, academicStaff
         }
     };
 
+    $scope.gridOptions.data = academicStaffs;
+    $scope.tabs.department.gridOptions.data = academicStaffs;
+
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
@@ -44,11 +46,6 @@ application.controller('academicStaffController', function($scope, academicStaff
             $scope.model.switch = false;
         });
     };
-
-    if (!angular.isObject($scope.gridOptions.data)) {
-        $scope.gridOptions.data = academicStaffs;
-        $scope.tabs.department.gridOptions.data = academicStaffs;
-    }
 
     // Functions below are for details view.
 

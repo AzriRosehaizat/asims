@@ -2,11 +2,9 @@ application.controller('profileController', function($scope, user, DataService, 
 
     $scope.schema = UserSchema;
     $scope.form = ProfileForm;
-
-    if (!angular.isObject($scope.user)) {
-        $scope.user = user;
-        $scope.model = angular.copy($scope.user);
-    }
+    
+    $scope.user = user;
+    $scope.model = angular.copy($scope.user);
 
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');

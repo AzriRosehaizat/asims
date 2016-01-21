@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, users, DataService, ModalLoader, UserSchema, AddUserForm, EditUserForm) {
+application.controller('adminController', function($scope, users, DataService, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
 
     /* Initialization */
 
@@ -20,9 +20,7 @@ application.controller('adminController', function($scope, users, DataService, M
         }]
     };
 
-    if (!angular.isObject($scope.gridOptions.data)) {
-        $scope.gridOptions.data = users;
-    }
+    $scope.gridOptions.data = users;
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
@@ -30,25 +28,38 @@ application.controller('adminController', function($scope, users, DataService, M
             initEditForm(row);
         });
     };
-    
+
     /* Generic functions: need minor tweaks for another view */
 
     $scope.addRow = function() {
         initAddForm();
+        // open the form
+        $scope.model.switch = true;
+        gotoElement('details');
     };
 
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');
-        
+
         if (form.$valid && confirmPassword($scope.model.password, $scope.model.password_confirm)) {
-            DataService.put('/user/update/', $scope.model)
-                .then(function(data) {
-                    updateRole(data.role);
-                    angular.merge($scope.row.entity, $scope.model);
-                    $scope.model.switch = false;
-                }, function(err) {
-                    console.warn(err);
-                });
+            if ($scope.form === EditUserForm) {
+                DataService.put('/user/update/', $scope.model)
+                    .then(function(data) {
+                        angular.merge($scope.row.entity, data);
+                        $scope.model.switch = false;
+                    }, function(err) {
+                        console.warn(err);
+                    });
+            }
+            else if ($scope.form === AddUserForm) {
+                DataService.post('/user/create/', $scope.model)
+                    .then(function(data) {
+                        $scope.gridOptions.data.push(data);
+                        $scope.model.switch = false;
+                    }, function(err) {
+                        console.warn(err);
+                    });
+            }
         }
     };
 
@@ -65,10 +76,10 @@ application.controller('adminController', function($scope, users, DataService, M
             $scope.model = {};
         if ($scope.form === EditUserForm)
             angular.merge($scope.model, $scope.row.entity);
-            
+
         $scope.model.switch = false;
     };
-    
+
     function initAddForm() {
         $scope.form = AddUserForm;
         $scope.model = {};
@@ -77,6 +88,11 @@ application.controller('adminController', function($scope, users, DataService, M
     function initEditForm(row) {
         $scope.form = EditUserForm;
         $scope.model = angular.copy(row.entity);
+        $scope.model.switch = false;
+    }
+
+    function gotoElement(eID) {
+        AnchorScroll.scrollTo(eID);
     }
 
     /* adminController specific functions */
@@ -85,12 +101,8 @@ application.controller('adminController', function($scope, users, DataService, M
         if (password === password_confirm) {
             return true;
         }
+        // TODO: visualize error
         console.log("Passwords do not match!");
         return false;
-    }
-
-    function updateRole(roleId) {
-        var roles = ['reader', 'writer', 'admin'];
-        $scope.model.role.role = roles[roleId - 1];
     }
 });
