@@ -6,7 +6,6 @@ var cssFilesToInject = [
 ];
 
 var jsFilesToInject = [
-  'dependencies/sails.io.js',
   'bower_components/angular/angular.min.js',
   'bower_components/angular-animate/angular-animate.min.js',
   'bower_components/angular-route/angular-route.min.js',
