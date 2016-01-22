@@ -1,9 +1,9 @@
-application.controller('academicStaffController', function($scope, academicStaffs, DataService, ModalLoader, AnchorScroll, StaffSchema, AddStaffForm, EditStaffForm) {
+application.controller('regularStaffController', function($scope, regularStaffs, DataService, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
 
     /* Initialization */
     
-    $scope.schema = StaffSchema;
-    $scope.form = AddStaffForm;
+    $scope.schema = RegularStaffSchema;
+    $scope.form = AddRegularStaffForm;
     initAddForm();
 
     $scope.gridOptions = {
@@ -11,39 +11,38 @@ application.controller('academicStaffController', function($scope, academicStaff
         enableRowHeaderSelection: false,
         columnDefs: [{
             name: 'First Name',
-            field: 'firstName'
+            field: 'academicStaffID.firstName'
         }, {
             name: 'Last Name',
-            field: 'lastName'
+            field: 'academicStaffID.lastName'
         }, {
             name: 'Employee No',
-            field: 'employeeNo'
+            field: 'academicStaffID.employeeNo'
         }, {
-            name: 'DepartmentID',
-            field: 'AcademicStaff_Department[0].departmentID'
+            name: 'Tenure Date',
+            field: 'tenureDate'
+        }, {
+            name: 'contApptDate',
+            field: 'contApptDate'
+        }, {
+            name: 'Start Date',
+            field: 'startDate'
+        }, {
+            name: 'End Date',
+            field: 'endDate'
         }]
     };
 
     $scope.tabs = {
-        department: {
-            title: 'AcademicStaff_Department',
-            gridOptions: {
-                columnDefs: [{
-                    name: 'DepartmentID',
-                    field: 'AcademicStaff_Department[0].departmentID'
-                }]
-            }
-        }
     };
 
-    $scope.gridOptions.data = academicStaffs;
-    $scope.tabs.department.gridOptions.data = academicStaffs;
+    $scope.gridOptions.data = regularStaffs;
     
     /* Generic functions: need minor tweaks for another view */
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.staffID === $scope.model.staffID) {
+            if (row.entity.regularStaffID === $scope.model.regularStaffID) {
                 row.isSelected = true;
                 $scope.gotoElement('details');
             }
@@ -65,7 +64,7 @@ application.controller('academicStaffController', function($scope, academicStaff
         $scope.$broadcast('schemaFormValidate');
         console.log("Submit success");
         // if (form.$valid) {
-        //     DataService.update('/academicStaff/', $scope.model)
+        //     DataService.update('/regularStaff/', $scope.model)
         //         .then(function(data) {
         //             angular.merge($scope.row.entity, $scope.model);
         //         }, function(err) {
@@ -75,7 +74,7 @@ application.controller('academicStaffController', function($scope, academicStaff
     };
 
     $scope.delete = function() {
-        ModalLoader.delete($scope.row, '/academicStaff/')
+        ModalLoader.delete($scope.row, '/regularStaff/')
             .result.then(function(data) {
                 if (angular.isObject(data))
                     delete($scope.model);
@@ -83,9 +82,9 @@ application.controller('academicStaffController', function($scope, academicStaff
     };
 
     $scope.cancel = function() {
-        if ($scope.form === AddStaffForm)
+        if ($scope.form === AddRegularStaffForm)
             $scope.model = {};
-        if ($scope.form === EditStaffForm)
+        if ($scope.form === EditRegularStaffForm)
             angular.merge($scope.model, $scope.row.entity);
 
         $scope.model.switch = false;
@@ -96,12 +95,12 @@ application.controller('academicStaffController', function($scope, academicStaff
     };
 
     function initAddForm() {
-        $scope.form = AddStaffForm;
+        $scope.form = AddRegularStaffForm;
         $scope.model = {};
     }
 
     function initEditForm(row) {
-        $scope.form = EditStaffForm;
+        $scope.form = EditRegularStaffForm;
         $scope.model = angular.copy(row.entity);
         $scope.model.switch = false;
     }

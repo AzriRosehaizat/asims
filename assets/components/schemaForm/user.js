@@ -12,16 +12,16 @@ var fName = {
     key: "firstName",
     condition: "model.switch"
 };
-var lName = {
-    key: "lastName",
-    condition: "model.switch"
-};
 var fNameRO = {
     key: "firstName",
     condition: "!model.switch",
     disableSuccessState: true,
     disableErrorState: true,
     readonly: true
+};
+var lName = {
+    key: "lastName",
+    condition: "model.switch"
 };
 var lNameRO = {
     key: "lastName",
