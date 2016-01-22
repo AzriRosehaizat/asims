@@ -2,8 +2,30 @@ var username = {
     key: "username",
     condition: "model.switch"
 };
-var usernameReadOnly = {
+var usernameRO = {
     key: "username",
+    disableSuccessState: true,
+    disableErrorState: true,
+    readonly: true
+};
+var fName = {
+    key: "firstName",
+    condition: "model.switch"
+};
+var lName = {
+    key: "lastName",
+    condition: "model.switch"
+};
+var fNameRO = {
+    key: "firstName",
+    condition: "!model.switch",
+    disableSuccessState: true,
+    disableErrorState: true,
+    readonly: true
+};
+var lNameRO = {
+    key: "lastName",
+    condition: "!model.switch",
     disableSuccessState: true,
     disableErrorState: true,
     readonly: true
@@ -15,7 +37,7 @@ var email = {
         202: "{{viewValue}} is not a valid email.",
     }
 };
-var emailReadOnly = {
+var emailRO = {
     key: "email",
     condition: "!model.switch",
     disableSuccessState: true,
@@ -41,7 +63,7 @@ var role = {
         name: "admin"
     }]
 };
-var roleReadOnly = {
+var roleRO = {
     key: "role.id",
     type: "radiobuttons",
     condition: "!model.switch",
@@ -59,7 +81,7 @@ var roleReadOnly = {
         name: "admin"
     }]
 };
-var roleReadOnlyProfile = {
+var roleProfile = {
     key: "role.role",
     disableSuccessState: true,
     disableErrorState: true,
@@ -126,33 +148,33 @@ var buttonsNoDelete = {
         onClick: "cancel()"
     }]
 };
-var toggleButton = {
-    key: "switch",
-    type: "radiobuttons",
-    notitle: true,
-    style: {
-        selected: "btn-primary btn-xs",
-        unselected: "btn-default btn-xs"
-    },
-    titleMap: [{
-        value: true,
-        name: "Open"
-    }, {
-        value: false,
-        name: "Close"
-    }]
-};
+// var toggleButton = {
+//     key: "switch",
+//     type: "radiobuttons",
+//     notitle: true,
+//     style: {
+//         selected: "btn-primary btn-xs",
+//         unselected: "btn-default btn-xs"
+//     },
+//     titleMap: [{
+//         value: true,
+//         name: "Open"
+//     }, {
+//         value: false,
+//         name: "Close"
+//     }]
+// };
 var addTitle = {
     type: "help",
-    helpvalue: "<h3>Add a user</h3><br>"
+    helpvalue: "<h3>Add a user</h3>"
 };
 var editTitle = {
     type: "help",
-    helpvalue: "<h3>Edit a user</h3><br>"
+    helpvalue: "<h3>Edit a user</h3>"
 };
 var profileTitle = {
     type: "help",
-    helpvalue: "<h3>Profile</h3><br>"
+    helpvalue: "<h3>Profile</h3>"
 };
 
 application
@@ -162,6 +184,14 @@ application
             "username": {
                 type: "string",
                 title: "Username",
+            },
+            "firstName": {
+                type: "string",
+                title: "First name",
+            },
+            "lastName": {
+                type: "string",
+                title: "Last name",
             },
             "email": {
                 type: "string",
@@ -209,6 +239,6 @@ application
             "password_confirm"
         ]
     })
-    .constant("AddUserForm", [toggleButton, addTitle, username, email, role, passwords, buttonsNoDelete])
-    .constant("EditUserForm", [toggleButton, editTitle, usernameReadOnly, emailReadOnly, email, roleReadOnly, role, changePassword, passwordsInEdit, buttons])
-    .constant("ProfileForm", [toggleButton, profileTitle, usernameReadOnly, emailReadOnly, email, roleReadOnlyProfile, changePassword, passwordsInEdit, buttonsNoDelete]);
+    .constant("AddUserForm", [addTitle, username, fName, lName, email, role, passwords, buttonsNoDelete])
+    .constant("EditUserForm", [editTitle, usernameRO, fNameRO, fName, lNameRO, lName, emailRO, email, roleRO, role, changePassword, passwordsInEdit, buttons])
+    .constant("ProfileForm", [profileTitle, usernameRO, fNameRO, fName, lNameRO, lName, emailRO, email, roleProfile, changePassword, passwordsInEdit, buttonsNoDelete]);
