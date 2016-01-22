@@ -28,6 +28,8 @@ application.controller('adminController', function($scope, users, DataService, M
 
     $scope.gridOptions.data = users;
 
+    /* Generic functions: need minor tweaks for another view */
+
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             if (row.entity.id === $scope.model.id) {
@@ -40,8 +42,6 @@ application.controller('adminController', function($scope, users, DataService, M
             }
         });
     };
-
-    /* Generic functions: need minor tweaks for another view */
 
     $scope.addRow = function() {
         initAddForm();

@@ -2,6 +2,6 @@
     margin: 0.5em 1.1em 0.5em 0.5em;
 }
 
-/*.form-group.schema-form-radiobuttons .btn-group {*/
-/*    float: right;*/
-/*}*/
+.ui-grid-row.ui-grid-row-selected:hover .ui-grid-cell {
+    cursor: pointer;
+}

@@ -58,7 +58,33 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			resolve: {
 				academicStaffs: function(DataService) {
 					return DataService.get('/academicStaff/');
-				} 
+				}
+			}
+		})
+		.state("application.regularStaff", {
+			url: "/regularStaff",
+			views: {
+				"": {
+					templateUrl: "/components/content/content.html",
+					controller: "regularStaffController"
+				},
+				"grid@application.regularStaff": {
+					templateUrl: "/components/grid/grid.html",
+					controller: "gridController"
+				},
+				"details@application.regularStaff": {
+					templateUrl: "/components/details/details.html",
+					controller: "detailsController"
+				},
+				"tabset@application.regularStaff": {
+					templateUrl: "/components/tabset/tabset.html",
+					controller: "tabsetController"
+				}
+			},
+			resolve: {
+				regularStaffs: function(DataService) {
+					return DataService.get('/regularStaff/');
+				}
 			}
 		})
 		.state("application.profile", {
