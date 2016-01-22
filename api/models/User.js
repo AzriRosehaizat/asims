@@ -11,6 +11,7 @@ module.exports = {
   connection: 'MySQLServerMeta',
   autoPK: true,
   tableName: 'User',
+  migrate: 'alter',
   
   attributes: require('waterlock').models.user.attributes({
 
@@ -19,16 +20,18 @@ module.exports = {
       required: true,
       unique: true
     },
-    
-    email: {
-      type: 'string',
-      unique: true
+    firstName: {
+      type: 'string'
     },
-    
+    lastName: {
+      type: 'string'
+    },
+    email: {
+      type: 'string'
+    },
     role: {
       model: 'Role'
     },
-
     toJSON: function() {
       var obj = this.toObject();
       if (typeof obj.auth === 'object' && obj.auth && obj.auth.password) {
@@ -36,7 +39,6 @@ module.exports = {
       }
       return obj;
     }
-
   }),
 
   beforeCreate: require('waterlock').models.user.beforeCreate,

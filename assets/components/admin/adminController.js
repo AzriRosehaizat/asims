@@ -9,8 +9,14 @@ application.controller('adminController', function($scope, users, DataService, M
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
-            name: 'Name',
+            name: 'Username',
             field: 'username'
+        }, {
+            name: 'First name',
+            field: 'firstName'
+        }, {
+            name: 'Last name',
+            field: 'lastName'
         }, {
             name: 'Email',
             field: 'email'
@@ -24,8 +30,14 @@ application.controller('adminController', function($scope, users, DataService, M
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            $scope.row = row;
-            initEditForm(row);
+            if (row.entity.id === $scope.model.id) {
+                row.isSelected = true;
+                $scope.gotoElement('details');
+            }
+            else {
+                $scope.row = row;
+                initEditForm(row);
+            }
         });
     };
 
@@ -35,7 +47,7 @@ application.controller('adminController', function($scope, users, DataService, M
         initAddForm();
         // open the form
         $scope.model.switch = true;
-        gotoElement('details');
+        $scope.gotoElement('details');
     };
 
     $scope.onSubmit = function(form) {
@@ -80,6 +92,10 @@ application.controller('adminController', function($scope, users, DataService, M
         $scope.model.switch = false;
     };
 
+    $scope.gotoElement = function(eID) {
+        AnchorScroll.scrollTo(eID);
+    };
+
     function initAddForm() {
         $scope.form = AddUserForm;
         $scope.model = {};
@@ -89,10 +105,6 @@ application.controller('adminController', function($scope, users, DataService, M
         $scope.form = EditUserForm;
         $scope.model = angular.copy(row.entity);
         $scope.model.switch = false;
-    }
-
-    function gotoElement(eID) {
-        AnchorScroll.scrollTo(eID);
     }
 
     /* adminController specific functions */

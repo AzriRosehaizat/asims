@@ -37,15 +37,11 @@ module.exports = require('waterlock').actions.user({
   },
 
   update: function(req, res) {
-
+    
     var params = waterlock._utils.allParams(req);
-    var userObj = {
-      id: params.id,
-      email: params.email,
-      role: params.role.id
-    };
+    delete(params.username);
 
-    User.update({id: userObj.id}, userObj).exec(function userUpdated(err, users) {
+    User.update({id: params.id}, params).exec(function userUpdated(err, users) {
       if (err) {
         return res.negotiate(err);
       }
@@ -57,7 +53,7 @@ module.exports = require('waterlock').actions.user({
       // update password
       if (params.changePassword && params.password === params.password_confirm) {
         var auth = {
-          username: params.username,
+          username: user.username,
           password: params.password
         };
         

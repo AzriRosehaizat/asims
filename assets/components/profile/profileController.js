@@ -12,7 +12,7 @@ application.controller('profileController', function($scope, user, DataService, 
         if (form.$valid) {
             DataService.put('/user/update/', $scope.model)
                 .then(function(data) {
-                    angular.extend($scope.user, $scope.model);
+                    angular.extend($scope.user, data);
                     $scope.model.switch = false;
                 }, function(err) {
                     console.warn(err);
