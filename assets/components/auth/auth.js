@@ -21,11 +21,11 @@ application.service('Auth', function($state, $http, LocalService, CurrentUser, A
             return false;
         },
         login: function(credentials) {
-            var login = $http.post('/auth/login/', credentials)
+            return $http.post('/auth/login/', credentials)
                 .then(function(res) {
                     LocalService.set('auth_token', JSON.stringify(res.data));
+                    console.log(res.data.user);
                 });
-            return login;
         },
         logout: function() {
             // The backend doesn't care about logouts, delete the token and you're good to go.
