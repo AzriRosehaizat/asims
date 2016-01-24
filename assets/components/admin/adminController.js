@@ -6,6 +6,7 @@ application.controller('adminController', function($scope, users, DataService, M
     initAddForm();
 
     $scope.gridOptions = {
+        data: users,
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
@@ -25,8 +26,6 @@ application.controller('adminController', function($scope, users, DataService, M
             field: 'role.role'
         }]
     };
-
-    $scope.gridOptions.data = users;
 
     /* Generic functions: need minor tweaks for another view */
 
@@ -53,24 +52,12 @@ application.controller('adminController', function($scope, users, DataService, M
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');
 
-        if (form.$valid && confirmPassword($scope.model.password, $scope.model.password_confirm)) {
+        if (form.$valid) {
             if ($scope.form === EditUserForm) {
-                DataService.put('/user/update/', $scope.model)
-                    .then(function(data) {
-                        angular.merge($scope.row.entity, data);
-                        $scope.model.switch = false;
-                    }, function(err) {
-                        console.warn(err);
-                    });
+                updateUser();
             }
             else if ($scope.form === AddUserForm) {
-                DataService.post('/user/create/', $scope.model)
-                    .then(function(data) {
-                        $scope.gridOptions.data.push(data);
-                        $scope.model.switch = false;
-                    }, function(err) {
-                        console.warn(err);
-                    });
+                createUser();
             }
         }
     };
@@ -109,12 +96,23 @@ application.controller('adminController', function($scope, users, DataService, M
 
     /* adminController specific functions */
 
-    function confirmPassword(password, password_confirm) {
-        if (password === password_confirm) {
-            return true;
-        }
-        // TODO: visualize error
-        console.log("Passwords do not match!");
-        return false;
+    function updateUser() {
+        DataService.put('/user/update/', $scope.model)
+            .then(function(data) {
+                angular.merge($scope.row.entity, data);
+                $scope.model.switch = false;
+            }, function(err) {
+                console.warn(err);
+            });
+    }
+
+    function createUser() {
+        DataService.post('/user/create/', $scope.model)
+            .then(function(data) {
+                $scope.gridOptions.data.push(data);
+                $scope.model.switch = false;
+            }, function(err) {
+                console.warn(err);
+            });
     }
 });
