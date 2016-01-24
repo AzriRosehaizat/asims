@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, regularStaffs, DataService, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
+application.controller('regularStaffController', function($scope, $http, regularStaffs, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
 
     /* Initialization */
     
@@ -7,7 +7,7 @@ application.controller('regularStaffController', function($scope, regularStaffs,
     initAddForm();
 
     $scope.gridOptions = {
-        data: regularStaffs,
+        data: regularStaffs.data,
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
@@ -67,14 +67,6 @@ application.controller('regularStaffController', function($scope, regularStaffs,
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');
         console.log("Submit success");
-        // if (form.$valid) {
-        //     DataService.update('/regularStaff/', $scope.model)
-        //         .then(function(data) {
-        //             angular.merge($scope.row.entity, $scope.model);
-        //         }, function(err) {
-        //             console.warn(err);
-        //         });
-        // }
     };
 
     $scope.delete = function() {

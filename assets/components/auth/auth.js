@@ -1,4 +1,4 @@
-application.service('Auth', function($state, DataService, LocalService, CurrentUser, AccessLevels) {
+application.service('Auth', function($state, $http, LocalService, CurrentUser, AccessLevels) {
     return {
         authorize: function(access) {
             if (access === AccessLevels.admin) {
@@ -21,9 +21,9 @@ application.service('Auth', function($state, DataService, LocalService, CurrentU
             return false;
         },
         login: function(credentials) {
-            var login = DataService.post('/auth/login/', credentials)
-                .then(function(data) {
-                    LocalService.set('auth_token', JSON.stringify(data));
+            var login = $http.post('/auth/login/', credentials)
+                .then(function(res) {
+                    LocalService.set('auth_token', JSON.stringify(res.data));
                 });
             return login;
         },

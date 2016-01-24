@@ -1,4 +1,4 @@
-application.controller('academicStaffController', function($scope, academicStaffs, DataService, ModalLoader, AnchorScroll, StaffSchema, AddStaffForm, EditStaffForm) {
+application.controller('academicStaffController', function($scope, $http, academicStaffs, ModalLoader, AnchorScroll, StaffSchema, AddStaffForm, EditStaffForm) {
 
     /* Initialization */
     
@@ -7,7 +7,7 @@ application.controller('academicStaffController', function($scope, academicStaff
     initAddForm();
 
     $scope.gridOptions = {
-        data: academicStaffs,
+        data: academicStaffs.data,
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
@@ -29,7 +29,7 @@ application.controller('academicStaffController', function($scope, academicStaff
         department: {
             title: 'AcademicStaff_Department',
             gridOptions: {
-                data: academicStaffs,
+                data: academicStaffs.data,
                 columnDefs: [{
                     name: 'DepartmentID',
                     field: 'AcademicStaff_Department[0].departmentID'
@@ -63,14 +63,6 @@ application.controller('academicStaffController', function($scope, academicStaff
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');
         console.log("Submit success");
-        // if (form.$valid) {
-        //     DataService.update('/academicStaff/', $scope.model)
-        //         .then(function(data) {
-        //             angular.merge($scope.row.entity, $scope.model);
-        //         }, function(err) {
-        //             console.warn(err);
-        //         });
-        // }
     };
 
     $scope.delete = function() {
