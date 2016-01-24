@@ -7,6 +7,7 @@ application.controller('regularStaffController', function($scope, regularStaffs,
     initAddForm();
 
     $scope.gridOptions = {
+        data: regularStaffs,
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
@@ -20,23 +21,26 @@ application.controller('regularStaffController', function($scope, regularStaffs,
             field: 'academicStaffID.employeeNo'
         }, {
             name: 'Tenure Date',
-            field: 'tenureDate'
+            field: 'tenureDate',
+            cellFilter: 'date:\'yyyy-MM-dd\''
         }, {
             name: 'contApptDate',
-            field: 'contApptDate'
+            field: 'contApptDate',
+            cellFilter: 'date:\'yyyy-MM-dd\''
         }, {
             name: 'Start Date',
-            field: 'startDate'
+            field: 'startDate',
+            type: 'date',
+            cellFilter: 'date:\'yyyy-MM-dd\''
         }, {
             name: 'End Date',
-            field: 'endDate'
+            field: 'endDate',
+            cellFilter: 'date:\'yyyy-MM-dd\''
         }]
     };
 
     $scope.tabs = {
     };
-
-    $scope.gridOptions.data = regularStaffs;
     
     /* Generic functions: need minor tweaks for another view */
 

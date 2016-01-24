@@ -126,15 +126,18 @@ application
                 properties: {
                     "firstName": {
                         type: "string",
-                        title: "First Name"
+                        title: "First Name",
+                        required: true
                     },
                     "lastName": {
                         type: "string",
-                        title: "Last Name"
+                        title: "Last Name",
+                        required: true
                     },
                     "employeeNo": {
                         type: "string",
-                        title: "Employee No"
+                        title: "Employee No",
+                        required: true
                     }
                 }
             },
@@ -154,18 +157,21 @@ application
                 type: "string",
                 title: "End Date"
             }
-        },
-        required: [
-            "firstName",
-            "lastName",
-            "employeeNo"
-        ]
+        }
     })
     .constant("AddRegularStaffForm", [addTitle, firstName, lastName, employeeNo,
         tenureDate, contApptDate, startDate, endDate, buttonsNoDelete
     ])
-    .constant("EditRegularStaffForm", [editTitle, firstNameRO, firstName,
-        lastNameRO, lastName, employeeNoRO, employeeNo, tenureDateRO, tenureDate,
-        contApptDateRO, contApptDate, startDateRO, startDate, endDateRO, endDate,
+    .constant("EditRegularStaffForm", [
+        editTitle, {
+            type: "tabs",
+            tabs: [{
+                title: "Tab 1",
+                items: [firstNameRO, firstName, lastNameRO, lastName, employeeNoRO, employeeNo]
+            }, {
+                title: "Tab 2",
+                items: [tenureDateRO, tenureDate, contApptDateRO, contApptDate, startDateRO, startDate, endDateRO, endDate]
+            }]
+        },
         buttons
     ]);
