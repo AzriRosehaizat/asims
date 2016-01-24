@@ -29,6 +29,7 @@
     "angular-mocks": "",
     "angular-ui-grid": "",
     "bootstrap": "",
-    "angular-schema-form": ""
+    "angular-schema-form": "",
+    "angular-loading-spinner": "~0.0.3"
   }
 }
