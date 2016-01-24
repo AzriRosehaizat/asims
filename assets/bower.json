@@ -20,15 +20,15 @@
     "tests"
   ],
   "dependencies": {
-    "angular-bootstrap": "",
-    "angular-moment": "",
-    "angular-route": "",
     "angular": "",
-    "angular-mocks": "",
+    "angular-bootstrap": "",
+    "angular-route": "",
+    "angular-ui-router": "",
     "angular-animate": "",
+    "angular-moment": "",
+    "angular-mocks": "",
     "angular-ui-grid": "",
     "bootstrap": "",
-    "angular-ui-router": "",
-    "angular-schema-form":""
+    "angular-schema-form": ""
   }
 }

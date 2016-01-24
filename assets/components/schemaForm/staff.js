@@ -79,22 +79,20 @@ application
         properties: {
             "firstName": {
                 type: "string",
-                title: "First Name"
+                title: "First Name",
+                required: true
             },
             "lastName": {
                 type: "string",
-                title: "Last Name"
+                title: "Last Name",
+                required: true
             },
             "employeeNo": {
                 type: "string",
-                title: "Employee No"
+                title: "Employee No",
+                required: true
             }
-        },
-        required: [
-            "firstName",
-            "lastName",
-            "employeeNo"
-        ]
+        }
     })
     .constant("AddStaffForm", [addTitle, firstName, lastName,
         employeeNo, buttonsNoDelete

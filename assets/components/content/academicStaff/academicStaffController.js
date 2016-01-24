@@ -7,6 +7,7 @@ application.controller('academicStaffController', function($scope, academicStaff
     initAddForm();
 
     $scope.gridOptions = {
+        data: academicStaffs,
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
@@ -28,6 +29,7 @@ application.controller('academicStaffController', function($scope, academicStaff
         department: {
             title: 'AcademicStaff_Department',
             gridOptions: {
+                data: academicStaffs,
                 columnDefs: [{
                     name: 'DepartmentID',
                     field: 'AcademicStaff_Department[0].departmentID'
@@ -35,9 +37,6 @@ application.controller('academicStaffController', function($scope, academicStaff
             }
         }
     };
-
-    $scope.gridOptions.data = academicStaffs;
-    $scope.tabs.department.gridOptions.data = academicStaffs;
     
     /* Generic functions: need minor tweaks for another view */
 

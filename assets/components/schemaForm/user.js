@@ -184,6 +184,7 @@ application
             "username": {
                 type: "string",
                 title: "Username",
+                required: true
             },
             "firstName": {
                 type: "string",
@@ -216,12 +217,14 @@ application
             "password": {
                 type: "string",
                 title: "Password",
-                minLength: 6
+                minLength: 6,
+                required: true
             },
             "password_confirm": {
                 type: "string",
                 title: "Confirm password",
-                minLength: 6
+                minLength: 6,
+                required: true
             },
             "changePassword": {
                 type: "boolean",
@@ -232,12 +235,7 @@ application
                 type: "boolean",
                 default: false
             }
-        },
-        required: [
-            "username",
-            "password",
-            "password_confirm"
-        ]
+        }
     })
     .constant("AddUserForm", [addTitle, username, fName, lName, email, role, passwords, buttonsNoDelete])
     .constant("EditUserForm", [editTitle, usernameRO, fNameRO, fName, lNameRO, lName, emailRO, email, roleRO, role, changePassword, passwordsInEdit, buttons])
