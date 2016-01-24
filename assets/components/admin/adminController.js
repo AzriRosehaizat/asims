@@ -97,18 +97,12 @@ application.controller('adminController', function($scope, $http, users, ModalLo
     /* adminController specific functions */
 
     function updateUser() {
-        $scope.row.grid.options.enableRowSelection = false;
-        console.log($scope.row.grid.options.enableRowSelection);
-
         $http.put('/user/update/', $scope.model)
             .then(function(res) {
                 angular.merge($scope.row.entity, res.data);
                 $scope.model.switch = false;
             }, function(err) {
                 console.warn(err);
-            }).finally(function() {
-                $scope.row.grid.options.enableRowSelection = true;
-                console.log($scope.row.grid.options.enableRowSelection);
             });
     }
 
