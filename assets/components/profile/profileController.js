@@ -1,18 +1,18 @@
-application.controller('profileController', function($scope, user, DataService, UserSchema, ProfileForm) {
+application.controller('profileController', function($scope, $http, user, UserSchema, ProfileForm) {
 
     $scope.schema = UserSchema;
     $scope.form = ProfileForm;
     
-    $scope.user = user;
+    $scope.user = user.data;
     $scope.model = angular.copy($scope.user);
 
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');
 
         if (form.$valid) {
-            DataService.put('/user/update/', $scope.model)
-                .then(function(data) {
-                    angular.extend($scope.user, data);
+            $http.put('/user/update/', $scope.model)
+                .then(function(res) {
+                    angular.extend($scope.user, res.data);
                     $scope.model.switch = false;
                 }, function(err) {
                     console.warn(err);

@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, users, DataService, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
+application.controller('adminController', function($scope, $http, users, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
 
     /* Initialization */
 
@@ -6,7 +6,7 @@ application.controller('adminController', function($scope, users, DataService, M
     initAddForm();
 
     $scope.gridOptions = {
-        data: users,
+        data: users.data,
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
@@ -97,19 +97,25 @@ application.controller('adminController', function($scope, users, DataService, M
     /* adminController specific functions */
 
     function updateUser() {
-        DataService.put('/user/update/', $scope.model)
-            .then(function(data) {
-                angular.merge($scope.row.entity, data);
+        $scope.row.grid.options.enableRowSelection = false;
+        console.log($scope.row.grid.options.enableRowSelection);
+
+        $http.put('/user/update/', $scope.model)
+            .then(function(res) {
+                angular.merge($scope.row.entity, res.data);
                 $scope.model.switch = false;
             }, function(err) {
                 console.warn(err);
+            }).finally(function() {
+                $scope.row.grid.options.enableRowSelection = true;
+                console.log($scope.row.grid.options.enableRowSelection);
             });
     }
 
     function createUser() {
-        DataService.post('/user/create/', $scope.model)
-            .then(function(data) {
-                $scope.gridOptions.data.push(data);
+        $http.post('/user/create/', $scope.model)
+            .then(function(res) {
+                $scope.gridOptions.data.push(res.data);
                 $scope.model.switch = false;
             }, function(err) {
                 console.warn(err);
