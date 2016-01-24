@@ -1,286 +1,583 @@
-DROP DATABASE IF EXISTS asims;
-CREATE DATABASE IF NOT EXISTS asims;
-USE asims;
+-- MySQL Workbench Forward Engineering
 
-CREATE TABLE AcademicStaff(
-	staffID INT NOT NULL AUTO_INCREMENT,
-	firstName VARCHAR(50) NOT NULL,
-	lastName VARCHAR(50) NOT NULL,
-	employeeNo VARCHAR(50),
-	PRIMARY KEY(staffID)
-);
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE TABLE AcademicStaff_Department(
-	academicStaffDepartmentID INT NOT NULL AUTO_INCREMENT,
-	departmentID INT NOT NULL,
-	staffID INT NOT NULL,
-	startDate DATE NOT NULL DEFAULT 20100101,
-	endDate DATE,
-	PRIMARY KEY(academicStaffDepartmentID)
-);
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema asimsTest
+-- -----------------------------------------------------
 
-CREATE TABLE AcademicStaff_Section(
-	academicStaffSectionID INT NOT NULL AUTO_INCREMENT,
-	staffID INT NOT NULL,
-	courseSectionID INT NOT NULL,
-	role VARCHAR(50),
-	weight FLOAT NOT NULL,
-	PRIMARY KEY(academicStaffSectionID)
-);
+-- -----------------------------------------------------
+-- Schema asimsTest
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `asimsTest` DEFAULT CHARACTER SET latin1 ;
+USE `asimsTest` ;
 
-CREATE TABLE Chair(
-	chairID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULL,
-	departmentID INT NOT NULL,
-	startDate DATE NOT NULL DEFAULT 20100101,
-	endDate DATE,
-	PRIMARY KEY (chairID)
-);
-
-CREATE TABLE ContractStaff(
-	contractStaffID INT NOT NULL AUTO_INCREMENT,
-	academicStaffID INT NOT NULL,
-	startDate DATE NOT NULL DEFAULT 20100101,
-	endDate DATE,
-	PRIMARY KEY(contractStaffID)
-);
-
-CREATE TABLE Course(
-	courseID INT NOT NULL AUTO_INCREMENT,
-	courseNo VARCHAR(10) NOT NULL,
-	UNIQUE(courseNo),
-	PRIMARY KEY(courseID)
-);
-
-CREATE TABLE Course_Section(
-	courseSectionID INT NOT NULL AUTO_INCREMENT,
-	departmentCourseID INT NOT NULL,
-	sectionID INT NOT NULL,
-	PRIMARY KEY(courseSectionID)
-);
-
-CREATE TABLE DefaultNormalLoad(
-	defaultNormalLoadID INT NOT NULL AUTO_INCREMENT,
-	rankID INT NOT NULL,
-	departmentID INT NOT NULL,
-	startDate DATE NOT NULL DEFAULT 20100101,
-	FCEValue FLOAT NOT NULL,
-	PRIMARY KEY(defaultNormalLoadID)
-);
-
-CREATE TABLE Department(
-	departmentID INT NOT NULL AUTO_INCREMENT,
-	facultyID INT NOT NULL,
-	departmentCode VARCHAR(10),
-	title VARCHAR(50) NOT NULL,
-	description TEXT,
-	UNIQUE(departmentCode),
-	PRIMARY KEY(departmentID)
-);
-
-CREATE TABLE Department_Course(
-	departmentCourseID INT NOT NULL AUTO_INCREMENT,
-	departmentID INT NOT NULL,
-	courseID INT NOT NULL,
-	title VARCHAR(50),
-	description TEXT,
-    PRIMARY KEY(departmentCourseID)
-);
-
-CREATE TABLE Faculty(
-	facultyID INT NOT NULL AUTO_INCREMENT,
-	title VARCHAR(50) NOT NULL,
-	PRIMARY KEY(facultyID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`AcademicStaff`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`AcademicStaff` (
+  `staffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `firstName` VARCHAR(50) NOT NULL COMMENT '',
+  `lastName` VARCHAR(50) NOT NULL COMMENT '',
+  `employeeNo` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`staffID`)  COMMENT '')
+ENGINE = InnoDB
+AUTO_INCREMENT = 201
+DEFAULT CHARACTER SET = latin1;
 
 
-CREATE TABlE FCECredit(
-	FCECreditID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULL,
-	amount FLOAT NOT NULL,
-	description TEXT,
-	dateIssued DATE,
-	FCECreditType VARCHAR(50),
-	PRIMARY KEY(FCECreditID)
-);
-
-CREATE TABLE FCEDebit(
-	FCEDebitID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULL,
-	amount FLOAT NOT NULL,
-	description TEXT,
-	dateIssued DATE,
-	FCEDebitType VARCHAR(50),
-	PRIMARY KEY(FCEDebitID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Faculty`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Faculty` (
+  `facultyID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
+  PRIMARY KEY (`facultyID`)  COMMENT '')
+ENGINE = InnoDB
+AUTO_INCREMENT = 7
+DEFAULT CHARACTER SET = latin1;
 
 
-CREATE TABLE LeaveCredit(
-	leaveCreditID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULL,
-	amount FLOAT NOT NULL,
-	description TEXT,
-	dateIssued DATE,
-	leaveCreditType VARCHAR(50) NOT NULL,
-	PRIMARY KEY(leaveCreditID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Department`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Department` (
+  `departmentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `facultyID` INT(11) NOT NULL COMMENT '',
+  `departmentCode` VARCHAR(10) NULL DEFAULT NULL COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`departmentID`)  COMMENT '',
+  UNIQUE INDEX `departmentCode` (`departmentCode` ASC)  COMMENT '',
+  INDEX `facultyID` (`facultyID` ASC)  COMMENT '',
+  CONSTRAINT `Department_ibfk_1`
+    FOREIGN KEY (`facultyID`)
+    REFERENCES `asimsTest`.`Faculty` (`facultyID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 32
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABLE LeaveDebit(
-	leaveDebitID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULL,
-	amount FLOAT NOT NULL,
-	description TEXT,
-	dateIssued DATE,
-	leaveDebitType VARCHAR(50) NOT NULL,
-	PRIMARY KEY(leaveDebitID)
-);
 
-CREATE TABLE LoadIncrease(
-	loadIncreaseID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULl,
-	startDate DATE NOT NULL,
-	endDate DATE NOT NULL,
-	FCEValue FLOAT NOT NULL DEFAULT 0.5,
-    PRIMARY KEY(loadIncreaseID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`AcademicStaff_Department`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`AcademicStaff_Department` (
+  `academicStaffDepartmentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `staffID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`academicStaffDepartmentID`)  COMMENT '',
+  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
+  INDEX `staffID` (`staffID` ASC)  COMMENT '',
+  CONSTRAINT `AcademicStaff_Department_ibfk_2`
+    FOREIGN KEY (`staffID`)
+    REFERENCES `asimsTest`.`AcademicStaff` (`staffID`),
+  CONSTRAINT `AcademicStaff_Department_ibfk_1`
+    FOREIGN KEY (`departmentID`)
+    REFERENCES `asimsTest`.`Department` (`departmentID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 201
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABLE LoadReduction(
-	loadReductionID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULl,
-	startDate DATE NOT NULL,
-	endDate DATE NOT NULL,
-	FCEValue FLOAT NOT NULL DEFAULT 0.5,
-    PRIMARY KEY(loadReductionID)
-);
 
-CREATE TABLE Rank(
-	rankID INT NOT NULL AUTO_INCREMENT,
-	title VARCHAR(50) NOT NULL,
-	description TEXT,
-	PRIMARY KEY(rankID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Section`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Section` (
+  `sectionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `sectionNo` VARCHAR(10) NOT NULL COMMENT '',
+  `Type` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  `FCEModifier` DOUBLE NOT NULL COMMENT '',
+  PRIMARY KEY (`sectionID`)  COMMENT '',
+  UNIQUE INDEX `sectionNo` (`sectionNo` ASC)  COMMENT '')
+ENGINE = InnoDB
+AUTO_INCREMENT = 14
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABLE RegularStaff(
-	academicStaffID INT NOT NULL,
-	regularStaffID INT NOT NULL AUTO_INCREMENT,
-	startDate DATE NOT NULL DEFAULT 20100101,
-	endDate DATE,
-	contApptDate DATE,
-	tenureDate DATE,
-	PRIMARY KEY(regularStaffID)
-);
 
-CREATE TABLE RegularStaff_Rank(
-	regularStaffRankID INT NOT NULL AUTO_INCREMENT,
-	rankID INT NOT NULL,
-	regularStaffID INT NOT NULL,
-	startDate DATE NOT NULL DEFAULT 20100101,
-	endDate DATE,
-	PRIMARY KEY(regularStaffRankID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Course`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Course` (
+  `courseID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `courseNO` INT(11) NOT NULL COMMENT '',
+  `title` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`courseID`)  COMMENT '',
+  UNIQUE INDEX `uc_course` (`departmentID` ASC, `courseNO` ASC)  COMMENT '',
+  CONSTRAINT `Course_ibfk_1`
+    FOREIGN KEY (`departmentID`)
+    REFERENCES `asimsTest`.`Department` (`departmentID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABLE RegularStaff_Research(
-	regularStaffResearchID INT NOT NULL AUTO_INCREMENT,
-	researchID INT NOT NULL,
-	regularStaffID INT NOT NULL,
-	loadReductionID INT,
-	startDate DATE NOT NULL,
-	endDate DATE,
-	PRIMARY KEY(regularStaffResearchID)
-);
 
-CREATE TABLE Research(
-	researchID INT NOT NULL AUTO_INCREMENT,
-	title VARCHAR(50) NOT NULL,
-	abstract TEXT,
-	startDate DATE NOT NULL,
-	endDate DATE NOT NULL,
-	PRIMARY KEY(researchID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Section_Offered`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Section_Offered` (
+  `sectionOfferedID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `courseID` INT(11) NOT NULL COMMENT '',
+  `sectionID` INT(11) NOT NULL COMMENT '',
+  `groupID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`sectionOfferedID`)  COMMENT '',
+  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC)  COMMENT '',
+  INDEX `sectionID` (`sectionID` ASC)  COMMENT '',
+  CONSTRAINT `Section_Offered_ibfk_2`
+    FOREIGN KEY (`sectionID`)
+    REFERENCES `asimsTest`.`Section` (`sectionID`),
+  CONSTRAINT `Section_Offered_ibfk_1`
+    FOREIGN KEY (`courseID`)
+    REFERENCES `asimsTest`.`Course` (`courseID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABlE ResearchGrant(
-	grantID INT NOT NULL AUTO_INCREMENT,
-	researchID INT NOT NULL,
-	grantingAgency VARCHAR(50) NOT NULL,
-	dateAwarded DATE,
-	duration FLOAT(10,2),
-	amount FLOAT(10,2),
-	PRIMARY KEY(grantID)
-);
 
-CREATE TABLE RightToRefusal(
-	rightToRefusalID INT NOT NULL AUTO_INCREMENT,
-	courseSectionID INT NOT NULL,
-	contractStaffID INT NOT NULL,
-	startTerm VARCHAR(10) NOT NULL,
-	endTerm VARCHAR(10) NOT NULL,
-	PRIMARY KEY(rightToRefusalID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`AcademicStaff_Section`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`AcademicStaff_Section` (
+  `academicStaffSectionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `staffID` INT(11) NOT NULL COMMENT '',
+  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
+  `role` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  `weight` FLOAT NOT NULL COMMENT '',
+  PRIMARY KEY (`academicStaffSectionID`)  COMMENT '',
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
+  INDEX `staffID` (`staffID` ASC)  COMMENT '',
+  CONSTRAINT `AcademicStaff_Section_ibfk_2`
+    FOREIGN KEY (`staffID`)
+    REFERENCES `asimsTest`.`AcademicStaff` (`staffID`),
+  CONSTRAINT `AcademicStaff_Section_ibfk_1`
+    FOREIGN KEY (`sectionOfferedID`)
+    REFERENCES `asimsTest`.`Section_Offered` (`sectionOfferedID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABLE Section(
-	sectionID INT NOT NULL AUTO_INCREMENT,
-	sectionNo VARCHAR(10) NOT NULL,
-	title VARCHAR(50),
-	UNIQUE(sectionNo),
-	PRIMARY KEY(sectionID)
-);
 
-CREATE TABLE StaffLeave(
-	leaveID INT NOT NULL AUTO_INCREMENT,
-	regularStaffID INT NOT NULL,
-	leaveDebitID INT NOT NULL,
-	description TEXT NOT NULL,
-	startDate DATE NOT NULL,
-	endDate DATE NOT NULL,
-	leavePercentage FLOAT NOT NULL,
-	wagePercentage FLOAT NOT NULL,
-	PRIMARY KEY(leaveID)
-);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`RegularStaff`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`RegularStaff` (
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  `regularStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `contApptDate` DATE NULL DEFAULT NULL COMMENT '',
+  `tenureDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularStaffID`)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  CONSTRAINT `RegularStaff_ibfk_1`
+    FOREIGN KEY (`academicStaffID`)
+    REFERENCES `asimsTest`.`AcademicStaff` (`staffID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 151
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABLE TeachingActivities(
-	teachingActivitiesID INT NOT NULL AUTO_INCREMENT,
-	courseSectionID INT NOT NULL,
-	academicStaffID INT NOT NULL,
-	startDate DATE NOT NULL DEFAULT 20150905,
-	endDate DATE NOT NULL DEFAULT 20160425,
-	FCEValue FLOAT NOT NULL DEFAULT 0.5,
-	PRIMARY KEY(teachingActivitiesID)
-);
 
-#BEGIN ALTER TABLE AND FK CONSTRAINTS
-ALTER TABLE AcademicStaff_Department ADD CONSTRAINT FOREIGN KEY(departmentID) REFERENCES Department(departmentID);
-ALTER TABLE AcademicStaff_Department ADD CONSTRAINT FOREIGN KEY(staffID) REFERENCES AcademicStaff(staffID);
-ALTER TABLE AcademicStaff_Section ADD CONSTRAINT FOREIGN KEY(courseSectionID) REFERENCES Course_Section(courseSectionID);
-ALTER TABLE AcademicStaff_Section ADD CONSTRAINT FOREIGN KEY(staffID) REFERENCES AcademicStaff(staffID);
-ALTER TABLE Chair ADD CONSTRAINT FOREIGN KEY(departmentID) REFERENCES Department(departmentID);
-ALTER TABLE Chair ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE Course_Section ADD CONSTRAINT FOREIGN KEY(departmentCourseID) REFERENCES Department_Course(departmentCourseID);
-ALTER TABLE Course_Section ADD CONSTRAINT FOREIGN KEY(sectionID) REFERENCES Section(sectionID);
-ALTER TABLE ContractStaff ADD CONSTRAINT FOREIGN KEY(academicStaffID) REFERENCES AcademicStaff(staffID);
-ALTER TABLE DefaultNormalLoad ADD CONSTRAINT FOREIGN KEY(rankID) REFERENCES Rank(rankID);
-ALTER TABLE DefaultNormalLoad ADD CONSTRAINT FOREIGN KEY(departmentID) REFERENCES Department(departmentID);
-ALTER TABLE Department ADD CONSTRAINT FOREIGN KEY(facultyID) REFERENCES Faculty(facultyID);
-ALTER TABLE Department_Course ADD CONSTRAINT FOREIGN KEY(departmentID) REFERENCES Department(departmentID);
-ALTER TABLE Department_Course ADD CONSTRAINT FOREIGN KEY(courseID) REFERENCES Course(courseID);
-ALTER TABLE FCECredit ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE FCEDebit ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE ResearchGrant ADD CONSTRAINT FOREIGN KEY(researchID) REFERENCES Research(researchID);
-ALTER TABLE StaffLeave ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE StaffLeave ADD CONSTRAINT FOREIGN KEY(leaveDebitID) REFERENCES LeaveDebit(leaveDebitID);
-ALTER TABLE LeaveCredit ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE LeaveDebit ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE LoadIncrease ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE LoadReduction ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE RegularStaff ADD CONSTRAINT FOREIGN KEY(academicStaffID) REFERENCES AcademicStaff(staffID);
-ALTER TABLE RegularStaff_Rank ADD CONSTRAINT FOREIGN KEY(rankID) REFERENCES Rank(rankID);
-ALTER TABLE RegularStaff_Rank ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(regularStaffID) REFERENCES RegularStaff(regularStaffID);
-ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(researchID) REFERENCES Research(researchID);
-ALTER TABLE RegularStaff_Research ADD CONSTRAINT FOREIGN KEY(loadReductionID) REFERENCES LoadReduction(loadReductionID);
-ALTER TABLE TeachingActivities ADD CONSTRAINT FOREIGN KEY(academicStaffID) REFERENCES AcademicStaff(staffID);
-ALTER TABLE TeachingActivities ADD CONSTRAINT FOREIGN KEY(courseSectionID) REFERENCES Course_Section(courseSectionID);
-ALTER TABLE RightToRefusal ADD CONSTRAINT FOREIGN KEY(contractStaffID) REFERENCES ContractStaff(contractStaffID);
-ALTER TABLE RightToRefusal ADD CONSTRAINT FOREIGN KEY(courseSectionID) REFERENCES Course_Section(courseSectionID);
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Chair`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Chair` (
+  `chairID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`chairID`)  COMMENT '',
+  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `Chair_ibfk_2`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`),
+  CONSTRAINT `Chair_ibfk_1`
+    FOREIGN KEY (`departmentID`)
+    REFERENCES `asimsTest`.`Department` (`departmentID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 13
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`ContractStaff`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`ContractStaff` (
+  `contractStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`contractStaffID`)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  CONSTRAINT `ContractStaff_ibfk_1`
+    FOREIGN KEY (`academicStaffID`)
+    REFERENCES `asimsTest`.`AcademicStaff` (`staffID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 51
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`ContractStaffEmployment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`ContractStaffEmployment` (
+  `contractStaffID` INT(11) NOT NULL COMMENT '',
+  `contractEmploymentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`contractEmploymentID`)  COMMENT '',
+  INDEX `contractStaffID` (`contractStaffID` ASC)  COMMENT '',
+  CONSTRAINT `ContractStaffEmployment_ibfk_1`
+    FOREIGN KEY (`contractStaffID`)
+    REFERENCES `asimsTest`.`ContractStaff` (`contractStaffID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 51
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Crosslisting`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Crosslisting` (
+  `crosslistingID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `courseID` INT(11) NOT NULL COMMENT '',
+  `groupID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`crosslistingID`)  COMMENT '',
+  INDEX `courseID` (`courseID` ASC)  COMMENT '',
+  CONSTRAINT `Crosslisting_ibfk_1`
+    FOREIGN KEY (`courseID`)
+    REFERENCES `asimsTest`.`Course` (`courseID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Rank`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Rank` (
+  `rankID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`rankID`)  COMMENT '')
+ENGINE = InnoDB
+AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`DefaultNormalLoad`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`DefaultNormalLoad` (
+  `defaultNormalLoadID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `rankID` INT(11) NOT NULL COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `FCEValue` FLOAT NOT NULL COMMENT '',
+  PRIMARY KEY (`defaultNormalLoadID`)  COMMENT '',
+  INDEX `rankID` (`rankID` ASC)  COMMENT '',
+  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
+  CONSTRAINT `DefaultNormalLoad_ibfk_2`
+    FOREIGN KEY (`departmentID`)
+    REFERENCES `asimsTest`.`Department` (`departmentID`),
+  CONSTRAINT `DefaultNormalLoad_ibfk_1`
+    FOREIGN KEY (`rankID`)
+    REFERENCES `asimsTest`.`Rank` (`rankID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`FCECredit`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`FCECredit` (
+  `FCECreditID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `FCECreditType` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`FCECreditID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `FCECredit_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`FCEDebit`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`FCEDebit` (
+  `FCEDebitID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `FCEDebitType` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`FCEDebitID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `FCEDebit_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`LeaveCredit`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`LeaveCredit` (
+  `leaveCreditID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `leaveCreditType` VARCHAR(50) NOT NULL COMMENT '',
+  PRIMARY KEY (`leaveCreditID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `LeaveCredit_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`LeaveDebit`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`LeaveDebit` (
+  `leaveDebitID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `leaveDebitType` VARCHAR(50) NOT NULL COMMENT '',
+  PRIMARY KEY (`leaveDebitID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `LeaveDebit_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`LoadIncrease`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`LoadIncrease` (
+  `loadIncreaseID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
+  PRIMARY KEY (`loadIncreaseID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `LoadIncrease_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`LoadReduction`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`LoadReduction` (
+  `loadReductionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
+  PRIMARY KEY (`loadReductionID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `LoadReduction_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`RegularStaffEmployment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`RegularStaffEmployment` (
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `regularEmploymentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularEmploymentID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `RegularStaffEmployment_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 151
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`RegularStaff_Rank`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`RegularStaff_Rank` (
+  `regularStaffRankID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `rankID` INT(11) NOT NULL COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularStaffRankID`)  COMMENT '',
+  INDEX `rankID` (`rankID` ASC)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  CONSTRAINT `RegularStaff_Rank_ibfk_2`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`),
+  CONSTRAINT `RegularStaff_Rank_ibfk_1`
+    FOREIGN KEY (`rankID`)
+    REFERENCES `asimsTest`.`Rank` (`rankID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 151
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`Research`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`Research` (
+  `researchID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `abstract` TEXT NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  PRIMARY KEY (`researchID`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`RegularStaff_Research`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`RegularStaff_Research` (
+  `regularStaffResearchID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `researchID` INT(11) NOT NULL COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `loadReductionID` INT(11) NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularStaffResearchID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  INDEX `researchID` (`researchID` ASC)  COMMENT '',
+  INDEX `loadReductionID` (`loadReductionID` ASC)  COMMENT '',
+  CONSTRAINT `RegularStaff_Research_ibfk_3`
+    FOREIGN KEY (`loadReductionID`)
+    REFERENCES `asimsTest`.`LoadReduction` (`loadReductionID`),
+  CONSTRAINT `RegularStaff_Research_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`),
+  CONSTRAINT `RegularStaff_Research_ibfk_2`
+    FOREIGN KEY (`researchID`)
+    REFERENCES `asimsTest`.`Research` (`researchID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`ResearchGrant`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`ResearchGrant` (
+  `grantID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `researchID` INT(11) NOT NULL COMMENT '',
+  `grantingAgency` VARCHAR(50) NOT NULL COMMENT '',
+  `dateAwarded` DATE NULL DEFAULT NULL COMMENT '',
+  `duration` FLOAT(10,2) NULL DEFAULT NULL COMMENT '',
+  `amount` FLOAT(10,2) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`grantID`)  COMMENT '',
+  INDEX `researchID` (`researchID` ASC)  COMMENT '',
+  CONSTRAINT `ResearchGrant_ibfk_1`
+    FOREIGN KEY (`researchID`)
+    REFERENCES `asimsTest`.`Research` (`researchID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`RightToRefusal`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`RightToRefusal` (
+  `rightToRefusalID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
+  `contractStaffID` INT(11) NOT NULL COMMENT '',
+  `startTerm` VARCHAR(10) NOT NULL COMMENT '',
+  `endTerm` VARCHAR(10) NOT NULL COMMENT '',
+  PRIMARY KEY (`rightToRefusalID`)  COMMENT '',
+  INDEX `contractStaffID` (`contractStaffID` ASC)  COMMENT '',
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
+  CONSTRAINT `RightToRefusal_ibfk_2`
+    FOREIGN KEY (`sectionOfferedID`)
+    REFERENCES `asimsTest`.`Section_Offered` (`sectionOfferedID`),
+  CONSTRAINT `RightToRefusal_ibfk_1`
+    FOREIGN KEY (`contractStaffID`)
+    REFERENCES `asimsTest`.`ContractStaff` (`contractStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`StaffLeave`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`StaffLeave` (
+  `leaveID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `leaveDebitID` INT(11) NOT NULL COMMENT '',
+  `description` TEXT NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  `leavePercentage` FLOAT NOT NULL COMMENT '',
+  `wagePercentage` FLOAT NOT NULL COMMENT '',
+  PRIMARY KEY (`leaveID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  INDEX `leaveDebitID` (`leaveDebitID` ASC)  COMMENT '',
+  CONSTRAINT `StaffLeave_ibfk_2`
+    FOREIGN KEY (`leaveDebitID`)
+    REFERENCES `asimsTest`.`LeaveDebit` (`leaveDebitID`),
+  CONSTRAINT `StaffLeave_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `asimsTest`.`RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
+-- Table `asimsTest`.`TeachingActivities`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `asimsTest`.`TeachingActivities` (
+  `teachingActivitiesID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `academicStaffSectionID` INT(11) NOT NULL COMMENT '',
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2015-09-05' COMMENT '',
+  `endDate` DATE NOT NULL DEFAULT '2016-04-25' COMMENT '',
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
+  PRIMARY KEY (`teachingActivitiesID`)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  INDEX `academicStaffSectionID` (`academicStaffSectionID` ASC)  COMMENT '',
+  CONSTRAINT `TeachingActivities_ibfk_2`
+    FOREIGN KEY (`academicStaffSectionID`)
+    REFERENCES `asimsTest`.`AcademicStaff_Section` (`academicStaffSectionID`),
+  CONSTRAINT `TeachingActivities_ibfk_1`
+    FOREIGN KEY (`academicStaffID`)
+    REFERENCES `asimsTest`.`AcademicStaff` (`staffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 #BEGIN INSERT INTO TABLE
 INSERT INTO AcademicStaff (staffID,firstName,lastName) VALUES (1,"Nasim","Slater"),(2,"Justin","Merritt"),(3,"Hadassah","Irwin"),(4,"Nicole","Brock"),(5,"Simone","Stephenson"),(6,"Aubrey","Farley"),(7,"Lance","Benton"),(8,"Macy","Davidson"),(9,"Athena","Buchanan"),(10,"Phoebe","Greene"),(11,"Arsenio","Chen"),(12,"Brennan","Thompson"),(13,"Ignacia","Faulkner"),(14,"Aquila","Kane"),(15,"Lydia","Zamora"),(16,"Regina","Montoya"),(17,"Malik","West"),(18,"Briar","Roach"),(19,"Daria","Davenport"),(20,"Hermione","Holman"),(21,"Nina","Valenzuela"),(22,"Autumn","Daniels"),(23,"Alisa","Park"),(24,"Brianna","Duke"),(25,"Tanner","Wong"),(26,"Cailin","Boone"),(27,"Aquila","Rowe"),(28,"Yolanda","Terry"),(29,"Elijah","Ratliff"),(30,"Leo","Diaz"),(31,"Mara","Hunter"),(32,"Vaughan","Benton"),(33,"Baxter","Schmidt"),(34,"Gage","Stanley"),(35,"Mufutau","Levy"),(36,"Randall","Brown"),(37,"Sonia","Cunningham"),(38,"Driscoll","Hatfield"),(39,"Thane","Oneil"),(40,"Ariana","Monroe"),(41,"Holmes","Hudson"),(42,"Ishmael","Kennedy"),(43,"Tara","Barry"),(44,"Noelle","Hoffman"),(45,"Plato","Sullivan"),(46,"Rina","Mcgowan"),(47,"Nolan","Petersen"),(48,"Benjamin","Klein"),(49,"Hadassah","Galloway"),(50,"Reed","Richmond");
@@ -294,11 +591,11 @@ INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,sta
 INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,staffID) VALUES (51,25,51),(52,30,52),(53,26,53),(54,24,54),(55,28,55),(56,22,56),(57,25,57),(58,21,58),(59,27,59),(60,20,60),(61,27,61),(62,31,62),(63,20,63),(64,30,64),(65,21,65),(66,27,66),(67,22,67),(68,20,68),(69,30,69),(70,24,70),(71,20,71),(72,20,72),(73,29,73),(74,31,74),(75,20,75),(76,23,76),(77,28,77),(78,31,78),(79,23,79),(80,30,80),(81,28,81),(82,23,82),(83,22,83),(84,26,84),(85,22,85),(86,31,86),(87,20,87),(88,23,88),(89,26,89),(90,21,90),(91,31,91),(92,27,92),(93,21,93),(94,25,94),(95,27,95),(96,23,96),(97,24,97),(98,31,98),(99,31,99),(100,20,100);
 INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,staffID) VALUES (101,25,101),(102,31,102),(103,28,103),(104,27,104),(105,26,105),(106,20,106),(107,21,107),(108,25,108),(109,21,109),(110,22,110),(111,26,111),(112,20,112),(113,31,113),(114,23,114),(115,28,115),(116,22,116),(117,22,117),(118,22,118),(119,22,119),(120,22,120),(121,23,121),(122,22,122),(123,27,123),(124,27,124),(125,22,125),(126,24,126),(127,27,127),(128,23,128),(129,27,129),(130,24,130),(131,24,131),(132,26,132),(133,31,133),(134,28,134),(135,27,135),(136,22,136),(137,25,137),(138,23,138),(139,22,139),(140,27,140),(141,27,141),(142,23,142),(143,28,143),(144,29,144),(145,24,145),(146,30,146),(147,26,147),(148,26,148),(149,22,149),(150,25,150);
 INSERT INTO AcademicStaff_Department (academicStaffDepartmentID,departmentID,staffID) VALUES (151,28,151),(152,27,152),(153,21,153),(154,20,154),(155,29,155),(156,24,156),(157,27,157),(158,30,158),(159,26,159),(160,24,160),(161,29,161),(162,27,162),(163,27,163),(164,24,164),(165,21,165),(166,21,166),(167,22,167),(168,28,168),(169,27,169),(170,27,170),(171,21,171),(172,29,172),(173,31,173),(174,20,174),(175,31,175),(176,24,176),(177,30,177),(178,26,178),(179,27,179),(180,30,180),(181,28,181),(182,23,182),(183,26,183),(184,30,184),(185,26,185),(186,20,186),(187,25,187),(188,26,188),(189,29,189),(190,20,190),(191,24,191),(192,20,192),(193,20,193),(194,24,194),(195,21,195),(196,22,196),(197,28,197),(198,20,198),(199,21,199),(200,21,200);
-INSERT INTO Course (courseID,courseNo) VALUES (1,2678),(2,4339),(3,3718),(4,4461),(5,2340),(6,3288),(7,2155),(8,3328),(9,1811),(10,1121),(11,1975),(12,2041),(13,3978),(14,4966),(15,1042),(16,3403),(17,4958),(18,3221),(19,2708),(20,1422),(21,3527),(22,2729),(23,2494),(24,2727),(25,1451),(26,2561),(27,1578),(28,2456),(29,2096),(30,4954),(31,4872),(32,2147),(33,4457),(34,1834),(35,2467),(36,1634),(37,4741),(38,3689),(39,2417),(40,1337),(41,4865),(42,3438),(43,4011),(44,3247),(45,1423),(46,4930),(47,4769),(48,1826),(49,4641),(50,4401);
-INSERT INTO Course (courseID,courseNo) VALUES (51,1593),(52,3869),(53,4137),(54,1803),(55,1396),(56,4780),(57,2153),(58,4693),(59,4104),(60,1225),(61,3717),(62,1483),(63,4711),(64,4927),(65,4288),(66,3046),(67,1291),(68,1520),(69,1448),(70,4646),(71,1279),(72,2491),(73,1376),(74,3134),(75,3547),(76,4231),(77,2070),(78,2515),(79,1935),(80,1012),(81,4595),(82,4993),(83,3802),(84,3528),(85,3900),(86,2373),(87,3647),(88,2663),(89,3141),(90,2395),(91,4720),(92,3600),(93,1145),(94,2098),(95,1114),(96,1329),(97,3982),(98,1205),(99,1487),(100,4817);
-INSERT INTO Section (sectionID, sectionNo, title) VALUES (1,"001","Day Class I"),(2,"002","Day Class II"),(3,"003","Day Class III"),(4,"004","Day Class IV"),(5,"050","Evening Class I"),(6,"051","Evening Class II"),(7,"052","Evening Class III"),(8,"0053","Evening Class IV"),(9,"072L","Lab I"),(10,"073L","Lab II"),(11,"074L","Lab III"),(12,"750","Web Based VOD 1"),(13,"760","LMS Online");
+-- INSERT INTO Course (courseID,courseNo) VALUES (1,2678),(2,4339),(3,3718),(4,4461),(5,2340),(6,3288),(7,2155),(8,3328),(9,1811),(10,1121),(11,1975),(12,2041),(13,3978),(14,4966),(15,1042),(16,3403),(17,4958),(18,3221),(19,2708),(20,1422),(21,3527),(22,2729),(23,2494),(24,2727),(25,1451),(26,2561),(27,1578),(28,2456),(29,2096),(30,4954),(31,4872),(32,2147),(33,4457),(34,1834),(35,2467),(36,1634),(37,4741),(38,3689),(39,2417),(40,1337),(41,4865),(42,3438),(43,4011),(44,3247),(45,1423),(46,4930),(47,4769),(48,1826),(49,4641),(50,4401);
+-- INSERT INTO Course (courseID,courseNo) VALUES (51,1593),(52,3869),(53,4137),(54,1803),(55,1396),(56,4780),(57,2153),(58,4693),(59,4104),(60,1225),(61,3717),(62,1483),(63,4711),(64,4927),(65,4288),(66,3046),(67,1291),(68,1520),(69,1448),(70,4646),(71,1279),(72,2491),(73,1376),(74,3134),(75,3547),(76,4231),(77,2070),(78,2515),(79,1935),(80,1012),(81,4595),(82,4993),(83,3802),(84,3528),(85,3900),(86,2373),(87,3647),(88,2663),(89,3141),(90,2395),(91,4720),(92,3600),(93,1145),(94,2098),(95,1114),(96,1329),(97,3982),(98,1205),(99,1487),(100,4817);
+-- INSERT INTO Section (sectionID, sectionNo, title) VALUES (1,"001","Day Class I"),(2,"002","Day Class II"),(3,"003","Day Class III"),(4,"004","Day Class IV"),(5,"050","Evening Class I"),(6,"051","Evening Class II"),(7,"052","Evening Class III"),(8,"0053","Evening Class IV"),(9,"072L","Lab I"),(10,"073L","Lab II"),(11,"074L","Lab III"),(12,"750","Web Based VOD 1"),(13,"760","LMS Online");
 
-#All Start dates set to 2010-01-01.
+-- #All Start dates set to 2010-01-01.
 INSERT INTO RegularStaff (regularStaffID,academicStaffID) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
 INSERT INTO RegularStaff (regularStaffID,academicStaffID) VALUES (51,51),(52,52),(53,53),(54,54),(55,55),(56,56),(57,57),(58,58),(59,59),(60,60),(61,61),(62,62),(63,63),(64,64),(65,65),(66,66),(67,67),(68,68),(69,69),(70,70),(71,71),(72,72),(73,73),(74,74),(75,75),(76,76),(77,77),(78,78),(79,79),(80,80),(81,81),(82,82),(83,83),(84,84),(85,85),(86,86),(87,87),(88,88),(89,89),(90,90),(91,91),(92,92),(93,93),(94,94),(95,95),(96,96),(97,97),(98,98),(99,99),(100,100);
 INSERT INTO RegularStaff (regularStaffID,academicStaffID) VALUES (101,101),(102,102),(103,103),(104,104),(105,105),(106,106),(107,107),(108,108),(109,109),(110,110),(111,111),(112,112),(113,113),(114,114),(115,115),(116,116),(117,117),(118,118),(119,119),(120,120),(121,121),(122,122),(123,123),(124,124),(125,125),(126,126),(127,127),(128,128),(129,129),(130,130),(131,131),(132,132),(133,133),(134,134),(135,135),(136,136),(137,137),(138,138),(139,139),(140,140),(141,141),(142,142),(143,143),(144,144),(145,145),(146,146),(147,147),(148,148),(149,149),(150,150);
