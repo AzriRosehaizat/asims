@@ -95,8 +95,9 @@ var passwords = {
         type: "password"
 
     }, {
-        key: "password_confirm",
-        type: "password"
+        key: "password_confirm", 
+        type: "password-confirm", 
+        condition: "model.password"
     }]
 };
 var passwordsInEdit = {
@@ -108,7 +109,8 @@ var passwordsInEdit = {
 
     }, {
         key: "password_confirm",
-        type: "password"
+        type: "password-confirm", 
+        condition: "model.password"
     }]
 };
 var changePassword = {
@@ -148,22 +150,6 @@ var buttonsNoDelete = {
         onClick: "cancel()"
     }]
 };
-// var toggleButton = {
-//     key: "switch",
-//     type: "radiobuttons",
-//     notitle: true,
-//     style: {
-//         selected: "btn-primary btn-xs",
-//         unselected: "btn-default btn-xs"
-//     },
-//     titleMap: [{
-//         value: true,
-//         name: "Open"
-//     }, {
-//         value: false,
-//         name: "Close"
-//     }]
-// };
 var addTitle = {
     type: "help",
     helpvalue: "<h3>Add a user</h3>"
@@ -222,9 +208,7 @@ application
             },
             "password_confirm": {
                 type: "string",
-                title: "Confirm password",
-                minLength: 6,
-                required: true
+                title: "Confirm password"
             },
             "changePassword": {
                 type: "boolean",

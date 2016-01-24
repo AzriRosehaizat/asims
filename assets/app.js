@@ -1,4 +1,4 @@
-var application = angular.module("application", ["ui.router", "ui.bootstrap", "ngAnimate", "ui.grid", "ui.grid.selection", "schemaForm"]);
+var application = angular.module("application", ["ui.router", "ui.bootstrap", "ngAnimate", "ui.grid", "ui.grid.selection", "schemaForm", "passwordConfirm"]);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
