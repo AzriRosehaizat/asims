@@ -29,7 +29,6 @@ module.exports = {
 			type: 'date',
 			required: true
 		},
-
 		endDate: {
 			type: 'date',
 			required: true
