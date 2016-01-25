@@ -1,37 +1,27 @@
-application.controller('profileController', function($scope, $uibModal, CurrentUser) {
+application.controller('profileController', function($scope, $http, user, UserSchema, ProfileForm) {
 
-    $scope.url = '/user/update/';
+    $scope.schema = UserSchema;
+    $scope.form = ProfileForm;
+    
+    $scope.user = user.data;
+    $scope.model = angular.copy($scope.user);
 
-    if (!angular.isObject($scope.user)) {
-        getUser();
-    }
+    $scope.onSubmit = function(form) {
+        $scope.$broadcast('schemaFormValidate');
 
-    $scope.openEditModal = function() {
-        var modalInstance = $uibModal.open({
-            templateUrl: '/components/profile/profileModal.html',
-            controller: 'profileModalController',
-            resolve: {
-                user: function() {
-                    return $scope.user;
-                },
-                url: function() {
-                    return $scope.url;
-                }
-            }
-        });
-
-        modalInstance.result.then(function(data) {
-            if (angular.isObject(data))
-                $scope.user = data;
-        });
+        if (form.$valid) {
+            $http.put('/user/update/', $scope.model)
+                .then(function(res) {
+                    angular.extend($scope.user, res.data);
+                    $scope.model.switch = false;
+                }, function(err) {
+                    console.warn(err);
+                });
+        }
     };
-
-    function getUser() {
-        CurrentUser.getUser()
-            .then(function(data) {
-                $scope.user = data;
-            }, function(err) {
-                console.warn(err);
-            });
-    }
+    
+    $scope.cancel = function() {
+        angular.extend($scope.model, $scope.user);
+        $scope.model.switch = false;
+    };
 });
