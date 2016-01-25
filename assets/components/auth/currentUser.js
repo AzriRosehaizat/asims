@@ -1,32 +1,28 @@
-application.factory('CurrentUser', function(LocalService, DataService) {
+application.service('CurrentUser', function($http, LocalService) {
     return {
         getID: function() {
             if (LocalService.get('auth_token')) {
                 return angular.fromJson(LocalService.get('auth_token')).user.id;
             }
-            else {
-                console.log("There's something wrong with the token. Please log out and log in again");
-                return {};
-            }
+            console.log("There's something wrong with the token. Please log out and log in again");
+            return {};
         },
         getUser: function() {
-            return DataService.getById('/user/', this.getID())
-                .then(function(data) {
-                    return data;
-                });
+            return $http.get('/user/' + this.getID());
         },
         getRole: function() {
             if (LocalService.get('auth_token')) {
                 var localRole = angular.fromJson(LocalService.get('auth_token')).user.role;
-                
-                this.getUser().then(function(data) {
-                    if (localRole !== data.role.id) {
-                        console.warn("User's role has been modified! local: " + localRole + ", server: " + data.role.id);
-                        // don't need to do this after we set a policy to handle roles
-                        return LocalService.unset('auth_token');
+
+                // verify localRole against data from server
+                // if it's false, delete token and do something
+                this.getUser().then(function(res) {
+                    if (localRole !== res.data.role.id) {
+                        console.warn("User's role has been modified. local: " + localRole + ", server: " + res.data.role.id);
+                        // TODO: show message and redirect to login page after deleting the token
+                        LocalService.unset('auth_token');
+                        return;
                     }
-                }, function(err) {
-                    console.warn(err);
                 });
                 return localRole;
             }
