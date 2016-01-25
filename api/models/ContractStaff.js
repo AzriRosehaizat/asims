@@ -22,6 +22,10 @@ module.exports = {
 		ContractStaffEmployment: {
 			collection: 'ContractStaffEmployment',
 			via: 'contractStaffID'
+		},
+		RightToRefusal: {
+			collection: 'RightToRefusal',
+			via: 'contractStaffID'
 		}
 	},
 	tableName: 'ContractStaff'

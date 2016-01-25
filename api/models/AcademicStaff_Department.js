@@ -14,7 +14,7 @@ module.exports = {
 			autoIncrement: true,
 			index: true
 		},
-		staffID: {
+		academicStaffID: {
 			model: 'AcademicStaff',
 			required: true
 		},
