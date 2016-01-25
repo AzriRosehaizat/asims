@@ -1,23 +1,12 @@
 <br>
 <div class="jumbotron">
-    <div class="detail-header">
-        <h3 class="detail-title">{{ title }}</h3>
-    </div>
-    <div class="detail-body">
-        <div class="row">
-            <div class="col-sm-6">
-                <form name="editForm" sf-schema="schema" sf-form="form" sf-model="model" sf-options="{formDefaults: {feedback: false}}"></form>
-            </div>
-            <div class="col-sm-6">
-
-            </div>
+    <button type="button" class="btn btn-default btn-xs pull-right" ng-show="gridOptions" ng-click="gotoElement('navbar')" aria-label="Go to top">
+        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+    </button>
+    <div class="row">
+        <div class="col-sm-6">
+            <form name="myForm" sf-schema="schema" sf-form="form" sf-model="model" sf-options="{formDefaults: {feedback: false}}" ng-submit="onSubmit(myForm)"></form>
         </div>
     </div>
-    <div class="detail-footer">
-        <button class="btn btn-primary" ng-hide="model.switch" ng-disabled="!model" ng-click="model.switch = !model.switch">Edit</button>
-        <div class="buttons" ng-show="model.switch">
-            <button class="btn btn-success" ng-disabled="editForm.$invalid" ng-click="onSubmit(editForm)">Save</button>
-            <button class="btn btn-warning" ng-click="onCancel()">Cancel</button>
-        </div>
-    </div>
+    <button type="button" class="btn btn-primary" ng-hide="model.switch" ng-click="model.switch = !model.switch; gotoElement('details')">Open</button>
 </div>

@@ -6,7 +6,6 @@ var cssFilesToInject = [
 ];
 
 var jsFilesToInject = [
-  'dependencies/sails.io.js',
   'bower_components/angular/angular.min.js',
   'bower_components/angular-animate/angular-animate.min.js',
   'bower_components/angular-route/angular-route.min.js',
@@ -20,6 +19,9 @@ var jsFilesToInject = [
   'bower_components/objectpath/lib/ObjectPath.js',
   'bower_components/angular-schema-form/dist/schema-form.min.js',
   'bower_components/angular-schema-form/dist/bootstrap-decorator.min.js',
+  'bower_components/spin.js/spin.js',
+  'bower_components/angular-spinner/angular-spinner.js',
+  'bower_components/angular-loading-spinner/angular-loading-spinner.js',
   'app.js',
   'components/**/*.js'
 ];

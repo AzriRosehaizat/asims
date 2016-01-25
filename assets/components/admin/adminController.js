@@ -1,19 +1,23 @@
-// To create a controller that uses ui-grid,
-// copy and paste this code except updateRole().
-// Then, change $scope.girdOptions.columnDefs and getUsers().
+application.controller('adminController', function($scope, $http, users, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
 
-application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, AddUserForm, EditUserForm) {
+    /* Initialization */
+
+    $scope.schema = UserSchema;
+    initAddForm();
 
     $scope.gridOptions = {
+        data: users.data,
         multiSelect: false,
         enableRowHeaderSelection: false,
-        enableExpandableRowHeader: false,
-        expandableRowTemplate: '/components/gridRow/expandableRow.html',
-        expandableRowHeight: 27,
-
         columnDefs: [{
-            name: 'Name',
+            name: 'Username',
             field: 'username'
+        }, {
+            name: 'First name',
+            field: 'firstName'
+        }, {
+            name: 'Last name',
+            field: 'lastName'
         }, {
             name: 'Email',
             field: 'email'
@@ -23,61 +27,92 @@ application.controller('adminController', function($scope, DataService, RowEdito
         }]
     };
 
-    if (!angular.isObject($scope.gridOptions.data)) {
-        getUsers();
-    }
+    /* Generic functions: need minor tweaks for another view */
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            $scope.row = row;
-            // open/close expandable row
-            row.isExpanded = !row.isExpanded;
-            if (row.isExpanded) {
+            if (row.entity.id === $scope.model.id) {
                 row.isSelected = true;
-                // close the last expanded row
-                if (angular.isObject($scope.lastRow) && row.uid !== $scope.lastRow.uid)
-                    $scope.lastRow.isExpanded = false;
-                $scope.lastRow = row;
+                $scope.gotoElement('details');
+            }
+            else {
+                $scope.row = row;
+                initEditForm(row);
             }
         });
     };
 
     $scope.addRow = function() {
-        RowEditor.addRow(UserSchema, AddUserForm, '/user/create/')
+        initAddForm();
+        // open the form
+        $scope.model.switch = true;
+        $scope.gotoElement('details');
+    };
+
+    $scope.onSubmit = function(form) {
+        $scope.$broadcast('schemaFormValidate');
+
+        if (form.$valid) {
+            if ($scope.form === EditUserForm) {
+                updateUser();
+            }
+            else if ($scope.form === AddUserForm) {
+                createUser();
+            }
+        }
+    };
+
+    $scope.delete = function() {
+        ModalLoader.delete($scope.row, '/user/')
             .result.then(function(data) {
-                if (angular.isObject(data)) {
-                    // reload grid data. better idea?
-                    getUsers();
-                }
+                if (angular.isObject(data))
+                    delete($scope.model);
             });
     };
 
-    $scope.editRow = function() {
-        RowEditor.editRow(UserSchema, EditUserForm, $scope.row, '/user/update/')
-            .result.then(function(data) {
-                if (angular.isObject(data)) {
-                    // I'm doing this because only role.id gets modified by the edit form
-                    // role.role is updated corresponding to role.id here. or we can just run getUsers()
-                    updateRole(data.role.id);
-                    // close the expanded row
-                    $scope.row.isExpanded = false;
-                }
-            });
+    $scope.cancel = function() {
+        if ($scope.form === AddUserForm)
+            $scope.model = {};
+        if ($scope.form === EditUserForm)
+            angular.merge($scope.model, $scope.row.entity);
+
+        $scope.model.switch = false;
     };
 
-    $scope.deleteRow = function() {
-        RowEditor.deleteRow($scope.row, '/user/delete/');
+    $scope.gotoElement = function(eID) {
+        AnchorScroll.scrollTo(eID);
     };
 
-    function getUsers() {
-        DataService.get('/user/')
-            .then(function(data) {
-                $scope.gridOptions.data = data;
+    function initAddForm() {
+        $scope.form = AddUserForm;
+        $scope.model = {};
+    }
+
+    function initEditForm(row) {
+        $scope.form = EditUserForm;
+        $scope.model = angular.copy(row.entity);
+        $scope.model.switch = false;
+    }
+
+    /* adminController specific functions */
+
+    function updateUser() {
+        $http.put('/user/update/', $scope.model)
+            .then(function(res) {
+                angular.merge($scope.row.entity, res.data);
+                $scope.model.switch = false;
+            }, function(err) {
+                console.warn(err);
             });
     }
 
-    function updateRole(roleID) {
-        var roles = ['reader', 'writer', 'admin'];
-        $scope.row.entity.role.role = roles[roleID - 1];
+    function createUser() {
+        $http.post('/user/create/', $scope.model)
+            .then(function(res) {
+                $scope.gridOptions.data.push(res.data);
+                $scope.model.switch = false;
+            }, function(err) {
+                console.warn(err);
+            });
     }
 });
