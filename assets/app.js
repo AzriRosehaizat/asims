@@ -83,7 +83,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			},
 			resolve: {
 				regularStaffs: function($http) {
-					return $http.get('/regularStaff/');
+					return $http.get('/RegularStaff/test');
 				}
 			}
 		})

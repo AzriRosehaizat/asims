@@ -12,14 +12,23 @@ application.controller('regularStaffController', function($scope, $http, regular
         enableRowHeaderSelection: false,
         columnDefs: [{
             name: 'First Name',
-            field: 'academicStaffID.firstName'
+            field: 'firstName'
         }, {
             name: 'Last Name',
-            field: 'academicStaffID.lastName'
+            field: 'lastName'
+        }
+        , {
+            name: 'Department',
+            field: 'departmentCode'
+            
+        }, {
+           name: 'Rank',
+           field: 'Rank'
         }, {
             name: 'Employee No',
-            field: 'academicStaffID.employeeNo'
-        }, {
+            field: 'employeeNo'
+        },
+        {
             name: 'Tenure Date',
             field: 'tenureDate',
             cellFilter: 'date:\'yyyy-MM-dd\''
@@ -27,16 +36,9 @@ application.controller('regularStaffController', function($scope, $http, regular
             name: 'contApptDate',
             field: 'contApptDate',
             cellFilter: 'date:\'yyyy-MM-dd\''
-        }, {
-            name: 'Start Date',
-            field: 'startDate',
-            type: 'date',
-            cellFilter: 'date:\'yyyy-MM-dd\''
-        }, {
-            name: 'End Date',
-            field: 'endDate',
-            cellFilter: 'date:\'yyyy-MM-dd\''
-        }]
+        }
+        
+        ]
     };
 
     $scope.tabs = {
