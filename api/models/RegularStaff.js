@@ -14,6 +14,10 @@ module.exports = {
 			primaryKey: true,
 			index: true
 		},
+		academicStaffID: {
+			model: 'AcademicStaff',
+			required: true
+		},
 		tenureDate: {
 			type: 'date'
 		},
@@ -24,12 +28,12 @@ module.exports = {
 			collection: 'RegularStaffEmployment',
 			via: 'regularStaffID'
 		},
-		academicStaffID: {
-			model: 'AcademicStaff',
-			required: true
-		},
 		Chair:{
 			collection: 'Chair',
+			via: 'regularStaffID'
+		},
+		RegularStaff_Rank: {
+			collection: 'RegularStaff_Rank',
 			via: 'regularStaffID'
 		},
 		FCECredit:{

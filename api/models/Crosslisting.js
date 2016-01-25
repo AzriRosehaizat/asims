@@ -1,5 +1,5 @@
 /**
-* Department_Course.js
+* Crosslisting.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -7,8 +7,8 @@
 
 module.exports = {
 
-  attributes: {
-  		departmentCourseID: {
+	attributes: {
+		crosslistingID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
@@ -18,22 +18,11 @@ module.exports = {
 			model: 'Course',
 			required: true
 		},
-		departmentID: {
-			model: 'Department',
+		groupID: {
+			type: 'integer',
 			required: true
-		},
-		title: {
-			type: 'string',
-			size: 50		
-		},
-		description: {
-			type: 'text'
-		},
-		//Offers Course_Section 1:M
-		Course_Section: {
-			collection: 'Course_Section',
-			via: 'departmentCourseID'
-		}
+		}	
 	},
-	tableName: 'Department_Course'
+	tableName: 'Crosslisting'
 };
+

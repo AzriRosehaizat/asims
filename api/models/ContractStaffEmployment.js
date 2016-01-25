@@ -16,6 +16,11 @@ module.exports = {
 			primaryKey: true
 		},
 
+		contractStaffID: {
+			model: 'ContractStaff',
+			required: true
+		},
+
 		startDate: {
 			type: 'date',
 			required: true
@@ -23,11 +28,6 @@ module.exports = {
 
 		endDate: {
 			type: 'date'
-		},
-
-		contractStaffID: {
-			model: 'ContractStaff',
-			required: true
 		}
 
 	},

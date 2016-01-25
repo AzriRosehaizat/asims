@@ -7,8 +7,33 @@
 
 module.exports = {
 
-  attributes: {
+	attributes: {
+		teachingActivitiesID: {
+			type: 'integer',
+			primaryKey: true,
+			autoIncrement: true,
+			index: true
+		},
 
-  }
+		academicStaffID: {
+			model: 'AcademicStaff',
+			required: true
+		},
+
+		academicStaffSectionID: {
+			model: 'AcademicStaff_Section',
+			required: true
+		},
+
+		startDate: {
+			type: 'date',
+			required: true
+		},
+
+		endDate: {
+			type: 'date',
+			required: true
+		}
+	}
 };
 

@@ -14,8 +14,12 @@ module.exports = {
 			autoIncrement: true,
 			index: true
 		},
-		courseSectionID: {
-			mode: 'Course_Section',
+		academicStaffID: {
+			model: 'AcademicStaff',
+			required: true
+		}, 
+		sectionOfferedID: {
+			mode: 'Section_Offered',
 			required: true
 		}, 
 		role:{
@@ -25,11 +29,6 @@ module.exports = {
 		weight:{
 			type: 'float',
 			required: true
-		},
-		staffID: {
-			model: 'AcademicStaff',
-			required: true
-		} 
-	},
+		}	},
 	tableName: 'AcademicStaff_Section'
 };
