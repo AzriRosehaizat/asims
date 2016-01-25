@@ -6,6 +6,12 @@
  */
 
 module.exports = {
-	
+    find : function( req, res ){
+	    DepartmentService.find( {}, {},  
+	        function( error, departments){
+	            res.json(departments);
+	        }
+	    );
+	}
 };
 
