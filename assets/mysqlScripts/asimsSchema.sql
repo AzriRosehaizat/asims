@@ -81,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `AcademicStaff_Department` (
   `academicStaffID` INT(11) NOT NULL COMMENT '',
   `startDate` DATE NOT NULL DEFAULT '2000-01-01' COMMENT '',
   `endDate` DATE NULL COMMENT '',
+  `isPrimaryDepartment` TINYINT(1) NULL DEFAULT 1 COMMENT '',
   PRIMARY KEY (`academicStaffDepartmentID`)  COMMENT '',
   INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
   INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
@@ -638,8 +639,6 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-
-#BEGIN INSERT INTO TABLE
 #BEGIN INSERT INTO TABLE
 INSERT INTO AcademicStaff (academicStaffID,firstName,lastName) VALUES (1,"Nasim","Slater"),(2,"Justin","Merritt"),(3,"Hadassah","Irwin"),(4,"Nicole","Brock"),(5,"Simone","Stephenson"),(6,"Aubrey","Farley"),(7,"Lance","Benton"),(8,"Macy","Davidson"),(9,"Athena","Buchanan"),(10,"Phoebe","Greene"),(11,"Arsenio","Chen"),(12,"Brennan","Thompson"),(13,"Ignacia","Faulkner"),(14,"Aquila","Kane"),(15,"Lydia","Zamora"),(16,"Regina","Montoya"),(17,"Malik","West"),(18,"Briar","Roach"),(19,"Daria","Davenport"),(20,"Hermione","Holman"),(21,"Nina","Valenzuela"),(22,"Autumn","Daniels"),(23,"Alisa","Park"),(24,"Brianna","Duke"),(25,"Tanner","Wong"),(26,"Cailin","Boone"),(27,"Aquila","Rowe"),(28,"Yolanda","Terry"),(29,"Elijah","Ratliff"),(30,"Leo","Diaz"),(31,"Mara","Hunter"),(32,"Vaughan","Benton"),(33,"Baxter","Schmidt"),(34,"Gage","Stanley"),(35,"Mufutau","Levy"),(36,"Randall","Brown"),(37,"Sonia","Cunningham"),(38,"Driscoll","Hatfield"),(39,"Thane","Oneil"),(40,"Ariana","Monroe"),(41,"Holmes","Hudson"),(42,"Ishmael","Kennedy"),(43,"Tara","Barry"),(44,"Noelle","Hoffman"),(45,"Plato","Sullivan"),(46,"Rina","Mcgowan"),(47,"Nolan","Petersen"),(48,"Benjamin","Klein"),(49,"Hadassah","Galloway"),(50,"Reed","Richmond");
 INSERT INTO AcademicStaff (academicStaffID,firstName,lastName) VALUES (51,"Meghan","Kline"),(52,"Desirae","Finley"),(53,"Vernon","Sanchez"),(54,"Genevieve","Mcconnell"),(55,"Hedley","Klein"),(56,"Stone","Barrett"),(57,"Damon","Shelton"),(58,"Daquan","Stephens"),(59,"Kasper","Oneil"),(60,"Giselle","Diaz"),(61,"Roary","Baird"),(62,"Ishmael","Pena"),(63,"Hoyt","Marshall"),(64,"Wade","Trevino"),(65,"Malik","Mccullough"),(66,"Malik","Willis"),(67,"Avye","Fox"),(68,"Lenore","Espinoza"),(69,"Shad","Mcgowan"),(70,"Harriet","Carney"),(71,"Melyssa","Townsend"),(72,"Brock","Sandoval"),(73,"Michelle","Duke"),(74,"Garrett","Whitaker"),(75,"Cyrus","Silva"),(76,"August","Richardson"),(77,"Erin","Franks"),(78,"Emmanuel","Reeves"),(79,"Ursula","Little"),(80,"Wesley","Gonzales"),(81,"Isaac","Wells"),(82,"Rafael","Hodges"),(83,"Jared","Fox"),(84,"Ruth","Delaney"),(85,"Uma","Bray"),(86,"Regan","Castaneda"),(87,"Steel","Reid"),(88,"Zephania","Salinas"),(89,"Hu","Goff"),(90,"Natalie","Graves"),(91,"Hu","Davis"),(92,"James","Ford"),(93,"Hayley","Carr"),(94,"Yoshio","Curry"),(95,"Dalton","Norris"),(96,"Reese","Cantu"),(97,"Jayme","Sharp"),(98,"Lani","Nixon"),(99,"Griffith","Mcmahon"),(100,"Ariel","Cummings");
