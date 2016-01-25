@@ -1,10 +1,11 @@
 {
-  "name": "pims",
+  "name": "ASIMS",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "Academic Staff Information Management System",
   "keywords": [],
   "dependencies": {
+    "async": "^1.5.2",
     "bower": "",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
@@ -34,8 +35,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ubuntu/pims.git"
+    "url": "git://github.com/AzriAhmad/asims.git"
   },
-  "author": "ubuntu",
-  "license": ""
+  "author": "ASIMS",
+  "license": "MIT"
 }
