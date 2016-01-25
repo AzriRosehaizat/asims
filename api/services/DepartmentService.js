@@ -3,39 +3,44 @@ module.exports = {
     find : function(criteria, select, callback){
         var criteria = criteria || {},
         select = Object.assign(
-            { departments : true },
+            //set default for joins
+            { academicStaff: true },
             ( select || {} )
         ),
         joins = [];
-        AcademicStaff.find( criteria ).exec( function (error, academicStaff ){
-            async.forEachOf( academicStaff , function( value , key, nextAcademicStaff ){    
+        Department.find( criteria).exec( function (error, departments ){
+            async.forEachOf( departments , function( value , key, nextDepartment ){    
                 /*************************************************************
                                       BEGIN CUSTOM CODE
                 *************************************************************/
-                if (select.departments) {
+                //if the selection criteria is not set to false
+                if (select.academicStaff) {
+                    //push a function with the sig: function(arg1, ... , argN, callback)
                     joins.push( function( nextJoin ){
+                        //perform the join
                         AcademicStaff_DepartmentService.find( 
                             { 
-                                academicStaffID: value.academicStaffID,
-                                select : [ 'departmentID', 'startDate', 'endDate']
+                                departmentID: value.departmentID,
+                                select : [ 'academicStaffID', 'startDate', 'endDate']
                             },
+                            //specify the callback to trigger once completed
                             function(error, academicStaffDepartments){
-                                academicStaff[key].academicStaffDepartments = academicStaffDepartments;
-                                nextJoin(error);
+                                departments[key].academicStaffDepartments = academicStaffDepartments;
+                                nextJoin();
                             }
                         );
                     });
                     joins.push( function( nextJoin ){
-                        async.forEachOf(academicStaff[key].academicStaffDepartments, function(v, k, nextAcademicStaffDepartment){
-                            DepartmentService.find(
+                        async.forEachOf(departments[key].academicStaffDepartments, function(v, k, nextAcademicStaffDepartment){
+                            AcademicStaffService.find(
                                 {
-                                    departmentID: v.departmentID
+                                    academicStaffID: v.academicStaffID
                                 },
                                 {
-                                    academicStaff: false
+                                    departments: false
                                 },
-                                function( error, department){
-                                    academicStaff[key].academicStaffDepartments[k].departmentID = department;
+                                function( error, academicStaff){
+                                    departments[key].academicStaffDepartments[k].academicStaffID = academicStaff;
                                     nextAcademicStaffDepartment();
                                 });
                     },
@@ -48,12 +53,12 @@ module.exports = {
                                          END CUSTOM CODE
                 *************************************************************/
                 async.waterfall( joins, function(){
-                    nextAcademicStaff();
+                    nextDepartment();
                 });
             }, 
         function( error ){
-                callback( error, academicStaff);
+                callback( error, departments);
             });
         });
     }
-};
+}

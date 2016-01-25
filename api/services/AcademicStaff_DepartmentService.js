@@ -1,31 +1,10 @@
 var async = require('async');
 module.exports = {
-    getDepartments : function( criteria, callback ){
+    find : function( criteria, callback ){
         AcademicStaff_Department.find( 
-            criteria
-        ).populate(
-            'departmentID'
+            Object.assign( criteria )
         ).exec( 
-            function(error, departments){
-                for (var x in departments){
-                    delete departments[x]['academicStaffID'];
-                }
-                callback(null, departments);
-            }
+            callback
         );
-    },
-    getAcademicStaff : function( criteria, callback ){
-        AcademicStaff_Department.find( 
-            criteria
-        ).populate(
-            'academicStaffID'
-        ).exec( 
-            function(error, academicStaff){
-                for (var x in academicStaff){
-                    delete academicStaff[x]['departmentID'];
-                }
-                callback(null, academicStaff);
-            }
-        );
-    },
+    }
 };

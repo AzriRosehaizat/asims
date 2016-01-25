@@ -20,7 +20,6 @@ application.controller('regularStaffController', function($scope, $http, regular
         , {
             name: 'Department',
             field: 'departmentCode'
-            
         }, {
            name: 'Rank',
            field: 'Rank'

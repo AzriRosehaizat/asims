@@ -7,7 +7,9 @@
 
 var mysql = require('knex')({client: 'mysql'});
 
+
 module.exports = {
+	//based on james code
 	find : function( req, res ){
 	    RegularStaffService.find( {}, {}, 
 	        function( error, regularStaff){
@@ -18,6 +20,7 @@ module.exports = {
 	
 	//test knex builder and .query method
 	//more maintaninable than raw sql
+	//x12 ?
 	test: function( req, res){
         var sSQL = mysql.select('a.*', 'r.contApptDate', 'r.tenureDate', 'd.departmentCode', 'rk.title AS Rank')
 		        			.from('RegularStaff AS r')
