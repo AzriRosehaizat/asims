@@ -1,10 +1,13 @@
-application.controller('loginModalController', function($scope, $state, $uibModalInstance, Auth) {
+application.controller('loginModalController', function($scope, $state, $uibModalInstance, Auth, LoginSchema, LoginForm) {
 
-    $scope.submit = function() {
-        Auth.login($scope.user)
+    $scope.schema = LoginSchema;
+    $scope.form = LoginForm;
+    $scope.model = {};
+
+    $scope.onSubmit = function(form) {
+        Auth.login($scope.model)
             .then(function(data) {
                 $uibModalInstance.close();
-                $scope.userForm.$setPristine();
                 $state.go("application.root");
             }, function(err) {
                 console.warn(err);
