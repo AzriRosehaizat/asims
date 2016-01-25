@@ -5,22 +5,6 @@
     </h3>
 </div>
 <div class="modal-body" style="text-align:center;">
-     <form name="userForm" >
-        <div class="control-group">
-            <label class="control-label">Name</label>
-            <div class="controls">
-                <input type="text" ng-model="user.username" required>
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label">Password</label>
-            <div class="controls">
-                <input type="password" ng-model="user.password" required>
-            </div>
-        </div>
-        <br>
+    <form name="myForm" sf-schema="schema" sf-form="form" sf-model="model" sf-options="{formDefaults: {feedback: false}}" ng-submit="onSubmit(myForm)">
     </form>
-</div>
-<div class="modal-footer" style="text-align:center;">
-    <button type="button" class="btn btn-primary" ng-click="submit()">Submit</button>
 </div>
