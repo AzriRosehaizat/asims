@@ -5,7 +5,6 @@
   "description": "Academic Staff Information Management System",
   "keywords": [],
   "dependencies": {
-    "async": "^1.5.2",
     "bower": "",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
