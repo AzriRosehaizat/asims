@@ -5,8 +5,7 @@ module.exports = {
         var startID = data.startID  || 0,
             limit   = data.limit    || 1000000,
             criteria= Object.assign( { academicStaffID: { '>': startID } }, data.criteria || {} ),
-            joins   = Object.assign( { department : true } , data.joins || {} ),
-            joinArray  = [];
+            joins   = Object.assign( { department : true } , data.joins || {} );
         
         AcademicStaff
         .find()
@@ -15,7 +14,7 @@ module.exports = {
         .limit( limit )
         .exec( function( error, academicStaff ){
             async.forEachOf( academicStaff , function( value , key, nextAcademicStaff ){
-                joinArray = [];
+                var joinArray = [];
                 /*************************************************************
                                       BEGIN CUSTOM CODE
                 *************************************************************/

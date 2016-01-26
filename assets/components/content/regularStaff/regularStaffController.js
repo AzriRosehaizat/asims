@@ -5,9 +5,21 @@ application.controller('regularStaffController', function($scope, $http, regular
     $scope.schema = RegularStaffSchema;
     $scope.form = AddRegularStaffForm;
     initAddForm();
-
+    console.log(regularStaffs);
+    
     $scope.gridOptions = {
-        data: regularStaffs.data,
+        data: (function(){
+            var flattenedData = [];
+            for (var x in regularStaffs.data){
+                flattenedData.push(
+                    { 
+                        firstName : regularStaffs.data[x].academicStaffID[0].firstName,
+                        lastName : regularStaffs.data[x].academicStaffID[0].lastName
+                    }
+                );
+            }
+            return flattenedData;
+        })(),
         multiSelect: false,
         enableRowHeaderSelection: false,
         columnDefs: [{
