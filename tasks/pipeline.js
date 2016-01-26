@@ -6,12 +6,13 @@ var cssFilesToInject = [
 ];
 
 var jsFilesToInject = [
+  'bower_components/lodash/dist/lodash.min.js',
   'bower_components/angular/angular.min.js',
   'bower_components/angular-lodash-module/angular-lodash-module.js',
+  'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
   'bower_components/angular-animate/angular-animate.min.js',
   'bower_components/angular-route/angular-route.min.js',
   'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-  'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
   'bower_components/angular-ui-grid/ui-grid.js',
   'bower_components/moment/min/moment.min.js',
   'bower_components/angular-moment/angular-moment.min.js',

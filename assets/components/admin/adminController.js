@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, $http, users, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
+application.controller('adminController', function($scope, $http, users, _, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
 
     /* Initialization */
 
@@ -24,6 +24,9 @@ application.controller('adminController', function($scope, $http, users, ModalLo
         }, {
             name: 'Role',
             field: 'role.role'
+        }, {
+            name: 'Last login',
+            cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.showLastLogin(row)}}</div>'
         }]
     };
 
@@ -95,6 +98,13 @@ application.controller('adminController', function($scope, $http, users, ModalLo
     }
 
     /* adminController specific functions */
+
+    $scope.showLastLogin = function(row) {
+        var lastLogin = _.findLast(row.entity.attempts, function(attempt) {
+            return attempt.successful === true;
+        });
+        return moment(lastLogin.createdAt).format('MMM Do YYYY, HH:mm');
+    };
 
     function updateUser() {
         $http.put('/user/update/', $scope.model)
