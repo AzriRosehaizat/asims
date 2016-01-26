@@ -1,5 +1,5 @@
 /**
-* Faculty.js
+* ContractStaffEmployment.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -7,23 +7,30 @@
 
 module.exports = {
 
+
 	attributes: {
-		facultyID: {
+		contractEmploymentID: {
 			type: 'integer',
-			primaryKey: true,
+			index: true,
 			autoIncrement: true,
-			index: true
+			primaryKey: true
 		},
-		title: {
-			type: 'string',
-			size: 50,
+
+		contractStaffID: {
+			model: 'ContractStaff',
 			required: true
 		},
-		//has many Department 1:M
-		Department:{
-			collection: 'Department',
-			via: 'facultyID'
+
+		startDate: {
+			type: 'date',
+			required: true
+		},
+
+		endDate: {
+			type: 'date'
 		}
+
 	},
-	tableName: 'Faculty'
+
+	tableName: 'ContractStaffEmployment'
 };
