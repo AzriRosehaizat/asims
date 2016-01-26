@@ -45,8 +45,8 @@ module.exports = {
 			collection: 'DefaultNormalLoad',
 			via: 'departmentID'
 		},
-		Department_Course:{
-			collection: 'Department_Course',
+		Course: {
+			collection: 'Course',
 			via: 'departmentID'
 		}
 
