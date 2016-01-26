@@ -28,7 +28,7 @@ module.exports = {
 	        });
 	    }).catch(function(e) {
 	    	console.log("You must define an ID first");
-	    })
+	    });
 	}
 };
 
