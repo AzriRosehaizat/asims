@@ -1,9 +1,10 @@
+<br>
 <div class="well">
     <h2>Leave Entitlement Chart</h2>
     <div class="detail-body">
-        <form>
-            <div>
-                <select ng-model="selected" ng-options="department as department.title for department in departments">
+        <form class="form-inline">
+            <div class="form-group">
+                <select class="form-control" ng-model="selected" ng-options="department as department.title for department in departments">
                     <option value="">Select a Department</option>
                 </select>
             </div>
@@ -11,7 +12,7 @@
     </div>
     <div class='detail-footer'>
         <br>
-        <button ng-click="openPdf()">Open PDF</button>
-        <button ng-click="downloadPdf()">Download PDF</button>
+        <button class="btn btn-default" ng-click="openPdf()">Open PDF</button>
+        <button class="btn btn-default" ng-click="downloadPdf()">Download PDF</button>
     </div>
 </div>
