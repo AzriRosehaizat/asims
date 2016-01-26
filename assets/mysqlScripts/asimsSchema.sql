@@ -8,15 +8,15 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema asimsTest
+-- Schema asims
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `asimsTest` ;
+DROP SCHEMA IF EXISTS `asims` ;
 
 -- -----------------------------------------------------
--- Schema asimsTest
+-- Schema asims
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `asimsTest` DEFAULT CHARACTER SET latin1 ;
-USE `asimsTest` ;
+CREATE SCHEMA IF NOT EXISTS `asims` DEFAULT CHARACTER SET latin1 ;
+USE `asims` ;
 
 -- -----------------------------------------------------
 -- Table `AcademicStaff`
