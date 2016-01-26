@@ -3,10 +3,9 @@ var async = require('async');
 module.exports = {
     find : function( data, callback ){
         var startID = data.startID  || 0,
-            limit   = data.limit    || 100,
+            limit   = data.limit    || 25,
             criteria= Object.assign( { regularStaffID: { '>': startID } }, data.criteria || {} ),
-            joins   = Object.assign( { academicStaff : true } ,data.joins || {} ),
-            joinArray  = [];
+            joins   = Object.assign( { academicStaff : true } ,data.joins || {} );
         
         RegularStaff
         .find()
@@ -15,7 +14,7 @@ module.exports = {
         .limit( limit )
         .exec( function( error, regularStaff ){
             async.forEachOf( regularStaff , function( value , key, nextRegularStaff ){
-                joinArray = [];
+                var joinArray = [];
                 /*************************************************************
                                       BEGIN CUSTOM CODE
                 *************************************************************/
