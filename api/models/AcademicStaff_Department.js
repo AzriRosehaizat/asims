@@ -33,7 +33,7 @@ module.exports = {
 			type: 'boolean',
 			//Make it primary department by default
 			//ToDO create lifecycle callback for checking new additions.
-			defaultsTo: 1
+			defaults: 1
 		}
 		
 
