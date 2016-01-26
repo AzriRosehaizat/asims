@@ -35,7 +35,7 @@ module.exports.routes = {
   // '/': {
   //   view: 'homepage'
   // }
-  'GET /RegularStaff/test' : 'RegularStaffController.test',
+  'GET /RegularStaff/populateRegularStaff' : 'RegularStaffController.populateRegularStaff',
 
 
   /***************************************************************************
