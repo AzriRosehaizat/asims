@@ -17,7 +17,7 @@ var jsFilesToInject = [
   'bower_components/angular-route/angular-route.js',
   'bower_components/angular-ui-router/release/angular-ui-router.js',
   'bower_components/angular-ui-grid/ui-grid.js',
-  'bower_components/moment/min/moment.js',
+  'bower_components/moment/moment.js',
   'bower_components/angular-moment/angular-moment.js',
   'bower_components/angular-sanitize/angular-sanitize.js',
   'bower_components/tv4/tv4.js',

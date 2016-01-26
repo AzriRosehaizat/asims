@@ -1,8 +1,7 @@
-<div class="container">
-    <div class="addButton pull-right">
-        <button type="button" class="btn btn-primary btn-sm" ng-click="addRow()">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
-    </div>
-</div>
+<section layout="row" layout-align="end end">
+    <md-button class="md-fab md-mini md-primary" ng-click="addRow()" aria-label="Add">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </md-button>
+</section>
+
 <div ui-grid="gridOptions" ui-grid-selection class="grid"></div>
