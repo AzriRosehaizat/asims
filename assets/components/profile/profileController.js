@@ -1,10 +1,12 @@
 application.controller('profileController', function($scope, $http, user, UserSchema, ProfileForm) {
-
-    $scope.schema = UserSchema;
-    $scope.form = ProfileForm;
     
     $scope.user = user.data;
     $scope.model = angular.copy($scope.user);
+    $scope.schema = UserSchema;
+    $scope.form = ProfileForm;
+    
+    $scope.detailsTitle = 'Profile';
+    $scope.btnTitle = 'Edit';
 
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');

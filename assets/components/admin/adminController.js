@@ -87,11 +87,15 @@ application.controller('adminController', function($scope, $http, users, _, Moda
     };
 
     function initAddForm() {
+        $scope.detailsTitle = 'Add a user';
+        $scope.btnTitle = 'Add';
         $scope.form = AddUserForm;
         $scope.model = {};
     }
 
     function initEditForm(row) {
+        $scope.detailsTitle = 'Edit a user';
+        $scope.btnTitle = 'Edit';
         $scope.form = EditUserForm;
         $scope.model = angular.copy(row.entity);
         $scope.model.switch = false;
