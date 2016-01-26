@@ -11,6 +11,7 @@ module.exports = {
 		        				.innerJoin('AcademicStaff AS a', 'r.regularStaffID', 'a.academicStaffID')
 		        				.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 		        				.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
+		        				.where('ad.isPrimaryDepartment', 1)
 		        				.toString();	
 
 		RegularStaff.query(sSQL, function(err, result) {
