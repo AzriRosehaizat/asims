@@ -6,6 +6,15 @@
  */
 
 module.exports = {
+	
+	find : function( req, res ){
+	    AcademicStaffService.find( {}, {}, 
+	        function( error, academicStaffs){
+	            res.json(academicStaffs);
+	        }
+	    );
+	},
+	
 	test: function(req, res){
 		AcademicStaff.findOne({staffID: 1})
 		.then(function(AcademicStaff){
