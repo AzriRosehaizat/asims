@@ -1,44 +1,45 @@
 var async = require('async');
+
 module.exports = {
-    find : function(criteria, select, callback){
-        var criteria = criteria || {},
-        select = Object.assign(
-            { academicStaff : true },
-            ( select || {} )
-        ),
-        joins = [];
-        RegularStaff.find( criteria).exec( function (error, regularStaff ){
-            async.forEachOf( regularStaff , function( value , key, nextRegularStaff ){    
+    find : function( data, callback ){
+        var startID = data.startID  || 0,
+            limit   = data.limit    || 100,
+            criteria= Object.assign( { regularStaffID: { '>': startID } }, data.criteria || {} ),
+            joins   = Object.assign( { academicStaff : true } ,data.joins || {} ),
+            joinArray  = [];
+        
+        RegularStaff
+        .find()
+        .where( criteria )
+        .sort( { regularStaffID: 'asc' } )
+        .limit( limit )
+        .exec( function( error, regularStaff ){
+            async.forEachOf( regularStaff , function( value , key, nextRegularStaff ){
+                joinArray = [];
                 /*************************************************************
                                       BEGIN CUSTOM CODE
                 *************************************************************/
-                if (select.academicStaff) {
-                    joins.push( function( nextJoin ){
-                        AcademicStaffService.find( 
-                            { 
-                                academicStaffID: value.academicStaffID 
-                            },
-                            {
-                                //do not also select departments (just an example)
-                                // departments: true,
-                            },
-                            function(error, academicStaff){
-                                regularStaff[key] = Object.assign( value, academicStaff[0] );
-                                nextJoin(error);
-                            }
-                        );
-                    });
+                if( joins.academicStaff ){
+                    joinArray.push( function( nextJoin ){
+                        AcademicStaffService
+                        .find( { criteria: { academicStaffID : value.academicStaffID } }, 
+                        function( error, academicStaff ){
+                            regularStaff[key].academicStaffID = academicStaff ; 
+                            nextJoin();
+                        });
+                    });   
                 }
                 /*************************************************************
                                          END CUSTOM CODE
                 *************************************************************/
-                async.waterfall( joins, function(){
+                async.waterfall( joinArray, function(){
                     nextRegularStaff();
                 });
             }, 
-        function( error ){
-                callback( error, regularStaff);
-            });
-        });
+            function( error ){
+                    callback( error, regularStaff );
+                });
+            }
+        );
     }
 };

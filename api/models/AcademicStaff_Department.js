@@ -1,10 +1,3 @@
-/**
-* AcademicStaff_Department.js
-*
-* @description :: Associates Academic Staff to the Departments to which they are associated, and provides contextual information describing the relationship.
-* @author: A.A.
-*/
-
 module.exports = {
 
 	attributes: {
