@@ -1,7 +1,7 @@
 /**
- * Course_SectionController
+ * CrosslistingController
  *
- * @description :: Server-side logic for managing Course_sections
+ * @description :: Server-side logic for managing Crosslistings
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 

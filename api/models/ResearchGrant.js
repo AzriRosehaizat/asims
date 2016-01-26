@@ -21,7 +21,7 @@ module.exports = {
 		grantingAgency: {
 			type: 'string'
 		},
-		yearAwarded: {
+		dateAwarded: {
 			type: 'date'
 		},
 		duration: {

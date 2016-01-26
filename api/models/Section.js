@@ -19,12 +19,15 @@ module.exports = {
 			size: 10,
 			unique: true
 		},
-		title: {
+		type: {
 			type: 'string',
 			size: 50
 		},
-		Course_Section: {
-			collection: 'Course_Section',
+		FCEModifier: {
+			type: 'float'
+		},
+		Section_Offered: {
+			collection: 'Section_Offered',
 			via: 'sectionID'
 		}
 	},
