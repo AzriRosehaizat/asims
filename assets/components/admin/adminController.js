@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, $http, users, _, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
+application.controller('adminController', function($scope, $http, users, _, moment, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
 
     /* Initialization */
 
