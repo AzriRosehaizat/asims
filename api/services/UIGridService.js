@@ -12,8 +12,9 @@ module.exports = {
 		        				.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 		        				.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
 		        				.where('ad.isPrimaryDepartment', 1)
+		        				.orderBy('a.academicStaffID', 'asc')
 		        				.toString();	
-
+		//console.log(sSQL);
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});    	
