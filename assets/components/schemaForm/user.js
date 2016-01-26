@@ -150,18 +150,6 @@ var buttonsNoDelete = {
         onClick: "cancel()"
     }]
 };
-var addTitle = {
-    type: "help",
-    helpvalue: "<h3>Add a user</h3>"
-};
-var editTitle = {
-    type: "help",
-    helpvalue: "<h3>Edit a user</h3>"
-};
-var profileTitle = {
-    type: "help",
-    helpvalue: "<h3>Profile</h3>"
-};
 
 application
     .constant("UserSchema", {
@@ -221,8 +209,7 @@ application
             }
         }
     })
-    .constant("AddUserForm", [
-        addTitle, {
+    .constant("AddUserForm", [{
             type: "section",
             htmlClass: "row",
             items: [{
@@ -237,8 +224,7 @@ application
         },
         buttonsNoDelete
     ])
-    .constant("EditUserForm", [
-        editTitle, {
+    .constant("EditUserForm", [{
             type: "section",
             htmlClass: "row",
             items: [{
@@ -253,8 +239,7 @@ application
         },
         buttons
     ])
-    .constant("ProfileForm", [
-        profileTitle, {
+    .constant("ProfileForm", [{
             type: "section",
             htmlClass: "row",
             items: [{
