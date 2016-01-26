@@ -12,8 +12,11 @@ module.exports = {
   tableName: 'Role',
 
   attributes: {
-    role: 'string',
-
+    role: {
+      type: 'string',
+      required: true,
+      unique: true
+    },
     users: {
       collection: 'User',
       via: 'role'
