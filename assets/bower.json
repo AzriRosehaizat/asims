@@ -22,15 +22,16 @@
   "dependencies": {
     "angular": "",
     "angular-bootstrap": "",
+    "angular-animate": "",
+    "angular-material": "~1.0.3",
     "angular-route": "",
     "angular-ui-router": "",
-    "angular-animate": "",
+    "angular-ui-grid": "",
     "angular-moment": "",
     "angular-mocks": "",
-    "angular-ui-grid": "",
     "bootstrap": "",
     "angular-schema-form": "",
     "angular-loading-spinner": "~0.0.3",
-    "angular-lodash-module": "~1.2.0"
+    "angular-lodash-module": "~1.2.0",
   }
 }
