@@ -37,5 +37,8 @@
     "url": "git://github.com/ubuntu/pims.git"
   },
   "author": "ubuntu",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "jshint": "^2.9.1"
+  }
 }

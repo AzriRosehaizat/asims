@@ -1,5 +1,5 @@
 /**
-* ContractStaff.js
+* TeachingActivities.js
 *
 * @description :: TODO: You might write a short summary of how this model works and what it represents here.
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -7,26 +7,32 @@
 
 module.exports = {
 
-	attributes:{
-		contractStaffID: {
+	attributes: {
+		teachingActivitiesID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
 			index: true
 		},
+
 		academicStaffID: {
 			model: 'AcademicStaff',
 			required: true
 		},
 
-		ContractStaffEmployment: {
-			collection: 'ContractStaffEmployment',
-			via: 'contractStaffID'
+		academicStaffSectionID: {
+			model: 'AcademicStaff_Section',
+			required: true
 		},
-		RightToRefusal: {
-			collection: 'RightToRefusal',
-			via: 'contractStaffID'
+
+		startDate: {
+			type: 'date',
+			required: true
+		},
+		endDate: {
+			type: 'date',
+			required: true
 		}
-	},
-	tableName: 'ContractStaff'
+	}
 };
+
