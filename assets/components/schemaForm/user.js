@@ -95,8 +95,8 @@ var passwords = {
         type: "password"
 
     }, {
-        key: "password_confirm", 
-        type: "password-confirm", 
+        key: "password_confirm",
+        type: "password-confirm",
         condition: "model.password"
     }]
 };
@@ -109,7 +109,7 @@ var passwordsInEdit = {
 
     }, {
         key: "password_confirm",
-        type: "password-confirm", 
+        type: "password-confirm",
         condition: "model.password"
     }]
 };
@@ -221,6 +221,51 @@ application
             }
         }
     })
-    .constant("AddUserForm", [addTitle, username, fName, lName, email, role, passwords, buttonsNoDelete])
-    .constant("EditUserForm", [editTitle, usernameRO, fNameRO, fName, lNameRO, lName, emailRO, email, roleRO, role, changePassword, passwordsInEdit, buttons])
-    .constant("ProfileForm", [profileTitle, usernameRO, fNameRO, fName, lNameRO, lName, emailRO, email, roleProfile, changePassword, passwordsInEdit, buttonsNoDelete]);
+    .constant("AddUserForm", [
+        addTitle, {
+            type: "section",
+            htmlClass: "row",
+            items: [{
+                type: "section",
+                htmlClass: "col-xs-6",
+                items: [username, fName, lName, email]
+            }, {
+                type: "section",
+                htmlClass: "col-xs-6",
+                items: [role, passwords]
+            }]
+        },
+        buttonsNoDelete
+    ])
+    .constant("EditUserForm", [
+        editTitle, {
+            type: "section",
+            htmlClass: "row",
+            items: [{
+                type: "section",
+                htmlClass: "col-xs-6",
+                items: [usernameRO, fNameRO, fName, lNameRO, lName, emailRO, email]
+            }, {
+                type: "section",
+                htmlClass: "col-xs-6",
+                items: [roleRO, role, changePassword, passwordsInEdit]
+            }]
+        },
+        buttons
+    ])
+    .constant("ProfileForm", [
+        profileTitle, {
+            type: "section",
+            htmlClass: "row",
+            items: [{
+                type: "section",
+                htmlClass: "col-xs-6",
+                items: [usernameRO, fNameRO, fName, lNameRO, lName, emailRO, email]
+            }, {
+                type: "section",
+                htmlClass: "col-xs-6",
+                items: [roleProfile, changePassword, passwordsInEdit]
+            }]
+        },
+        buttonsNoDelete
+    ]);
