@@ -59,6 +59,7 @@ application.service('reportService', function(){
                     ] 
 	            ]
             },
+            text: {pageBreak: 'after'},
             layout: 'noBorders',
         };
     };
