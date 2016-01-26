@@ -28,6 +28,12 @@ module.exports = {
 		},
 		endDate:{
 			type: 'date'
+		},
+		isPrimaryDepartment: {
+			type: 'boolean',
+			//Make it primary department by default
+			//ToDO create lifecycle callback for checking new additions.
+			defaults: 1
 		}
 		
 
