@@ -22,6 +22,8 @@ var jsFilesToInject = [
   'bower_components/spin.js/spin.js',
   'bower_components/angular-spinner/angular-spinner.js',
   'bower_components/angular-loading-spinner/angular-loading-spinner.js',
+  'bower_components/pdfmake/build/pdfmake.min.js',
+  'bower_components/pdfmake/build/vfs_fonts.js',
   'app.js',
   'components/**/*.js'
 ];
