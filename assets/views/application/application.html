@@ -1,8 +1,8 @@
-<md-toolbar ui-view="navigationBar" layout="row" id="navbar" ></md-toolbar>
+<md-toolbar id="navbar" ui-view="navigationBar" layout="row"></md-toolbar>
 
-<div flex layout="row">
+<div layout="row">
 
-    <md-sidenav class="md-whiteframe-4dp" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left">
+    <md-sidenav class="md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" flex-gt-sm="20">
         <md-list>
             <!-- List item #1 -->
             <md-list-item>
@@ -19,6 +19,8 @@
         </md-list>
     </md-sidenav>
 
-    <md-content ui-view flex layout-padding layout="column" id="content"></md-content>
+    <md-content layout-margin flex>
+        <ui-view></ui-view>
+    </md-content>
 
 </div>

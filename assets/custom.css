@@ -1,13 +1,9 @@
-body {
-  overflow-y: scroll;
-}
-
 .modal-open {
   overflow-y: scroll;
 }
 
 .ui-grid-row.ui-grid-row-selected:hover .ui-grid-cell {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 /* to center loading spinner */
@@ -15,6 +11,12 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  /*margin-top: -23px; */
-  /*margin-left: -23px;*/
+}
+
+.grid {
+  margin: 0.5em;
+}
+
+#staffForm .md-datepicker-input, .md-datepicker-triangle-button {
+  display: none;
 }
