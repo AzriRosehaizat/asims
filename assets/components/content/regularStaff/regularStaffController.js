@@ -6,22 +6,27 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
     $scope.form = AddRegularStaffForm;
     initAddForm();
     $scope.regularStaff = regularStaffs.data;
+    console.log($scope.regularStaff);
     
     $scope.gridOptions = {
         data: (function(){
             var flattenedData = [];
             for (var x in $scope.regularStaff){
                 flattenedData.push(
-                    { 
+                    {   
+                        employeeNo : $scope.regularStaff[x].academicStaffID[0].employeeNo,
                         firstName : $scope.regularStaff[x].academicStaffID[0].firstName,
-                        lastName : $scope.regularStaff[x].academicStaffID[0].lastName
+                        lastName : $scope.regularStaff[x].academicStaffID[0].lastName,
+                        departmentCode: $scope.regularStaff[x].academicStaffID[0].departments[0].departmentID.departmentCode,
+                        contApptDate : $scope.regularStaff[x].contApptDate,
+                        tenureDate : $scope.regularStaff[x].tenureDate
                     }
                 );
             }
             return flattenedData;
         })(),
         multiSelect: false,
-        infiniteScrollRowsFromEnd: 20,
+        infiniteScrollRowsFromEnd: 30,
         infiniteScrollDown: true,
         enableRowHeaderSelection: false,
         columnDefs: [{
@@ -32,7 +37,7 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
             field: 'lastName'
         }
         , {
-            name: 'Department',
+            name: 'Primary Department',
             field: 'departmentCode'
             
         }, {
@@ -56,18 +61,35 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
     };
 
     $scope.tabs = {
+        departments: {
+            title: 'Departments',
+            gridOptions: {
+                data: [],
+                columnDefs: [{
+                    name: 'Code',
+                    field: 'departmentCode'
+                },
+                {
+                    name: 'Name',
+                    field: 'departmentTitle'
+                },
+                {
+                    name: 'Start Date',
+                    field: 'startDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
+                }]
+            }
+        }
     };
     
     /* Generic functions: need minor tweaks for another view */
 
     $scope.gridOptions.onRegisterApi = function( gridApi ) {
         gridApi.infiniteScroll.on.needLoadMoreData($scope, function(){
-            var pageSize = 25,
+            var pageSize = 50,
                 startID = $scope.regularStaff[$scope.regularStaff.length-1].regularStaffID,
                 promise = $q.defer();
-                
-                console.log(startID);
-                
+
             $http.get('/RegularStaff/test?startID='+startID+'&limit='+pageSize)
             .success(function( page ) {
                 $scope.regularStaff = $scope.regularStaff.concat( page );
@@ -78,8 +100,13 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
                     for (var x in page){
                         flattenedData.push(
                             { 
-                                firstName : page[x].academicStaffID[0].firstName,
-                                lastName : page[x].academicStaffID[0].lastName
+                                employeeNo : $scope.regularStaff[x].academicStaffID[0].employeeNo,
+                                firstName : $scope.regularStaff[x].academicStaffID[0].firstName,
+                                lastName : $scope.regularStaff[x].academicStaffID[0].lastName,
+                                departmentCode: $scope.regularStaff[x].academicStaffID[0].departments[0].departmentID.departmentCode,
+                                contApptDate : $scope.regularStaff[x].contApptDate,
+                                tenureDate : $scope.regularStaff[x].tenureDate,
+                                json : page[x]
                             }
                         );
                     }
@@ -101,6 +128,23 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
         });
         
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            var index = $scope.gridOptions.data.indexOf(row.entity),
+                json = $scope.regularStaff[index]; 
+            
+            $scope.tabs.departments.gridOptions.data = (function(){
+                var flattenedData = [];
+                for( var x in json.academicStaffID[0].departments){
+                    flattenedData.push(
+                        {   
+                            startDate : json.academicStaffID[0].departments[x].startDate,
+                            departmentCode : json.academicStaffID[0].departments[x].departmentID.departmentCode,
+                            departmentTitle : json.academicStaffID[0].departments[x].departmentID.title
+                        }   
+                    );
+                }
+                return flattenedData;
+            })();
+            
             if (row.entity.regularStaffID === $scope.model.regularStaffID) {
                 row.isSelected = true;
                 $scope.gotoElement('details');

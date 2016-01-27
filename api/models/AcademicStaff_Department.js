@@ -14,7 +14,7 @@ module.exports = {
 		departmentID: {
 			model: 'Department',
 			required: true
-		}, 
+		},
 		startDate:{
 			type: 'date',
 			required: true
@@ -22,8 +22,6 @@ module.exports = {
 		endDate:{
 			type: 'date'
 		}
-		
-
 	},
   	tableName: 'AcademicStaff_Department'
 };
