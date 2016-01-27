@@ -1,6 +1,10 @@
 <style>
+body {background-color: #FFFFF2;}
 img { max-width: 35%; height: 35%;}
-.index {position: relative; top: 35%;}
+.index {position: absolute; top: 19%; left: 34%;}
+div {color:#CC0000;  text-decoration:none;font-weight:normal;font-family:inherit}
+.btn-primary, .btn-primary:focus, .btn-primary:active {background: #990000; color: #ffffff; border: #990000;}
+.btn-primary:hover, .btn-primary.active{background: #cc0000; border: #990000;}
 </style>
 <div class="container">
     <div class=text-center>
@@ -11,7 +15,8 @@ img { max-width: 35%; height: 35%;}
             </h1>
             <h3 align="center">
                 Central Hub for Academic Staff Information
-            </h3>   
+            </h3>
+            <hr>
             <div ui-view="loginModalButton"></div>
         </div>
     </div>
