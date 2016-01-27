@@ -1,26 +1,28 @@
-application.controller('regularStaffController', function($scope, $http, regularStaffs, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
+application.controller('regularStaffController', function($scope, $http, $q, regularStaffs, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
 
     /* Initialization */
     
     $scope.schema = RegularStaffSchema;
     $scope.form = AddRegularStaffForm;
     initAddForm();
-    console.log(regularStaffs);
+    $scope.regularStaff = regularStaffs.data;
     
     $scope.gridOptions = {
         data: (function(){
             var flattenedData = [];
-            for (var x in regularStaffs.data){
+            for (var x in $scope.regularStaff){
                 flattenedData.push(
                     { 
-                        firstName : regularStaffs.data[x].academicStaffID[0].firstName,
-                        lastName : regularStaffs.data[x].academicStaffID[0].lastName
+                        firstName : $scope.regularStaff[x].academicStaffID[0].firstName,
+                        lastName : $scope.regularStaff[x].academicStaffID[0].lastName
                     }
                 );
             }
             return flattenedData;
         })(),
         multiSelect: false,
+        infiniteScrollRowsFromEnd: 20,
+        infiniteScrollDown: true,
         enableRowHeaderSelection: false,
         columnDefs: [{
             name: 'First Name',
@@ -58,7 +60,46 @@ application.controller('regularStaffController', function($scope, $http, regular
     
     /* Generic functions: need minor tweaks for another view */
 
-    $scope.gridOptions.onRegisterApi = function(gridApi) {
+    $scope.gridOptions.onRegisterApi = function( gridApi ) {
+        gridApi.infiniteScroll.on.needLoadMoreData($scope, function(){
+            var pageSize = 25,
+                startID = $scope.regularStaff[$scope.regularStaff.length-1].regularStaffID,
+                promise = $q.defer();
+                
+                console.log(startID);
+                
+            $http.get('/RegularStaff/test?startID='+startID+'&limit='+pageSize)
+            .success(function( page ) {
+                $scope.regularStaff = $scope.regularStaff.concat( page );
+                $scope
+                .gridOptions
+                .data = $scope.gridOptions.data.concat((function(){
+                    var flattenedData = [];
+                    for (var x in page){
+                        flattenedData.push(
+                            { 
+                                firstName : page[x].academicStaffID[0].firstName,
+                                lastName : page[x].academicStaffID[0].lastName
+                            }
+                        );
+                    }
+                    return flattenedData;
+                })());
+                
+                gridApi
+                .infiniteScroll
+                .dataLoaded( false, ( (page.length !== 0 ) || ( page.length == pageSize )) )
+                .then(function() {
+                    promise.resolve();
+                });
+            })
+            .error(function( error ) {
+                gridApi.infiniteScroll.dataLoaded();
+                promise.reject();
+            });
+            return promise.promise;
+        });
+        
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             if (row.entity.regularStaffID === $scope.model.regularStaffID) {
                 row.isSelected = true;
