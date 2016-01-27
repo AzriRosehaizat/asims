@@ -9,6 +9,7 @@ application.controller('adminController', function($scope, $http, users, _, mome
         data: users.data,
         multiSelect: false,
         enableRowHeaderSelection: false,
+        enableHorizontalScrollbar: 0,
         columnDefs: [{
             name: 'Username',
             field: 'username'

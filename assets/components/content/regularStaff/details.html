@@ -4,23 +4,27 @@
     </md-button>
 </div>
 
-<md-content md-theme="docs-dark" layout-padding>
-    <form name="userForm" class="md-inline-form" layout="column">
+<md-content md-theme="docs-dark" layout-margin layout-padding layout="column">
+    <form name="staffForm" id="staffForm" class="md-inline-form" ng-submit="submit()">
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Employee No</label>
+                <input name="employeeNo" ng-model="staff.academicStaffID.employeeNo" required>
+            </md-input-container>
+        </div>
 
         <div layout-gt-sm="row">
             <md-input-container class="md-block" flex-gt-sm>
                 <label>First name</label>
-                <input ng-model="staff.academicStaffID.firstName">
+                <input name="firstName" ng-model="staff.academicStaffID.firstName" required>
             </md-input-container>
+
+            <div flex="5" hide-xs hide-sm></div>
 
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Last name</label>
-                <input ng-model="staff.academicStaffID.lastName">
-            </md-input-container>
-
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Employee No</label>
-                <input ng-model="staff.academicStaffID.employeeNo">
+                <input name="lastName" ng-model="staff.academicStaffID.lastName" required>
             </md-input-container>
         </div>
 
@@ -29,7 +33,9 @@
                 <label>Tenure date</label>
                 <input ng-model="staff.tenureDate">
             </md-input-container>
-            <md-datepicker ng-model="staff.tenureDate" flex-gt-sm></md-datepicker>
+            <md-datepicker ng-model="staff.tenureDate"></md-datepicker>
+
+            <div flex="5" hide-xs hide-sm></div>
 
             <md-input-container class="md-block" flex-gt-sm>
                 <label>Cont' appointment date</label>
@@ -37,6 +43,14 @@
             </md-input-container>
             <md-datepicker ng-model="staff.contApptDate"></md-datepicker>
         </div>
-        
+
+        <div layout="row">
+            <md-button type="submit" class="md-primary"> Submit </md-button>
+            <md-button ng-click="cancel(staffForm)"> Cancel </md-button>
+
+            <div flex hide-xs hide-sm></div>
+
+            <md-button class="md-warn" ng-show="isEditing" ng-click="delete()"> Delete </md-button>
+        </div>
     </form>
 </md-content>

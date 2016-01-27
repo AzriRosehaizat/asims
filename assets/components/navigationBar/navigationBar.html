@@ -3,8 +3,8 @@
         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
     </md-button>
 
-    <h3 hide-xs><a ui-sref="application.root"> University of Winnipeg - ASIMS </a></h3>
-    <h3 hide-gt-xs><a ui-sref="application.root"> U of W - ASIMS </a></h3>
+    <h4 class="md-title" hide-xs><a ui-sref="application.root"> University of Winnipeg - ASIMS </a></h4>
+    <h4 class="md-title" hide-gt-xs><a ui-sref="application.root"> U of W - ASIMS </a></h4>
 
     <span flex="5"></span>
 
@@ -20,6 +20,7 @@
         <md-button hide-gt-sm ng-click="$mdOpenMenu($event)" aria-label="More">
             <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
         </md-button>
+        
         <md-menu-content width="3">
             <md-menu-item><md-button ui-sref="application.regularStaff"> Regular Staff </md-button></md-menu-item>
             <md-menu-item><md-button ui-sref="application.admin"> Admin </md-button></md-menu-item>

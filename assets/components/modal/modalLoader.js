@@ -1,6 +1,6 @@
 application.factory('ModalLoader', function($uibModal) {
     return {
-        delete: function(row, url) {
+        delete: function(row, url, id) {
             return $uibModal.open({
                 templateUrl: '/components/modal/deleteModal.html',
                 controller: 'deleteModalController',
@@ -10,6 +10,9 @@ application.factory('ModalLoader', function($uibModal) {
                     },
                     url: function() {
                         return url;
+                    },
+                    id: function() {
+                        return id;
                     }
                 }
             });

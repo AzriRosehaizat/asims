@@ -1,7 +1,7 @@
-application.controller('deleteModalController', function($scope, $http, $uibModalInstance, row, url) {
+application.controller('deleteModalController', function($scope, $http, $uibModalInstance, row, url, id) {
 
     $scope.delete = function() {
-        $http.delete(url + row.entity.id)
+        $http.delete(url + id)
             .then(function(res) {
                 // delete row
                 var index = row.grid.appScope.gridOptions.data.indexOf(row.entity);
