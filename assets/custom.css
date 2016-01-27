@@ -6,10 +6,6 @@ body {
   overflow-y: scroll;
 }
 
-.addButton {
-    margin: 0.5em 1.1em 0.5em 0.5em;
-}
-
 .ui-grid-row.ui-grid-row-selected:hover .ui-grid-cell {
     cursor: pointer;
 }

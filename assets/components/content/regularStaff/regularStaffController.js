@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, $http, regularStaffs, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
+application.controller('regularStaffController', function($scope, $http, _, regularStaffs, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
 
     /* Initialization */
     
@@ -99,5 +99,7 @@ application.controller('regularStaffController', function($scope, $http, regular
         $scope.form = EditRegularStaffForm;
         $scope.model = angular.copy(row.entity);
         $scope.model.switch = false;
+        
+        $scope.staff = _.cloneDeep(row.entity);
     }
 });

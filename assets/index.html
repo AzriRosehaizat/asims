@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="application">
 
 <head>
     <title>Application</title>
@@ -10,8 +10,7 @@
     <!--STYLES END-->
 </head>
 
-<body ng-app="application" ng-cloak layout="column">
-    <div ui-view></div>
+<body ui-view ng-cloak layout="column">
     <span us-spinner="{radius:30, width:8, length: 16}" class="centered"></span>
 </body>
 <!--SCRIPTS-->

@@ -1,5 +1,5 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 
-'ui.grid.selection', 'ngAnimate', 'ngMaterial', 'angularMoment', 'ngLoadingSpinner', 'schemaForm', 'passwordConfirm']);
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 
+'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngLoadingSpinner', 'schemaForm', 'passwordConfirm']);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
@@ -36,32 +36,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		.state('application.root', {
 			url: '/application'
 		})
-		.state('application.academicStaff', {
-			url: '/academicStaff',
-			views: {
-				'': {
-					templateUrl: '/components/content/content.html',
-					controller: 'academicStaffController'
-				},
-				'grid@application.academicStaff': {
-					templateUrl: '/components/grid/grid.html',
-					controller: 'gridController'
-				},
-				'details@application.academicStaff': {
-					templateUrl: '/components/details/details.html',
-					controller: 'detailsController'
-				},
-				'tabset@application.academicStaff': {
-					templateUrl: '/components/tabset/tabset.html',
-					controller: 'tabsetController'
-				}
-			},
-			resolve: {
-				academicStaffs: function($http) {
-					return $http.get('/academicStaff/');
-				}
-			}
-		})
 		.state('application.regularStaff', {
 			url: '/regularStaff',
 			views: {
@@ -74,7 +48,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'gridController'
 				},
 				'details@application.regularStaff': {
-					templateUrl: '/components/details/details.html',
+					templateUrl: '/components/content/regularStaff/details.html',
 					controller: 'detailsController'
 				},
 				'tabset@application.regularStaff': {

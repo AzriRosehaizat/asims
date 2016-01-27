@@ -1,48 +1,30 @@
-<!--<nav class="navbar navbar-default navbar-static" role="navigation">-->
-<!--    <div class="container-fluid">-->
-<!--        <div class="navbar-header">-->
-<!--            <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">-->
-<!--                <span class="sr-only">Toggle navigation</span>-->
-<!--                <span class="icon-bar"></span>-->
-<!--                <span class="icon-bar"></span>-->
-<!--                <span class="icon-bar"></span>-->
-<!--            </button>-->
-<!--            <a ui-sref="application.root" class="navbar-brand">-->
-<!--                University of Winnipeg - ASIMS-->
-<!--            </a>-->
-<!--        </div>-->
-<!--        <div uib-collapse="isCollapsed" class="navbar-collapse bs-js-navbar-collapse">-->
-<!--            <ul class="nav navbar-nav">-->
-<!--                <li><a ui-sref="application.academicStaff">Academic Staff</a></li>-->
-<!--                <li><a ui-sref="application.regularStaff">Regular Staff</a></li>-->
-<!--            </ul>-->
-<!--            <ul class="nav navbar-nav navbar-right">-->
-<!--                <li><a ui-sref="application.admin">Admin</a></li>-->
-<!--                <li><a ui-sref="application.profile">Profile</a></li>-->
-<!--                <li>-->
-<!--                    <button type="button" class="btn btn-default btn-sm navbar-btn" ng-click="logout()">Logout</button>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </div>-->
-        <!-- /.nav-collapse -->
-<!--    </div>-->
-    <!-- /.container-fluid -->
-<!--</nav>-->
-
 <div class="md-toolbar-tools">
-    <md-button class="menu" hide-gt-sm aria-label="Open side menu">
+    <md-button hide-gt-sm ng-click="toggleLeft()" aria-label="Sidebar">
         <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
     </md-button>
-    <h3><a ui-sref="application.root"> University of Winnipeg - ASIMS </a></h3>
-    
+
+    <h3 hide-xs><a ui-sref="application.root"> University of Winnipeg - ASIMS </a></h3>
+    <h3 hide-gt-xs><a ui-sref="application.root"> U of W - ASIMS </a></h3>
+
     <span flex="5"></span>
-    
-    <md-button ui-sref="application.academicStaff"> Academic Staff </md-button>
-    <md-button ui-sref="application.regularStaff"> Regular Staff </md-button>
-    
-    <span flex=""></span>
-    
-    <md-button ui-sref="application.admin"> Admin </md-button>
-    <md-button ui-sref="application.profile"> Profile </md-button>
-    <md-button class="md-raised" ng-click="logout()"> Logout </md-button>
+
+    <md-button hide-sm hide-xs ui-sref="application.regularStaff"> Regular Staff </md-button>
+
+    <span flex></span>
+
+    <md-button hide-sm hide-xs ui-sref="application.admin"> Admin </md-button>
+    <md-button hide-sm hide-xs ui-sref="application.profile"> Profile </md-button>
+    <md-button hide-sm hide-xs class="md-raised" ng-click="logout()"> Logout </md-button>
+
+    <md-menu md-position-mode="target-right target">
+        <md-button hide-gt-sm ng-click="$mdOpenMenu($event)" aria-label="More">
+            <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
+        </md-button>
+        <md-menu-content width="3">
+            <md-menu-item><md-button ui-sref="application.regularStaff"> Regular Staff </md-button></md-menu-item>
+            <md-menu-item><md-button ui-sref="application.admin"> Admin </md-button></md-menu-item>
+            <md-menu-item><md-button ui-sref="application.profile"> Profile </md-button></md-menu-item>
+            <md-menu-item><md-button class="md-raised" ng-click="logout()"> Logout </md-button></md-menu-item>
+        </md-menu-content>
+    </md-menu>
 </div>

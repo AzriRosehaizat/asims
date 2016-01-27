@@ -1,0 +1,42 @@
+<div layout="row" layout-align="end end">
+    <md-button class="md-fab md-mini md-primary" ng-show="gridOptions" ng-click="gotoElement('navbar')" aria-label="Top">
+        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
+    </md-button>
+</div>
+
+<md-content md-theme="docs-dark" layout-padding>
+    <form name="userForm" class="md-inline-form" layout="column">
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>First name</label>
+                <input ng-model="staff.academicStaffID.firstName">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Last name</label>
+                <input ng-model="staff.academicStaffID.lastName">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Employee No</label>
+                <input ng-model="staff.academicStaffID.employeeNo">
+            </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Tenure date</label>
+                <input ng-model="staff.tenureDate">
+            </md-input-container>
+            <md-datepicker ng-model="staff.tenureDate" flex-gt-sm></md-datepicker>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Cont' appointment date</label>
+                <input ng-model="staff.contApptDate">
+            </md-input-container>
+            <md-datepicker ng-model="staff.contApptDate"></md-datepicker>
+        </div>
+        
+    </form>
+</md-content>
