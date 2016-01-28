@@ -1,4 +1,4 @@
-application.controller('navigationBarController', function($scope, $mdSidenav, Auth) {
+application.controller('navTopBarController', function($scope, $mdSidenav, Auth) {
 
   $scope.auth = Auth;
 

@@ -24,9 +24,13 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'': {
 					templateUrl: '/views/application/application.html'
 				},
-				'navigationBar@application': {
-					templateUrl: '/components/navigationBar/navigationBar.html',
-					controller: 'navigationBarController'
+				'navTopBar@application': {
+					templateUrl: '/components/navTopBar/navTopBar.html',
+					controller: 'navTopBarController'
+				},
+				'navLeftBar@application': {
+					templateUrl: '/components/navLeftBar/navLeftBar.html',
+					controller: 'navLeftBarController'
 				}
 			},
 			data: {
