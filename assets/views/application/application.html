@@ -1,26 +1,15 @@
-<md-toolbar id="navbar" ui-view="navigationBar" layout="row"></md-toolbar>
+<md-sidenav id="navbar-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" flex-gt-sm="20">
+    <div ui-view="navLeftBar" layout="column" flex></div>
+</md-sidenav>
 
-<div layout="row">
+<div layout="column" flex>
 
-    <md-sidenav class="md-whiteframe-4dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" flex-gt-sm="20">
-        <md-list>
-            <!-- List item #1 -->
-            <md-list-item>
-                <md-button>
-                    Lia Luogo
-                </md-button>
-            </md-list-item>
-            <!-- List item #2 -->
-            <md-list-item>
-                <md-button>
-                    Lawrence Ray
-                </md-button>
-            </md-list-item>
-        </md-list>
-    </md-sidenav>
+    <md-toolbar id="navbar-top" class="md-whiteframe-1dp">
+        <div ui-view="navTopBar" class="md-toolbar-tools" layout="row"></div>
+    </md-toolbar>
 
-    <md-content layout-margin flex>
-        <ui-view></ui-view>
+    <md-content id="content" layout-padding flex>
+        <div ui-view></div> 
     </md-content>
 
 </div>

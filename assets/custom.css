@@ -1,9 +1,22 @@
-.modal-open {
-  overflow-y: scroll;
+#content {
+  background-color: #F5F5F5;
+}
+
+.grid {
+  margin: 0.5em;
 }
 
 .ui-grid-row.ui-grid-row-selected:hover .ui-grid-cell {
   cursor: pointer;
+}
+
+#staffForm .md-datepicker-input,
+.md-datepicker-triangle-button {
+  display: none;
+}
+
+.modal-open {
+  overflow-y: scroll;
 }
 
 /* to center loading spinner */
@@ -11,12 +24,4 @@
   position: fixed;
   top: 50%;
   left: 50%;
-}
-
-.grid {
-  margin: 0.5em;
-}
-
-#staffForm .md-datepicker-input, .md-datepicker-triangle-button {
-  display: none;
 }
