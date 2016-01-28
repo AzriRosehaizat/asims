@@ -83,7 +83,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			},
 			resolve: {
 				regularStaffs: function($http) {
-					return $http.get('/RegularStaff/test?startID=0&limit=50');
+					return $http.get('/RegularStaff/test?startID=0&limit=25');
 				}
 			}
 		})

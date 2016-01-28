@@ -19,6 +19,12 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
                         lastName : $scope.regularStaff[x].academicStaffID[0].lastName,
                         departmentCode: $scope.regularStaff[x].academicStaffID[0].departments[0].departmentID.departmentCode,
                         contApptDate : $scope.regularStaff[x].contApptDate,
+                        rank : (function(){ 
+                            for( var y in $scope.regularStaff[x].ranks){
+                                if( !$scope.regularStaff[x].ranks[y].endDate )
+                                    return $scope.regularStaff[x].ranks[y].rankID.title;
+                            }
+                        })(),
                         tenureDate : $scope.regularStaff[x].tenureDate
                     }
                 );
@@ -26,8 +32,8 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
             return flattenedData;
         })(),
         multiSelect: false,
-        infiniteScrollRowsFromEnd: 30,
-        infiniteScrollDown: true,
+        infiniteScrollRowsFromEnd: 15,
+        enableFiltering: true,
         enableRowHeaderSelection: false,
         columnDefs: [{
             name: 'First Name',
@@ -42,7 +48,7 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
             
         }, {
            name: 'Rank',
-           field: 'Rank'
+           field: 'rank'
         }, {
             name: 'Employee No',
             field: 'employeeNo'
@@ -79,6 +85,25 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
             }
+        },
+        ranks: {
+            title: 'Ranks',
+            gridOptions: {
+                data: [],
+                columnDefs: [{
+                    name: 'Name',
+                    field: 'title'
+                },
+                {
+                    name: 'Description',
+                    field: 'description'
+                },
+                {
+                    name: 'Start Date',
+                    field: 'startDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
+                }]
+            }
         }
     };
     
@@ -86,10 +111,10 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
 
     $scope.gridOptions.onRegisterApi = function( gridApi ) {
         gridApi.infiniteScroll.on.needLoadMoreData($scope, function(){
-            var pageSize = 50,
+            var pageSize = 25,
                 startID = $scope.regularStaff[$scope.regularStaff.length-1].regularStaffID,
                 promise = $q.defer();
-
+                
             $http.get('/RegularStaff/test?startID='+startID+'&limit='+pageSize)
             .success(function( page ) {
                 $scope.regularStaff = $scope.regularStaff.concat( page );
@@ -100,13 +125,18 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
                     for (var x in page){
                         flattenedData.push(
                             { 
-                                employeeNo : $scope.regularStaff[x].academicStaffID[0].employeeNo,
-                                firstName : $scope.regularStaff[x].academicStaffID[0].firstName,
-                                lastName : $scope.regularStaff[x].academicStaffID[0].lastName,
-                                departmentCode: $scope.regularStaff[x].academicStaffID[0].departments[0].departmentID.departmentCode,
-                                contApptDate : $scope.regularStaff[x].contApptDate,
-                                tenureDate : $scope.regularStaff[x].tenureDate,
-                                json : page[x]
+                                employeeNo : page[x].academicStaffID[0].employeeNo,
+                                firstName : page[x].academicStaffID[0].firstName,
+                                lastName : page[x].academicStaffID[0].lastName,
+                                rank : (function(){ 
+                                for( var y in page[x].ranks){
+                                        if( !page[x].ranks[y].endDate )
+                                            return page[x].ranks[y].rankID.title;
+                                    }
+                                })(),
+                                departmentCode: page[x].academicStaffID[0].departments[0].departmentID.departmentCode,
+                                contApptDate :page[x].contApptDate,
+                                tenureDate : page[x].tenureDate
                             }
                         );
                     }
@@ -131,6 +161,8 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
             var index = $scope.gridOptions.data.indexOf(row.entity),
                 json = $scope.regularStaff[index]; 
             
+            console.log(json);
+    
             $scope.tabs.departments.gridOptions.data = (function(){
                 var flattenedData = [];
                 for( var x in json.academicStaffID[0].departments){
@@ -139,6 +171,20 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
                             startDate : json.academicStaffID[0].departments[x].startDate,
                             departmentCode : json.academicStaffID[0].departments[x].departmentID.departmentCode,
                             departmentTitle : json.academicStaffID[0].departments[x].departmentID.title
+                        }   
+                    );
+                }
+                return flattenedData;
+            })();
+            
+            $scope.tabs.ranks.gridOptions.data = (function(){
+                var flattenedData = [];
+                for( var x in json.ranks){
+                    flattenedData.push(
+                        {   
+                            startDate : json.ranks[x].startDate,
+                            title : json.ranks[x].rankID.title,
+                            description : json.ranks[x].rankID.description
                         }   
                     );
                 }
