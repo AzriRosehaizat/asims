@@ -24,11 +24,16 @@ module.exports = {
                         AcademicStaff_Department
                         .find( { academicStaffID : value.academicStaffID } )
                         .exec( function( error, academicStaff_Department ){
-                            Department
-                            .findOne( { departmentID : academicStaff_Department[0].departmentID } )
-                            .exec( function( error, department ){
-                                academicStaff_Department[0].departmentID = department;
-                                academicStaff[key].departments.push( academicStaff_Department[0] );
+                            async.forEachOf( academicStaff_Department, function( v, k, nextAcademicStaff_Department){
+                                Department
+                                .findOne( { departmentID : academicStaff_Department[k].departmentID } )
+                                .exec( function( error, department ){
+                                    academicStaff_Department[k].departmentID = department;
+                                    academicStaff[key].departments.push( academicStaff_Department[k] );
+                                    nextAcademicStaff_Department();
+                                }); 
+                            },
+                            function( error ){
                                 nextJoin();
                             });
                         });
