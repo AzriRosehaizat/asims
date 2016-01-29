@@ -1,7 +1,14 @@
 application.config(function($mdThemingProvider) {
+    
+    var lightGreyMap = $mdThemingProvider.extendPalette('grey', {
+        '800': '#494949'
+    });
+    
+    $mdThemingProvider.definePalette('lightGrey', lightGreyMap);
 
-    $mdThemingProvider.theme('docs-grey')
-        .backgroundPalette('grey', {
-            'default': '100'
-        });
+    $mdThemingProvider.theme('light-grey')
+        .primaryPalette('lightGrey');
+
+    $mdThemingProvider.theme('dark')
+        .dark();
 });

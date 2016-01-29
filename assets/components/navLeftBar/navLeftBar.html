@@ -1,4 +1,4 @@
-<md-toolbar class="nav-header md-whiteframe-1dp" layout="row" layout-align="space-between center" layout-padding>
+<md-toolbar class="nav-header md-hue-2 md-whiteframe-1dp" md-theme="light-grey" layout="row" layout-align="space-between center" layout-padding>
     <a ui-sref="application.root">
         <div class="logo" layout="row" layout-align="start center">
             <span class="logo-image">UW</span>
@@ -7,12 +7,17 @@
     </a>
 </md-toolbar>
 
-<md-list class="nav-content">
-    <md-list-item ui-sref="application.regularStaff">
-        <p>Regular Staff</p>
-    </md-list-item>
+<md-content md-theme="dark" layout="column">
+    <md-list class="nav-content">
+        <md-list-item ui-sref="application.regularStaff">
+            <p>Regular Staff</p>
+        </md-list-item>
+        
+        <md-divider></md-divider>
 
-    <md-list-item ui-sref="application.admin">
-        <p>Admin</p>
-    </md-list-item>
-</md-list>
+        <md-list-item ui-sref="application.admin">
+            <md-icon md-font-set="material-icons md-18">supervisor_account</md-icon>
+            <p>Admin</p>
+        </md-list-item>
+    </md-list>
+</md-content>
