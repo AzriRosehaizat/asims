@@ -4,6 +4,8 @@ application.controller('regularStaffController', function($scope, $http, _, regu
     
     $scope.staff = {};
     $scope.isEditing = false;
+    $scope.gridTitle = 'Regular Staff';
+    $scope.detailTitle = 'Add a Staff';
 
     $scope.gridOptions = {
         data: regularStaffs.data,
@@ -52,6 +54,7 @@ application.controller('regularStaffController', function($scope, $http, _, regu
                 $scope.row = row;
                 $scope.staff = _.cloneDeep(row.entity);
                 $scope.isEditing = true;
+                $scope.detailTitle = 'Edit a Staff';
             }
         });
     };
@@ -59,6 +62,7 @@ application.controller('regularStaffController', function($scope, $http, _, regu
     $scope.addRow = function() {
         $scope.staff = {};
         $scope.isEditing = false;
+        $scope.detailTitle = 'Add a Staff';
         $scope.gotoElement('details');
     };
 

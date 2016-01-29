@@ -1,10 +1,19 @@
-<div layout="row" layout-align="end end">
-    <md-button class="md-fab md-mini md-primary" ng-click="addRow()" aria-label="Add">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-    </md-button>
-</div>
-
 <md-content class="grid md-whiteframe-1dp">
+    
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            
+            <h2><span>{{gridTitle}}</span></h2>
+            
+            <span flex></span>
+            
+            <md-button class="md-icon-button" ng-click="addRow()" aria-label="Add">
+                <md-icon md-font-set="material-icons">add</md-icon>
+            </md-button>
+            
+        </div>
+    </md-toolbar>
+
     <div ui-grid="gridOptions" ui-grid-selection></div>
 </md-content>
 <br>
