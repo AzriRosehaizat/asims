@@ -33,6 +33,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'navLeftBarController'
 				}
 			},
+			resolve: {
+				user: function(CurrentUser) {
+					return CurrentUser.getUser();
+				}
+			},
 			data: {
 				access: AccessLevels.reader
 			}
@@ -74,7 +79,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'profileController'
 				},
 				'details@application.profile': {
-					templateUrl: '/components/details/details.html',
+					templateUrl: '/components/profile/details.html',
 					controller: 'detailsController'
 				}
 			},
