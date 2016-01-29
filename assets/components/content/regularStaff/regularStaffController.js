@@ -1,7 +1,7 @@
-application.controller('regularStaffController', function($scope, $http, _, regularStaffs, ModalLoader, AnchorScroll) {
+application.controller('regularStaffController', function($scope, $http, $filter, _, regularStaffs, SearchHelper, ModalLoader, AnchorScroll) {
 
     /* Initialization */
-    
+
     $scope.staff = {};
     $scope.isEditing = false;
     $scope.gridTitle = 'Regular Staff';
@@ -89,7 +89,7 @@ application.controller('regularStaffController', function($scope, $http, _, regu
 
     $scope.cancel = function(form) {
         if ($scope.isEditing) {
-            _.merge($scope.staff, $scope.row.entity);    
+            _.merge($scope.staff, $scope.row.entity);
         }
         else {
             $scope.staff = {};
@@ -101,4 +101,27 @@ application.controller('regularStaffController', function($scope, $http, _, regu
     $scope.gotoElement = function(eID) {
         AnchorScroll.scrollTo(eID);
     };
+
+    /* Search function */
+
+    $scope.$watch(
+        function() {
+            return SearchHelper.search;
+        },
+        function(newVal) {
+            searchData(newVal);
+        }
+    );
+
+    // ref: http://plnkr.co/edit/ijjzLX3jN7zWBvc5sdnQ?p=preview
+    function searchData(searchStr) {
+        $scope.gridOptions.data = regularStaffs.data;
+
+        while (searchStr) {
+            var searchArray = searchStr.split(' ');
+            $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, searchArray[0], undefined);
+            searchArray.shift();
+            searchStr = (searchArray.length !== 0) ? searchArray.join(' ') : '';
+        }
+    }
 });

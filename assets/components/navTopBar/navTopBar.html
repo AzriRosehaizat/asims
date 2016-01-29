@@ -4,13 +4,20 @@
             <md-icon md-font-set="material-icons">menu</md-icon>
         </md-button>
 
+        <div id="searchBox" layout="row" layout-align="start center">
+            <md-icon md-font-set="material-icons">search</md-icon>
+            <input ng-model="search" ng-change="update(search)" placeholder="Search" aria-label="Search"/>
+        </div>
+
         <span flex></span>
 
         <md-menu-bar>
             <md-menu>
                 <button ng-click="$mdOpenMenu($event)" aria-label="My Profile">
-                    <md-icon md-font-set="material-icons">face</md-icon>
-                    {{user.firstName}} {{user.lastName}}
+                    <div layout="row">
+                        <md-icon md-font-set="material-icons">face</md-icon>
+                        <span hide-xs>{{user.firstName}} {{user.lastName}}</span> 
+                    </div>
                 </button>
 
                 <md-menu-content width="3">
