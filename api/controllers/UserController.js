@@ -65,7 +65,7 @@ module.exports = require('waterlock').actions.user({
       var user = users[0];
 
       // update password
-      if (params.changePassword && params.password === params.password_confirm) {
+      if (params.changePassword && params.password == params.passwordConfirm) {
         var auth = {
           username: user.username,
           password: params.password
