@@ -1,5 +1,6 @@
-application.controller('navTopBarController', function($scope, $mdSidenav, Auth) {
+application.controller('navTopBarController', function($scope, $mdSidenav, user, Auth) {
 
+  $scope.user = user.data;
   $scope.auth = Auth;
 
   $scope.logout = function() {
@@ -10,11 +11,7 @@ application.controller('navTopBarController', function($scope, $mdSidenav, Auth)
 
   function buildToggler(navID) {
     return function() {
-      $mdSidenav(navID)
-        .toggle()
-        .then(function() {
-          // Do something..
-        });
+      $mdSidenav(navID).toggle();
     };
   }
 });

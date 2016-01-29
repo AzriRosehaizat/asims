@@ -1,15 +1,12 @@
-<md-sidenav id="navbar-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" flex-gt-sm="20">
-    <div ui-view="navLeftBar" layout="column" flex></div>
+<md-sidenav id="navbar-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" flex-gt-sm="20" ng-cloak>
+    <div ui-view="navLeftBar"></div>
 </md-sidenav>
 
-<div layout="column" flex>
 
-    <md-toolbar id="navbar-top" class="md-whiteframe-1dp">
-        <div ui-view="navTopBar" class="md-toolbar-tools" layout="row"></div>
-    </md-toolbar>
+<div flex layout="column">
+    <div ui-view="navTopBar"></div>
 
-    <md-content id="content" layout-padding flex>
-        <div ui-view></div> 
+    <md-content id="content" flex layout-padding ng-cloak>
+        <div ui-view></div>
     </md-content>
-
 </div>

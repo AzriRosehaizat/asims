@@ -1,23 +1,34 @@
-<md-button hide-gt-sm ng-click="toggleLeft()" aria-label="Sidebar">
-    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
-</md-button>
+<md-toolbar id="navbar-top" class="md-hue-3 md-whiteframe-1dp" md-theme="light-grey" ng-cloak>
+    <div class="md-toolbar-tools" layout="row">
+        <md-button hide-gt-sm class="md-icon-button" ng-click="toggleLeft()" aria-label="Left Sidebar">
+            <md-icon md-font-set="material-icons">menu</md-icon>
+        </md-button>
 
-<span flex></span>
+        <span flex></span>
 
-<md-button hide-sm hide-xs ui-sref="application.profile"> Profile </md-button>
-<md-button hide-sm hide-xs class="md-raised" ng-click="logout()"> Logout </md-button>
+        <md-menu-bar>
+            <md-menu>
+                <button ng-click="$mdOpenMenu($event)" aria-label="My Profile">
+                    <md-icon md-font-set="material-icons">face</md-icon>
+                    {{user.firstName}} {{user.lastName}}
+                </button>
 
-<md-menu md-position-mode="target-right target">
-    <md-button hide-gt-sm ng-click="$mdOpenMenu($event)" aria-label="More">
-        <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
-    </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-set="material-icons">account_circle</md-icon>
+                        <md-button ui-sref="application.profile">My Profile</md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-set="material-icons">exit_to_app</md-icon>
+                        <md-button ng-click="logout()">Logout</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
 
-    <md-menu-content width="3">
-        <md-menu-item>
-            <md-button ui-sref="application.profile"> Profile </md-button>
-        </md-menu-item>
-        <md-menu-item>
-            <md-button class="md-raised" ng-click="logout()"> Logout </md-button>
-        </md-menu-item>
-    </md-menu-content>
-</md-menu>
+        <md-button class="md-icon-button" aria-label="Settings">
+            <md-icon md-font-set="material-icons">settings</md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
