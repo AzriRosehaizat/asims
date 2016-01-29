@@ -1,56 +1,74 @@
-<div layout="row" layout-align="end end">
-    <md-button class="md-fab md-mini md-primary" ng-show="gridOptions" ng-click="gotoElement('navbar-top')" aria-label="Top">
-        <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"></span>
-    </md-button>
-</div>
+<md-content class="details md-whiteframe-1dp" layout="column">
 
-<md-content class="md-whiteframe-1dp" layout-margin layout-padding layout="column">
-    <form name="staffForm" id="staffForm" class="md-inline-form" ng-submit="submit()">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
 
-        <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Employee No</label>
-                <input name="employeeNo" ng-model="staff.academicStaffID.employeeNo" required>
-            </md-input-container>
+            <!--<md-button ng-click="gotoElement('navbar-top')" aria-label="Top">Top</md-button>-->
+            <h2><span>{{detailTitle}}</span></h2>
+
+            <span flex></span>
+
         </div>
+    </md-toolbar>
 
-        <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>First name</label>
-                <input name="firstName" ng-model="staff.academicStaffID.firstName" required>
-            </md-input-container>
+    <md-content layout-margin layout-padding>
+        <form name="detailForm" id="detailForm" class="md-inline-form" ng-submit="submit()">
 
-            <div flex="5" hide-xs hide-sm></div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="employeeNo" ng-model="staff.academicStaffID.employeeNo" placeholder="Employee No" required>
+                    <div ng-messages="detailForm.employeeNo.$error" ng-show="detailForm.employeeNo.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
 
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Last name</label>
-                <input name="lastName" ng-model="staff.academicStaffID.lastName" required>
-            </md-input-container>
-        </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="firstName" ng-model="staff.academicStaffID.firstName" placeholder="First name" required>
+                    <div ng-messages="detailForm.firstName.$error" ng-show="detailForm.firstName.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
 
-        <div layout-gt-sm="row">
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Tenure date</label>
-                <input ng-model="staff.tenureDate">
-            </md-input-container>
-            <md-datepicker ng-model="staff.tenureDate"></md-datepicker>
+                <div flex="5" hide-xs hide-sm></div>
 
-            <div flex="5" hide-xs hide-sm></div>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="lastName" ng-model="staff.academicStaffID.lastName" placeholder="Last name" required>
+                    <div ng-messages="detailForm.lastName.$error" ng-show="detailForm.lastName.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
 
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>Cont' appointment date</label>
-                <input ng-model="staff.contApptDate">
-            </md-input-container>
-            <md-datepicker ng-model="staff.contApptDate"></md-datepicker>
-        </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="tenureDate" ng-model="staff.tenureDate" type="date" placeholder="Tenure date">
+                    <div ng-messages="detailForm.tenureDate.$error" ng-show="detailForm.tenureDate.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+                <md-datepicker ng-model="staff.tenureDate"></md-datepicker>
 
-        <div layout="row">
-            <md-button type="submit" class="md-primary"> Submit </md-button>
-            <md-button ng-click="cancel(staffForm)"> Cancel </md-button>
+                <div flex="5" hide-xs hide-sm></div>
 
-            <div flex hide-xs hide-sm></div>
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="contApptDate" ng-model="staff.contApptDate" type="date" placeholder="Cont' appointment date">
+                    <div ng-messages="detailForm.contApptDate.$error" ng-show="detailForm.contApptDate.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+                <md-datepicker ng-model="staff.contApptDate"></md-datepicker>
+            </div>
 
-            <md-button class="md-warn" ng-show="isEditing" ng-click="delete()"> Delete </md-button>
-        </div>
-    </form>
+            <div layout="row">
+                <md-button type="submit" class="md-primary" ng-disabled="detailForm.$invalid"> Submit </md-button>
+                <md-button ng-click="cancel(detailForm)"> Cancel </md-button>
+
+                <div flex hide-xs hide-sm></div>
+
+                <md-button class="md-warn" ng-show="isEditing" ng-click="delete()"> Delete </md-button>
+            </div>
+        </form>
+    </md-content>
 </md-content>
