@@ -4,7 +4,7 @@ application.service('CurrentUser', function($http, LocalService) {
             if (LocalService.get('auth_token')) {
                 return angular.fromJson(LocalService.get('auth_token')).user.id;
             }
-            console.log("There's something wrong with the token. Please log out and log in again");
+            console.warn("There's something wrong with the token. Please log out and log in again");
             return {};
         },
         getUser: function() {

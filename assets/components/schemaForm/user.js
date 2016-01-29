@@ -95,7 +95,7 @@ var passwords = {
         type: "password"
 
     }, {
-        key: "password_confirm",
+        key: "passwordConfirm",
         type: "password-confirm",
         condition: "model.password"
     }]
@@ -108,7 +108,7 @@ var passwordsInEdit = {
         type: "password"
 
     }, {
-        key: "password_confirm",
+        key: "passwordConfirm",
         type: "password-confirm",
         condition: "model.password"
     }]
@@ -194,7 +194,7 @@ application
                 minLength: 6,
                 required: true
             },
-            "password_confirm": {
+            "passwordConfirm": {
                 type: "string",
                 title: "Confirm password"
             },
