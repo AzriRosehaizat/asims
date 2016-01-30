@@ -21,10 +21,9 @@ application.service('Auth', function($state, $http, LocalService, CurrentUser, A
             return false;
         },
         login: function(credentials) {
-            return $http.post('/auth/login/', credentials)
+            return $http.post('/auth/login', credentials)
                 .then(function(res) {
                     LocalService.set('auth_token', JSON.stringify(res.data));
-                    console.log(res.data.user);
                 });
         },
         logout: function() {
