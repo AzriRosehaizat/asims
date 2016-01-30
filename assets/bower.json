@@ -30,7 +30,6 @@
     "angular-moment": "",
     "angular-mocks": "",
     "bootstrap": "",
-    "angular-loading-spinner": "~0.0.3",
     "angular-lodash-module": "~1.2.0"
   }
 }
