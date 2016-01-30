@@ -67,8 +67,6 @@ application.controller('regularStaffController', function($scope, $http, $filter
     };
 
     $scope.submit = function() {
-        console.log("Submit success");
-
         if ($scope.isEditing) {
             // Do put request
         }
@@ -78,7 +76,6 @@ application.controller('regularStaffController', function($scope, $http, $filter
     };
 
     $scope.delete = function() {
-        console.log("Delete success");
         // ModalLoader.delete($scope.row, '/regularStaff/', $scope.staff.regularStaffID)
         //     .result.then(function(data) {
         //         if (_.isObject(data)) {

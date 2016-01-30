@@ -86,29 +86,5 @@ module.exports = require('waterlock').actions.user({
         res.json(user);
       });
     });
-  },
-
-  // register: function(req, res) {
-
-  //   var params = waterlock._utils.allParams(req);
-  //   var auth = {
-  //     username: params.username,
-  //     password: params.password
-  //   };
-
-  //   User.findOne({id: params.id}).exec(function userFound(err, user) {
-  //     if (err) {
-  //       return res.negotiate(err);
-  //     }
-
-  //     waterlock.engine.attachAuthToUser(auth, user, function(err, ua) {
-  //       if (err) {
-  //         return res.negotiate(err);
-  //       }
-  //       else {
-  //         waterlock.cycle.loginSuccess(req, res, ua);
-  //       }
-  //     });
-  //   });
-  // }
+  }
 });

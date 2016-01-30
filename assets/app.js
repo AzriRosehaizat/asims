@@ -101,7 +101,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'gridController'
 				},
 				'details@application.admin': {
-					templateUrl: '/components/details/details.html',
+					templateUrl: '/components/admin/details.html',
 					controller: 'detailsController'
 				}
 			},
