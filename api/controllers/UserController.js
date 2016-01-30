@@ -13,12 +13,19 @@ module.exports = require('waterlock').actions.user({
   create: function(req, res) {
 
     var params = waterlock._utils.allParams(req);
+    var user = {
+      username: params.username,
+      firstName: params.firstName,
+      lastName: params.lastName,
+      email: params.email,
+      role: params.role.id
+    };
     var auth = {
       username: params.username,
       password: params.password
     };
 
-    User.create(params).exec(function userCreated(err, user) {
+    User.create(user).exec(function userCreated(err, user) {
       if (err) {
         return res.negotiate(err);
       }
@@ -37,11 +44,18 @@ module.exports = require('waterlock').actions.user({
   },
 
   update: function(req, res) {
-    
-    var params = waterlock._utils.allParams(req);
-    delete(params.username);
 
-    User.update({id: params.id}, params).exec(function userUpdated(err, users) {
+    var params = waterlock._utils.allParams(req);
+    // username can't be changed: not included
+    var user = {
+      id: params.id,
+      firstName: params.firstName,
+      lastName: params.lastName,
+      email: params.email,
+      role: params.role.id
+    };
+
+    User.update({id: user.id}, user).exec(function userUpdated(err, users) {
       if (err) {
         return res.negotiate(err);
       }
@@ -49,14 +63,14 @@ module.exports = require('waterlock').actions.user({
         return res.badRequest('User doesn\'t exist.');
       }
       var user = users[0];
-      
+
       // update password
       if (params.changePassword && params.password === params.password_confirm) {
         var auth = {
           username: user.username,
           password: params.password
         };
-        
+
         waterlock.engine.attachAuthToUser(auth, user, function(err, ua) {
           if (err) {
             return res.negotiate(err);
@@ -64,12 +78,12 @@ module.exports = require('waterlock').actions.user({
           console.log(auth.username + ": password changed");
         });
       }
-      
+
       User.findOne({id: user.id}).populate('role').exec(function rolePopulated(err, user) {
-          if (err) {
-            return res.negotiate(err);
-          }
-          res.json(user);
+        if (err) {
+          return res.negotiate(err);
+        }
+        res.json(user);
       });
     });
   },

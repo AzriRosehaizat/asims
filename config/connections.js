@@ -21,10 +21,6 @@
 
 module.exports.connections = {
   
-  localDiskDb: {
-    adapter: 'sails-disk'
-  },
-
   //Adapter asims business application database
   MySQLServer: {
     adapter: 'sails-mysql',

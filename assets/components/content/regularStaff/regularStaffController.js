@@ -1,7 +1,7 @@
 application.controller('regularStaffController', function($scope, $http, $q, regularStaffs, ModalLoader, AnchorScroll, RegularStaffSchema, AddRegularStaffForm, EditRegularStaffForm) {
 
     /* Initialization */
-    
+
     $scope.schema = RegularStaffSchema;
     $scope.form = AddRegularStaffForm;
     initAddForm();
@@ -45,15 +45,13 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
         , {
             name: 'Primary Department',
             field: 'departmentCode'
-            
         }, {
            name: 'Rank',
            field: 'rank'
         }, {
             name: 'Employee No',
             field: 'employeeNo'
-        },
-        {
+        }, {
             name: 'Tenure Date',
             field: 'tenureDate',
             cellFilter: 'date:\'yyyy-MM-dd\''
@@ -61,9 +59,7 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
             name: 'contApptDate',
             field: 'contApptDate',
             cellFilter: 'date:\'yyyy-MM-dd\''
-        }
-        
-        ]
+        }]
     };
 
     $scope.tabs = {
@@ -212,9 +208,11 @@ application.controller('regularStaffController', function($scope, $http, $q, reg
     $scope.onSubmit = function(form) {
         $scope.$broadcast('schemaFormValidate');
         console.log("Submit success");
+        // need a url to update regularStaff. /regularStaff ?
     };
 
     $scope.delete = function() {
+        // does this http request work?
         ModalLoader.delete($scope.row, '/regularStaff/')
             .result.then(function(data) {
                 if (angular.isObject(data))
