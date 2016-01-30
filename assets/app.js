@@ -1,5 +1,5 @@
 var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 
-'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngLoadingSpinner']);
+'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment']);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
