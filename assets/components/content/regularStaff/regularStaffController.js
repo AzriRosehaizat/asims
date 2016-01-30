@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, $http, $filter, _, regularStaffs, SearchHelper, ModalLoader, AnchorScroll) {
+application.controller('regularStaffController', function($scope, $http, $filter, _, regularStaffs, SearchHelper, AnchorScroll) {
 
     /* Initialization */
 
