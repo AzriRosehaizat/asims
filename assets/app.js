@@ -1,4 +1,4 @@
-var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ngAnimate', 'ngLoadingSpinner', 'schemaForm', 'passwordConfirm']);
+var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ui.grid', 'ui.grid.selection', 'ui.grid.infiniteScroll', 'schemaForm', 'passwordConfirm'/*, 'ngLoadingSpinner'*/]);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
@@ -83,7 +83,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			},
 			resolve: {
 				regularStaffs: function($http) {
-					return $http.get('/RegularStaff/populateRegularStaff');
+					return $http.get('/RegularStaff/test?startID=0&limit=25');
 				}
 			}
 		})
