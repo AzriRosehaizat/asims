@@ -7,7 +7,7 @@
 
             <span flex></span>
 
-            <md-button ng-hide="formData.changePassword" ng-click="formData.changePassword = true">
+            <md-button ng-hide="!isEditing || formData.changePassword" ng-click="formData.changePassword = true">
                 Change Password?
             </md-button>
         </div>
@@ -35,6 +35,29 @@
                 </md-input-container>
             </div>
 
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-icon md-font-set="material-icons">account_circle</md-icon>
+                    <input name="username" ng-model="formData.username" placeholder="Username" required>
+                    <div ng-messages="detailForm.username.$error" ng-show="detailForm.username.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+
+                <div flex="5" hide-xs hide-sm></div>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-select name="role" ng-model="formData.role.id" placeholder="Role" required>
+                        <md-option value="1">Reader</md-option>
+                        <md-option value="2">Writer</md-option>
+                        <md-option value="3">Admin</md-option>
+                    </md-select>
+                    <div ng-messages="detailForm.role.$error" ng-show="detailForm.role.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+
             <md-input-container class="md-block" flex-gt-sm>
                 <md-icon md-font-set="material-icons">email</md-icon>
                 <input name="email" ng-model="formData.email" type="email" placeholder="Email" required>
@@ -43,7 +66,7 @@
                 </div>
             </md-input-container>
 
-            <div ng-show="formData.changePassword" layout-gt-sm="row">
+            <div ng-show="!isEditing || formData.changePassword" layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <md-icon md-font-set="material-icons">lock</md-icon>
                     <input name="password" ng-model="formData.password" type="password" placeholder="Password" ng-minlength="6">
@@ -65,6 +88,10 @@
             <div layout="row">
                 <md-button type="submit" class="md-primary" ng-disabled="detailForm.$invalid"> Submit </md-button>
                 <md-button ng-click="cancel(detailForm)"> Cancel </md-button>
+
+                <div flex hide-xs hide-sm></div>
+
+                <md-button class="md-warn" ng-show="isEditing" ng-click="delete($event)"> Delete </md-button>
             </div>
         </form>
     </md-content>
