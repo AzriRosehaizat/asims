@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, $http, $filter, _, regularStaffs, SearchHelper, AnchorScroll) {
+application.controller('regularStaffController', function($scope, $http, $filter, $mdDialog, _, regularStaffs, SearchHelper, AnchorScroll) {
 
     /* Initialization */
 
@@ -82,6 +82,29 @@ application.controller('regularStaffController', function($scope, $http, $filter
         //             $scope.staff = {};
         //         }
         //     });
+    };
+
+    $scope.delete = function(ev) {
+        var confirm = $mdDialog.confirm()
+            .title('You are deleting a row')
+            .textContent('Are you sure?')
+            .targetEvent(ev)
+            .ok('Delete')
+            .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function() {
+            $http.delete('/regularStaff/' + $scope.staff.id)
+                .then(function(res) {
+                    // delete row
+                    var index = $scope.gridOptions.data.indexOf($scope.row.entity);
+                    $scope.gridOptions.data.splice(index, 1);
+                    $scope.staff = {};
+                }, function(err) {
+                    console.warn(err);
+                });
+        }, function() {
+            // Do something on cancel()
+        });
     };
 
     $scope.cancel = function(form) {
