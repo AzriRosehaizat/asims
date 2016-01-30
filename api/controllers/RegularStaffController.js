@@ -1,11 +1,12 @@
-/**
- * RegularStaffController
- *
- * @description :: Server-side logic for managing Regularstaffs
- * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
- */
-
 module.exports = {
-	
+	test: function( request, response ){
+		var data = {
+			startID: request.param( 'startID' ),
+			limit: request.param( 'limit' )
+		};
+		RegularStaffService.find( data , function( error, regularStaff ){
+			response.json( error || regularStaff );	
+		});
+	}
 };
 

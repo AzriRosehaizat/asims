@@ -1,5 +1,5 @@
 var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 
-'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment']);
+'ui.grid.infiniteScroll', 'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment']);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
@@ -67,7 +67,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			},
 			resolve: {
 				regularStaffs: function($http) {
-					return $http.get('/regularStaff/');
+					return $http.get('/RegularStaff/test?startID=0&limit=25');
 				}
 			}
 		})
