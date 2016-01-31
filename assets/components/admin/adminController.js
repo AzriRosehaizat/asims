@@ -3,7 +3,7 @@ application.controller('adminController', function($scope, $http, $filter, $mdDi
     $scope.gridTitle = 'Admin Page';
     initAddForm();
     resetPasswords();
-
+    
     $scope.gridOptions = {
         data: users.data,
         multiSelect: false,

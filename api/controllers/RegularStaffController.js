@@ -1,12 +1,18 @@
 module.exports = {
-	test: function( request, response ){
+	test: function(request, response) {
 		var data = {
-			startID: request.param( 'startID' ),
-			limit: request.param( 'limit' )
+			startID: request.param('startID'),
+			limit: request.param('limit')
 		};
-		RegularStaffService.find( data , function( error, regularStaff ){
-			response.json( error || regularStaff );	
+
+		RegularStaffService.find(data, function(error, regularStaff) {
+			response.json(error || regularStaff);
+		});
+	},
+
+	count: function(req, res) {
+		RegularStaff.count().exec(function countCB(err, found) {
+			res.json(err || found);
 		});
 	}
 };
-

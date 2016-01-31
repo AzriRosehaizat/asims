@@ -1,5 +1,5 @@
 var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 
-'ui.grid.infiniteScroll', 'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment']);
+'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment']);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
@@ -63,11 +63,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
-				}
-			},
-			resolve: {
-				regularStaffs: function($http) {
-					return $http.get('/RegularStaff/test?startID=0&limit=25');
 				}
 			}
 		})
