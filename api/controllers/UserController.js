@@ -60,12 +60,12 @@ module.exports = require('waterlock').actions.user({
         return res.negotiate(err);
       }
       if (!users[0]) {
-        return res.badRequest('User does not exist.');
+        return res.badRequest('User doesn\'t exist.');
       }
       var user = users[0];
 
       // update password
-      if (params.changePassword && params.password == params.passwordConfirm) {
+      if (params.changePassword && params.password === params.password_confirm) {
         var auth = {
           username: user.username,
           password: params.password
@@ -87,30 +87,28 @@ module.exports = require('waterlock').actions.user({
       });
     });
   },
-  
-  findByToken: function(req, res) {
-    
-    var params = waterlock._utils.allParams(req);
-    var token = params.access_token;
-    
-    Jwt.findOne({token: token}).exec(function tokenFound(err, jwt) {
-      if (err) {
-        return res.negotiate(err);
-      }
-      if (!jwt) {
-        return res.badRequest('Token does not exist.');
-      }
-      
-      User.findOne({id: jwt.owner}).exec(function userFound(err, user) {
-        if (err) {
-          return res.negotiate(err);
-        }
-        if (!user) {
-          return res.badRequest('User does not exist.');
-        }
-        
-        res.json(user);
-      });
-    });
-  }
+
+  // register: function(req, res) {
+
+  //   var params = waterlock._utils.allParams(req);
+  //   var auth = {
+  //     username: params.username,
+  //     password: params.password
+  //   };
+
+  //   User.findOne({id: params.id}).exec(function userFound(err, user) {
+  //     if (err) {
+  //       return res.negotiate(err);
+  //     }
+
+  //     waterlock.engine.attachAuthToUser(auth, user, function(err, ua) {
+  //       if (err) {
+  //         return res.negotiate(err);
+  //       }
+  //       else {
+  //         waterlock.cycle.loginSuccess(req, res, ua);
+  //       }
+  //     });
+  //   });
+  // }
 });

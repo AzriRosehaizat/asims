@@ -1,19 +1,8 @@
-<md-content class="grid md-whiteframe-1dp" ng-cloak>
-    
-    <md-toolbar class="md-warn md-hue-2">
-        <div class="md-toolbar-tools">
-            
-            <h2><span>{{gridTitle}}</span></h2>
-            
-            <span flex></span>
-            
-            <md-button class="md-icon-button" ng-click="addRow()" aria-label="Add">
-                <md-icon md-font-set="material-icons">add</md-icon>
-            </md-button>
-            
-        </div>
-    </md-toolbar>
-
-    <div ui-grid="gridOptions" ui-grid-selection class="grid" ui-grid-infinite-scroll></div>
-</md-content>
-<br>
+<div class="container">
+    <div class="addButton pull-right">
+        <button type="button" class="btn btn-primary btn-sm" ng-click="addRow()">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+    </div>
+</div>
+<div ui-grid="gridOptions" ui-grid-selection class="grid"></div>

@@ -1,12 +1,10 @@
-application.service('loginModalService', function($state, $mdDialog) {
+application.service('loginModalService', function($state, $uibModal) {
     return {
-        open: function(ev) {
-            return $mdDialog.show({
-                controller: 'loginModalController',
+        open: function() {
+            return $uibModal.open({
                 templateUrl: '/components/loginModal/loginModal.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
+                controller: 'loginModalController',
+                size: 'sm'
             });
         }
     };

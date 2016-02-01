@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html ng-app="application">
-
-<head>
-    <title>Application</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="icon" type="image/png" href="/images/favicon.png">
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--STYLES-->
-    <!--STYLES END-->
-</head>
-
-<body>
-    <div ui-view layout="row" layout-fill></div>
-</body>
-<!--SCRIPTS-->
-<!--SCRIPTS END-->
-
+    <head>
+        <title>Application</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <!--<base href="/">-->
+        <link rel="icon" type="image/png" href="/images/favicon.png">
+        <!--STYLES-->
+        <!--STYLES END-->
+    </head>
+    <body>
+        <div ui-view></div>
+        <span us-spinner="{radius:30, width:8, length: 16}" class="centered"></span>
+    </body>
+    <!--SCRIPTS-->
+    <!--SCRIPTS END-->
 </html>
