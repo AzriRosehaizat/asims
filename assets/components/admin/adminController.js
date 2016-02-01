@@ -1,11 +1,12 @@
 application.controller('adminController', function($scope, $http, $filter, $mdDialog, users, _, moment, SearchHelper, AnchorScroll) {
 
     $scope.gridTitle = 'Admin Page';
+    $scope.users = users.data;
     initAddForm();
     resetPasswords();
 
     $scope.gridOptions = {
-        data: users.data,
+        data: $scope.users,
         multiSelect: false,
         enableRowHeaderSelection: false,
         enableHorizontalScrollbar: 0,
@@ -128,7 +129,7 @@ application.controller('adminController', function($scope, $http, $filter, $mdDi
         $http.post('/user/create/', $scope.formData)
             .then(function(res) {
                 $scope.gridOptions.data.push(res.data);
-                resetPasswords();
+                $scope.formData = {};
             }, function(err) {
                 console.warn(err);
             });
@@ -159,7 +160,7 @@ application.controller('adminController', function($scope, $http, $filter, $mdDi
 
     // ref: http://plnkr.co/edit/ijjzLX3jN7zWBvc5sdnQ?p=preview
     function searchData(searchStr) {
-        $scope.gridOptions.data = users.data;
+        $scope.gridOptions.data = $scope.users;
 
         while (searchStr) {
             var searchArray = searchStr.split(' ');
