@@ -1,16 +1,18 @@
-application.controller('loginModalController', function($scope, $state, $uibModalInstance, Auth, LoginSchema, LoginForm) {
+application.controller('loginModalController', function($scope, $state, $mdDialog, Auth) {
 
-    $scope.schema = LoginSchema;
-    $scope.form = LoginForm;
-    $scope.model = {};
+    $scope.formData = {};
 
-    $scope.onSubmit = function(form) {
-        Auth.login($scope.model)
-            .then(function(data) {
-                $uibModalInstance.close();
+    $scope.submit = function() {
+        Auth.login($scope.formData)
+            .then(function(res) {
+                $mdDialog.cancel();
                 $state.go("application.root");
             }, function(err) {
                 console.warn(err);
             });
+    };
+    
+    $scope.cancel = function() {
+        $mdDialog.cancel();
     };
 });

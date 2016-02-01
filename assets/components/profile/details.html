@@ -1,0 +1,71 @@
+<md-content class="details md-whiteframe-1dp" layout="column" ng-cloak>
+
+    <md-toolbar class="md-warn md-hue-2">
+        <div class="md-toolbar-tools">
+
+            <h2><span>{{detailTitle}}</span></h2>
+
+            <span flex></span>
+
+            <md-button ng-hide="formData.changePassword" ng-click="formData.changePassword = true">
+                Change Password?
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content layout-margin layout-padding>
+        <form name="detailForm" id="detailForm" class="md-inline-form" ng-submit="submit()">
+
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-icon md-font-set="material-icons">person</md-icon>
+                    <input name="firstName" ng-model="formData.firstName" placeholder="First name" required>
+                    <div ng-messages="detailForm.firstName.$error" ng-show="detailForm.firstName.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+
+                <div flex="5" hide-xs hide-sm></div>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="lastName" ng-model="formData.lastName" placeholder="Last name" required>
+                    <div ng-messages="detailForm.lastName.$error" ng-show="detailForm.lastName.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <md-input-container class="md-block" flex-gt-sm>
+                <md-icon md-font-set="material-icons">email</md-icon>
+                <input name="email" ng-model="formData.email" type="email" placeholder="Email" required>
+                <div ng-messages="detailForm.email.$error" ng-show="detailForm.email.$touched">
+                    <div ng-messages-include="/components/validate/messages.html"></div>
+                </div>
+            </md-input-container>
+
+            <div ng-show="formData.changePassword" layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <md-icon md-font-set="material-icons">lock</md-icon>
+                    <input name="password" ng-model="formData.password" type="password" placeholder="Password" ng-minlength="6">
+                    <div ng-messages="detailForm.password.$error" ng-show="detailForm.password.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+
+                <div flex="5" hide-xs hide-sm></div>
+
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="confirm" ng-model="formData.passwordConfirm" type="password" placeholder="Confirm password" match="formData.password">
+                    <div ng-messages="detailForm.confirm.$error" ng-show="detailForm.confirm.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-button type="submit" class="md-primary" ng-disabled="detailForm.$invalid"> Submit </md-button>
+                <md-button ng-click="cancel(detailForm)"> Cancel </md-button>
+            </div>
+        </form>
+    </md-content>
+</md-content>
