@@ -5,14 +5,14 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
                 return this.isAdmin();
             }
             else if (access === AccessLevels.reader) {
-                return this.isAuthenticated();
+                return $q.when(this.isAuthenticated());
             }
             else {
                 return $q.when(true);
             }
         },
         isAuthenticated: function() {
-            return $q.when(LocalService.get('auth_token'));
+            return LocalService.get('auth_token');
         },
         isAdmin: function() {
             return CurrentUser.getUser()
