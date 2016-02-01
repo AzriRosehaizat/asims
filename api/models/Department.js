@@ -1,3 +1,10 @@
+/**
+* Department.js
+*
+* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @docs        :: http://sailsjs.org/#!documentation/models
+*/
+
 module.exports = {
 
 	attributes: {
@@ -22,6 +29,25 @@ module.exports = {
 		},
 		description: {
 			type: 'text',
+		},
+		//Join table AcademicStaff_Department 1:M
+		AcademicStaff_Department:{
+			collection: 'AcademicStaff_Department',
+			via: 'departmentID'
+		},
+		//Join table 1:M
+		Chair: {
+			collection: 'Chair',
+			via: 'departmentID'
+		},
+		//has defaultNormal load
+		DefaultNormalLoad: {
+			collection: 'DefaultNormalLoad',
+			via: 'departmentID'
+		},
+		Course: {
+			collection: 'Course',
+			via: 'departmentID'
 		}
 
 	},

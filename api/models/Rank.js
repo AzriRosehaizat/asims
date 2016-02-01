@@ -21,6 +21,14 @@ module.exports = {
 		},
 		description: {
 			type: 'text'
+		},
+		DefaultNormalLoad:{
+			collection: 'DefaultNormalLoad',
+			via: 'rankID'
+		},
+		RegularStaff_Rank:{
+			collection: 'RegularStaff_Rank',
+			via: 'rankID'
 		}
 	},
 	tableName: 'Rank'

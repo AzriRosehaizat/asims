@@ -1,4 +1,4 @@
-application.service('Auth', function($state, $http, $q, LocalService, CurrentUser, AccessLevels) {
+application.service('Auth', function($state, $http, LocalService, CurrentUser, AccessLevels) {
     return {
         authorize: function(access) {
             if (access === AccessLevels.admin) {
@@ -8,22 +8,23 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
                 return this.isAuthenticated();
             }
             else {
-                return $q.when(true);
+                return true;
             }
         },
         isAuthenticated: function() {
-            return $q.when(LocalService.get('auth_token'));
+            return angular.isString(LocalService.get('auth_token'));
         },
         isAdmin: function() {
-            return CurrentUser.getUser()
-                .then(function(res) {
-                    return (res.data.role === AccessLevels.admin);
-                });
+            if (this.isAuthenticated()) {
+                return (CurrentUser.getRole() === AccessLevels.admin);
+            }
+            return false;
         },
         login: function(credentials) {
-            return $http.post('/auth/login', credentials)
+            return $http.post('/auth/login/', credentials)
                 .then(function(res) {
                     LocalService.set('auth_token', JSON.stringify(res.data));
+                    console.log(res.data.user);
                 });
         },
         logout: function() {
@@ -35,12 +36,12 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
     };
 });
 
-application.service('AuthInterceptor', function($q, $injector, _, LocalService) {
+application.service('AuthInterceptor', function($q, $injector, LocalService) {
         return {
             request: function(config) {
                 var token;
                 if (LocalService.get('auth_token')) {
-                    token = JSON.parse(LocalService.get('auth_token')).token;
+                    token = angular.fromJson(LocalService.get('auth_token')).token;
                 }
                 if (token) {
                     config.headers.access_token = token;
@@ -52,7 +53,7 @@ application.service('AuthInterceptor', function($q, $injector, _, LocalService) 
                     LocalService.unset('auth_token');
                     $injector.get('$state').go('index');
                 }
-                else if (!_.isObject(res.data)) {
+                else if (!angular.isObject(res.data)) {
                     // return $q.reject("An unknown error occurred.");
                     return $q.reject(res);
                 }
