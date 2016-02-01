@@ -1,33 +1,10 @@
-<md-dialog aria-label="Log In" ng-cloak>
-    <form name="loginForm" ng-submit="submit()" novalidate>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Log In</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancel">
-                    <md-icon md-font-set="material-icons">clear</md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-
-        <md-dialog-content>
-            <div class="md-dialog-content">
-                <md-input-container class="md-block">
-                    <md-icon md-font-set="material-icons">account_circle</md-icon>
-                    <input name="username" ng-model="formData.username" placeholder="Username" md-autofocus>
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <md-icon md-font-set="material-icons">lock</md-icon>
-                    <input name="password" ng-model="formData.password" type="password" placeholder="Password">
-                </md-input-container>
-            </div>
-        </md-dialog-content>
-
-        <md-dialog-actions>
-            <md-button type="submit" class="md-primary">
-                Log In
-            </md-button>
-        </md-dialog-actions>
+<div class="modal-header">
+    <button type="button" class="close" ng-click="$close()"> x </button>
+    <h3 class="modal-title">
+        Log In
+    </h3>
+</div>
+<div class="modal-body" style="text-align:center;">
+    <form name="myForm" sf-schema="schema" sf-form="form" sf-model="model" sf-options="{formDefaults: {feedback: false}}" ng-submit="onSubmit(myForm)">
     </form>
-</md-dialog>
+</div>
