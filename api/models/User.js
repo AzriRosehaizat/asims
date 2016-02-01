@@ -43,4 +43,19 @@ module.exports = {
 
   beforeCreate: require('waterlock').models.user.beforeCreate,
   beforeUpdate: require('waterlock').models.user.beforeUpdate,
+  
+  afterDestroy: function(destroyedUser, cb) {
+    var id = _.pluck(destroyedUser, 'id');
+    
+    if (id && id.length) {
+      Auth.destroy({user: id}).exec(function(e, r) {
+        Attempt.destroy({user: id}).exec(function(e, r) {
+          Jwt.destroy({owner: id}).exec(cb);
+        });
+      });
+    }
+    else {
+      cb();
+    }
+  }
 };

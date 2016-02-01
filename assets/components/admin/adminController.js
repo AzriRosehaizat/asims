@@ -1,9 +1,9 @@
-application.controller('adminController', function($scope, $http, $filter, $mdDialog, users, _, SearchHelper, AnchorScroll) {
+application.controller('adminController', function($scope, $http, $filter, $mdDialog, users, _, moment, SearchHelper, AnchorScroll) {
 
     $scope.gridTitle = 'Admin Page';
     initAddForm();
     resetPasswords();
-    
+
     $scope.gridOptions = {
         data: users.data,
         multiSelect: false,
@@ -70,12 +70,12 @@ application.controller('adminController', function($scope, $http, $filter, $mdDi
             .targetEvent(ev)
             .ok('Delete')
             .cancel('Cancel');
-            
+
         $mdDialog.show(confirm).then(function() {
+            var index = $scope.gridOptions.data.indexOf($scope.row.entity);
+
             $http.delete('/user/' + $scope.formData.id)
                 .then(function(res) {
-                    // delete row
-                    var index = $scope.gridOptions.data.indexOf($scope.row.entity);
                     $scope.gridOptions.data.splice(index, 1);
                     $scope.formData = {};
                 }, function(err) {
@@ -105,10 +105,13 @@ application.controller('adminController', function($scope, $http, $filter, $mdDi
     /* adminController specific functions */
 
     $scope.showLastLogin = function(row) {
-        var lastLogin = _.findLast(row.entity.attempts, function(attempt) {
-            return attempt.successful === true;
-        });
-        return lastLogin.createdAt;
+        if (row.entity.attempts) {
+            var lastLogin = _.findLast(row.entity.attempts, function(attempt) {
+                return attempt.successful === true;
+            });
+            if (lastLogin)
+                return moment(lastLogin.createdAt).format('YYYY-MM-DD');
+        }
     };
 
     function updateUser() {
