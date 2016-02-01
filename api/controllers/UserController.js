@@ -60,7 +60,7 @@ module.exports = require('waterlock').actions.user({
         return res.negotiate(err);
       }
       if (!users[0]) {
-        return res.badRequest('User doesn\'t exist.');
+        return res.badRequest('User does not exist.');
       }
       var user = users[0];
 
@@ -83,6 +83,32 @@ module.exports = require('waterlock').actions.user({
         if (err) {
           return res.negotiate(err);
         }
+        res.json(user);
+      });
+    });
+  },
+  
+  findByToken: function(req, res) {
+    
+    var params = waterlock._utils.allParams(req);
+    var token = params.access_token;
+    
+    Jwt.findOne({token: token}).exec(function tokenFound(err, jwt) {
+      if (err) {
+        return res.negotiate(err);
+      }
+      if (!jwt) {
+        return res.badRequest('Token does not exist.');
+      }
+      
+      User.findOne({id: jwt.owner}).exec(function userFound(err, user) {
+        if (err) {
+          return res.negotiate(err);
+        }
+        if (!user) {
+          return res.badRequest('User does not exist.');
+        }
+        
         res.json(user);
       });
     });
