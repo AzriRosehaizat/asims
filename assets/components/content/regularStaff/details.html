@@ -43,7 +43,7 @@
 
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="tenureDate" ng-model="formData.tenureDate" type="date" placeholder="Tenure date">
+                    <input name="tenureDate" ng-model="staff.tenureDate" type="date" placeholder="Tenure date" class = "noBrowserPicker">
                     <div ng-messages="detailForm.tenureDate.$error" ng-show="detailForm.tenureDate.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
@@ -53,7 +53,7 @@
                 <div flex="5" hide-xs hide-sm></div>
 
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="contApptDate" ng-model="formData.contApptDate" type="date" placeholder="Cont' appointment date">
+                    <input name="contApptDate" ng-model="staff.contApptDate" type="date" placeholder="Cont' appointment date" class = "noBrowserPicker">
                     <div ng-messages="detailForm.contApptDate.$error" ng-show="detailForm.contApptDate.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
