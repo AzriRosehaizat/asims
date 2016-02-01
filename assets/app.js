@@ -1,9 +1,10 @@
 var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
-	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment'
+	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
-application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
-	$stateProvider
+application.
+	config(function($stateProvider, $urlRouterProvider, AccessLevels) {
+		$stateProvider
 		.state('index', {
 			url: '/index',
 			views: {
@@ -31,7 +32,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
-					controller: 'navLeftBarController'
+					controller: 'navLeftBarController as vm'
 				}
 			},
 			resolve: {
@@ -111,42 +112,42 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			}
 		});
 
-	$urlRouterProvider.otherwise(function($injector) {
-		var $state = $injector.get('$state');
-		$state.go('index');
-	});
-});
+		$urlRouterProvider.otherwise(function($injector) {
+			var $state = $injector.get('$state');
+			$state.go('index');
+		});
+	})
 
-application.run(function($rootScope, $state, loginModalService, Auth) {
-	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+	.run(function($rootScope, $state, loginModalService, Auth) {
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
-		Auth.authorize(toState.data.access).then(function(access) {
-			var shouldLogin = (toState.data) && (!access);
+			Auth.authorize(toState.data.access).then(function(access) {
+				var shouldLogin = (toState.data) && (!access);
 
-			// NOT authenticated - wants any private stuff
-			if (shouldLogin) {
-				$state.go('index');
-				event.preventDefault();
-				loginModalService.open();
-				return;
-			}
-
-			// authenticated (previously) comming to index
-			if (Auth.isAuthenticated()) {
-				var shouldGoToApp = (fromState.name === '') && (toState.name === 'index');
-
-				if (shouldGoToApp) {
-					$state.go('application.root');
+				// NOT authenticated - wants any private stuff
+				if (shouldLogin) {
+					$state.go('index');
 					event.preventDefault();
+					loginModalService.open();
 					return;
 				}
-			}
-		}, function(err) {
-			// Is it necessory?
-			console.warn(err);
-			$state.go('index');
-			event.preventDefault();
+
+				// authenticated (previously) comming to index
+				if (Auth.isAuthenticated()) {
+					var shouldGoToApp = (fromState.name === '') && (toState.name === 'index');
+
+					if (shouldGoToApp) {
+						$state.go('application.root');
+						event.preventDefault();
+						return;
+					}
+				}
+			}, function(err) {
+				// Is it necessory?
+				console.warn(err);
+				$state.go('index');
+				event.preventDefault();
+			});
+			
 		});
-		
 	});
-});
