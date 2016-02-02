@@ -18,7 +18,7 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
             return CurrentUser.getUser()
                 .then(function(res) {
                     if (!res) return false;
-                    return (res.data.role === AccessLevels.admin);
+                    return (res.data.role.id === AccessLevels.admin);
                 });
         },
         login: function(credentials) {
