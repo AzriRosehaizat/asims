@@ -43,7 +43,7 @@ application.controller('adminController', function($scope, $filter, users, admin
     };
 
     $scope.cancel = function() {
-        adminService.cancel($scope.row, $scope.formData, $scope.formData.isEditing);
+        adminService.cancel($scope.row, $scope.formData);
     };
 
     $scope.delete = function(ev) {

@@ -44,8 +44,8 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
                     return res.data;
                 });
         },
-        cancel: function(row, formData, isEditing) {
-            if (isEditing) {
+        cancel: function(row, formData) {
+            if (formData.isEditing) {
                 _.merge(formData.user, row.entity);
                 this.resetPasswords(formData);
             }

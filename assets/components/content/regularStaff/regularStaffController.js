@@ -1,126 +1,46 @@
-application.controller('regularStaffController', function($scope, $http, $filter, $mdDialog, _, regularStaffService, SearchHelper, AnchorScroll) {
+application.controller('regularStaffController', function($scope, $http, $filter, regularStaffService, SearchHelper, AnchorScroll) {
 
-    lazyLoad(25);   // pageSize: 25
     $scope.gridTitle = 'Regular Staffs';
-    $scope.regularStaffs = [];
-    initAddForm();
+    $scope.rStaff = {}; // regularStaff
+    $scope.rStaff.oData = []; // .originalData
+    $scope.rStaff.fData = []; // .flattenedData
+    $scope.formData = {};
+    regularStaffService.initAddForm($scope.formData);
+    lazyLoad(25); // pageSize: 25
 
-    $scope.gridOptions = {
-        multiSelect: false,
-        enableRowHeaderSelection: false,
-        enableHorizontalScrollbar: 0,
-        columnDefs: [{
-            name: 'First Name',
-            field: 'firstName'
-        }, {
-            name: 'Last Name',
-            field: 'lastName'
-        }, {
-            name: 'Primary Department',
-            field: 'departmentCode'
-        }, {
-            name: 'Rank',
-            field: 'rank'
-        }, {
-            name: 'Employee No',
-            field: 'employeeNo'
-        }, {
-            name: 'Tenure Date',
-            field: 'tenureDate'
-        }, {
-            name: 'Cont\' Appt\' Date',
-            field: 'contApptDate'
-        }]
-    };
-
-    $scope.tabs = {
-        departments: {
-            title: 'Departments',
-            gridOptions: {
-                data: [],
-                columnDefs: [{
-                    name: 'Code',
-                    field: 'departmentCode'
-                }, {
-                    name: 'Name',
-                    field: 'departmentTitle'
-                }, {
-                    name: 'Start Date',
-                    field: 'startDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
-                }]
-            }
-        },
-        ranks: {
-            title: 'Ranks',
-            gridOptions: {
-                data: [],
-                columnDefs: [{
-                    name: 'Name',
-                    field: 'title'
-                }, {
-                    name: 'Description',
-                    field: 'description'
-                }, {
-                    name: 'Start Date',
-                    field: 'startDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
-                }]
-            }
-        }
-    };
-
-    /* Generic functions: need minor tweaks for another view */
+    $scope.gridOptions = regularStaffService.gridOptions();
+    $scope.tabs = regularStaffService.tabs();
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            // var index = $scope.gridOptions.data.indexOf(row.entity),
-            //     json = $scope.regularStaff[index];
-
-            // $scope.tabs.departments.gridOptions.data = (function() {
-            //     var flattenedData = [];
-            //     for (var x in json.academicStaffID[0].departments) {
-            //         flattenedData.push({
-            //             startDate: json.academicStaffID[0].departments[x].startDate,
-            //             departmentCode: json.academicStaffID[0].departments[x].departmentID.departmentCode,
-            //             departmentTitle: json.academicStaffID[0].departments[x].departmentID.title
-            //         });
-            //     }
-            //     return flattenedData;
-            // })();
-
-            // $scope.tabs.ranks.gridOptions.data = (function() {
-            //     var flattenedData = [];
-            //     for (var x in json.ranks) {
-            //         flattenedData.push({
-            //             startDate: json.ranks[x].startDate,
-            //             title: json.ranks[x].rankID.title,
-            //             description: json.ranks[x].rankID.description
-            //         });
-            //     }
-            //     return flattenedData;
-            // })();
-
-            if (row.entity.regularStaffID === $scope.formData.regularStaffID) {
+            if (row.entity.regularStaffID === $scope.formData.staff.regularStaffID) {
                 row.isSelected = true;
                 $scope.gotoElement('details');
             }
             else {
                 $scope.row = row;
-                $scope.formData = _.cloneDeep(row.entity);
-                $scope.isEditing = true;
-                $scope.detailTitle = 'Edit a Staff';
+                regularStaffService.initEditForm(row, $scope.formData);
             }
+
+            var index = $scope.gridOptions.data.indexOf(row.entity),
+                json = $scope.rStaff.oData[index];
+
+            $scope.tabs.departments.gridOptions.data = regularStaffService.flattenDepartments(json.academicStaffID[0].departments);
+            $scope.tabs.ranks.gridOptions.data = regularStaffService.flattenRanks(json.ranks);
         });
     };
 
     $scope.addRow = function() {
-        initAddForm();
+        regularStaffService.initAddForm($scope.formData);
         $scope.gotoElement('details');
     };
 
+    $scope.gotoElement = function(eID) {
+        AnchorScroll.scrollTo(eID);
+    };
+
     $scope.submit = function() {
-        if ($scope.isEditing) {
+        if ($scope.formData.isEditing) {
             // Do put request
         }
         else {
@@ -128,50 +48,14 @@ application.controller('regularStaffController', function($scope, $http, $filter
         }
     };
 
+    $scope.cancel = function() {
+        regularStaffService.cancel($scope.row, $scope.formData);
+    };
+
     $scope.delete = function(ev) {
-        var confirm = $mdDialog.confirm()
-            .title('You are deleting a row')
-            .textContent('Are you sure?')
-            .targetEvent(ev)
-            .ok('Delete')
-            .cancel('Cancel');
-
-        $mdDialog.show(confirm).then(function() {
-            $http.delete('/regularStaff/' + $scope.formData.regularStaffID)
-                .then(function(res) {
-                    // delete row
-                    var index = $scope.gridOptions.data.indexOf($scope.row.entity);
-                    $scope.gridOptions.data.splice(index, 1);
-                    $scope.formData = {};
-                }, function(err) {
-                    console.warn(err);
-                });
-        }, function() {
-            // Do something on cancel()
-        });
+        regularStaffService.delete(ev, $scope.gridOptions.data, $scope.formData);
     };
 
-    $scope.cancel = function(form) {
-        if ($scope.isEditing) {
-            _.merge($scope.formData, $scope.row.entity);
-        }
-        else {
-            $scope.formData = {};
-        }
-        // remove errors
-        form.$setUntouched();
-    };
-
-    $scope.gotoElement = function(eID) {
-        AnchorScroll.scrollTo(eID);
-    };
-
-    function initAddForm() {
-        $scope.formData = {};
-        $scope.isEditing = false;
-        $scope.detailTitle = 'Add a Staff';
-    }
-    
     /* Lazy loading data */
 
     var count = 0;
@@ -180,8 +64,7 @@ application.controller('regularStaffController', function($scope, $http, $filter
         $http.get('RegularStaff/count')
             .then(function(res) {
                 count = res.data;
-                var startID = 0;
-                getStaffs(startID, pageSize);
+                getStaffs(0, pageSize);
             });
     }
 
@@ -189,8 +72,9 @@ application.controller('regularStaffController', function($scope, $http, $filter
         $http.get('/RegularStaff/test?startID=' + startID + '&limit=' + pageSize)
             .then(function(res) {
                 var flattenedData = regularStaffService.flattenData(res.data);
-                $scope.regularStaffs = $scope.regularStaffs.concat(flattenedData);
-                $scope.gridOptions.data = $scope.regularStaffs;
+                $scope.rStaff.oData = $scope.rStaff.oData.concat(res.data);
+                $scope.rStaff.fData = $scope.rStaff.fData.concat(flattenedData);
+                $scope.gridOptions.data = $scope.rStaff.fData;
                 if (count > startID) {
                     getStaffs(startID + pageSize, pageSize);
                 }
@@ -210,8 +94,8 @@ application.controller('regularStaffController', function($scope, $http, $filter
 
     // ref: http://plnkr.co/edit/ijjzLX3jN7zWBvc5sdnQ?p=preview
     function searchData(searchStr) {
-        $scope.gridOptions.data = $scope.regularStaffs;
-        
+        $scope.gridOptions.data = $scope.rStaff.fData;
+
         while (searchStr) {
             var searchArray = searchStr.split(' ');
             $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, searchArray[0], undefined);
