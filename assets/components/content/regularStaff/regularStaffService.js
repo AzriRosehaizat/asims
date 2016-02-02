@@ -35,6 +35,9 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                 departments: {
                     title: 'Departments',
                     gridOptions: {
+                        multiSelect: false,
+                        enableRowHeaderSelection: false,
+                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Code',
                             field: 'departmentCode'
@@ -50,6 +53,9 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                 ranks: {
                     title: 'Ranks',
                     gridOptions: {
+                        multiSelect: false,
+                        enableRowHeaderSelection: false,
+                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Name',
                             field: 'title'
