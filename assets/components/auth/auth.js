@@ -17,6 +17,7 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
         isAdmin: function() {
             return CurrentUser.getUser()
                 .then(function(res) {
+                    if (!res) return false;
                     return (res.data.role === AccessLevels.admin);
                 });
         },
@@ -29,7 +30,7 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
         logout: function() {
             $http.post('/auth/logout')
                 .then(function(res) {
-                   console.log(res.data); 
+                    console.log(res.data);
                 });
             LocalService.unset('auth_token');
             $state.go('index');
