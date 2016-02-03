@@ -59,7 +59,7 @@ module.exports.waterlock = {
     secret: 'asims secret',
     expiry:{
       unit: 'days',
-      length: '7'
+      length: '14'
     },
     audience: 'asims',
     subject: 'subject',
