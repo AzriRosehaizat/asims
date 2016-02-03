@@ -21,6 +21,10 @@ var jsFilesToInject = [
   'bower_components/moment/min/moment.min.js',
   'bower_components/angular-moment/angular-moment.min.js',
   'app.js',
+  'components/navLeftBar/navLeftBarController.js',
+  'components/navLeftBar/navLeftBarLinkDirective.js',
+  'components/navLeftBar/navLeftBarService.js',
+  'components/navLeftBar/navLeftBarToggleDirective.js',
   'components/**/*.js'
 ];
 
