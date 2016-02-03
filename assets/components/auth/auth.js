@@ -5,19 +5,20 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
                 return this.isAdmin();
             }
             else if (access === AccessLevels.reader) {
-                return this.isAuthenticated();
+                return $q.when(this.isAuthenticated());
             }
             else {
                 return $q.when(true);
             }
         },
         isAuthenticated: function() {
-            return $q.when(LocalService.get('auth_token'));
+            return LocalService.get('auth_token');
         },
         isAdmin: function() {
             return CurrentUser.getUser()
                 .then(function(res) {
-                    return (res.data.role === AccessLevels.admin);
+                    if (!res) return false;
+                    return (res.data.role.id === AccessLevels.admin);
                 });
         },
         login: function(credentials) {
@@ -27,8 +28,10 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
                 });
         },
         logout: function() {
-            // The backend doesn't care about logouts, delete the token and you're good to go.
-            // Is that true?
+            $http.post('/auth/logout')
+                .then(function(res) {
+                    console.log(res.data);
+                });
             LocalService.unset('auth_token');
             $state.go('index');
         }
