@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 
-'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria']);
-=======
 var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
-	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment'
+	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
->>>>>>> master
 
 application.
-	config(function($stateProvider, $urlRouterProvider, AccessLevels) {
-		$stateProvider
+config(function($stateProvider, $urlRouterProvider, AccessLevels) {
+	$stateProvider
 		.state('index', {
 			url: '/index',
 			views: {
@@ -117,14 +112,14 @@ application.
 			}
 		});
 
-		$urlRouterProvider.otherwise(function($injector) {
-			var $state = $injector.get('$state');
-			$state.go('index');
-		});
-	})
+	$urlRouterProvider.otherwise(function($injector) {
+		var $state = $injector.get('$state');
+		$state.go('index');
+	});
+})
 
-	.run(function($rootScope, $state, loginModalService, Auth) {
-		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+.run(function($rootScope, $state, loginModalService, Auth) {
+	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
 		Auth.authorize(toState.data.access).then(function(access) {
 			var shouldLogin = (toState.data) && (!access);
@@ -148,5 +143,6 @@ application.
 				}
 			}
 		});
-		
+
 	});
+});
