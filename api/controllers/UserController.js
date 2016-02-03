@@ -101,7 +101,7 @@ module.exports = require('waterlock').actions.user({
         return res.badRequest('Token does not exist.');
       }
       
-      User.findOne({id: jwt.owner}).exec(function userFound(err, user) {
+      User.findOne({id: jwt.owner}).populate('role').exec(function userFound(err, user) {
         if (err) {
           return res.negotiate(err);
         }
