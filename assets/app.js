@@ -126,37 +126,6 @@ application.
 	.run(function($rootScope, $state, loginModalService, Auth) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
-<<<<<<< HEAD
-			Auth.authorize(toState.data.access).then(function(access) {
-				var shouldLogin = (toState.data) && (!access);
-
-				// NOT authenticated - wants any private stuff
-				if (shouldLogin) {
-					$state.go('index');
-					event.preventDefault();
-					loginModalService.open();
-					return;
-				}
-
-				// authenticated (previously) comming to index
-				if (Auth.isAuthenticated()) {
-					var shouldGoToApp = (fromState.name === '') && (toState.name === 'index');
-
-					if (shouldGoToApp) {
-						$state.go('application.root');
-						event.preventDefault();
-						return;
-					}
-				}
-			}, function(err) {
-				// Is it necessory?
-				console.warn(err);
-				$state.go('index');
-				event.preventDefault();
-			});
-			
-		});
-=======
 		Auth.authorize(toState.data.access).then(function(access) {
 			var shouldLogin = (toState.data) && (!access);
 
@@ -180,5 +149,4 @@ application.
 			}
 		});
 		
->>>>>>> master
 	});
