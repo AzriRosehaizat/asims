@@ -1,27 +1,31 @@
-application.controller('profileController', function($scope, $http, user, UserSchema, ProfileForm) {
-
-    $scope.schema = UserSchema;
-    $scope.form = ProfileForm;
+application.controller('profileController', function($scope, $http, _, user) {
     
     $scope.user = user.data;
-    $scope.model = angular.copy($scope.user);
+    $scope.formData = _.cloneDeep($scope.user);
+    $scope.detailTitle = $scope.user.username;
+    resetPasswords();
 
-    $scope.onSubmit = function(form) {
-        $scope.$broadcast('schemaFormValidate');
+    $scope.submit = function() {
+        console.log($scope.formData);
+        $http.put('/user/update/', $scope.formData)
+            .then(function(res) {
+                _.merge($scope.user, res.data);
+                resetPasswords();
+            }, function(err) {
+                console.warn(err);
+            });
+    };
 
-        if (form.$valid) {
-            $http.put('/user/update/', $scope.model)
-                .then(function(res) {
-                    angular.extend($scope.user, res.data);
-                    $scope.model.switch = false;
-                }, function(err) {
-                    console.warn(err);
-                });
-        }
+    $scope.cancel = function(form) {
+        _.merge($scope.formData, $scope.user);
+        resetPasswords();
+        // remove errors
+        form.$setUntouched();
     };
     
-    $scope.cancel = function() {
-        angular.extend($scope.model, $scope.user);
-        $scope.model.switch = false;
-    };
+    function resetPasswords() {
+        $scope.formData.changePassword = false;
+        $scope.formData.password = '';
+        $scope.formData.passwordConfirm = '';
+    }
 });
