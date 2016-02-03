@@ -18,5 +18,9 @@ module.exports = {
     nickname: 'string'
     */
     
-  })
+  }),
+  
+  afterDestroy: function(destroyedToken, cb) {
+    Use.destroy({jsonWebToken: _.pluck(destroyedToken, 'id')}).exec(cb);
+  }
 };

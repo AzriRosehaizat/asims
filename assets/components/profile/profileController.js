@@ -1,31 +1,14 @@
-application.controller('profileController', function($scope, $http, _, user) {
+application.controller('profileController', function($scope, _, user, profileService) {
     
     $scope.user = user.data;
-    $scope.formData = _.cloneDeep($scope.user);
-    $scope.detailTitle = $scope.user.username;
-    resetPasswords();
+    $scope.formData = {};
+    profileService.initEditForm($scope.user, $scope.formData);
 
     $scope.submit = function() {
-        console.log($scope.formData);
-        $http.put('/user/update/', $scope.formData)
-            .then(function(res) {
-                _.merge($scope.user, res.data);
-                resetPasswords();
-            }, function(err) {
-                console.warn(err);
-            });
+        profileService.updateUser($scope.user, $scope.formData);
     };
 
-    $scope.cancel = function(form) {
-        _.merge($scope.formData, $scope.user);
-        resetPasswords();
-        // remove errors
-        form.$setUntouched();
+    $scope.cancel = function() {
+        profileService.cancel($scope.formData, $scope.user);
     };
-    
-    function resetPasswords() {
-        $scope.formData.changePassword = false;
-        $scope.formData.password = '';
-        $scope.formData.passwordConfirm = '';
-    }
 });

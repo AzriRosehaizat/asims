@@ -141,11 +141,6 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 					return;
 				}
 			}
-		}, function(err) {
-			// Is it necessory?
-			console.warn(err);
-			$state.go('index');
-			event.preventDefault();
 		});
 		
 	});
