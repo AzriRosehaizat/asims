@@ -1,118 +1,79 @@
-application.controller('adminController', function($scope, $http, users, ModalLoader, AnchorScroll, UserSchema, AddUserForm, EditUserForm) {
+application.controller('adminController', function($scope, $filter, users, adminService, SearchHelper, AnchorScroll) {
 
-    /* Initialization */
+    $scope.gridTitle = 'Admin Page';
+    $scope.users = users.data;
+    $scope.formData = {};
+    adminService.initAddForm($scope.formData);
 
-    $scope.schema = UserSchema;
-    initAddForm();
-
-    $scope.gridOptions = {
-        data: users.data,
-        multiSelect: false,
-        enableRowHeaderSelection: false,
-        columnDefs: [{
-            name: 'Username',
-            field: 'username'
-        }, {
-            name: 'First name',
-            field: 'firstName'
-        }, {
-            name: 'Last name',
-            field: 'lastName'
-        }, {
-            name: 'Email',
-            field: 'email'
-        }, {
-            name: 'Role',
-            field: 'role.role'
-        }]
-    };
-
-    /* Generic functions: need minor tweaks for another view */
+    $scope.gridOptions = adminService.gridOptions();
+    $scope.gridOptions.data = $scope.users;
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.id === $scope.model.id) {
+            if (row.entity.id === $scope.formData.user.id) {
+                // second click on the same row
                 row.isSelected = true;
                 $scope.gotoElement('details');
             }
             else {
+                // first click
                 $scope.row = row;
-                initEditForm(row);
+                adminService.initEditForm(row, $scope.formData);
             }
         });
     };
 
     $scope.addRow = function() {
-        initAddForm();
-        // open the form
-        $scope.model.switch = true;
+        adminService.initAddForm($scope.formData);
         $scope.gotoElement('details');
-    };
-
-    $scope.onSubmit = function(form) {
-        $scope.$broadcast('schemaFormValidate');
-
-        if (form.$valid) {
-            if ($scope.form === EditUserForm) {
-                updateUser();
-            }
-            else if ($scope.form === AddUserForm) {
-                createUser();
-            }
-        }
-    };
-
-    $scope.delete = function() {
-        ModalLoader.delete($scope.row, '/user/')
-            .result.then(function(data) {
-                if (angular.isObject(data))
-                    delete($scope.model);
-            });
-    };
-
-    $scope.cancel = function() {
-        if ($scope.form === AddUserForm)
-            $scope.model = {};
-        if ($scope.form === EditUserForm)
-            angular.merge($scope.model, $scope.row.entity);
-
-        $scope.model.switch = false;
     };
 
     $scope.gotoElement = function(eID) {
         AnchorScroll.scrollTo(eID);
     };
 
-    function initAddForm() {
-        $scope.form = AddUserForm;
-        $scope.model = {};
-    }
+    $scope.submit = function() {
+        if ($scope.formData.isEditing) {
+            adminService.updateUser($scope.row, $scope.formData);
+            // error handler? in service?
+        }
+        else {
+            adminService.createUser($scope.gridOptions.data, $scope.formData);
+        }
+    };
 
-    function initEditForm(row) {
-        $scope.form = EditUserForm;
-        $scope.model = angular.copy(row.entity);
-        $scope.model.switch = false;
-    }
+    $scope.cancel = function() {
+        adminService.cancel($scope.row, $scope.formData);
+    };
 
-    /* adminController specific functions */
+    $scope.delete = function(ev) {
+        adminService.delete(ev, $scope.gridOptions.data, $scope.formData);
+    };
 
-    function updateUser() {
-        $http.put('/user/update/', $scope.model)
-            .then(function(res) {
-                angular.merge($scope.row.entity, res.data);
-                $scope.model.switch = false;
-            }, function(err) {
-                console.warn(err);
-            });
-    }
+    $scope.lastLogin = function(row) {
+        adminService.lastLogin(row);
+    };
+    
+    /* Search function */
 
-    function createUser() {
-        $http.post('/user/create/', $scope.model)
-            .then(function(res) {
-                $scope.gridOptions.data.push(res.data);
-                $scope.model.switch = false;
-            }, function(err) {
-                console.warn(err);
-            });
+    $scope.$watch(
+        function() {
+            return SearchHelper.search;
+        },
+        function(newVal) {
+            searchData(newVal);
+        }
+    );
+
+    // ref: http://plnkr.co/edit/ijjzLX3jN7zWBvc5sdnQ?p=preview
+    function searchData(searchStr) {
+        $scope.gridOptions.data = $scope.users;
+
+        while (searchStr) {
+            var searchArray = searchStr.split(' ');
+            $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, searchArray[0], undefined);
+            searchArray.shift();
+            searchStr = (searchArray.length !== 0) ? searchArray.join(' ') : '';
+        }
     }
 });
