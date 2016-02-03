@@ -59,7 +59,7 @@ module.exports.waterlock = {
     secret: 'asims secret',
     expiry:{
       unit: 'days',
-      length: '7'
+      length: '14'
     },
     audience: 'asims',
     subject: 'subject',
@@ -84,7 +84,7 @@ module.exports.waterlock = {
     // configure whether or not to include
     // the user in the response - this is useful if
     // JWT is the default response for succesfull login
-    includeUserInJwtResponse: true
+    includeUserInJwtResponse: false
   },
 
   // Post Actions
