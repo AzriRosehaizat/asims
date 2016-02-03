@@ -1,6 +1,5 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
-	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
-]);
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 
+'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria']);
 
 application.
 	config(function($stateProvider, $urlRouterProvider, AccessLevels) {

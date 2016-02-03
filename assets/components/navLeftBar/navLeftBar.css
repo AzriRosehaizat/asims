@@ -1,5 +1,8 @@
+/* Styles go here */
+
+
 #navbar-left {
-    background-color: #424242;
+    background-color: #FFF;
 }
 
 #navbar-left .nav-header a {
@@ -26,8 +29,6 @@
     font-size: 16px;
 }
 
-
-/* Styles go here */
 
 md-sidenav {
   overflow: visible;
@@ -109,11 +110,11 @@ md-sidenav {
   -webkit-transition-property: max-height;
   -moz-transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
   -moz-transition-property: max-height;
-  transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+  transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
   transition-property: max-height;
 }
 
 .side-menu menu-toggle span{
   padding-top: 12px;
   padding-bottom: 12px;
-}e
+}
