@@ -1,22 +1,22 @@
 /*
-* menuToggle that shows and hides menu items that have sub-items assocaited with them
-*/
+ * menuToggle that shows and hides menu items that have sub-items assocaited with them
+ */
 application
-  .directive('menuToggle', ['$timeout', function ($timeout ) {
+  .directive('menuToggle', ['$timeout', function($timeout) {
     return {
       scope: {
         section: '='
       },
       // templateUrl: 'partials/menu-toggle.html',
       templateUrl: 'components/navLeftBar/partials/navLeftBarToggle.tmpl.html',
-      link: function (scope, element) {
+      link: function(scope, element) {
         // allows to get a handle of the parent controller
         var controller = element.parent().controller();
 
-        scope.isOpen = function () {
+        scope.isOpen = function() {
           return controller.isOpen(scope.section);
         };
-        scope.toggle = function () {
+        scope.toggle = function() {
           controller.toggleOpen(scope.section);
         };
 
