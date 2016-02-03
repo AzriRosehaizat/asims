@@ -1,5 +1,5 @@
 var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 
-'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment']);
+'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria']);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
@@ -30,7 +30,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
-					controller: 'navLeftBarController'
+					controller: 'navLeftBarController as vm'
 				}
 			},
 			resolve: {
