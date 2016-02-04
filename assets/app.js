@@ -1,8 +1,9 @@
 var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
-	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment'
+	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
-application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
+application.
+config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
 		.state('index', {
 			url: '/index',
@@ -31,7 +32,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
-					controller: 'navLeftBarController'
+					controller: 'navLeftBarController as vm'
 				}
 			},
 			resolve: {
@@ -115,9 +116,9 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		var $state = $injector.get('$state');
 		$state.go('index');
 	});
-});
+})
 
-application.run(function($rootScope, $state, loginModalService, Auth) {
+.run(function($rootScope, $state, loginModalService, Auth) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
 		Auth.authorize(toState.data.access).then(function(access) {
@@ -142,6 +143,6 @@ application.run(function($rootScope, $state, loginModalService, Auth) {
 				}
 			}
 		});
-		
+
 	});
 });
