@@ -29,19 +29,27 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
         },
         updateUser: function(row, formData) {
             var self = this;
+            formData.submit = 'indeterminate';
             return $http.put('/user/update/', formData.user)
                 .then(function(res) {
                     _.merge(row.entity, res.data);
                     self.resetPasswords(formData);
                     return res.data;
+                })
+                .finally(function(notice) {
+                    formData.submit = '';
                 });
         },
         createUser: function(gridData, formData) {
+            formData.submit = 'indeterminate';
             return $http.post('/user/create/', formData.user)
                 .then(function(res) {
                     gridData.push(res.data);
                     formData.user = {};
                     return res.data;
+                })
+                .finally(function(notice) {
+                    formData.submit = '';
                 });
         },
         cancel: function(row, formData) {
@@ -65,6 +73,7 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function() {
+                formData.delete = 'indeterminate';
                 // get index before $http request to prevent user from 
                 // deleting a row that is selected during the request.
                 var index = gridData.indexOf(formData.user);
@@ -73,6 +82,9 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
                         gridData.splice(index, 1);
                         self.initAddForm(formData);
                         return res.data;
+                    })
+                    .finally(function(notice) {
+                        formData.delete = '';
                     });
             });
         },
@@ -94,6 +106,8 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
             formData.user = {};
             formData.isEditing = false;
             formData.title = 'Add a User';
+            formData.submit = '';
+            formData.delete = '';
         },
         initEditForm: function(row, formData) {
             formData.user = _.cloneDeep(row.entity);
