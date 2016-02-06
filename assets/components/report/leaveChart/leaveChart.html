@@ -1,17 +1,47 @@
-<div class="well">
-    <h2>Leave Entitlement Chart</h2>
-    <div class="detail-body">
-        <form class="form-inline">
-            <div class="form-group">
-                <select class="form-control" ng-model="selected" ng-options="department as department.title for department in departments">
-                    <option value="">Select a Department</option>
-                </select>
+<md-content class="grid md-whiteframe-1dp" ng-cloak>
+    <md-toolbar class="md-warn md-hue-2">
+        <div class="md-toolbar-tools">
+            <h2><span>Leave Entitlement Chart</span></h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <md-content flex layout-padding>
+        <form class="md-inline-form">
+            <h3>Generate By Department</h3>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Select a Department</label>
+                    <md-select ng-model="selected">
+                        <md-option ng-value="department.title" ng-repeat="department in departments">{{department.title}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            
+            <div layout="row">
+                <div flex hide-xs hide-sm></div>
+                <md-button class="md-primary" ng-click=openPdf(selected)> Open Chart </md-button>
+                <md-button class="md-warn" ng-click="downloadPdf(selected)"> Download Chart </md-button>
             </div>
         </form>
-    </div>
-    <div class='detail-footer'>
-        <br>
-        <button class="btn btn-default" ng-click="openPdf()">Open PDF</button>
-        <button class="btn btn-default" ng-click="downloadPdf()">Download PDF</button>
-    </div>
-</div>
+
+        <md-divider></md-divider>
+        
+       <form class="md-inline-form">
+            <h3>Generate By Faculty Member</h3>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Select a Department</label>
+                    <md-select ng-model="selected">
+                        <md-option ng-value="department.title" ng-repeat="department in departments">{{department.title}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            
+            <div layout="row">
+                <div flex hide-xs hide-sm></div>
+                <md-button class="md-primary" ng-click=openPdf(selected)> Open Chart </md-button>
+                <md-button class="md-warn" ng-click="downloadPdf(selected)"> Download Chart </md-button>
+            </div>
+        </form>
+    </md-content>
+</md-content>
