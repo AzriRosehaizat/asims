@@ -75,11 +75,11 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					templateUrl: '/components/report/report.html',
 					controller: 'reportController'
 				},
-				"loadChart@application.report": {
+				"loadChart@application.FLC": {
 					templateUrl: '/components/report/loadChart/loadChart.html',
 					controller: 'loadChartController'
 				},
-				"leaveChart@application.report": {
+				"leaveChart@application.FLC": {
 				templateUrl: '/components/report/leaveChart/leaveChart.html',
 				controller: 'leaveChartController'
 				}
@@ -89,14 +89,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			url: '/leaveEntitlementChart',
 			views: {
 				'': {
-					templateUrl: '/components/report/report.html',
+					templateUrl: '/components/report/leaveChart/leaveChart.html',
 					controller: 'reportController'
 				},
-				"loadChart@application.report": {
+				"department@application.LEC": {
 					templateUrl: '/components/report/loadChart/loadChart.html',
 					controller: 'loadChartController'
 				},
-				"leaveChart@application.report": {
+				"staff@application.LEC": {
 				templateUrl: '/components/report/leaveChart/leaveChart.html',
 				controller: 'leaveChartController'
 				}
