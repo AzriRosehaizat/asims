@@ -10,9 +10,9 @@
             <h3>Generate By Department</h3>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>Select a Department</label>
+                    <label>Select Department</label>
                     <md-select ng-model="selected">
-                        <md-option ng-value="department.title" ng-repeat="department in departments">{{department.title}}</md-option>
+                        <md-option ng-value="department.code" ng-repeat="department in departments">{{department.title}}</md-option>
                     </md-select>
                 </md-input-container>
             </div>
@@ -30,9 +30,9 @@
             <h3>Generate By Faculty Member</h3>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>Select a Department</label>
+                    <label>Select Faculty Member</label>
                     <md-select ng-model="selected">
-                        <md-option ng-value="department.title" ng-repeat="department in departments">{{department.title}}</md-option>
+                        <md-option ng-value="staff.academicStaffID.academicStaffID" ng-repeat="staff in regularStaff">{{staff.academicStaffID.firstName}} {{staff.academicStaffID.lastName}}</md-option>
                     </md-select>
                 </md-input-container>
             </div>
