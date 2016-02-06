@@ -68,8 +68,25 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		})
-		.state('application.report', {
-			url: '/report',
+		.state('application.FLC', {
+			url: '/facultyLoadChart',
+			views: {
+				'': {
+					templateUrl: '/components/report/report.html',
+					controller: 'reportController'
+				},
+				"loadChart@application.report": {
+					templateUrl: '/components/report/loadChart/loadChart.html',
+					controller: 'loadChartController'
+				},
+				"leaveChart@application.report": {
+				templateUrl: '/components/report/leaveChart/leaveChart.html',
+				controller: 'leaveChartController'
+				}
+			},
+		})
+		.state('application.LEC',{
+			url: '/leaveEntitlementChart',
 			views: {
 				'': {
 					templateUrl: '/components/report/report.html',
