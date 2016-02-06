@@ -23,6 +23,10 @@ var jsFilesToInject = [
   'bower_components/pdfmake/build/pdfmake.min.js',
   'bower_components/pdfmake/build/vfs_fonts.js',
   'app.js',
+  'components/navLeftBar/navLeftBarController.js',
+  'components/navLeftBar/navLeftBarLinkDirective.js',
+  'components/navLeftBar/navLeftBarService.js',
+  'components/navLeftBar/navLeftBarToggleDirective.js',
   'components/**/*.js'
 ];
 
