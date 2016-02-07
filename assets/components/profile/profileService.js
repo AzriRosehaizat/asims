@@ -3,10 +3,14 @@ application.service('profileService', function($http, _) {
     return {
         updateUser: function(user, formData) {
             var self = this;
+            formData.mode = 'indeterminate';
             $http.put('/user/update/', formData.user)
                 .then(function(res) {
                     _.merge(user, res.data);
                     self.resetPasswords(formData);
+                })
+                .finally(function() {
+                    formData.mode = '';
                 });
         },
         cancel: function(formData, user) {
@@ -23,6 +27,7 @@ application.service('profileService', function($http, _) {
         initEditForm: function(user, formData) {
             formData.user = _.cloneDeep(user);
             formData.title = user.username;
+            formData.mode = '';
         }
     };
 });

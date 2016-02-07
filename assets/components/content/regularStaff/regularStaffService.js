@@ -90,6 +90,7 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function() {
+                formData.delete = 'indeterminate';
                 // get index before $http request to prevent user from 
                 // deleting a row that is selected during the request.
                 var index = gridData.indexOf(formData.staff);
@@ -98,6 +99,9 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                         gridData.splice(index, 1);
                         self.initAddForm(formData);
                         return res.data;
+                    })
+                    .finally(function(notice) {
+                        formData.delete = '';
                     });
             });
         },
@@ -105,6 +109,8 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
             formData.staff = {};
             formData.isEditing = false;
             formData.title = 'Add a Staff';
+            formData.submit = '';
+            formData.delete = '';
         },
         initEditForm: function(row, formData) {
             formData.staff = _.cloneDeep(row.entity);
