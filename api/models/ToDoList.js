@@ -13,6 +13,7 @@ module.exports = {
     },
     state: {
        type: 'boolean',
+       defaultsTo: false,
        required: true,
     },
     userid: {
