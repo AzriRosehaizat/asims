@@ -10,6 +10,7 @@ application.controller('toDoListController', function($scope, user, $http, toDoL
         this.hoverEdit = false;
     };
 
+    // $scope.list = toDoListService.getList(userid);
 
     var getUrl = 'ToDoList?userid=' + userid;
     $http.get(getUrl)
@@ -57,7 +58,7 @@ application.controller('toDoListController', function($scope, user, $http, toDoL
         console.log('Items Deleted');
         $http.get(getUrl)
             .success(function(list) {
-                console.log('getting new list');
+                console.log(list);
                 $scope.list = list;
             });
     };
