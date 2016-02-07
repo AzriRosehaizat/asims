@@ -1,4 +1,4 @@
-application.service('adminService', function($http, $mdDialog, _, moment) {
+application.service('adminService', function($http, $mdDialog, _, moment, toaster) {
 
     return {
         gridOptions: function() {
@@ -29,27 +29,35 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
         },
         updateUser: function(row, formData) {
             var self = this;
-            formData.submit = 'indeterminate';
-            return $http.put('/user/update/', formData.user)
+            formData.mode = 'indeterminate';
+            
+            $http.put('/user/update/', formData.user)
                 .then(function(res) {
                     _.merge(row.entity, res.data);
                     self.resetPasswords(formData);
-                    return res.data;
+                    toaster.open("Updated successfully!");
+                }, function(err) {
+                    toaster.open(err);
                 })
                 .finally(function(notice) {
-                    formData.submit = '';
+                    formData.mode = '';
                 });
         },
         createUser: function(gridData, formData) {
-            formData.submit = 'indeterminate';
-            return $http.post('/user/create/', formData.user)
+            var self = this;
+            formData.mode = 'indeterminate';
+            
+            $http.post('/user/create/', formData.user)
                 .then(function(res) {
                     gridData.push(res.data);
                     formData.user = {};
-                    return res.data;
+                    self.resetValidation(formData);
+                    toaster.open("Added successfully!");
+                }, function(err) {
+                    toaster.open(err);
                 })
                 .finally(function(notice) {
-                    formData.submit = '';
+                    formData.mode = '';
                 });
         },
         cancel: function(row, formData) {
@@ -60,8 +68,7 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
             else {
                 formData.user = {};
             }
-            formData.form.$setPristine();
-            formData.form.$setUntouched();
+            this.resetValidation(formData);
         },
         delete: function(ev, gridData, formData) {
             var self = this;
@@ -73,18 +80,20 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function() {
-                formData.delete = 'indeterminate';
-                // get index before $http request to prevent user from 
-                // deleting a row that is selected during the request.
                 var index = gridData.indexOf(formData.user);
+                formData.mode = 'indeterminate';
+                
                 $http.delete('/user/' + formData.user.id)
                     .then(function(res) {
-                        gridData.splice(index, 1);
+                        gridData.splice(index, 1);  // delete the row in ui-grid
                         self.initAddForm(formData);
-                        return res.data;
+                        self.resetValidation(formData);  // because the form gives ugly errors...
+                        toaster.open("Deleted successfully!");
+                    }, function(err) {
+                        toaster.open(err);
                     })
                     .finally(function(notice) {
-                        formData.delete = '';
+                        formData.mode = '';
                     });
             });
         },
@@ -97,6 +106,10 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
                     return moment(lastLogin.createdAt).format('YYYY-MM-DD');
             }
         },
+        resetValidation: function(formData) {
+            formData.form.$setPristine();
+            formData.form.$setUntouched();
+        },
         resetPasswords: function(formData) {
             formData.user.changePassword = false;
             formData.user.password = '';
@@ -106,10 +119,8 @@ application.service('adminService', function($http, $mdDialog, _, moment) {
             formData.user = {};
             formData.isEditing = false;
             formData.title = 'Add a User';
-            formData.submit = '';
-            formData.delete = '';
         },
-        initEditForm: function(row, formData) {
+        initEditForm: function(formData, row) {
             formData.user = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit a User';

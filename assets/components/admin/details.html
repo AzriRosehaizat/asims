@@ -12,6 +12,8 @@
             </md-button>
         </div>
     </md-toolbar>
+    
+    <md-progress-linear class="md-hue-2" md-mode="{{formData.mode}}"></md-progress-linear>
 
     <md-content layout-margin layout-padding>
         <form name="formData.form" id="detailForm" class="md-inline-form" ng-submit="submit()">
@@ -87,12 +89,10 @@
 
             <div layout="row">
                 <md-button type="submit" class="md-primary" ng-disabled="formData.form.$invalid"> Submit </md-button>
-                <md-progress-circular md-mode="{{formData.submit}}"></md-progress-circular>
                 <md-button ng-click="cancel()"> Cancel </md-button>
 
                 <div flex hide-xs hide-sm></div>
 
-                <md-progress-circular md-mode="{{formData.delete}}"></md-progress-circular>
                 <md-button class="md-warn" ng-show="formData.isEditing" ng-click="delete($event)"> Delete </md-button>
             </div>
         </form>
