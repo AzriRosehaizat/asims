@@ -1,0 +1,32 @@
+<md-content class="details md-whiteframe-1dp" layout="column" ng-cloak>
+    <md-toolbar class="md-warn md-hue-2">
+        <div class="md-toolbar-tools">
+            <h2><span>To-Do List</span></h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+
+    <md-content layout-margin layout-padding>
+        <form name=toDoList class="md-inline-form" ng-submit="addItem()">
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <input name="Add To-do Item" ng-model="toDoList.addToDoText" placeholder="I need to ..." required>
+                    <div ng-messages="toDoList.addToDoText.$error" ng-show="toDoList.addToDoText.$touched">
+                        <div ng-message="required">This is required.</div>
+                    </div>
+                </md-input-container>
+                
+                <div flex hide-xs hide-sm></div>
+                <md-button class="md-primary" type="submit" ng-disabled="toDoList.$invalid"> Add Item </md-button>
+                <md-button class="md-warn" ng-click="deleteCompleted()"> Clear Completed </md-button>
+            </div>
+        </form>
+    </md-content>
+    <md-content layout-margin layout-padding>
+        <md-list-item ng-repeat="item in list">
+            <md-checkbox class="md-secondary" ng-model="item.state"></md-checkbox>
+            <span class="done-{{item.state}}"> {{ item.name }} </span>
+        </md-list-item>
+        <md-divider ng-if="!$last"></md-divider>
+    </md-content>
+</md-content>
