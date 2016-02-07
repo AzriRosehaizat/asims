@@ -1,4 +1,4 @@
-application.controller('toDoListController', function($scope, user, $http) {
+application.controller('toDoListController', function($scope, user, $http, toDoListService) {
     var userid = user.data.id;
     $scope.toDoListForm = {};
 
@@ -10,6 +10,7 @@ application.controller('toDoListController', function($scope, user, $http) {
         this.hoverEdit = false;
     }
 
+
     var getUrl = 'ToDoList?userid=' + userid;
     $http.get(getUrl)
         .success(function(data) {
@@ -20,12 +21,12 @@ application.controller('toDoListController', function($scope, user, $http) {
         $http.post('/ToDoList/create?text=' + $scope.addToDoText + '&userid=' + userid)
             .then(function(data) {
                 console.log($scope.addToDoText);
-                $scope.addToDoText = '';
                 $http.get(getUrl)
                     .success(function(data) {
                         $scope.list = data;
                     });
             });
+        $scope.addToDoText = '';
     }
 
     $scope.checkItem = function(item) {
