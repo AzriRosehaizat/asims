@@ -7,26 +7,24 @@
     </md-toolbar>
 
     <md-content layout-margin layout-padding>
-        <form name=toDoList class="md-inline-form" ng-submit="addItem()">
+        <form name=toDoListForm class="md-inline-form" ng-submit="addItem()">
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="Add To-do Item" ng-model="toDoList.addToDoText" placeholder="I need to ..." required>
+                    <input required name="Add To-do Item" ng-model="toDoList.addToDoText" placeholder="I need to ...">
                     <div ng-messages="toDoList.addToDoText.$error" ng-show="toDoList.addToDoText.$touched">
                         <div ng-message="required">This is required.</div>
                     </div>
                 </md-input-container>
-                
-                <div flex hide-xs hide-sm></div>
                 <md-button class="md-primary" type="submit" ng-disabled="toDoList.$invalid"> Add Item </md-button>
                 <md-button class="md-warn" ng-click="deleteCompleted()"> Clear Completed </md-button>
             </div>
         </form>
-    </md-content>
-    <md-content layout-margin layout-padding>
-        <md-list-item ng-repeat="item in list">
-            <md-checkbox class="md-secondary" ng-model="item.state"></md-checkbox>
-            <span class="done-{{item.state}}"> {{ item.name }} </span>
+        
+        <md-list-item ng-repeat="item in list" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+            <md-divider ng-if="!$last"></md-divider>
+            <md-checkbox class="md-warn" ng-model="item.state"></md-checkbox>
+            <span class="done-{{item.state}}"> {{ item.text }} </span>
+            <md-icon ng-show="hoverEdit" class="md-secondary"  md-svg-src="images/clear.svg" aria-label="Delete" ng-click="deleteItem()"></md-icon>
         </md-list-item>
-        <md-divider ng-if="!$last"></md-divider>
     </md-content>
 </md-content>
