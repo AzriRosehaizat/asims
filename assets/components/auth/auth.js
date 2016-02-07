@@ -29,11 +29,10 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
         },
         logout: function() {
             $http.post('/auth/logout')
-                .then(function(res) {
-                    console.log(res.data);
+                .finally(function(notice) {
+                    LocalService.unset('auth_token');
+                    $state.go('index');
                 });
-            LocalService.unset('auth_token');
-            $state.go('index');
         }
     };
 });
