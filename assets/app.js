@@ -26,6 +26,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'': {
 					templateUrl: '/views/application/application.html'
 				},
+				'toDoList@application': {
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
+				},
 				'navTopBar@application': {
 					templateUrl: '/components/navTopBar/navTopBar.html',
 					controller: 'navTopBarController'
