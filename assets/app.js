@@ -26,10 +26,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'': {
 					templateUrl: '/views/application/application.html'
 				},
-				'toDoList@application': {
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
-				},
 				'navTopBar@application': {
 					templateUrl: '/components/navTopBar/navTopBar.html',
 					controller: 'navTopBarController'
@@ -49,7 +45,18 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			}
 		})
 		.state('application.root', {
-			url: '/application'
+			url: '/application',
+			views: {
+				'' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
+				}
+			},
+			resolve: {
+				user: function(CurrentUser) {
+					return CurrentUser.getUser();
+				}
+			},
 		})
 		.state('application.regularStaff', {
 			url: '/regularStaff',
