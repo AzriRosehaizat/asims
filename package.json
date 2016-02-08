@@ -1,10 +1,11 @@
 {
-  "name": "pims",
+  "name": "ASIMS",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "Academic Staff Information Management System",
   "keywords": [],
   "dependencies": {
+    "async": "^1.5.2",
     "bower": "",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
@@ -20,6 +21,7 @@
     "grunt-sails-linker": "~0.9.5",
     "grunt-sync": "~0.0.4",
     "include-all": "~0.1.3",
+    "mysql": "^2.10.2",
     "rc": "~0.5.0",
     "sails": "~0.11.2",
     "sails-disk": "~0.10.0",
@@ -34,8 +36,11 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ubuntu/pims.git"
+    "url": "git://github.com/AzriAhmad/asims.git"
   },
   "author": "ubuntu",
-  "license": ""
+  "license": "",
+  "devDependencies": {
+    "jshint": "^2.9.1"
+  }
 }

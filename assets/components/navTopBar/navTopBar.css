@@ -1,0 +1,13 @@
+#searchBox md-icon {
+    margin-left: 0.2em;
+}
+
+#searchBox input {
+    border-width: 0px;
+    border: none;
+    margin-left: 0.5em;
+}
+
+#searchBox input:focus {
+    outline: none;
+}

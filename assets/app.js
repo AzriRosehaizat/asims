@@ -1,6 +1,9 @@
-var application = angular.module('application', ['ui.router', 'ui.bootstrap', 'ngAnimate', 'ui.grid', 'ui.grid.selection', 'schemaForm', 'passwordConfirm', 'ngLoadingSpinner']);
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
+	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
+]);
 
-application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
+application.
+config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$stateProvider
 		.state('index', {
 			url: '/index',
@@ -23,9 +26,18 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'': {
 					templateUrl: '/views/application/application.html'
 				},
-				'navigationBar@application': {
-					templateUrl: '/components/navigationBar/navigationBar.html',
-					controller: 'navigationBarController'
+				'navTopBar@application': {
+					templateUrl: '/components/navTopBar/navTopBar.html',
+					controller: 'navTopBarController'
+				},
+				'navLeftBar@application': {
+					templateUrl: '/components/navLeftBar/navLeftBar.html',
+					controller: 'navLeftBarController as vm'
+				}
+			},
+			resolve: {
+				user: function(CurrentUser) {
+					return CurrentUser.getUser();
 				}
 			},
 			data: {
@@ -34,32 +46,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		})
 		.state('application.root', {
 			url: '/application'
-		})
-		.state('application.academicStaff', {
-			url: '/academicStaff',
-			views: {
-				'': {
-					templateUrl: '/components/content/content.html',
-					controller: 'academicStaffController'
-				},
-				'grid@application.academicStaff': {
-					templateUrl: '/components/grid/grid.html',
-					controller: 'gridController'
-				},
-				'details@application.academicStaff': {
-					templateUrl: '/components/details/details.html',
-					controller: 'detailsController'
-				},
-				'tabset@application.academicStaff': {
-					templateUrl: '/components/tabset/tabset.html',
-					controller: 'tabsetController'
-				}
-			},
-			resolve: {
-				academicStaffs: function($http) {
-					return $http.get('/academicStaff/');
-				}
-			}
 		})
 		.state('application.regularStaff', {
 			url: '/regularStaff',
@@ -73,17 +59,12 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'gridController'
 				},
 				'details@application.regularStaff': {
-					templateUrl: '/components/details/details.html',
+					templateUrl: '/components/content/regularStaff/details.html',
 					controller: 'detailsController'
 				},
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
-				}
-			},
-			resolve: {
-				regularStaffs: function($http) {
-					return $http.get('/regularStaff/');
 				}
 			}
 		})
@@ -95,7 +76,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'profileController'
 				},
 				'details@application.profile': {
-					templateUrl: '/components/details/details.html',
+					templateUrl: '/components/profile/details.html',
 					controller: 'detailsController'
 				}
 			},
@@ -117,7 +98,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'gridController'
 				},
 				'details@application.admin': {
-					templateUrl: '/components/details/details.html',
+					templateUrl: '/components/admin/details.html',
 					controller: 'detailsController'
 				}
 			},
@@ -135,30 +116,33 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		var $state = $injector.get('$state');
 		$state.go('index');
 	});
-});
+})
 
-application.run(function($rootScope, $state, loginModalService, Auth) {
+.run(function($rootScope, $state, loginModalService, Auth) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
-		var shouldLogin = (toState.data !== undefined) && (!Auth.authorize(toState.data.access));
+		Auth.authorize(toState.data.access).then(function(access) {
+			var shouldLogin = (toState.data) && (!access);
 
-		// NOT authenticated - wants any private stuff
-		if (shouldLogin) {
-			$state.go('index');
-			event.preventDefault();
-			loginModalService.open();
-			return;
-		}
-
-		// authenticated (previously) comming to index
-		if (Auth.isAuthenticated()) {
-			var shouldGoToApp = (fromState.name === '') && (toState.name === 'index');
-
-			if (shouldGoToApp) {
-				$state.go('application.root');
+			// NOT authenticated - wants any private stuff
+			if (shouldLogin) {
+				$state.go('index');
 				event.preventDefault();
+				loginModalService.open();
 				return;
 			}
-		}
+
+			// authenticated (previously) comming to index
+			if (Auth.isAuthenticated()) {
+				var shouldGoToApp = (fromState.name === '') && (toState.name === 'index');
+
+				if (shouldGoToApp) {
+					$state.go('application.root');
+					event.preventDefault();
+					return;
+				}
+			}
+		});
+
 	});
 });

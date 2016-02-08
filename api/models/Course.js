@@ -14,14 +14,28 @@ module.exports = {
 		autoIncrement: true,
 		index: true
 	},
+	departmentID: {
+		model: 'Department',
+		required: true
+	},
 	courseNo: {
 		type: 'string',
 		required: true,
 		unique: true
 	},
-	//has course 1:M
-	Department_Course: {
-		collection: 'Department_Course',
+	title: {
+		type: 'string',
+		size: 50
+	},
+	description: {
+		type: 'text'
+	},
+	Section_Offered: {
+		collection: 'Section_Offered',
+		via: 'courseID'
+	},
+	Crosslisting: {
+		collection: 'Crosslisting',
 		via: 'courseID'
 	}
   },

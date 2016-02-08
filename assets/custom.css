@@ -1,15 +1,11 @@
-.addButton {
-    margin: 0.5em 1.1em 0.5em 0.5em;
+body {
+  font-family: 'Roboto', Arial, sans-serif;
 }
 
-.ui-grid-row.ui-grid-row-selected:hover .ui-grid-cell {
-    cursor: pointer;
+#content {
+  background-color: #F5F5F5;
 }
 
-.centered {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  /*margin-top: -23px; */
-  /*margin-left: -23px;*/
+.md-dialog-container {
+  overflow: hidden;
 }

@@ -1,47 +1,48 @@
-application.service('Auth', function($state, $http, LocalService, CurrentUser, AccessLevels) {
+application.service('Auth', function($state, $http, $q, LocalService, CurrentUser, AccessLevels) {
     return {
         authorize: function(access) {
             if (access === AccessLevels.admin) {
                 return this.isAdmin();
             }
             else if (access === AccessLevels.reader) {
-                return this.isAuthenticated();
+                return $q.when(this.isAuthenticated());
             }
             else {
-                return true;
+                return $q.when(true);
             }
         },
         isAuthenticated: function() {
-            return angular.isString(LocalService.get('auth_token'));
+            return LocalService.get('auth_token');
         },
         isAdmin: function() {
-            if (this.isAuthenticated()) {
-                return (CurrentUser.getRole() === AccessLevels.admin);
-            }
-            return false;
+            return CurrentUser.getUser()
+                .then(function(res) {
+                    if (!res) return false;
+                    return (res.data.role.id === AccessLevels.admin);
+                });
         },
         login: function(credentials) {
-            return $http.post('/auth/login/', credentials)
+            return $http.post('/auth/login', credentials)
                 .then(function(res) {
                     LocalService.set('auth_token', JSON.stringify(res.data));
-                    console.log(res.data.user);
                 });
         },
         logout: function() {
-            // The backend doesn't care about logouts, delete the token and you're good to go.
-            // Is that true?
-            LocalService.unset('auth_token');
-            $state.go('index');
+            $http.post('/auth/logout')
+                .finally(function(notice) {
+                    LocalService.unset('auth_token');
+                    $state.go('index');
+                });
         }
     };
 });
 
-application.service('AuthInterceptor', function($q, $injector, LocalService) {
+application.service('AuthInterceptor', function($q, $injector, _, LocalService) {
         return {
             request: function(config) {
                 var token;
                 if (LocalService.get('auth_token')) {
-                    token = angular.fromJson(LocalService.get('auth_token')).token;
+                    token = JSON.parse(LocalService.get('auth_token')).token;
                 }
                 if (token) {
                     config.headers.access_token = token;
@@ -53,8 +54,9 @@ application.service('AuthInterceptor', function($q, $injector, LocalService) {
                     LocalService.unset('auth_token');
                     $injector.get('$state').go('index');
                 }
-                else if (!angular.isObject(res.data)) {
+                else if (!_.isObject(res.data)) {
                     // return $q.reject("An unknown error occurred.");
+                    console.log("An unknown error occurred.");
                     return $q.reject(res);
                 }
                 return $q.reject(res.data);
