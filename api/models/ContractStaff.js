@@ -18,12 +18,14 @@ module.exports = {
 			model: 'AcademicStaff',
 			required: true
 		},
-		startDate:{
-			type: 'date',
-			required: true 
+
+		ContractStaffEmployment: {
+			collection: 'ContractStaffEmployment',
+			via: 'contractStaffID'
 		},
-		endDate:{
-			type: 'date'
+		RightToRefusal: {
+			collection: 'RightToRefusal',
+			via: 'contractStaffID'
 		}
 	},
 	tableName: 'ContractStaff'

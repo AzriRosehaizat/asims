@@ -1,4 +1,14 @@
-<div class="container">
-    <div ui-view="navigationBar" id="navbar"></div>
-    <div ui-view></div>
+<!--<md-sidenav id="navbar-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">-->
+<md-sidenav id="navbar-left" md-component-id="left">
+    <div ui-view="navLeftBar"></div>
+</md-sidenav>
+
+
+<div flex layout="column">
+    <div ui-view="navTopBar"></div>
+
+    <md-content id="content" flex layout-padding>
+        <!--<div ui-view class="slide"></div>-->
+        <div ui-view></div>
+    </md-content>
 </div>
