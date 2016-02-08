@@ -5,6 +5,9 @@
 #searchBox input {
     border-width: 0px;
     border: none;
-    outline: none;
     margin-left: 0.5em;
+}
+
+#searchBox input:focus {
+    outline: none;
 }

@@ -10,6 +10,8 @@
 
         </div>
     </md-toolbar>
+    
+    <md-progress-linear class="md-hue-2" md-mode="{{formData.mode}}"></md-progress-linear>
 
     <md-content layout-margin layout-padding>
         <form name="formData.form" id="detailForm" class="md-inline-form" ng-submit="submit()">
@@ -43,8 +45,8 @@
 
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="tenureDate" ng-model="formData.tenureDate" type="date" placeholder="Tenure date" class = "noBrowserPicker">
-                    <div ng-messages="formData.tenureDate.$error" ng-show="formData.tenureDate.$touched">
+                    <input name="tenureDate" ng-model="formData.staff.tenureDate" type="date" placeholder="Tenure date" class = "noBrowserPicker">
+                    <div ng-messages="formData.form.tenureDate.$error" ng-show="formData.form.tenureDate.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
                 </md-input-container>
@@ -53,8 +55,8 @@
                 <div flex="5" hide-xs hide-sm></div>
 
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="contApptDate" ng-model="formData.contApptDate" type="date" placeholder="Cont' appointment date" class = "noBrowserPicker">
-                    <div ng-messages="formData.contApptDate.$error" ng-show="formData.contApptDate.$touched">
+                    <input name="contApptDate" ng-model="formData.staff.contApptDate" type="date" placeholder="Cont' appointment date" class = "noBrowserPicker">
+                    <div ng-messages="formData.form.contApptDate.$error" ng-show="formData.form.contApptDate.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
                 </md-input-container>

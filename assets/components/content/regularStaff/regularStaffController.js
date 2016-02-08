@@ -19,7 +19,7 @@ application.controller('regularStaffController', function($scope, $http, $filter
             }
             else {
                 $scope.row = row;
-                regularStaffService.initEditForm(row, $scope.formData);
+                regularStaffService.initEditForm($scope.formData, row);
             }
 
             var index = $scope.gridOptions.data.indexOf(row.entity),
@@ -49,7 +49,7 @@ application.controller('regularStaffController', function($scope, $http, $filter
     };
 
     $scope.cancel = function() {
-        regularStaffService.cancel($scope.row, $scope.formData);
+        regularStaffService.cancel($scope.formData, $scope.row);
     };
 
     $scope.delete = function(ev) {
