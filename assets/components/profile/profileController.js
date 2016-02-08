@@ -2,7 +2,7 @@ application.controller('profileController', function($scope, _, user, profileSer
     
     $scope.user = user.data;
     $scope.formData = {};
-    profileService.initEditForm($scope.user, $scope.formData);
+    profileService.initEditForm($scope.formData, $scope.user);
 
     $scope.submit = function() {
         profileService.updateUser($scope.user, $scope.formData);

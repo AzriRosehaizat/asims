@@ -16,8 +16,8 @@ application
           // set flag to be used later when
           // $locationChangeSuccess calls openPage()
           controller.autoFocusContent = true;
-          $mdSidenav('left').toggle()
-        }
+          $mdSidenav('left').toggle();
+        };
       }
     };
   });
