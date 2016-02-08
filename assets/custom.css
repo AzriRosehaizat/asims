@@ -13,5 +13,5 @@ body {
 /*To strikeout Completed items*/
 .done-true {
   text-decoration: line-through;
-  color: 'black';
+  color: #000;
 }
