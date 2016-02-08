@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $mdDialog, _, moment) {
+application.service('regularStaffService', function($http, $mdDialog, _, moment, toaster) {
 
     return {
         gridOptions: function() {
@@ -70,15 +70,14 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                 }
             };
         },
-        cancel: function(row, formData) {
+        cancel: function(formData, row) {
             if (formData.isEditing) {
                 _.merge(formData.staff, row.entity);
             }
             else {
                 formData.staff = {};
             }
-            formData.form.$setPristine();
-            formData.form.$setUntouched();
+            this.resetValidation(formData);
         },
         delete: function(ev, gridData, formData) {
             var self = this;
@@ -90,23 +89,33 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function() {
-                // get index before $http request to prevent user from 
-                // deleting a row that is selected during the request.
+                formData.mode = 'indeterminate';
                 var index = gridData.indexOf(formData.staff);
+
                 $http.delete('/regularStaff/' + formData.staff.regularStaffID)
                     .then(function(res) {
                         gridData.splice(index, 1);
                         self.initAddForm(formData);
-                        return res.data;
+                        self.resetValidation(formData);  // because the form gives ugly errors...
+                        toaster.open("Deleted successfully!");
+                    }, function(err) {
+                        toaster.open(err);
+                    })
+                    .finally(function(notice) {
+                        formData.mode = '';
                     });
             });
+        },
+        resetValidation: function(formData) {
+            formData.form.$setPristine();
+            formData.form.$setUntouched();
         },
         initAddForm: function(formData) {
             formData.staff = {};
             formData.isEditing = false;
             formData.title = 'Add a Staff';
         },
-        initEditForm: function(row, formData) {
+        initEditForm: function(formData, row) {
             formData.staff = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit a Staff';

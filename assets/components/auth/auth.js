@@ -29,11 +29,10 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
         },
         logout: function() {
             $http.post('/auth/logout')
-                .then(function(res) {
-                    console.log(res.data);
+                .finally(function(notice) {
+                    LocalService.unset('auth_token');
+                    $state.go('index');
                 });
-            LocalService.unset('auth_token');
-            $state.go('index');
         }
     };
 });
@@ -57,6 +56,7 @@ application.service('AuthInterceptor', function($q, $injector, _, LocalService) 
                 }
                 else if (!_.isObject(res.data)) {
                     // return $q.reject("An unknown error occurred.");
+                    console.log("An unknown error occurred.");
                     return $q.reject(res);
                 }
                 return $q.reject(res.data);
