@@ -6,5 +6,9 @@
  */
 
 module.exports = {
-
+    deleteCompleted: function(req, res){
+        var userid = req.param('id');
+        
+        
+    }
 };
