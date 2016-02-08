@@ -1,12 +1,12 @@
 <md-toolbar id="navbar-top" class="md-hue-3 md-whiteframe-1dp" md-theme="light-grey" ng-cloak>
-    <div class="md-toolbar-tools" layout="row">
+    <div class="md-toolbar-tools" flex layout="row">
         <md-button class="md-icon-button" ng-click="toggleLeft()" aria-label="Left Sidebar">
             <md-icon md-font-set="material-icons">menu</md-icon>
         </md-button>
 
-        <div id="searchBox" layout="row" layout-align="start center">
+        <div id="searchBox" flex-gt-sm="70" flex-sm="60" layout="row" layout-align="start center">
             <md-icon md-font-set="material-icons">search</md-icon>
-            <input ng-model="search" ng-change="update(search)" placeholder="Search" aria-label="Search" />
+            <input type="text" ng-model="search" ng-change="update(search)" placeholder="Search" style="width:100%" aria-label="Search"/>
         </div>
 
         <span flex></span>
