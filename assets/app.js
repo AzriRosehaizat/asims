@@ -48,6 +48,9 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			url: '/application',
 			views: {
 				'' :{
+					templateUrl: '/views/application/root.html'
+				},
+				'toDoList@application.root' :{
 					templateUrl: '/components/toDoList/toDoList.html',
 					controller: 'toDoListController'
 				}
@@ -56,7 +59,7 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				user: function(CurrentUser) {
 					return CurrentUser.getUser();
 				}
-			},
+			}
 		})
 		.state('application.regularStaff', {
 			url: '/regularStaff',
