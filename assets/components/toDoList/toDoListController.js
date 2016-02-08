@@ -1,4 +1,5 @@
-application.controller('toDoListController', function($scope, user, $http, toDoListService) {
+application.controller('toDoListController', function($scope, user, $http, _, toDoListService) {
+
     var userid = user.data.id;
     $scope.toDoListForm = {};
 
@@ -16,6 +17,7 @@ application.controller('toDoListController', function($scope, user, $http, toDoL
     $http.get(getUrl)
         .success(function(data) {
             $scope.list = data;
+            console.log(data);
         });
 
     $scope.addItem = function() {
@@ -49,17 +51,18 @@ application.controller('toDoListController', function($scope, user, $http, toDoL
     };
 
     $scope.deleteCompleted = function() {
-        angular.forEach($scope.list, function(value, key) {
-            if (value.state == true) {
-                $http.delete('ToDoList/' + value.id)
-                    .then(function(data) {});
-            }
-        });
-        console.log('Items Deleted');
-        $http.get(getUrl)
-            .success(function(list) {
-                console.log(list);
-                $scope.list = list;
+        // select items with state==true
+        // and wrap in an object.
+        var completed = _.filter($scope.list, 'state');
+        completed = {list: completed};
+
+        $http.post('/ToDoList/deleteCompleted', completed)
+            .then(function(res) {
+                console.log('Items Deleted');
+                $http.get(getUrl)
+                    .success(function(list) {
+                        $scope.list = list;
+                    });
             });
     };
 })

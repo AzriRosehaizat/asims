@@ -1,4 +1,5 @@
 application.service('toDoListService', function($http) {
+    
     return {
         getList: function(userid) {
             var getUrl = 'ToDoList?userid=' + userid;
@@ -7,5 +8,5 @@ application.service('toDoListService', function($http) {
                     return data;
                 });
         }
-    }
+    };
 })
