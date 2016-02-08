@@ -1,12 +1,20 @@
-application.service('profileService', function($http, _) {
+application.service('profileService', function($http, _, toaster) {
 
     return {
         updateUser: function(user, formData) {
             var self = this;
+            formData.mode = 'indeterminate';
+            
             $http.put('/user/update/', formData.user)
                 .then(function(res) {
                     _.merge(user, res.data);
                     self.resetPasswords(formData);
+                    toaster.open("Updated successfully!");
+                }, function(err) {
+                    toaster.open(err);
+                })
+                .finally(function() {
+                    formData.mode = '';
                 });
         },
         cancel: function(formData, user) {
@@ -20,7 +28,7 @@ application.service('profileService', function($http, _) {
             formData.user.password = '';
             formData.user.passwordConfirm = '';
         },
-        initEditForm: function(user, formData) {
+        initEditForm: function(formData, user) {
             formData.user = _.cloneDeep(user);
             formData.title = user.username;
         }
