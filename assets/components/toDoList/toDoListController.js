@@ -1,7 +1,7 @@
 application.controller('toDoListController', function($scope, user, $http, _, toDoListService) {
 
     var userid = user.data.id;
-    $scope.toDoListForm = {};
+    $scope.formData = {};
 
     $scope.hoverIn = function() {
         this.hoverEdit = true;
@@ -22,27 +22,30 @@ application.controller('toDoListController', function($scope, user, $http, _, to
 
     $scope.addItem = function() {
         $http.post('/ToDoList/create?text=' + $scope.addToDoText + '&userid=' + userid)
-            .then(function(data) {
-                console.log($scope.addToDoText);
+            .then(function(res) {
+                $scope.addToDoText = '';
+                $scope.formData.form.$setPristine();
+                $scope.formData.form.$setUntouched();
+                
                 $http.get(getUrl)
                     .success(function(data) {
                         $scope.list = data;
                     });
             });
-        $scope.addToDoText = '';
     };
 
     $scope.checkItem = function(item) {
         var id = item.id;
         var state = item.state;
         var currentState = !state;
+        
         $http.put('ToDoList/update/' + id + '?state=' + currentState)
-            .then(function(data) {});
+            .then(function(res) {});
     };
 
     $scope.deleteItem = function(id) {
         $http.delete('ToDoList/' + id)
-            .then(function(data) {
+            .then(function(res) {
                 $http.get(getUrl)
                     .success(function(data) {
                         $scope.list = data;
@@ -58,7 +61,6 @@ application.controller('toDoListController', function($scope, user, $http, _, to
 
         $http.post('/ToDoList/deleteCompleted', completed)
             .then(function(res) {
-                console.log('Items Deleted');
                 $http.get(getUrl)
                     .success(function(list) {
                         $scope.list = list;
