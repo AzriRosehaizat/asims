@@ -7,15 +7,15 @@
     </md-toolbar>
 
     <md-content layout-margin layout-padding>
-        <form name=toDoListForm class="md-inline-form" ng-submit="addItem()">
+        <form name=formData.form class="md-inline-form" ng-submit="addItem()">
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input required name="Add To-do Item" ng-model="addToDoText" placeholder="I need to ...">
-                    <div ng-messages="addToDoText.$error" ng-show="addToDoText.$touched">
-                        <div ng-message="required">This is required.</div>
+                    <input required name="addToDoText" ng-model="addToDoText" placeholder="I need to ...">
+                    <div ng-messages="formData.form.addToDoText.$error" ng-show="formData.form.addToDoText.$touched">
+                        <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
                 </md-input-container>
-                <md-button class="md-primary" type="submit" ng-disabled="toDoList.$invalid"> Add Item </md-button>
+                <md-button class="md-primary" type="submit" ng-disabled="formData.form.$invalid"> Add Item </md-button>
                 <md-button class="md-warn" ng-click="deleteCompleted()"> Clear Completed </md-button>
             </div>
         </form>
