@@ -11,8 +11,6 @@ application.controller('toDoListController', function($scope, user, $http, _, to
         this.hoverEdit = false;
     };
 
-    // $scope.list = toDoListService.getList(userid);
-
     var getUrl = 'ToDoList?userid=' + userid;
     $http.get(getUrl)
         .success(function(data) {
