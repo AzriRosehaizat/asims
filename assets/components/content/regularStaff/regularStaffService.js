@@ -119,55 +119,8 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
             formData.staff = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit a Staff';
-        },
-        flattenData: function(regularStaffs) {
-            var flattenedData = [];
-            _.forEach(regularStaffs, function(value, key) {
-                flattenedData.push({
-                    regularStaffID: value.regularStaffID,
-                    employeeNo: value.academicStaffID[0].employeeNo,
-                    firstName: value.academicStaffID[0].firstName,
-                    lastName: value.academicStaffID[0].lastName,
-                    departmentCode: value.academicStaffID[0].departments[0].departmentID.departmentCode,
-                    rank: findCurrentRank(value),
-                    contApptDate: formatDate(value.contApptDate),
-                    tenureDate: formatDate(value.tenureDate)
-                });
-            });
-            return flattenedData;
-        },
-        flattenDepartments: function(departments) {
-            var flattenedData = [];
-            _.forEach(departments, function(value, key) {
-                flattenedData.push({
-                    departmentCode: value.departmentID.departmentCode,
-                    departmentTitle: value.departmentID.title,
-                    startDate: formatDate(value.startDate)
-                });
-            });
-            return flattenedData;
-        },
-        flattenRanks: function(ranks) {
-            var flattenedData = [];
-            _.forEach(ranks, function(value, key) {
-                flattenedData.push({
-                    title: value.rankID.title,
-                    description: value.rankID.description,
-                    startDate: formatDate(value.startDate)
-                });
-            });
-            return flattenedData;
         }
     };
-
-    function findCurrentRank(value) {
-        var currentRank = _.findLast(value.ranks, function(rank) {
-            return !rank.endDate;
-        });
-
-        if (currentRank) return currentRank.rankID.title;
-        return null;
-    }
 
     function formatDate(date) {
         if (date) return moment(date).format('YYYY-MM-DD');
