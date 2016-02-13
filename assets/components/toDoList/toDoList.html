@@ -11,15 +11,12 @@
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <input required name="addToDoText" ng-model="addToDoText" placeholder="I need to ...">
-                    <div ng-messages="formData.form.addToDoText.$error" ng-show="formData.form.addToDoText.$touched">
-                        <div ng-messages-include="/components/validate/messages.html"></div>
-                    </div>
                 </md-input-container>
             </div>
             <div layout="row">
                 <div flex hide-xs hide-sm></div>
-                <md-button class="md-primary" type="submit" ng-disabled="formData.form.$invalid"> Add Item </md-button>
-                <md-button class="md-warn" ng-click="deleteCompleted()"> Clear Completed </md-button>
+                <md-button class="md-raised" type="submit" ng-disabled="formData.form.$invalid"> Add Item </md-button>
+                <md-button class="md-raised md-warn md-hue-2" ng-click="deleteCompleted()"> Clear Completed </md-button>
             </div>
         </form>
         <md-list-item ng-repeat="item in list" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
