@@ -1,6 +1,6 @@
 application.controller('regularStaffController', function($scope, $filter, staffs, regularStaffService, SearchHelper, AnchorScroll) {
 
-    $scope.gridTitle = 'Regular Staffs';
+    $scope.gridTitle = 'Regular Staff';
     $scope.rStaff = staffs.data;
     $scope.formData = {};
     regularStaffService.initAddForm($scope.formData);

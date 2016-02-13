@@ -18,15 +18,6 @@
 
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="employeeNo" ng-model="formData.staff.employeeNo" placeholder="Employee No" required>
-                    <div ng-messages="formData.form.employeeNo.$error" ng-show="formData.form.employeeNo.$touched">
-                        <div ng-messages-include="/components/validate/messages.html"></div>
-                    </div>
-                </md-input-container>
-            </div>
-
-            <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm>
                     <input name="firstName" ng-model="formData.staff.firstName" placeholder="First name" required>
                     <div ng-messages="formData.form.firstName.$error" ng-show="formData.form.firstName.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
