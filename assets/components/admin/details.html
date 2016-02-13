@@ -78,11 +78,11 @@
 
             <div layout="row">
                 <md-button type="submit" class="md-raised" ng-disabled="formData.form.$invalid"> Submit </md-button>
-                <md-button class="md-raised" ng-click="cancel()"> Cancel </md-button>
+                <md-button  class="md-raised" ng-click="cancel()"> Cancel </md-button>
 
                 <div flex hide-xs hide-sm></div>
 
-                <md-button class="md-raised md-warn" ng-show="formData.isEditing" ng-click="delete($event)"> Delete </md-button>
+                <md-button class="md-raised md-warn md-hue-2" ng-show="formData.isEditing" ng-click="delete($event)"> Delete </md-button>
             </div>
         </form>
     </md-content>
