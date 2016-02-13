@@ -11,7 +11,7 @@ application.controller('regularStaffController', function($scope, $filter, staff
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.regularStaffID === $scope.formData.staff.regularStaffID) {
+            if (row.entity.academicStaffID === $scope.formData.staff.academicStaffID) {
                 row.isSelected = true;
                 $scope.gotoElement('details');
             }

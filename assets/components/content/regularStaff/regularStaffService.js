@@ -17,7 +17,7 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                     field: 'departmentCode'
                 }, {
                     name: 'Rank',
-                    field: 'rank'
+                    field: 'Rank'
                 }, {
                     name: 'Employee No',
                     field: 'employeeNo'
@@ -96,7 +96,7 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                     .then(function(res) {
                         gridData.splice(index, 1);
                         self.initAddForm(formData);
-                        self.resetValidation(formData);  // because the form gives ugly errors...
+                        self.resetValidation(formData); // because the form gives ugly errors...
                         toaster.open("Deleted successfully!");
                     }, function(err) {
                         toaster.open(err);
@@ -119,11 +119,10 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
             formData.staff = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit a Staff';
+        },
+        formatDate: function(date) {
+            if (date) return moment(date).format('YYYY-MM-DD');
+            return null;
         }
     };
-
-    function formatDate(date) {
-        if (date) return moment(date).format('YYYY-MM-DD');
-        return null;
-    }
 });
