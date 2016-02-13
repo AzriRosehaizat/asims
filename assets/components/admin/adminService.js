@@ -118,12 +118,12 @@ application.service('adminService', function($http, $mdDialog, _, moment, toaste
         initAddForm: function(formData) {
             formData.user = {};
             formData.isEditing = false;
-            formData.title = 'Add a User';
+            formData.title = 'Add User';
         },
         initEditForm: function(formData, row) {
             formData.user = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit a User';
+            formData.title = 'Edit User: ' + row.entity.firstName + ' ' + row.entity.lastName;
         }
     };
 });
