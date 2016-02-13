@@ -15,7 +15,6 @@ application.controller('toDoListController', function($scope, user, $http, _, to
     $http.get(getUrl)
         .success(function(data) {
             $scope.list = data;
-            console.log(data);
         });
 
     $scope.addItem = function() {
