@@ -80,6 +80,11 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
 				}
+			},
+			resolve: {
+				staffs: function($http) {
+					return $http.get('/regularStaff/');
+				}
 			}
 		})
 		.state('application.profile', {
