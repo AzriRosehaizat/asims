@@ -20,15 +20,6 @@ module.exports = {
 			required: true
 		},
 
-		sectionOfferedID: {
-			mode: 'Section_Offered',
-			required: true
-		}, 
-		role:{
-			type: 'string',
-			size: 50
-		},
-
 		startDate: {
 			type: 'date',
 			required: true
