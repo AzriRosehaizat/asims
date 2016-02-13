@@ -9,3 +9,9 @@ body {
 .md-dialog-container {
   overflow: hidden;
 }
+
+/*To strikeout Completed items*/
+.done-true {
+  text-decoration: line-through;
+  color: #000;
+}
