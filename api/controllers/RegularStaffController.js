@@ -8,19 +8,16 @@
 
 var mysql = require('knex')({client: 'mysql'});
 
-
 module.exports = {
 	//test knex builder and .query method
 	//more maintaninable than raw sql
 	getAllRegularStaff: function( req, res){
-		RegularStaffService.getAllRegularStaff( {}, function(err, result){
+		RegularStaffService.getAllRegularStaff( {}, function(err, result) {
 			if (err) return res.serverError(err);
-			return res.ok( result);
+			return res.ok(result);
 		});
 	}
 };
-
-
 
 // module.exports = {
 // 	test: function(request, response) {
