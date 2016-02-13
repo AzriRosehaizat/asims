@@ -13,14 +13,11 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                     name: 'Last Name',
                     field: 'lastName'
                 }, {
-                    name: 'Primary Department',
+                    name: 'Department',
                     field: 'departmentCode'
                 }, {
                     name: 'Rank',
                     field: 'Rank'
-                }, {
-                    name: 'Employee No',
-                    field: 'employeeNo'
                 }, {
                     name: 'Tenure Date',
                     field: 'tenureDate'
@@ -113,12 +110,12 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
         initAddForm: function(formData) {
             formData.staff = {};
             formData.isEditing = false;
-            formData.title = 'Add a Staff';
+            formData.title = 'Add Staff';
         },
         initEditForm: function(formData, row) {
             formData.staff = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit a Staff';
+            formData.title = 'Edit Staff';
         },
         formatDate: function(date) {
             if (date) return moment(date).format('YYYY-MM-DD');
