@@ -20,9 +20,13 @@ module.exports = {
 			required: true
 		},
 
-		academicStaffSectionID: {
-			model: 'AcademicStaff_Section',
+		sectionOfferedID: {
+			mode: 'Section_Offered',
 			required: true
+		}, 
+		role:{
+			type: 'string',
+			size: 50
 		},
 
 		startDate: {
