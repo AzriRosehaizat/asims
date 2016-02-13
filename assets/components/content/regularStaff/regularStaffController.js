@@ -6,7 +6,13 @@ application.controller('regularStaffController', function($scope, $http, $filter
     $scope.rStaff.fData = []; // .flattenedData
     $scope.formData = {};
     regularStaffService.initAddForm($scope.formData);
-    lazyLoad(25); // pageSize: 25
+    // lazyLoad(25); // pageSize: 25
+    
+    $http.get('RegularStaff/getAllRegularStaff')
+        .then(function(res) {
+            $scope.rStaff.oData = res.data;
+            $scope.gridOptions.data = res.data;
+        });
 
     $scope.gridOptions = regularStaffService.gridOptions();
     $scope.tabs = regularStaffService.tabs();
