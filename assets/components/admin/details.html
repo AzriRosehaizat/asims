@@ -12,7 +12,7 @@
             </md-button>
         </div>
     </md-toolbar>
-    
+
     <md-progress-linear class="md-hue-2" md-mode="{{formData.mode}}"></md-progress-linear>
 
     <md-content layout-margin layout-padding>
@@ -20,7 +20,6 @@
 
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <md-icon md-font-set="material-icons">person</md-icon>
                     <input name="firstName" ng-model="formData.user.firstName" placeholder="First name" required>
                     <div ng-messages="formData.form.firstName.$error" ng-show="formData.form.firstName.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
@@ -39,9 +38,8 @@
 
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <md-icon md-font-set="material-icons">account_circle</md-icon>
-                    <input name="username" ng-model="formData.user.username" placeholder="Username" required>
-                    <div ng-messages="formData.form.username.$error" ng-show="formData.form.username.$touched">
+                    <input name="email" ng-model="formData.user.email" type="email" placeholder="Email" required>
+                    <div ng-messages="formData.form.email.$error" ng-show="formData.form.email.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
                 </md-input-container>
@@ -60,17 +58,8 @@
                 </md-input-container>
             </div>
 
-            <md-input-container class="md-block" flex-gt-sm>
-                <md-icon md-font-set="material-icons">email</md-icon>
-                <input name="email" ng-model="formData.user.email" type="email" placeholder="Email" required>
-                <div ng-messages="formData.form.email.$error" ng-show="formData.form.email.$touched">
-                    <div ng-messages-include="/components/validate/messages.html"></div>
-                </div>
-            </md-input-container>
-
             <div ng-show="!formData.isEditing || formData.user.changePassword" layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <md-icon md-font-set="material-icons">lock</md-icon>
                     <input name="password" ng-model="formData.user.password" type="password" placeholder="Password" ng-minlength="6">
                     <div ng-messages="formData.form.password.$error" ng-show="formData.form.password.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
@@ -88,12 +77,12 @@
             </div>
 
             <div layout="row">
-                <md-button type="submit" class="md-primary" ng-disabled="formData.form.$invalid"> Submit </md-button>
-                <md-button ng-click="cancel()"> Cancel </md-button>
+                <md-button type="submit" class="md-raised" ng-disabled="formData.form.$invalid"> Submit </md-button>
+                <md-button  class="md-raised" ng-click="cancel()"> Cancel </md-button>
 
                 <div flex hide-xs hide-sm></div>
 
-                <md-button class="md-warn" ng-show="formData.isEditing" ng-click="delete($event)"> Delete </md-button>
+                <md-button class="md-raised md-warn md-hue-2" ng-show="formData.isEditing" ng-click="delete($event)"> Delete </md-button>
             </div>
         </form>
     </md-content>

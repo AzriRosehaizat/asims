@@ -13,14 +13,11 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                     name: 'Last Name',
                     field: 'lastName'
                 }, {
-                    name: 'Primary Department',
+                    name: 'Department',
                     field: 'departmentCode'
                 }, {
                     name: 'Rank',
-                    field: 'rank'
-                }, {
-                    name: 'Employee No',
-                    field: 'employeeNo'
+                    field: 'Rank'
                 }, {
                     name: 'Tenure Date',
                     field: 'tenureDate'
@@ -96,7 +93,7 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                     .then(function(res) {
                         gridData.splice(index, 1);
                         self.initAddForm(formData);
-                        self.resetValidation(formData);  // because the form gives ugly errors...
+                        self.resetValidation(formData); // because the form gives ugly errors...
                         toaster.open("Deleted successfully!");
                     }, function(err) {
                         toaster.open(err);
@@ -113,64 +110,16 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
         initAddForm: function(formData) {
             formData.staff = {};
             formData.isEditing = false;
-            formData.title = 'Add a Staff';
+            formData.title = 'Add Staff';
         },
         initEditForm: function(formData, row) {
             formData.staff = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit a Staff';
+            formData.title = 'Edit Staff';
         },
-        flattenData: function(regularStaffs) {
-            var flattenedData = [];
-            _.forEach(regularStaffs, function(value, key) {
-                flattenedData.push({
-                    regularStaffID: value.regularStaffID,
-                    employeeNo: value.academicStaffID[0].employeeNo,
-                    firstName: value.academicStaffID[0].firstName,
-                    lastName: value.academicStaffID[0].lastName,
-                    departmentCode: value.academicStaffID[0].departments[0].departmentID.departmentCode,
-                    rank: findCurrentRank(value),
-                    contApptDate: formatDate(value.contApptDate),
-                    tenureDate: formatDate(value.tenureDate)
-                });
-            });
-            return flattenedData;
-        },
-        flattenDepartments: function(departments) {
-            var flattenedData = [];
-            _.forEach(departments, function(value, key) {
-                flattenedData.push({
-                    departmentCode: value.departmentID.departmentCode,
-                    departmentTitle: value.departmentID.title,
-                    startDate: formatDate(value.startDate)
-                });
-            });
-            return flattenedData;
-        },
-        flattenRanks: function(ranks) {
-            var flattenedData = [];
-            _.forEach(ranks, function(value, key) {
-                flattenedData.push({
-                    title: value.rankID.title,
-                    description: value.rankID.description,
-                    startDate: formatDate(value.startDate)
-                });
-            });
-            return flattenedData;
+        formatDate: function(date) {
+            if (date) return moment(date).format('YYYY-MM-DD');
+            return null;
         }
     };
-
-    function findCurrentRank(value) {
-        var currentRank = _.findLast(value.ranks, function(rank) {
-            return !rank.endDate;
-        });
-
-        if (currentRank) return currentRank.rankID.title;
-        return null;
-    }
-
-    function formatDate(date) {
-        if (date) return moment(date).format('YYYY-MM-DD');
-        return null;
-    }
 });
