@@ -1,4 +1,3 @@
-
 /**
  * RegularStaffController
  *
@@ -6,17 +5,34 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var mysql = require('knex')({client: 'mysql'});
+var mysql = require('knex')({
+	client: 'mysql'
+});
 
 module.exports = {
-	//test knex builder and .query method
-	//more maintaninable than raw sql
-	getAllRegularStaff: function( req, res){
-		RegularStaffService.getAllRegularStaff( {}, function(err, result) {
+
+	getAllRegularStaff: function(req, res) {
+		RegularStaffService.getAllRegularStaff({}, function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);
 		});
-	}
+	},
+
+	getDepartment: function(req, res) {
+		var id = req.param('id');
+		RegularStaffService.getDepartment(id, {}, function(err, result) {
+			if (err) return res.serverError(err);
+			return res.ok(result);
+		});
+	},
+	
+	getRank: function(req, res) {
+		var id = req.param('id');
+		RegularStaffService.getRank(id, {}, function(err, result) {
+			if (err) return res.serverError(err);
+			return res.ok(result);
+		});
+	},
 };
 
 // module.exports = {

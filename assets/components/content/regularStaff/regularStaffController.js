@@ -20,10 +20,8 @@ application.controller('regularStaffController', function($scope, $filter, staff
                 regularStaffService.initEditForm($scope.formData, row);
             }
             
-            // TODO add http get calls
-
-            $scope.tabs.departments.gridOptions.data = "";
-            $scope.tabs.ranks.gridOptions.data = "";
+            regularStaffService.getDepartment($scope.tabs.departments, row);
+            regularStaffService.getRank($scope.tabs.ranks, row);
         });
     };
 

@@ -45,5 +45,7 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-  'GET /RegularStaff/getAllRegularStaff' : 'RegularStaffController.getAllRegularStaff'
+  'GET /RegularStaff/getAllRegularStaff' : 'RegularStaffController.getAllRegularStaff',
+  'GET /RegularStaff/getDepartment' : 'RegularStaffController.getDepartment',
+  'GET /RegularStaff/getRank' : 'RegularStaffController.getRank'
 };

@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $mdDialog, _, moment, toaster) {
+application.service('regularStaffService', function($http, $mdDialog, _, toaster) {
 
     return {
         gridOptions: function() {
@@ -20,10 +20,12 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                     field: 'Rank'
                 }, {
                     name: 'Tenure Date',
-                    field: 'tenureDate'
+                    field: 'tenureDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
                 }, {
                     name: 'Cont\' Appt\' Date',
-                    field: 'contApptDate'
+                    field: 'contApptDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
             };
         },
@@ -40,10 +42,15 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                             field: 'departmentCode'
                         }, {
                             name: 'Name',
-                            field: 'departmentTitle'
+                            field: 'title'
                         }, {
                             name: 'Start Date',
-                            field: 'startDate'
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
                         }]
                     }
                 },
@@ -61,7 +68,12 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
                             field: 'description'
                         }, {
                             name: 'Start Date',
-                            field: 'startDate'
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
                         }]
                     }
                 }
@@ -117,9 +129,17 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment,
             formData.isEditing = true;
             formData.title = 'Edit Staff';
         },
-        formatDate: function(date) {
-            if (date) return moment(date).format('YYYY-MM-DD');
-            return null;
+        getDepartment: function(departments, row) {
+            $http.get('/regularStaff/getDepartment/' + row.entity.academicStaffID)
+                .then(function(res) {
+                    departments.gridOptions.data = res.data;
+                });
+        },
+        getRank: function(ranks, row) {
+            $http.get('/regularStaff/getRank/' + row.entity.academicStaffID)
+                .then(function(res) {
+                    ranks.gridOptions.data = res.data;
+                });
         }
     };
 });

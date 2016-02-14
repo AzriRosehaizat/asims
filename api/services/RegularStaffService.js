@@ -17,8 +17,43 @@ module.exports = {
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});    	
+    },
+    getDepartment: function(id, sSQL, callback){
+        sSQL = mysql.select('d.*', 'ad.*', 'ad.academicStaffID')
+		        			.from('AcademicStaff AS a')
+		        				.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
+ 		        				.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
+ 		        				.where('a.academicStaffID', id)
+		        				.toString();	
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});    	
+    },
+    
+    getDepartment: function(id, sSQL, callback){
+        sSQL = mysql.select('d.*', 'ad.*', 'ad.academicStaffID')
+		        			.from('AcademicStaff AS a')
+		        				.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
+ 		        				.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
+ 		        				.where('a.academicStaffID', id)
+		        				.toString();	
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});    	
+    },
+    // get rank by id
+    getRank: function(id, sSQL, callback){
+        sSQL = mysql.select('rk.*', 'rs.*', 'r.academicStaffID')
+		        			.from('RegularStaff AS r')
+		        				.innerJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
+		        				.innerJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
+ 		        				.where('r.academicStaffID', id)
+		        				.toString();	
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});    	
     }
-
+    
 };
 
 

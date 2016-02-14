@@ -1,0 +1,3 @@
+application.controller('navRightBarController', function() {
+    
+});
