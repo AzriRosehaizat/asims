@@ -12,27 +12,34 @@ var mysql = require('knex')({
 module.exports = {
 
 	getAllRegularStaff: function(req, res) {
-		RegularStaffService.getAllRegularStaff({}, function(err, result) {
+		RegularStaffService.getAllRegularStaff(function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);
 		});
 	},
-
-	getDepartment: function(req, res) {
-		var id = req.param('id');
-		RegularStaffService.getDepartment(id, {}, function(err, result) {
+	getInfo: function(req, res) {
+		var responseFn = function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);
-		});
-	},
-	
-	getRank: function(req, res) {
-		var id = req.param('id');
-		RegularStaffService.getRank(id, {}, function(err, result) {
-			if (err) return res.serverError(err);
-			return res.ok(result);
-		});
-	},
+		};
+		var data = {
+			id: req.param('id'),
+			type: req.param('type')
+		};
+		switch (data.type) {
+			case 'department':
+				RegularStaffService.getDepartment(data.id, responseFn)
+				break;
+			case 'rank':
+				RegularStaffService.getRank(data.id, responseFn)
+				break;			
+			case 'employment':
+				RegularStaffService.getEmployment(data.id, responseFn)
+				break;
+			default:
+				console.log("Incorrect REST url")
+		}
+	}
 };
 
 // module.exports = {
