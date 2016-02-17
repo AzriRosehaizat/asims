@@ -5,12 +5,33 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var mysql = require('knex')({
-	client: 'mysql'
-});
-
 module.exports = {
+	create: function(req, res) {
+		var data = {
+			firstName: req.param('firstName'),
+			lastName: req.param('lastName')
+		};
 
+		AcademicStaff.create(data).exec(function createCB(err, created) {
+			console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
+			if (err) {
+				return res.negotiate(err);
+			}
+			var rasData = {
+				academicStaffID: created.academicStaffID,
+				contAppDate: req.param('contAppDate'),
+				tenureDate: req.param('tenureDate')
+			};
+			// ToDo: validate if exist first
+			RegularStaff.create(rasData).exec(function createCB(err, created) {
+				console.log('Created ras with name: ' + created.regularStaffID + " " + created.academicStaffID + ";" + created.contAppDate);
+				if (err) {
+					return res.negotiate(err);
+				}
+			});
+			// requery or inject in Ui Grid ?
+		});
+	},
 	getAllRegularStaff: function(req, res) {
 		RegularStaffService.getAllRegularStaff(function(err, result) {
 			if (err) return res.serverError(err);
@@ -32,11 +53,15 @@ module.exports = {
 				break;
 			case 'rank':
 				RegularStaffService.getRank(data.id, responseFn)
-				break;			
+				break;
 			case 'employment':
 				RegularStaffService.getEmployment(data.id, responseFn)
 				break;
+			case 'leave':
+				//code
+				break;
 			default:
+				res.serverError();
 				console.log("Incorrect REST url")
 		}
 	}
