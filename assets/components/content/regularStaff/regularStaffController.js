@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, $filter, staffs, regularStaffService, SearchHelper, AnchorScroll) {
+application.controller('regularStaffController', function($scope, $filter, staffs, regularStaffService, SearchHelper) {
 
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaff = staffs.data;
@@ -11,9 +11,8 @@ application.controller('regularStaffController', function($scope, $filter, staff
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.academicStaffID === $scope.formData.staff.academicStaffID) {
+            if (row.entity.academicStaffID === $scope.formData.model.academicStaffID) {
                 row.isSelected = true;
-                $scope.gotoElement('details');
             }
             else {
                 $scope.row = row;
@@ -27,11 +26,6 @@ application.controller('regularStaffController', function($scope, $filter, staff
 
     $scope.addRow = function() {
         regularStaffService.initAddForm($scope.formData);
-        $scope.gotoElement('details');
-    };
-
-    $scope.gotoElement = function(eID) {
-        AnchorScroll.scrollTo(eID);
     };
 
     $scope.submit = function() {

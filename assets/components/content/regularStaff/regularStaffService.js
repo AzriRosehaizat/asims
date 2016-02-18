@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $mdDialog, _, toaster) {
+application.service('regularStaffService', function($http, $mdDialog, _, toaster, formService) {
 
     return {
         gridOptions: function() {
@@ -81,17 +81,17 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
         },
         cancel: function(formData, row) {
             if (formData.isEditing) {
-                _.merge(formData.staff, row.entity);
+                _.merge(formData.model, row.entity);
             }
             else {
-                formData.staff = {};
+                formData.model = {};
             }
             this.resetValidation(formData);
         },
         delete: function(ev, gridData, formData) {
             var self = this;
             var confirm = $mdDialog.confirm()
-                .title('You are deleting ' + formData.staff.firstName + ' ' + formData.staff.lastName)
+                .title('You are deleting ' + formData.model.firstName + ' ' + formData.model.lastName)
                 .textContent('Are you sure?')
                 .targetEvent(ev)
                 .ok('Delete')
@@ -99,9 +99,9 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
 
             $mdDialog.show(confirm).then(function() {
                 formData.mode = 'indeterminate';
-                var index = gridData.indexOf(formData.staff);
+                var index = gridData.indexOf(formData.model);
 
-                $http.delete('/regularStaff/' + formData.staff.regularStaffID)
+                $http.delete('/regularStaff/' + formData.model.regularStaffID)
                     .then(function(res) {
                         gridData.splice(index, 1);
                         self.initAddForm(formData);
@@ -120,14 +120,60 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
             formData.form.$setUntouched();
         },
         initAddForm: function(formData) {
-            formData.staff = {};
+            formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Staff';
+            formData.inputs = [{
+                name: "firstName",
+                label: "First name",
+                model: formData.model.firstName,
+                required: true
+            }, {
+                name: "lastName",
+                label: "Last name",
+                model: formData.model.lastName,
+                required: true
+            }, {
+                name: "tenureDate",
+                label: "Tenure date",
+                model: formData.model.tenureDate,
+                required: false
+            }, {
+                name: "contApptDate",
+                label: "Cont' appointment date",
+                model: formData.model.contApptDate,
+                required: false
+            }];
+            
+            formService.setFormData(formData);
         },
         initEditForm: function(formData, row) {
-            formData.staff = _.cloneDeep(row.entity);
+            formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
+            formData.inputs = [{
+                name: "firstName",
+                label: "First name",
+                model: formData.model.firstName,
+                required: true
+            }, {
+                name: "lastName",
+                label: "Last name",
+                model: formData.model.lastName,
+                required: true
+            }, {
+                name: "tenureDate",
+                label: "Tenure date",
+                model: formData.model.tenureDate,
+                required: false
+            }, {
+                name: "contApptDate",
+                label: "Cont' appointment date",
+                model: formData.model.contApptDate,
+                required: false
+            }];
+            
+            formService.setFormData(formData);
         },
         getDepartment: function(departments, row) {
             $http.get('/regularStaff/getDepartment/' + row.entity.academicStaffID)

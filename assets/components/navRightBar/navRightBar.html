@@ -1,0 +1,20 @@
+<md-content ng-cloak>
+    <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="{{form.formData.title}}">
+            <md-progress-linear class="md-hue-2" md-mode="{{form.formData.mode}}"></md-progress-linear>
+            <md-content class="md-padding">
+                <form name="form.formData.form" class="md-inline-form" ng-submit="submit()">
+
+                    <md-input-container ng-repeat="input in form.formData.inputs" class="md-block" flex-gt-sm>
+                        <label>{{input.label}}</label>
+                        <input name="{{input.name}}" ng-model="input.model" ng-required="input.required">
+                        <div ng-messages="form.formData.form[input.name].$error" ng-show="form.formData.form[input.name].$touched">
+                            <div ng-messages-include="/components/validate/messages.html"></div>
+                        </div>
+                    </md-input-container>
+
+                </form>
+            </md-content>
+        </md-tab>
+    </md-tabs>
+</md-content>
