@@ -1,0 +1,3 @@
+application.service('navRightBarService', function() {
+    
+});
