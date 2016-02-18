@@ -6,31 +6,31 @@
  */
 
 module.exports = {
-	create: function(req, res) {
+	createRAS: function(req, res) {
 		var data = {
 			firstName: req.param('firstName'),
 			lastName: req.param('lastName')
 		};
 
-		AcademicStaff.create(data).exec(function createCB(err, created) {
-			console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
-			if (err) {
-				return res.negotiate(err);
-			}
-			var rasData = {
-				academicStaffID: created.academicStaffID,
-				contAppDate: req.param('contAppDate'),
-				tenureDate: req.param('tenureDate')
-			};
-			// ToDo: validate if exist first
-			RegularStaff.create(rasData).exec(function createCB(err, created) {
-				console.log('Created ras with name: ' + created.regularStaffID + " " + created.academicStaffID + ";" + created.contAppDate);
-				if (err) {
-					return res.negotiate(err);
-				}
+		AcademicStaff.create(data)
+			.then(function(created) {
+				console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
+				// return created.academicStaffID
+				return created.academicStaffID;
+			}).then(function(academicStaffID, createdRAS) {
+				var rasData = {
+					academicStaffID: academicStaffID,
+					contAppDate: req.param('contAppDate'),
+					tenureDate: req.param('tenureDate')
+				};
+				RegularStaff.create(rasData).then(function(createdRAS){
+					console.log(createdRAS.regularStaffID)
+					res.json(createdRAS);
+				});
+			})
+			.catch(function(err) {
+				console.log(err);
 			});
-			// requery or inject in Ui Grid ?
-		});
 	},
 	getAllRegularStaff: function(req, res) {
 		RegularStaffService.getAllRegularStaff(function(err, result) {
