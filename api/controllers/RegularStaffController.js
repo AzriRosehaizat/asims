@@ -35,7 +35,7 @@ module.exports = {
 				});
 			})
 			.catch(function(err) {
-				res.serverError();
+				res.serverError(err);
 				console.log(err);
 			});
 	},
