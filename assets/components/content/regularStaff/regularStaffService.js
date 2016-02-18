@@ -24,7 +24,7 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }, {
                     name: 'Cont\' Appt\' Date',
-                    field: 'contApptDate',
+                    field: 'contAppDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
             };
