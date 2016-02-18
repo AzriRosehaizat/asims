@@ -24,13 +24,12 @@ USE `asims` ;
 DROP TABLE IF EXISTS `AcademicStaff` ;
 
 CREATE TABLE IF NOT EXISTS `AcademicStaff` (
-  `academicStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `firstName` VARCHAR(50) NOT NULL COMMENT '',
-  `lastName` VARCHAR(50) NOT NULL COMMENT '',
-  `employeeNo` VARCHAR(50) NULL COMMENT '',
+  `academicStaffID` INT(11) NOT NULL AUTO_INCREMENT,
+  `firstName` VARCHAR(50) NOT NULL,
+  `lastName` VARCHAR(50) NOT NULL,
+  `employeeNo` VARCHAR(50) NULL,
   PRIMARY KEY (`academicStaffID`)  COMMENT '')
 ENGINE = InnoDB
-AUTO_INCREMENT = 201
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -40,11 +39,10 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Faculty` ;
 
 CREATE TABLE IF NOT EXISTS `Faculty` (
-  `facultyID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `facultyID` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`facultyID`)  COMMENT '')
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -54,19 +52,18 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Department` ;
 
 CREATE TABLE IF NOT EXISTS `Department` (
-  `departmentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `facultyID` INT(11) NOT NULL COMMENT '',
-  `departmentCode` VARCHAR(10) NULL DEFAULT NULL COMMENT '',
-  `title` VARCHAR(50) NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`departmentID`)  COMMENT '',
-  UNIQUE INDEX `departmentCode` (`departmentCode` ASC)  COMMENT '',
-  INDEX `facultyID` (`facultyID` ASC)  COMMENT '',
+  `departmentID` INT(11) NOT NULL AUTO_INCREMENT,
+  `facultyID` INT(11) NOT NULL,
+  `departmentCode` VARCHAR(10) NULL DEFAULT NULL,
+  `title` VARCHAR(50) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`departmentID`) ,
+  UNIQUE INDEX `departmentCode` (`departmentCode` ASC) ,
+  INDEX `facultyID` (`facultyID` ASC) ,
   CONSTRAINT `Department_ibfk_1`
     FOREIGN KEY (`facultyID`)
     REFERENCES `Faculty` (`facultyID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 32
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -76,15 +73,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `AcademicStaff_Department` ;
 
 CREATE TABLE IF NOT EXISTS `AcademicStaff_Department` (
-  `academicStaffDepartmentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `departmentID` INT(11) NOT NULL COMMENT '',
-  `academicStaffID` INT(11) NOT NULL COMMENT '',
-  `startDate` DATE NOT NULL DEFAULT '2000-01-01' COMMENT '',
-  `endDate` DATE NULL COMMENT '',
-  `isPrimaryDepartment` TINYINT(1) NULL DEFAULT 1 COMMENT '',
-  PRIMARY KEY (`academicStaffDepartmentID`)  COMMENT '',
-  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
-  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  `academicStaffDepartmentID` INT(11) NOT NULL AUTO_INCREMENT,
+  `departmentID` INT(11) NOT NULL,
+  `academicStaffID` INT(11) NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2000-01-01',
+  `endDate` DATE NULL,
+  PRIMARY KEY (`academicStaffDepartmentID`) ,
+  INDEX `departmentID` (`departmentID` ASC) ,
+  INDEX `academicStaffID` (`academicStaffID` ASC) ,
   CONSTRAINT `AcademicStaff_Department_ibfk_2`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`),
@@ -92,7 +88,6 @@ CREATE TABLE IF NOT EXISTS `AcademicStaff_Department` (
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 201
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -102,14 +97,13 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Section` ;
 
 CREATE TABLE IF NOT EXISTS `Section` (
-  `sectionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `sectionNo` VARCHAR(10) NOT NULL COMMENT '',
-  `courseType` VARCHAR(50) NULL COMMENT '',
-  `FCEModifier` FLOAT NOT NULL DEFAULT 1 COMMENT '',
-  PRIMARY KEY (`sectionID`)  COMMENT '',
+  `sectionID` INT(11) NOT NULL AUTO_INCREMENT,
+  `sectionNo` VARCHAR(10) NOT NULL,
+  `courseType` VARCHAR(50) NULL,
+  `FCEModifier` FLOAT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`sectionID`) ,
   UNIQUE INDEX `sectionNo` (`sectionNo` ASC)  COMMENT '')
 ENGINE = InnoDB
-AUTO_INCREMENT = 14
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -119,13 +113,13 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Course` ;
 
 CREATE TABLE IF NOT EXISTS `Course` (
-  `courseID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `departmentID` INT(11) NOT NULL COMMENT '',
-  `courseNO` VARCHAR(11) NOT NULL COMMENT '',
-  `title` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`courseID`)  COMMENT '',
-  UNIQUE INDEX `uc_course` (`departmentID` ASC, `courseNO` ASC)  COMMENT '',
+  `courseID` INT(11) NOT NULL AUTO_INCREMENT,
+  `departmentID` INT(11) NOT NULL,
+  `courseNO` VARCHAR(11) NOT NULL,
+  `title` VARCHAR(50) NULL DEFAULT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  PRIMARY KEY (`courseID`) ,
+  UNIQUE INDEX `uc_course` (`departmentID` ASC, `courseNO` ASC) ,
   CONSTRAINT `Course_ibfk_1`
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`))
@@ -139,15 +133,15 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Section_Offered` ;
 
 CREATE TABLE IF NOT EXISTS `Section_Offered` (
-  `sectionOfferedID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `courseID` INT(11) NOT NULL COMMENT '',
-  `sectionID` INT(11) NOT NULL COMMENT '',
-  `groupID` INT(11) DEFAULT NULL COMMENT '',
+  `sectionOfferedID` INT(11) NOT NULL AUTO_INCREMENT,
+  `courseID` INT(11) NOT NULL,
+  `sectionID` INT(11) NOT NULL,
+  `groupID` INT(11) DEFAULT NULL,
   `startDate` DATE NOT NULL DEFAULT '2016-09-11',
   `endDate` DATE NOT NULL DEFAULT '2016-12-21',
-  PRIMARY KEY (`sectionOfferedID`)  COMMENT '',
-  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC)  COMMENT '',
-  INDEX `sectionID` (`sectionID` ASC)  COMMENT '',
+  PRIMARY KEY (`sectionOfferedID`) ,
+  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC) ,
+  INDEX `sectionID` (`sectionID` ASC) ,
   CONSTRAINT `Section_Offered_ibfk_2`
     FOREIGN KEY (`sectionID`)
     REFERENCES `Section` (`sectionID`),
@@ -164,14 +158,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `AcademicStaff_Section` ;
 
 CREATE TABLE IF NOT EXISTS `AcademicStaff_Section` (
-  `academicStaffSectionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `academicStaffID` INT(11) NOT NULL COMMENT '',
-  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
-  `role` VARCHAR(50) NULL COMMENT '',
-  `weight` FLOAT NOT NULL COMMENT '',
-  PRIMARY KEY (`academicStaffSectionID`)  COMMENT '',
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
-  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  `academicStaffSectionID` INT(11) NOT NULL AUTO_INCREMENT,
+  `academicStaffID` INT(11) NOT NULL,
+  `sectionOfferedID` INT(11) NOT NULL,
+  `role` VARCHAR(50) NULL,
+  `weight` FLOAT NOT NULL,
+  PRIMARY KEY (`academicStaffSectionID`) ,
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
+  INDEX `academicStaffID` (`academicStaffID` ASC) ,
   CONSTRAINT `AcademicStaff_Section_ibfk_2`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`),
@@ -188,17 +182,16 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaff` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaff` (
-  `academicStaffID` INT(11) NOT NULL COMMENT '',
-  `regularStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `contApptDate` DATE NULL DEFAULT NULL COMMENT '',
-  `tenureDate` DATE NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`regularStaffID`)  COMMENT '',
-  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  `academicStaffID` INT(11) NOT NULL,
+  `regularStaffID` INT(11) NOT NULL AUTO_INCREMENT,
+  `contAppDate` DATE NULL DEFAULT NULL,
+  `tenureDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`regularStaffID`) ,
+  INDEX `academicStaffID` (`academicStaffID` ASC) ,
   CONSTRAINT `RegularStaff_ibfk_1`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 151
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -208,14 +201,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Chair` ;
 
 CREATE TABLE IF NOT EXISTS `Chair` (
-  `chairID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `departmentID` INT(11) NOT NULL COMMENT '',
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
-  `endDate` DATE NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`chairID`)  COMMENT '',
-  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `chairID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `departmentID` INT(11) NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
+  `endDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`chairID`) ,
+  INDEX `departmentID` (`departmentID` ASC) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `Chair_ibfk_2`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`),
@@ -223,7 +216,6 @@ CREATE TABLE IF NOT EXISTS `Chair` (
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -233,15 +225,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `ContractStaff` ;
 
 CREATE TABLE IF NOT EXISTS `ContractStaff` (
-  `contractStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `academicStaffID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`contractStaffID`)  COMMENT '',
-  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  `contractStaffID` INT(11) NOT NULL AUTO_INCREMENT,
+  `academicStaffID` INT(11) NOT NULL,
+  PRIMARY KEY (`contractStaffID`) ,
+  INDEX `academicStaffID` (`academicStaffID` ASC) ,
   CONSTRAINT `ContractStaff_ibfk_1`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 51
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -251,17 +242,16 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `ContractStaffEmployment` ;
 
 CREATE TABLE IF NOT EXISTS `ContractStaffEmployment` (
-  `contractStaffID` INT(11) NOT NULL COMMENT '',
-  `contractEmploymentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
-  `endDate` DATE NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`contractEmploymentID`)  COMMENT '',
-  INDEX `contractStaffID` (`contractStaffID` ASC)  COMMENT '',
+  `contractStaffID` INT(11) NOT NULL,
+  `contractEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
+  `endDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`contractEmploymentID`) ,
+  INDEX `contractStaffID` (`contractStaffID` ASC) ,
   CONSTRAINT `ContractStaffEmployment_ibfk_1`
     FOREIGN KEY (`contractStaffID`)
     REFERENCES `ContractStaff` (`contractStaffID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 51
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -271,11 +261,11 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Crosslisting` ;
 
 CREATE TABLE IF NOT EXISTS `Crosslisting` (
-  `crosslistingID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `courseID` INT(11) NOT NULL COMMENT '',
-  `groupID` INT(11) NOT NULL COMMENT '',
-  PRIMARY KEY (`crosslistingID`)  COMMENT '',
-  INDEX `courseID` (`courseID` ASC)  COMMENT '',
+  `crosslistingID` INT(11) NOT NULL AUTO_INCREMENT,
+  `courseID` INT(11) NOT NULL,
+  `groupID` INT(11) NOT NULL,
+  PRIMARY KEY (`crosslistingID`) ,
+  INDEX `courseID` (`courseID` ASC) ,
   CONSTRAINT `Crosslisting_ibfk_1`
     FOREIGN KEY (`courseID`)
     REFERENCES `Course` (`courseID`))
@@ -289,12 +279,11 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Rank` ;
 
 CREATE TABLE IF NOT EXISTS `Rank` (
-  `rankID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `title` VARCHAR(50) NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `rankID` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(50) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`rankID`)  COMMENT '')
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -304,14 +293,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `DefaultNormalLoad` ;
 
 CREATE TABLE IF NOT EXISTS `DefaultNormalLoad` (
-  `defaultNormalLoadID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `rankID` INT(11) NOT NULL COMMENT '',
-  `departmentID` INT(11) NOT NULL COMMENT '',
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
-  `FCEValue` FLOAT NOT NULL COMMENT '',
-  PRIMARY KEY (`defaultNormalLoadID`)  COMMENT '',
-  INDEX `rankID` (`rankID` ASC)  COMMENT '',
-  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
+  `defaultNormalLoadID` INT(11) NOT NULL AUTO_INCREMENT,
+  `rankID` INT(11) NOT NULL,
+  `departmentID` INT(11) NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
+  `FCEValue` FLOAT NOT NULL,
+  PRIMARY KEY (`defaultNormalLoadID`) ,
+  INDEX `rankID` (`rankID` ASC) ,
+  INDEX `departmentID` (`departmentID` ASC) ,
   CONSTRAINT `DefaultNormalLoad_ibfk_2`
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`),
@@ -328,14 +317,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `FCECredit` ;
 
 CREATE TABLE IF NOT EXISTS `FCECredit` (
-  `FCECreditID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `amount` FLOAT NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
-  `FCECreditType` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`FCECreditID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `FCECreditID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `amount` FLOAT NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `dateIssued` DATE NULL DEFAULT NULL,
+  `FCECreditType` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`FCECreditID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `FCECredit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -349,14 +338,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `FCEDebit` ;
 
 CREATE TABLE IF NOT EXISTS `FCEDebit` (
-  `FCEDebitID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `amount` FLOAT NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
-  `FCEDebitType` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`FCEDebitID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `FCEDebitID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `amount` FLOAT NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `dateIssued` DATE NULL DEFAULT NULL,
+  `FCEDebitType` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`FCEDebitID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `FCEDebit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -370,14 +359,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LeaveCredit` ;
 
 CREATE TABLE IF NOT EXISTS `LeaveCredit` (
-  `leaveCreditID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `amount` FLOAT NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
-  `leaveCreditType` VARCHAR(50) NOT NULL COMMENT '',
-  PRIMARY KEY (`leaveCreditID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `leaveCreditID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `amount` FLOAT NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `dateIssued` DATE NULL DEFAULT NULL,
+  `leaveCreditType` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`leaveCreditID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `LeaveCredit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -391,14 +380,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LeaveDebit` ;
 
 CREATE TABLE IF NOT EXISTS `LeaveDebit` (
-  `leaveDebitID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `amount` FLOAT NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
-  `leaveDebitType` VARCHAR(50) NOT NULL COMMENT '',
-  PRIMARY KEY (`leaveDebitID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `leaveDebitID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `amount` FLOAT NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `dateIssued` DATE NULL DEFAULT NULL,
+  `leaveDebitType` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`leaveDebitID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `LeaveDebit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -412,14 +401,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LoadIncrease` ;
 
 CREATE TABLE IF NOT EXISTS `LoadIncrease` (
-  `loadIncreaseID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  `startDate` DATE NOT NULL COMMENT '',
-  `endDate` DATE NOT NULL COMMENT '',
-  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
-  PRIMARY KEY (`loadIncreaseID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `loadIncreaseID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NOT NULL,
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
+  PRIMARY KEY (`loadIncreaseID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `LoadIncrease_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -433,14 +422,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LoadReduction` ;
 
 CREATE TABLE IF NOT EXISTS `LoadReduction` (
-  `loadReductionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `description` TEXT NULL DEFAULT NULL COMMENT '',
-  `startDate` DATE NOT NULL COMMENT '',
-  `endDate` DATE NOT NULL COMMENT '',
-  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
-  PRIMARY KEY (`loadReductionID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `loadReductionID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NOT NULL,
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
+  PRIMARY KEY (`loadReductionID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `LoadReduction_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -454,17 +443,16 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaffEmployment` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaffEmployment` (
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `regularEmploymentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
-  `endDate` DATE NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`regularEmploymentID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `regularStaffID` INT(11) NOT NULL,
+  `regularEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
+  `endDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`regularEmploymentID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `RegularStaffEmployment_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 151
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -474,14 +462,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaff_Rank` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaff_Rank` (
-  `regularStaffRankID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `rankID` INT(11) NOT NULL COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
-  `endDate` DATE NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`regularStaffRankID`)  COMMENT '',
-  INDEX `rankID` (`rankID` ASC)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  `regularStaffRankID` INT(11) NOT NULL AUTO_INCREMENT,
+  `rankID` INT(11) NOT NULL,
+  `regularStaffID` INT(11) NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
+  `endDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`regularStaffRankID`) ,
+  INDEX `rankID` (`rankID` ASC) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `RegularStaff_Rank_ibfk_2`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`),
@@ -489,7 +477,6 @@ CREATE TABLE IF NOT EXISTS `RegularStaff_Rank` (
     FOREIGN KEY (`rankID`)
     REFERENCES `Rank` (`rankID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 151
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -499,11 +486,11 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Research` ;
 
 CREATE TABLE IF NOT EXISTS `Research` (
-  `researchID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `title` VARCHAR(50) NOT NULL COMMENT '',
-  `abstract` TEXT NULL DEFAULT NULL COMMENT '',
-  `startDate` DATE NOT NULL COMMENT '',
-  `endDate` DATE NOT NULL COMMENT '',
+  `researchID` INT(11) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(50) NOT NULL,
+  `abstract` TEXT NULL DEFAULT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NOT NULL,
   PRIMARY KEY (`researchID`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -515,16 +502,16 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaff_Research` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaff_Research` (
-  `regularStaffResearchID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `researchID` INT(11) NOT NULL COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `loadReductionID` INT(11) NULL DEFAULT NULL COMMENT '',
-  `startDate` DATE NOT NULL COMMENT '',
-  `endDate` DATE NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`regularStaffResearchID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
-  INDEX `researchID` (`researchID` ASC)  COMMENT '',
-  INDEX `loadReductionID` (`loadReductionID` ASC)  COMMENT '',
+  `regularStaffResearchID` INT(11) NOT NULL AUTO_INCREMENT,
+  `researchID` INT(11) NOT NULL,
+  `regularStaffID` INT(11) NOT NULL,
+  `loadReductionID` INT(11) NULL DEFAULT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`regularStaffResearchID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  INDEX `researchID` (`researchID` ASC) ,
+  INDEX `loadReductionID` (`loadReductionID` ASC) ,
   CONSTRAINT `RegularStaff_Research_ibfk_3`
     FOREIGN KEY (`loadReductionID`)
     REFERENCES `LoadReduction` (`loadReductionID`),
@@ -544,14 +531,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `ResearchGrant` ;
 
 CREATE TABLE IF NOT EXISTS `ResearchGrant` (
-  `grantID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `researchID` INT(11) NOT NULL COMMENT '',
-  `grantingAgency` VARCHAR(50) NOT NULL COMMENT '',
-  `dateAwarded` DATE NULL DEFAULT NULL COMMENT '',
-  `duration` FLOAT(10,2) NULL DEFAULT NULL COMMENT '',
-  `amount` FLOAT(10,2) NULL DEFAULT NULL COMMENT '',
-  PRIMARY KEY (`grantID`)  COMMENT '',
-  INDEX `researchID` (`researchID` ASC)  COMMENT '',
+  `grantID` INT(11) NOT NULL AUTO_INCREMENT,
+  `researchID` INT(11) NOT NULL,
+  `grantingAgency` VARCHAR(50) NOT NULL,
+  `dateAwarded` DATE NULL DEFAULT NULL,
+  `duration` FLOAT(10,2) NULL DEFAULT NULL,
+  `amount` FLOAT(10,2) NULL DEFAULT NULL,
+  PRIMARY KEY (`grantID`) ,
+  INDEX `researchID` (`researchID` ASC) ,
   CONSTRAINT `ResearchGrant_ibfk_1`
     FOREIGN KEY (`researchID`)
     REFERENCES `Research` (`researchID`))
@@ -565,14 +552,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RightToRefusal` ;
 
 CREATE TABLE IF NOT EXISTS `RightToRefusal` (
-  `rightToRefusalID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
-  `contractStaffID` INT(11) NOT NULL COMMENT '',
-  `startTerm` VARCHAR(10) NOT NULL COMMENT '',
-  `endTerm` VARCHAR(10) NOT NULL COMMENT '',
-  PRIMARY KEY (`rightToRefusalID`)  COMMENT '',
-  INDEX `contractStaffID` (`contractStaffID` ASC)  COMMENT '',
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
+  `rightToRefusalID` INT(11) NOT NULL AUTO_INCREMENT,
+  `sectionOfferedID` INT(11) NOT NULL,
+  `contractStaffID` INT(11) NOT NULL,
+  `startTerm` VARCHAR(10) NOT NULL,
+  `endTerm` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`rightToRefusalID`) ,
+  INDEX `contractStaffID` (`contractStaffID` ASC) ,
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
   CONSTRAINT `RightToRefusal_ibfk_2`
     FOREIGN KEY (`sectionOfferedID`)
     REFERENCES `Section_Offered` (`sectionOfferedID`),
@@ -589,17 +576,17 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `StaffLeave` ;
 
 CREATE TABLE IF NOT EXISTS `StaffLeave` (
-  `leaveID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `regularStaffID` INT(11) NOT NULL COMMENT '',
-  `leaveDebitID` INT(11) NOT NULL COMMENT '',
-  `description` TEXT NOT NULL COMMENT '',
-  `startDate` DATE NOT NULL COMMENT '',
-  `endDate` DATE NOT NULL COMMENT '',
-  `leavePercentage` FLOAT NOT NULL COMMENT '',
-  `wagePercentage` FLOAT NOT NULL COMMENT '',
-  PRIMARY KEY (`leaveID`)  COMMENT '',
-  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
-  INDEX `leaveDebitID` (`leaveDebitID` ASC)  COMMENT '',
+  `leaveID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `leaveDebitID` INT(11) NOT NULL,
+  `description` TEXT NOT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NOT NULL,
+  `leavePercentage` FLOAT NOT NULL,
+  `wagePercentage` FLOAT NOT NULL,
+  PRIMARY KEY (`leaveID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  INDEX `leaveDebitID` (`leaveDebitID` ASC) ,
   CONSTRAINT `StaffLeave_ibfk_2`
     FOREIGN KEY (`leaveDebitID`)
     REFERENCES `LeaveDebit` (`leaveDebitID`),
@@ -616,16 +603,16 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `TeachingActivities` ;
 
 CREATE TABLE IF NOT EXISTS `TeachingActivities` (
-  `teachingActivitiesID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `academicStaffID` INT(11) NOT NULL COMMENT '',
-  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
-  `role` VARCHAR(50) NULL COMMENT '',
-  `startDate` DATE NOT NULL DEFAULT '2015-09-05' COMMENT '',
-  `endDate` DATE NOT NULL DEFAULT '2016-04-25' COMMENT '',
-  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
-  PRIMARY KEY (`teachingActivitiesID`)  COMMENT '',
-  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
+  `teachingActivitiesID` INT(11) NOT NULL AUTO_INCREMENT,
+  `academicStaffID` INT(11) NOT NULL,
+  `sectionOfferedID` INT(11) NOT NULL,
+  `role` VARCHAR(50) NULL,
+  `startDate` DATE NOT NULL DEFAULT '2015-09-05',
+  `endDate` DATE NOT NULL DEFAULT '2016-04-25',
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
+  PRIMARY KEY (`teachingActivitiesID`) ,
+  INDEX `academicStaffID` (`academicStaffID` ASC) ,
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
   CONSTRAINT `TeachingActivities_ibfk_2`
     FOREIGN KEY (`sectionOfferedID`)
     REFERENCES `section_offered` (`sectionOfferedID`),
