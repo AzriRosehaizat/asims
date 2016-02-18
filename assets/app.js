@@ -33,6 +33,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
 					controller: 'navLeftBarController as vm'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
 				}
 			},
 			resolve: {
