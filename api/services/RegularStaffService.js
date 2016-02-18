@@ -6,16 +6,18 @@ module.exports = {
 	//Page Regular Staff
 	getAllRegularStaff: function(callback) {
 		sSQL = mysql.select('a.*', 'r.contApptDate', 'r.tenureDate', 'd.departmentCode', 'rk.title AS Rank')
-			.from('RegularStaff AS r')
-			.leftJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
-			.leftJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
-			.leftJoin('AcademicStaff AS a', 'r.regularStaffID', 'a.academicStaffID')
-			.leftJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
-			.leftJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
-			.where('ad.isPrimaryDepartment', 1)
+			.from('AcademicStaff AS a')
+				.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
+					.leftJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
+					.leftJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
+				.leftJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
+					.leftJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
+			.whereNull('rs.endDate')
+			.whereNull('ad.endDate')
+			.groupBy('a.academicStaffID')
 			.orderBy('a.academicStaffID', 'desc')
 			.toString();
-		console.log(sSQL);
+		// console.log(sSQL);
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});

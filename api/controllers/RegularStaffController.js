@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+	//ToDo: Abstract to Service
 	createRAS: function(req, res) {
 		var data = {
 			firstName: req.param('firstName'),
@@ -16,19 +17,25 @@ module.exports = {
 			.then(function(created) {
 				console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
 				// return created.academicStaffID
-				return created.academicStaffID;
-			}).then(function(academicStaffID, createdRAS) {
+				return created;
+			}).then(function(created) {
 				var rasData = {
-					academicStaffID: academicStaffID,
+					academicStaffID: created.academicStaffID,
 					contAppDate: req.param('contAppDate'),
 					tenureDate: req.param('tenureDate')
 				};
-				RegularStaff.create(rasData).then(function(createdRAS){
-					console.log(createdRAS.regularStaffID)
-					res.json(createdRAS);
+				var createdRAS = RegularStaff.create(rasData).then(function(createdRAS){
+					return createdRAS
+				});
+				return [created, createdRAS]
+			}).spread(function(created, createdRAS){
+				res.json({
+					created,
+					createdRAS
 				});
 			})
 			.catch(function(err) {
+				res.serverError();
 				console.log(err);
 			});
 	},
