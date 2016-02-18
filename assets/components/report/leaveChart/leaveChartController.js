@@ -19,6 +19,7 @@ application.controller('leaveChartController', function($scope, $http, reportSer
         		margin: [0, 5, 0, 5]
         	},
         	table: {
+        	    alignment: "center",
         		margin: [0, 5, 0, 15]
         	},
         	tableHeader: {
