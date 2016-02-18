@@ -59,8 +59,8 @@ application.service('reportService', function(){
                     ] 
 	            ]
             },
-            text: {pageBreak: 'after'},
             layout: 'noBorders',
+            pageBreak: 'after'
         };
     };
 });
