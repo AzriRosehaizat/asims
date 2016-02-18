@@ -5,7 +5,7 @@ var sSQL;
 module.exports = {
 	//Page Regular Staff
 	getAllRegularStaff: function(callback) {
-		sSQL = mysql.select('a.*', 'r.contApptDate', 'r.tenureDate', 'd.departmentCode', 'rk.title AS Rank')
+		sSQL = mysql.select('a.*', 'r.contAppDate', 'r.tenureDate', 'd.departmentCode', 'rk.title AS Rank')
 			.from('AcademicStaff AS a')
 				.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
 					.leftJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
