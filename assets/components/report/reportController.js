@@ -7,7 +7,7 @@ application.controller('reportController', function($scope, $http){
         });
         
     $http.get('/RegularStaff/')
-        .success(function(data){
-           $scope.regularStaff = data; 
+        .success(function(info){
+           $scope.regularStaff = info; 
         });
 })
