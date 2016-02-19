@@ -20,11 +20,6 @@ module.exports = {
 			required: true
 		},
 
-		academicStaffSectionID: {
-			model: 'AcademicStaff_Section',
-			required: true
-		},
-
 		startDate: {
 			type: 'date',
 			required: true

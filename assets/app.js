@@ -91,6 +91,32 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		})
+		.state('application.FLC', {
+			url: '/facultyLoadChart',
+			views: {
+				'': {
+					templateUrl: '/components/report/report.html',
+					controller: 'reportController'
+				},
+				"chart@application.FLC": {
+					templateUrl: '/components/report/loadChart/loadChart.html',
+					controller: 'loadChartController'
+				}
+			},
+		})
+		.state('application.LEC',{
+			url: '/leaveEntitlementChart',
+			views: {
+				'': {
+					templateUrl: '/components/report/report.html',
+					controller: 'reportController'
+				},
+				"chart@application.LEC": {
+				templateUrl: '/components/report/leaveChart/leaveChart.html',
+				controller: 'leaveChartController'
+				}
+			},
+		})
 		.state('application.profile', {
 			url: '/profile',
 			views: {
