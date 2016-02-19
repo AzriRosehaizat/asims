@@ -1,53 +1,29 @@
-application.controller('adminController', function($scope, $filter, users, adminService, SearchHelper, AnchorScroll) {
+application.controller('adminController', function($scope, $filter, users, adminService, SearchHelper) {
 
     $scope.gridTitle = 'Admin Page';
     $scope.users = users.data;
     $scope.formData = {};
-    adminService.initAddForm($scope.formData);
 
     $scope.gridOptions = adminService.gridOptions();
     $scope.gridOptions.data = $scope.users;
+    
+    adminService.initAddForm($scope.formData, $scope.gridOptions.data);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.id === $scope.formData.user.id) {
+            if (row.entity.id === $scope.formData.model.id) {
                 // second click on the same row
                 row.isSelected = true;
-                $scope.gotoElement('details');
             }
             else {
                 // first click
-                $scope.row = row;
                 adminService.initEditForm($scope.formData, row);
             }
         });
     };
 
     $scope.addRow = function() {
-        adminService.initAddForm($scope.formData);
-        $scope.gotoElement('details');
-    };
-
-    $scope.gotoElement = function(eID) {
-        AnchorScroll.scrollTo(eID);
-    };
-
-    $scope.submit = function() {
-        if ($scope.formData.isEditing) {
-            adminService.updateUser($scope.row, $scope.formData);
-            // error handler? in service?
-        }
-        else {
-            adminService.createUser($scope.gridOptions.data, $scope.formData);
-        }
-    };
-
-    $scope.cancel = function() {
-        adminService.cancel($scope.row, $scope.formData);
-    };
-
-    $scope.delete = function(ev) {
-        adminService.delete(ev, $scope.gridOptions.data, $scope.formData);
+        adminService.initAddForm($scope.formData, $scope.gridOptions.data);
     };
 
     $scope.lastLogin = function(row) {
