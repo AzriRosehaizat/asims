@@ -76,10 +76,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					templateUrl: '/components/grid/grid.html',
 					controller: 'gridController'
 				},
-				'details@application.regularStaff': {
-					templateUrl: '/components/content/regularStaff/details.html',
-					controller: 'detailsController'
-				},
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
@@ -119,10 +115,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'grid@application.admin': {
 					templateUrl: '/components/grid/grid.html',
 					controller: 'gridController'
-				},
-				'details@application.admin': {
-					templateUrl: '/components/admin/details.html',
-					controller: 'detailsController'
 				}
 			},
 			resolve: {
