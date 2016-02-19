@@ -1,13 +1,19 @@
 application.service('formService', function($injector, $mdDialog, _, toaster) {
 
     this.formData = {};
-    var service;
-    var row;
+    var service, row, gridData;
 
-    this.setFormData = function(formData, serviceName, currentRow) {
+    this.setFormData = function(formData, serviceName) {
         this.formData = formData;
         service = $injector.get(serviceName);
+    };
+    
+    this.setRow = function(currentRow) {
         row = currentRow;
+    };
+    
+    this.setGridData = function(data) {
+        gridData = data;
     };
 
     this.resetForm = function() {
@@ -15,7 +21,44 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
     };
 
     this.submit = function(formData) {
-        service.submit(formData);
+        if (formData.isEditing) {
+            this.update(row, formData);
+        }
+        else {
+            this.create(gridData, formData);
+        }
+    };
+
+    this.update = function(row, formData) {
+        formData.mode = 'indeterminate';
+
+        service.update(formData)
+            .then(function(res) {
+                _.merge(row.entity, res.data);
+                toaster.open("Updated successfully!");
+            }, function(err) {
+                toaster.open(err);
+            })
+            .finally(function(notice) {
+                formData.mode = '';
+            });
+    };
+
+    this.create = function(gridData, formData) {
+        formData.mode = 'indeterminate';
+
+        service.create(formData)
+            .then(function(res) {
+                gridData.push(res.data);
+                formData.model = {};
+                resetValidation(formData);
+                toaster.open("Added successfully!");
+            }, function(err) {
+                toaster.open(err);
+            })
+            .finally(function(notice) {
+                formData.mode = '';
+            });
     };
 
     this.cancel = function(formData) {
@@ -26,6 +69,9 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
             formData.model = {};
         }
         resetValidation(formData);
+
+        // More specific?
+        if (service.cancel) service.cancel(formData);
     };
 
     this.delete = function(ev, formData) {
