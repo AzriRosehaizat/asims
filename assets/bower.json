@@ -30,6 +30,7 @@
     "angular-moment": "",
     "angular-mocks": "",
     "bootstrap": "",
+    "pdfmake": "~0.1.20",
     "angular-lodash-module": "~1.2.0"
   }
 }

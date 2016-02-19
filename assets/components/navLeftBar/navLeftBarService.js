@@ -36,10 +36,10 @@ application
         pages: [{
           name: 'Faculty Load Chart',
           type: 'link',
-          state: 'application.report.FLC'
+          state: 'application.FLC'
         }, {
-          name: 'Other Report',
-          state: 'application.report.other',
+          name: 'Leave Entitlement Chart',
+          state: 'application.LEC',
           type: 'link'
         }]
       });
