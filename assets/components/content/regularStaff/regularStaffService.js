@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $mdDialog, _, toaster, formService) {
+application.service('regularStaffService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -79,101 +79,75 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
                 }
             };
         },
-        cancel: function(formData, row) {
-            if (formData.isEditing) {
-                _.merge(formData.model, row.entity);
-            }
-            else {
-                formData.model = {};
-            }
-            this.resetValidation(formData);
+        submit: function(formData) {
+            console.log("submit");
         },
-        delete: function(ev, gridData, formData) {
-            var self = this;
-            var confirm = $mdDialog.confirm()
-                .title('You are deleting ' + formData.model.firstName + ' ' + formData.model.lastName)
-                .textContent('Are you sure?')
-                .targetEvent(ev)
-                .ok('Delete')
-                .cancel('Cancel');
-
-            $mdDialog.show(confirm).then(function() {
-                formData.mode = 'indeterminate';
-                var index = gridData.indexOf(formData.model);
-
-                $http.delete('/regularStaff/' + formData.model.regularStaffID)
-                    .then(function(res) {
-                        gridData.splice(index, 1);
-                        self.initAddForm(formData);
-                        self.resetValidation(formData); // because the form gives ugly errors...
-                        toaster.open("Deleted successfully!");
-                    }, function(err) {
-                        toaster.open(err);
-                    })
-                    .finally(function(notice) {
-                        formData.mode = '';
-                    });
-            });
-        },
-        resetValidation: function(formData) {
-            formData.form.$setPristine();
-            formData.form.$setUntouched();
+        delete: function(formData) {
+            return $http.delete('/regularStaff/' + formData.model.academicStaffID);
         },
         initAddForm: function(formData) {
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Staff';
             formData.inputs = [{
+                type: "text",
                 name: "firstName",
                 label: "First name",
                 model: formData.model.firstName,
                 required: true
             }, {
+                type: "text",
                 name: "lastName",
                 label: "Last name",
                 model: formData.model.lastName,
                 required: true
             }, {
+                type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
                 model: formData.model.tenureDate,
                 required: false
             }, {
+                type: "date",
                 name: "contApptDate",
                 label: "Cont' appointment date",
                 model: formData.model.contApptDate,
                 required: false
             }];
-            
-            formService.setFormData(formData);
+
+            formService.setFormData(formData, 'regularStaffService', null);
         },
         initEditForm: function(formData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
             formData.inputs = [{
+                type: "text",
                 name: "firstName",
                 label: "First name",
-                model: formData.model.firstName,
+                model: "fs.formData.model.firstName",
                 required: true
             }, {
+                type: "text",
                 name: "lastName",
                 label: "Last name",
-                model: formData.model.lastName,
+                model: "fs.formData.model.lastName",
                 required: true
             }, {
+                type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
-                model: formData.model.tenureDate,
+                model: "fs.formData.model.tenureDate",
                 required: false
             }, {
+                type: "date",
                 name: "contApptDate",
                 label: "Cont' appointment date",
-                model: formData.model.contApptDate,
+                model: "fs.formData.model.contApptDate",
                 required: false
             }];
-            
-            formService.setFormData(formData);
+
+            formService.setFormData(formData, 'regularStaffService', row);
         },
         getDepartment: function(departments, row) {
             $http.get('/regularStaff/getDepartment/' + row.entity.academicStaffID)

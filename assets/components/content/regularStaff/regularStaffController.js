@@ -27,24 +27,7 @@ application.controller('regularStaffController', function($scope, $filter, staff
     $scope.addRow = function() {
         regularStaffService.initAddForm($scope.formData);
     };
-
-    $scope.submit = function() {
-        if ($scope.formData.isEditing) {
-            // Do put request
-        }
-        else {
-            // Do post request
-        }
-    };
-
-    $scope.cancel = function() {
-        regularStaffService.cancel($scope.formData, $scope.row);
-    };
-
-    $scope.delete = function(ev) {
-        regularStaffService.delete(ev, $scope.gridOptions.data, $scope.formData);
-    };
-
+    
     /* Search function */
 
     $scope.$watch(
