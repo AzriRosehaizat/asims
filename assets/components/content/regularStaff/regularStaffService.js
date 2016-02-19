@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $mdDialog, _, moment) {
+application.service('regularStaffService', function($http, $mdDialog, _, toaster) {
 
     return {
         gridOptions: function() {
@@ -13,27 +13,26 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                     name: 'Last Name',
                     field: 'lastName'
                 }, {
-                    name: 'Primary Department',
+                    name: 'Department',
                     field: 'departmentCode'
                 }, {
                     name: 'Rank',
-                    field: 'rank'
-                }, {
-                    name: 'Employee No',
-                    field: 'employeeNo'
+                    field: 'Rank'
                 }, {
                     name: 'Tenure Date',
-                    field: 'tenureDate'
+                    field: 'tenureDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
                 }, {
                     name: 'Cont\' Appt\' Date',
-                    field: 'contApptDate'
+                    field: 'contAppDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
             };
         },
         tabs: function() {
             return {
                 departments: {
-                    title: 'Departments',
+                    title: 'Department',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
@@ -43,15 +42,20 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                             field: 'departmentCode'
                         }, {
                             name: 'Name',
-                            field: 'departmentTitle'
+                            field: 'title'
                         }, {
                             name: 'Start Date',
-                            field: 'startDate'
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
                         }]
                     }
                 },
                 ranks: {
-                    title: 'Ranks',
+                    title: 'Rank',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
@@ -64,21 +68,42 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                             field: 'description'
                         }, {
                             name: 'Start Date',
-                            field: 'startDate'
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
+                employment: {
+                    title: 'Employement',
+                    gridOptions: {
+                        multiSelect: false,
+                        enableRowHeaderSelection: false,
+                        enableHorizontalScrollbar: 0,
+                        columnDefs: [{
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
                         }]
                     }
                 }
             };
         },
-        cancel: function(row, formData) {
+        cancel: function(formData, row) {
             if (formData.isEditing) {
                 _.merge(formData.staff, row.entity);
             }
             else {
                 formData.staff = {};
             }
-            formData.form.$setPristine();
-            formData.form.$setUntouched();
+            this.resetValidation(formData);
         },
         delete: function(ev, gridData, formData) {
             var self = this;
@@ -90,78 +115,54 @@ application.service('regularStaffService', function($http, $mdDialog, _, moment)
                 .cancel('Cancel');
 
             $mdDialog.show(confirm).then(function() {
-                // get index before $http request to prevent user from 
-                // deleting a row that is selected during the request.
+                formData.mode = 'indeterminate';
                 var index = gridData.indexOf(formData.staff);
+
                 $http.delete('/regularStaff/' + formData.staff.regularStaffID)
                     .then(function(res) {
                         gridData.splice(index, 1);
                         self.initAddForm(formData);
-                        return res.data;
+                        self.resetValidation(formData); // because the form gives ugly errors...
+                        toaster.open("Deleted successfully!");
+                    }, function(err) {
+                        toaster.open(err);
+                    })
+                    .finally(function(notice) {
+                        formData.mode = '';
                     });
             });
+        },
+        resetValidation: function(formData) {
+            formData.form.$setPristine();
+            formData.form.$setUntouched();
         },
         initAddForm: function(formData) {
             formData.staff = {};
             formData.isEditing = false;
-            formData.title = 'Add a Staff';
+            formData.title = 'Add Staff';
         },
-        initEditForm: function(row, formData) {
+        initEditForm: function(formData, row) {
             formData.staff = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit a Staff';
+            formData.title = 'Edit Staff';
         },
-        flattenData: function(regularStaffs) {
-            var flattenedData = [];
-            _.forEach(regularStaffs, function(value, key) {
-                flattenedData.push({
-                    regularStaffID: value.regularStaffID,
-                    employeeNo: value.academicStaffID[0].employeeNo,
-                    firstName: value.academicStaffID[0].firstName,
-                    lastName: value.academicStaffID[0].lastName,
-                    departmentCode: value.academicStaffID[0].departments[0].departmentID.departmentCode,
-                    rank: findCurrentRank(value),
-                    contApptDate: formatDate(value.contApptDate),
-                    tenureDate: formatDate(value.tenureDate)
+        getDepartment: function(departments, row) {
+            $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    departments.gridOptions.data = res.data;
                 });
-            });
-            return flattenedData;
         },
-        flattenDepartments: function(departments) {
-            var flattenedData = [];
-            _.forEach(departments, function(value, key) {
-                flattenedData.push({
-                    departmentCode: value.departmentID.departmentCode,
-                    departmentTitle: value.departmentID.title,
-                    startDate: formatDate(value.startDate)
+        getRank: function(ranks, row) {
+            $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    ranks.gridOptions.data = res.data;
                 });
-            });
-            return flattenedData;
         },
-        flattenRanks: function(ranks) {
-            var flattenedData = [];
-            _.forEach(ranks, function(value, key) {
-                flattenedData.push({
-                    title: value.rankID.title,
-                    description: value.rankID.description,
-                    startDate: formatDate(value.startDate)
+        getEmployment: function(ranks, row) {
+            $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    ranks.gridOptions.data = res.data;
                 });
-            });
-            return flattenedData;
         }
     };
-
-    function findCurrentRank(value) {
-        var currentRank = _.findLast(value.ranks, function(rank) {
-            return !rank.endDate;
-        });
-
-        if (currentRank) return currentRank.rankID.title;
-        return null;
-    }
-
-    function formatDate(date) {
-        if (date) return moment(date).format('YYYY-MM-DD');
-        return null;
-    }
 });
