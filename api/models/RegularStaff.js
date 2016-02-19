@@ -21,7 +21,7 @@ module.exports = {
 		tenureDate: {
 			type: 'date'
 		},
-		contApptDate: {
+		contAppDate: {
 			type: 'date'
 		},
 		RegularStaffEmployment: {

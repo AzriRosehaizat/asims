@@ -5,34 +5,73 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
-var mysql = require('knex')({
-	client: 'mysql'
-});
-
 module.exports = {
+	//ToDo: Abstract to Service
+	createRAS: function(req, res) {
+		var data = {
+			firstName: req.param('firstName'),
+			lastName: req.param('lastName')
+		};
 
+		AcademicStaff.create(data)
+			.then(function(created) {
+				console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
+				// return created.academicStaffID
+				return created;
+			}).then(function(created) {
+				var rasData = {
+					academicStaffID: created.academicStaffID,
+					contAppDate: req.param('contAppDate'),
+					tenureDate: req.param('tenureDate')
+				};
+				var createdRAS = RegularStaff.create(rasData).then(function(createdRAS){
+					return createdRAS
+				});
+				return [created, createdRAS]
+			}).spread(function(created, createdRAS){
+				res.json({
+					created,
+					createdRAS
+				});
+			})
+			.catch(function(err) {
+				res.serverError(err);
+				console.log(err);
+			});
+	},
 	getAllRegularStaff: function(req, res) {
-		RegularStaffService.getAllRegularStaff({}, function(err, result) {
+		RegularStaffService.getAllRegularStaff(function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);
 		});
 	},
-
-	getDepartment: function(req, res) {
-		var id = req.param('id');
-		RegularStaffService.getDepartment(id, {}, function(err, result) {
+	getInfo: function(req, res) {
+		var responseFn = function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);
-		});
-	},
-	
-	getRank: function(req, res) {
-		var id = req.param('id');
-		RegularStaffService.getRank(id, {}, function(err, result) {
-			if (err) return res.serverError(err);
-			return res.ok(result);
-		});
-	},
+		};
+		var data = {
+			id: req.param('id'),
+			type: req.param('type')
+		};
+		switch (data.type) {
+			case 'department':
+				RegularStaffService.getDepartment(data.id, responseFn)
+				break;
+			case 'rank':
+				RegularStaffService.getRank(data.id, responseFn)
+				break;
+			case 'employment':
+				RegularStaffService.getEmployment(data.id, responseFn)
+				break;
+			case 'leave':
+				//code
+				break;
+			default:
+				res.serverError();
+				console.log("Incorrect REST url")
+		}
+	}
 };
 
 // module.exports = {

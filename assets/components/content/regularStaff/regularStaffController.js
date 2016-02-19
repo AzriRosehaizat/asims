@@ -18,9 +18,11 @@ application.controller('regularStaffController', function($scope, $filter, staff
             else {
                 regularStaffService.initEditForm($scope.formData, row);
             }
-            
+
             regularStaffService.getDepartment($scope.tabs.departments, row);
             regularStaffService.getRank($scope.tabs.ranks, row);
+            regularStaffService.getEmployment($scope.tabs.employment, row);
+
         });
     };
 
