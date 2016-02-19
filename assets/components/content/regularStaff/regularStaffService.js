@@ -96,8 +96,11 @@ application.service('regularStaffService', function($http, _, formService) {
                 }
             };
         },
-        submit: function(formData) {
-            console.log("submit");
+        update: function(formData) {
+            console.log("update");
+        },
+        create: function(formData) {
+            console.log("create");
         },
         delete: function(formData) {
             return $http.delete('/regularStaff/' + formData.model.academicStaffID);
