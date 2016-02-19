@@ -24,7 +24,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }, {
                     name: 'Cont\' Appt\' Date',
-                    field: 'contApptDate',
+                    field: 'contAppDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
             };
@@ -32,7 +32,7 @@ application.service('regularStaffService', function($http, _, formService) {
         tabs: function() {
             return {
                 departments: {
-                    title: 'Departments',
+                    title: 'Department',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
@@ -55,7 +55,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     }
                 },
                 ranks: {
-                    title: 'Ranks',
+                    title: 'Rank',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
@@ -67,6 +67,23 @@ application.service('regularStaffService', function($http, _, formService) {
                             name: 'Description',
                             field: 'description'
                         }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
+                employment: {
+                    title: 'Employement',
+                    gridOptions: {
+                        multiSelect: false,
+                        enableRowHeaderSelection: false,
+                        enableHorizontalScrollbar: 0,
+                        columnDefs: [{
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
@@ -148,13 +165,19 @@ application.service('regularStaffService', function($http, _, formService) {
             formService.setFormData(formData, 'regularStaffService');
         },
         getDepartment: function(departments, row) {
-            $http.get('/regularStaff/getDepartment/' + row.entity.academicStaffID)
+            $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
                 .then(function(res) {
                     departments.gridOptions.data = res.data;
                 });
         },
         getRank: function(ranks, row) {
-            $http.get('/regularStaff/getRank/' + row.entity.academicStaffID)
+            $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    ranks.gridOptions.data = res.data;
+                });
+        },
+        getEmployment: function(ranks, row) {
+            $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
                 .then(function(res) {
                     ranks.gridOptions.data = res.data;
                 });
