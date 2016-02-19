@@ -33,6 +33,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
 					controller: 'navLeftBarController as vm'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
 				}
 			},
 			resolve: {
@@ -45,7 +49,21 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			}
 		})
 		.state('application.root', {
-			url: '/application'
+			url: '/application',
+			views: {
+				'' :{
+					templateUrl: '/views/application/root.html'
+				},
+				'toDoList@application.root' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
+				}
+			},
+			resolve: {
+				user: function(CurrentUser) {
+					return CurrentUser.getUser();
+				}
+			}
 		})
 		.state('application.regularStaff', {
 			url: '/regularStaff',
@@ -65,6 +83,11 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				staffs: function($http) {
+					return $http.get('/regularStaff/getAllRegularStaff');
 				}
 			}
 		})

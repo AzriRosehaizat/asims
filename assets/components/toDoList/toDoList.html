@@ -1,0 +1,28 @@
+<md-content class="details md-whiteframe-1dp" layout="column" ng-cloak>
+    <md-toolbar class="md-warn md-hue-2">
+        <div class="md-toolbar-tools">
+            <h2><span>To-Do</span></h2>
+            <span flex></span>
+            <md-button class="md-warn md-hue-2" ng-click="deleteCompleted()"> Clear Completed </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content layout="column" layout-margin layout-padding>
+        <form name=formData.form class="md-inline-form" ng-submit="addItem()" style="margin: 0; padding-left: 1em;">
+            <div layout="row" layout-align="space-between start">
+                <md-input-container class="md-block" flex style="margin: 0;">
+                    <input required name="addToDoText" ng-model="addToDoText" placeholder="I need to ...">
+                </md-input-container>
+                <md-button class="md-icon-button" type="submit" ng-disabled="formData.form.$invalid" aria-label="Add Item">
+                    <md-icon md-font-set="material-icons">add</md-icon>
+                </md-button>
+            </div>
+        </form>
+        <md-list-item ng-repeat="item in list" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+            <md-divider ng-if="!$last"></md-divider>
+            <md-checkbox class="md-warn" ng-model="item.state" ng-click="checkItem(item)" aria-label="Check box"></md-checkbox>
+            <span class="done-{{item.state}}"> {{ item.text }} </span>
+            <md-icon ng-show="hoverEdit" class="md-secondary" md-svg-src="images/clear.svg" aria-label="Delete" ng-click="deleteItem(item.id)"></md-icon>
+        </md-list-item>
+    </md-content>
+</md-content>

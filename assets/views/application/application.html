@@ -1,4 +1,3 @@
-<!--<md-sidenav id="navbar-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">-->
 <md-sidenav id="navbar-left" md-component-id="left">
     <div ui-view="navLeftBar"></div>
 </md-sidenav>
@@ -7,8 +6,13 @@
 <div flex layout="column">
     <div ui-view="navTopBar"></div>
 
-    <md-content id="content" flex layout-padding>
-        <!--<div ui-view class="slide"></div>-->
-        <div ui-view></div>
-    </md-content>
+    <div flex layout="row">
+        <md-content id="content" flex layout-padding>
+            <div ui-view></div>
+        </md-content>
+
+        <md-sidenav id="navbar-right" md-component-id="right"  layout-margin>
+            <div ui-view="navRightBar"></div>
+        </md-sidenav>
+    </div>
 </div>

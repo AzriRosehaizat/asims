@@ -10,18 +10,11 @@
 
         </div>
     </md-toolbar>
+    
+    <md-progress-linear class="md-hue-2" md-mode="{{formData.mode}}"></md-progress-linear>
 
     <md-content layout-margin layout-padding>
         <form name="formData.form" id="detailForm" class="md-inline-form" ng-submit="submit()">
-
-            <div layout-gt-sm="row">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <input name="employeeNo" ng-model="formData.staff.employeeNo" placeholder="Employee No" required>
-                    <div ng-messages="formData.form.employeeNo.$error" ng-show="formData.form.employeeNo.$touched">
-                        <div ng-messages-include="/components/validate/messages.html"></div>
-                    </div>
-                </md-input-container>
-            </div>
 
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
@@ -43,8 +36,8 @@
 
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="tenureDate" ng-model="formData.tenureDate" type="date" placeholder="Tenure date" class = "noBrowserPicker">
-                    <div ng-messages="formData.tenureDate.$error" ng-show="formData.tenureDate.$touched">
+                    <input name="tenureDate" ng-model="formData.staff.tenureDate" type="date" placeholder="Tenure date" class = "noBrowserPicker">
+                    <div ng-messages="formData.form.tenureDate.$error" ng-show="formData.form.tenureDate.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
                 </md-input-container>
@@ -53,8 +46,8 @@
                 <div flex="5" hide-xs hide-sm></div>
 
                 <md-input-container class="md-block" flex-gt-sm>
-                    <input name="contApptDate" ng-model="formData.contApptDate" type="date" placeholder="Cont' appointment date" class = "noBrowserPicker">
-                    <div ng-messages="formData.contApptDate.$error" ng-show="formData.contApptDate.$touched">
+                    <input name="contApptDate" ng-model="formData.staff.contApptDate" type="date" placeholder="Cont' appointment date" class = "noBrowserPicker">
+                    <div ng-messages="formData.form.contApptDate.$error" ng-show="formData.form.contApptDate.$touched">
                         <div ng-messages-include="/components/validate/messages.html"></div>
                     </div>
                 </md-input-container>
@@ -62,12 +55,12 @@
             </div>
 
             <div layout="row">
-                <md-button type="submit" class="md-primary" ng-disabled="formData.form.$invalid"> Submit </md-button>
-                <md-button ng-click="cancel()"> Cancel </md-button>
+                <md-button type="submit" class="md-raised" ng-disabled="formData.form.$invalid"> Submit </md-button>
+                <md-button class="md-raised" ng-click="cancel()"> Cancel </md-button>
 
                 <div flex hide-xs hide-sm></div>
 
-                <md-button class="md-warn" ng-show="formData.isEditing" ng-click="delete($event)"> Delete </md-button>
+                <md-button class="md-raised md-warn md-hue-2" ng-show="formData.isEditing" ng-click="delete($event)"> Delete </md-button>
             </div>
         </form>
     </md-content>

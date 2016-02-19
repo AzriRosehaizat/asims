@@ -18,7 +18,7 @@ application.controller('adminController', function($scope, $filter, users, admin
             else {
                 // first click
                 $scope.row = row;
-                adminService.initEditForm(row, $scope.formData);
+                adminService.initEditForm($scope.formData, row);
             }
         });
     };
