@@ -3,11 +3,12 @@ application.controller('regularStaffController', function($scope, $filter, staff
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaff = staffs.data;
     $scope.formData = {};
-    regularStaffService.initAddForm($scope.formData);
 
     $scope.gridOptions = regularStaffService.gridOptions();
     $scope.gridOptions.data = $scope.rStaff;
     $scope.tabs = regularStaffService.tabs();
+    
+    regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
@@ -15,7 +16,6 @@ application.controller('regularStaffController', function($scope, $filter, staff
                 row.isSelected = true;
             }
             else {
-                $scope.row = row;
                 regularStaffService.initEditForm($scope.formData, row);
             }
             
@@ -25,7 +25,7 @@ application.controller('regularStaffController', function($scope, $filter, staff
     };
 
     $scope.addRow = function() {
-        regularStaffService.initAddForm($scope.formData);
+        regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
     };
     
     /* Search function */

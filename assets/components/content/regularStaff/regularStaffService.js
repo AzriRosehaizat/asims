@@ -85,7 +85,7 @@ application.service('regularStaffService', function($http, _, formService) {
         delete: function(formData) {
             return $http.delete('/regularStaff/' + formData.model.academicStaffID);
         },
-        initAddForm: function(formData) {
+        initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Staff';
@@ -93,29 +93,26 @@ application.service('regularStaffService', function($http, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                model: formData.model.firstName,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                model: formData.model.lastName,
                 required: true
             }, {
                 type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
-                model: formData.model.tenureDate,
                 required: false
             }, {
                 type: "date",
                 name: "contApptDate",
                 label: "Cont' appointment date",
-                model: formData.model.contApptDate,
                 required: false
             }];
-
-            formService.setFormData(formData, 'regularStaffService', null);
+            
+            formService.setGridData(gridData);
+            formService.setFormData(formData, 'regularStaffService');
         },
         initEditForm: function(formData, row) {
             formData.model = _.cloneDeep(row.entity);
@@ -146,8 +143,9 @@ application.service('regularStaffService', function($http, _, formService) {
                 model: "fs.formData.model.contApptDate",
                 required: false
             }];
-
-            formService.setFormData(formData, 'regularStaffService', row);
+            
+            formService.setRow(row);
+            formService.setFormData(formData, 'regularStaffService');
         },
         getDepartment: function(departments, row) {
             $http.get('/regularStaff/getDepartment/' + row.entity.academicStaffID)
