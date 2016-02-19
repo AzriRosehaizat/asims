@@ -6,12 +6,16 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
     this.setFormData = function(formData, serviceName) {
         this.formData = formData;
         service = $injector.get(serviceName);
+        
+        // temporary solution
+        this.formData.tenureDate = (formData.model.tenureDate) ? new Date(formData.model.tenureDate) : null;
+        this.formData.contAppDate = (formData.model.contAppDate) ? new Date(formData.model.contAppDate) : null;
     };
-    
+
     this.setRow = function(currentRow) {
         row = currentRow;
     };
-    
+
     this.setGridData = function(data) {
         gridData = data;
     };
