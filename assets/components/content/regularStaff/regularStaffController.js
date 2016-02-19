@@ -1,22 +1,21 @@
-application.controller('regularStaffController', function($scope, $filter, staffs, regularStaffService, SearchHelper, AnchorScroll) {
+application.controller('regularStaffController', function($scope, $filter, staffs, regularStaffService, SearchHelper) {
 
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaff = staffs.data;
     $scope.formData = {};
-    regularStaffService.initAddForm($scope.formData);
 
     $scope.gridOptions = regularStaffService.gridOptions();
     $scope.gridOptions.data = $scope.rStaff;
     $scope.tabs = regularStaffService.tabs();
+    
+    regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.academicStaffID === $scope.formData.staff.academicStaffID) {
+            if (row.entity.academicStaffID === $scope.formData.model.academicStaffID) {
                 row.isSelected = true;
-                $scope.gotoElement('details');
             }
             else {
-                $scope.row = row;
                 regularStaffService.initEditForm($scope.formData, row);
             }
 
@@ -28,31 +27,9 @@ application.controller('regularStaffController', function($scope, $filter, staff
     };
 
     $scope.addRow = function() {
-        regularStaffService.initAddForm($scope.formData);
-        $scope.gotoElement('details');
+        regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
     };
-
-    $scope.gotoElement = function(eID) {
-        AnchorScroll.scrollTo(eID);
-    };
-
-    $scope.submit = function() {
-        if ($scope.formData.isEditing) {
-            // Do put request
-        }
-        else {
-            // Do post request
-        }
-    };
-
-    $scope.cancel = function() {
-        regularStaffService.cancel($scope.formData, $scope.row);
-    };
-
-    $scope.delete = function(ev) {
-        regularStaffService.delete(ev, $scope.gridOptions.data, $scope.formData);
-    };
-
+    
     /* Search function */
 
     $scope.$watch(

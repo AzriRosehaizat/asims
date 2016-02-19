@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $mdDialog, _, toaster) {
+application.service('regularStaffService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -23,7 +23,7 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
                     field: 'tenureDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }, {
-                    name: 'Cont\' Appt\' Date',
+                    name: 'Cont\' appointment date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
@@ -96,55 +96,69 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
                 }
             };
         },
-        cancel: function(formData, row) {
-            if (formData.isEditing) {
-                _.merge(formData.staff, row.entity);
-            }
-            else {
-                formData.staff = {};
-            }
-            this.resetValidation(formData);
+        submit: function(formData) {
+            console.log("submit");
         },
-        delete: function(ev, gridData, formData) {
-            var self = this;
-            var confirm = $mdDialog.confirm()
-                .title('You are deleting ' + formData.staff.firstName + ' ' + formData.staff.lastName)
-                .textContent('Are you sure?')
-                .targetEvent(ev)
-                .ok('Delete')
-                .cancel('Cancel');
-
-            $mdDialog.show(confirm).then(function() {
-                formData.mode = 'indeterminate';
-                var index = gridData.indexOf(formData.staff);
-
-                $http.delete('/regularStaff/' + formData.staff.regularStaffID)
-                    .then(function(res) {
-                        gridData.splice(index, 1);
-                        self.initAddForm(formData);
-                        self.resetValidation(formData); // because the form gives ugly errors...
-                        toaster.open("Deleted successfully!");
-                    }, function(err) {
-                        toaster.open(err);
-                    })
-                    .finally(function(notice) {
-                        formData.mode = '';
-                    });
-            });
+        delete: function(formData) {
+            return $http.delete('/regularStaff/' + formData.model.academicStaffID);
         },
-        resetValidation: function(formData) {
-            formData.form.$setPristine();
-            formData.form.$setUntouched();
-        },
-        initAddForm: function(formData) {
-            formData.staff = {};
+        initAddForm: function(formData, gridData) {
+            formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Staff';
+            formData.inputs = [{
+                type: "text",
+                name: "firstName",
+                label: "First name",
+                required: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last name",
+                required: true
+            }, {
+                type: "date",
+                name: "tenureDate",
+                label: "Tenure date",
+                required: false
+            }, {
+                type: "date",
+                name: "contAppDate",
+                label: "Cont' appointment date",
+                required: false
+            }];
+            
+            formService.setGridData(gridData);
+            formService.setFormData(formData, 'regularStaffService');
         },
         initEditForm: function(formData, row) {
-            formData.staff = _.cloneDeep(row.entity);
+            formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
+            formData.inputs = [{
+                type: "text",
+                name: "firstName",
+                label: "First name",
+                required: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last name",
+                required: true
+            }, {
+                type: "date",
+                name: "tenureDate",
+                label: "Tenure date",
+                required: false
+            }, {
+                type: "date",
+                name: "contAppDate",
+                label: "Cont' appointment date",
+                required: false
+            }];
+            
+            formService.setRow(row);
+            formService.setFormData(formData, 'regularStaffService');
         },
         getDepartment: function(departments, row) {
             $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
@@ -158,10 +172,10 @@ application.service('regularStaffService', function($http, $mdDialog, _, toaster
                     ranks.gridOptions.data = res.data;
                 });
         },
-        getEmployment: function(ranks, row) {
+        getEmployment: function(employment, row) {
             $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
                 .then(function(res) {
-                    ranks.gridOptions.data = res.data;
+                    employment.gridOptions.data = res.data;
                 });
         }
     };
