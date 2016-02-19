@@ -23,7 +23,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     field: 'tenureDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }, {
-                    name: 'Cont\' Appt\' Date',
+                    name: 'Cont\' appointment date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
@@ -123,7 +123,7 @@ application.service('regularStaffService', function($http, _, formService) {
                 required: false
             }, {
                 type: "date",
-                name: "contApptDate",
+                name: "contAppDate",
                 label: "Cont' appointment date",
                 required: false
             }];
@@ -139,25 +139,21 @@ application.service('regularStaffService', function($http, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                model: "fs.formData.model.firstName",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                model: "fs.formData.model.lastName",
                 required: true
             }, {
                 type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
-                model: "fs.formData.model.tenureDate",
                 required: false
             }, {
                 type: "date",
-                name: "contApptDate",
+                name: "contAppDate",
                 label: "Cont' appointment date",
-                model: "fs.formData.model.contApptDate",
                 required: false
             }];
             
@@ -176,10 +172,10 @@ application.service('regularStaffService', function($http, _, formService) {
                     ranks.gridOptions.data = res.data;
                 });
         },
-        getEmployment: function(ranks, row) {
+        getEmployment: function(employment, row) {
             $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
                 .then(function(res) {
-                    ranks.gridOptions.data = res.data;
+                    employment.gridOptions.data = res.data;
                 });
         }
     };
