@@ -19,8 +19,10 @@
         <md-list-item ng-repeat="item in list" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
             <md-divider ng-if="!$last"></md-divider>
             <md-checkbox class="md-warn" ng-model="item.state" ng-click="checkItem(item)" aria-label="Check box"></md-checkbox>
-            <span class="done-{{item.state}}"> {{ item.text }} </span>
-            <md-icon ng-show="hoverEdit" class="md-secondary" md-svg-src="images/clear.svg" aria-label="Delete" ng-click="deleteItem(item.id)"></md-icon>
+            <span class="done-{{item.state}}" flex> {{ item.text }} </span>
+            <md-button class="md-icon-button" ng-show="hoverEdit" ng-click="deleteItem(item.id)" aria-label="Delete">
+                <md-icon md-font-set="material-icons">clear</md-icon>
+            </md-button>
         </md-list-item>
     </md-content>
 </md-content>

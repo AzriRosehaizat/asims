@@ -1,6 +1,11 @@
 application.service('SearchHelper', function($filter) {
 
-    var input, grid, model;
+    var searchModel, input, grid, model;
+    
+    // To modify search input in the top nav-bar
+    this.setSearch = function(model) {
+        searchModel = model;
+    };
 
     this.setInput = function(data) {
         input = data;
@@ -11,6 +16,12 @@ application.service('SearchHelper', function($filter) {
     this.init = function(gridOptions, modelObj) {
         grid = gridOptions;
         model = modelObj;
+    };
+    
+    this.reset = function() {
+        this.init(null, null);
+        input = "";
+        if (searchModel) searchModel.data = "";
     };
 
     function search() {
