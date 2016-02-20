@@ -100,7 +100,7 @@ application.service('regularStaffService', function($http, _, formService) {
             console.log("update");
         },
         create: function(formData) {
-            console.log("create");
+            return $http.post('/regularStaff/createRAS', formData.model);
         },
         delete: function(formData) {
             return $http.delete('/regularStaff/' + formData.model.academicStaffID);
