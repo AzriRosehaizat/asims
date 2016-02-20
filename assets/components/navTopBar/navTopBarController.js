@@ -8,7 +8,7 @@ application.controller('navTopBarController', function($scope, $mdSidenav, user,
   };
   
   $scope.update = function(search) {
-    SearchHelper.search = search;
+    SearchHelper.setInput(search);
   };
 
   $scope.toggleLeft = buildToggler('left');

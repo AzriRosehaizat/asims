@@ -25,9 +25,9 @@ module.exports = {
 					tenureDate: req.param('tenureDate')
 				};
 				var createdRAS = RegularStaff.create(rasData).then(function(createdRAS){
-					return createdRAS
+					return createdRAS;
 				});
-				return [created, createdRAS]
+				return [created, createdRAS];
 			}).spread(function(created, createdRAS){
 				res.json({
 					created,

@@ -121,8 +121,7 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'profileController'
 				},
 				'details@application.profile': {
-					templateUrl: '/components/profile/details.html',
-					controller: 'detailsController'
+					templateUrl: '/components/profile/details.html'
 				}
 			},
 			resolve: {
