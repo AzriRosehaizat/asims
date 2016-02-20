@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, $filter, staffs, regularStaffService, SearchHelper) {
+application.controller('regularStaffController', function($scope, staffs, regularStaffService, SearchHelper) {
 
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaff = staffs.data;

@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, $filter, users, adminService, SearchHelper) {
+application.controller('adminController', function($scope, users, adminService, SearchHelper) {
 
     $scope.gridTitle = 'Admin Page';
     $scope.users = users.data;
