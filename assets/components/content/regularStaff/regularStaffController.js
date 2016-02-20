@@ -17,6 +17,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
                 row.isSelected = true;
             }
             else {
+                $scope.row = row;
                 regularStaffService.initEditForm($scope.formData, row);
             }
 
@@ -29,5 +30,9 @@ application.controller('regularStaffController', function($scope, staffs, regula
 
     $scope.addRow = function() {
         regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
+    };
+    
+    $scope.editRow = function() {
+        regularStaffService.initEditForm($scope.formData, $scope.row);
     };
 });
