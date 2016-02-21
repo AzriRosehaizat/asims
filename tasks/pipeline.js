@@ -20,6 +20,8 @@ var jsFilesToInject = [
   'bower_components/angular-ui-grid/ui-grid.min.js',
   'bower_components/moment/min/moment.min.js',
   'bower_components/angular-moment/angular-moment.min.js',
+  'bower_components/pdfmake/build/pdfmake.min.js',
+  'bower_components/pdfmake/build/vfs_fonts.js',
   'app.js',
   'components/navLeftBar/navLeftBarController.js',
   'components/navLeftBar/navLeftBarLinkDirective.js',
