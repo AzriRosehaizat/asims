@@ -6,7 +6,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
     this.setFormData = function(formData, serviceName) {
         this.formData = formData;
         service = $injector.get(serviceName);
-        
+
         // temporary solution
         this.formData.tenureDate = (formData.model.tenureDate) ? new Date(formData.model.tenureDate) : null;
         this.formData.contAppDate = (formData.model.contAppDate) ? new Date(formData.model.contAppDate) : null;
@@ -98,6 +98,8 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
                     resetValidation(formData);
                     toaster.open("Deleted successfully!");
                 }, function(err) {
+                    console.log(err);
+
                     toaster.open(err);
                 })
                 .finally(function(notice) {
