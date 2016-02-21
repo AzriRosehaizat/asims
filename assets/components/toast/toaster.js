@@ -7,6 +7,15 @@ application.service('toaster', function($mdToast) {
                 .textContent(text)
                 .hideDelay(2000)
             );
+        },
+        error: function(err) {
+            var text = err;
+            
+            if (err.raw.sqlState === "23000") {
+                text = "Foreign key conflicts!";
+            }
+            
+            this.open(text);
         }
     };
 })

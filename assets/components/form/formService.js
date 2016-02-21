@@ -41,7 +41,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
                 _.merge(row.entity, res.data);
                 toaster.open("Updated successfully!");
             }, function(err) {
-                toaster.open(err);
+                toaster.error(err);
             })
             .finally(function(notice) {
                 formData.mode = '';
@@ -58,7 +58,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
                 resetValidation(formData);
                 toaster.open("Added successfully!");
             }, function(err) {
-                toaster.open(err);
+                toaster.error(err);
             })
             .finally(function(notice) {
                 formData.mode = '';
@@ -98,8 +98,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
                     resetValidation(formData);
                     toaster.open("Deleted successfully!");
                 }, function(err) {
-                    console.log(err);
-                    toaster.open(err);
+                    toaster.error(err);
                 })
                 .finally(function(notice) {
                     formData.mode = '';
