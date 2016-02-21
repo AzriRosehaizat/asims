@@ -112,7 +112,7 @@ application.service('departmentService', function($http, $q, _, formService) {
                 label: "Name",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description",
                 required: false
@@ -141,7 +141,7 @@ application.service('departmentService', function($http, $q, _, formService) {
                 label: "Name",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description",
                 required: false
