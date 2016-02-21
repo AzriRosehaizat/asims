@@ -2,6 +2,10 @@ body {
   font-family: 'Roboto', Arial, sans-serif;
 }
 
+#main {
+  overflow-y: scroll;
+}
+
 #content {
   background-color: #F5F5F5;
 }
