@@ -65,6 +65,44 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		})
+		.state('application.profile', {
+			url: '/profile',
+			views: {
+				'': {
+					templateUrl: '/components/profile/profile.html',
+					controller: 'profileController'
+				},
+				'details@application.profile': {
+					templateUrl: '/components/profile/details.html'
+				}
+			},
+			resolve: {
+				user: function(CurrentUser) {
+					return CurrentUser.getUser();
+				}
+			}
+		})
+		.state('application.admin', {
+			url: '/admin',
+			views: {
+				'': {
+					templateUrl: '/components/admin/admin.html',
+					controller: 'adminController'
+				},
+				'grid@application.admin': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				}
+			},
+			resolve: {
+				users: function($http) {
+					return $http.get('/user/');
+				}
+			},
+			data: {
+				access: AccessLevels.admin
+			}
+		})
 		.state('application.regularStaff', {
 			url: '/regularStaff',
 			views: {
@@ -131,6 +169,50 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		})
+		.state('application.course', {
+			url: '/course',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'courseController'
+				},
+				'grid@application.course': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.course': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				courses: function($http) {
+					return $http.get('/course');
+				}
+			}
+		})
+		.state('application.research', {
+			url: '/research',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'researchController'
+				},
+				'grid@application.research': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.research': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				researches: function($http) {
+					return $http.get('/research');
+				}
+			}
+		})
 		.state('application.FLC', {
 			url: '/facultyLoadChart',
 			views: {
@@ -156,44 +238,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				controller: 'leaveChartController'
 				}
 			},
-		})
-		.state('application.profile', {
-			url: '/profile',
-			views: {
-				'': {
-					templateUrl: '/components/profile/profile.html',
-					controller: 'profileController'
-				},
-				'details@application.profile': {
-					templateUrl: '/components/profile/details.html'
-				}
-			},
-			resolve: {
-				user: function(CurrentUser) {
-					return CurrentUser.getUser();
-				}
-			}
-		})
-		.state('application.admin', {
-			url: '/admin',
-			views: {
-				'': {
-					templateUrl: '/components/admin/admin.html',
-					controller: 'adminController'
-				},
-				'grid@application.admin': {
-					templateUrl: '/components/grid/grid.html',
-					controller: 'gridController'
-				}
-			},
-			resolve: {
-				users: function($http) {
-					return $http.get('/user/');
-				}
-			},
-			data: {
-				access: AccessLevels.admin
-			}
 		});
 
 	$urlRouterProvider.otherwise(function($injector) {
