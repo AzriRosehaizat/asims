@@ -76,10 +76,7 @@ module.exports = {
 			});
 	},
 	deleteRAS: function(req, res) {
-		// var data = {
-		// 	regularStaffID: req.param('regularStaffID'),
-		// 	academicStaffID: req.param('academicStaffID')
-		// };
+		//request for all params to avoid error.
 		var data = req.allParams();
 		//Delete child Regular Staff
 		RegularStaff.destroy({
@@ -105,9 +102,6 @@ module.exports = {
 			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff[0].academicStaffID + " and regularStaffID: " + RegularStaff[0].regularStaffID);
 		}).catch(function(err) {
 			res.serverError(err);
-			if (err.ERRNO == 1451){
-				console.log("test error")
-			}
 			console.log(err);
 			console.log("Unable to delete");
 		});
