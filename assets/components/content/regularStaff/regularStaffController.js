@@ -17,17 +17,21 @@ application.controller('regularStaffController', function($scope, staffs, regula
                 row.isSelected = true;
             }
             else {
+                $scope.row = row;
                 regularStaffService.initEditForm($scope.formData, row);
             }
 
-            regularStaffService.getDepartment($scope.tabs.departments, row);
-            regularStaffService.getRank($scope.tabs.ranks, row);
+            regularStaffService.getDepartment($scope.tabs.department, row);
+            regularStaffService.getRank($scope.tabs.rank, row);
             regularStaffService.getEmployment($scope.tabs.employment, row);
-
         });
     };
 
     $scope.addRow = function() {
         regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
+    };
+    
+    $scope.editRow = function() {
+        regularStaffService.initEditForm($scope.formData, $scope.row);
     };
 });

@@ -4,7 +4,7 @@ application
     '$rootScope',
     function($location) {
 
-      //The object for storing structure of the menu is just an array named 
+      // The object for storing structure of the menu is just an array named 
       // sections which allows us to visually see the structure easy and add items to really easy.
       var sections = [{
         name: 'Home',
@@ -26,6 +26,14 @@ application
         }, {
           name: 'Department',
           state: 'application.department',
+          type: 'link'
+        }, {
+          name: 'Course',
+          state: 'application.course',
+          type: 'link'
+        }, {
+          name: 'Research',
+          state: 'application.research',
           type: 'link'
         }]
       });
@@ -49,6 +57,7 @@ application
         type: 'link',
         state: 'application.admin'
       });
+
       var self;
 
       return self = {
