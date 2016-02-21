@@ -1,7 +1,7 @@
 <div id="selectInput">
     <md-input-container class="md-block" flex>
         <label>{{input.label}}</label>
-        <md-select name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-required="input.required">
+        <md-select name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-disabled="input.disabled" ng-required="input.required">
             <md-option ng-value="role" ng-repeat="role in input.roles">{{ role.role }}</md-option>
         </md-select>
         <div ng-messages="fs.formData.form[input.name].$error" ng-show="fs.formData.form[input.name].$touched">

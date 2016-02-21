@@ -1,7 +1,7 @@
 <div>
     <md-input-container class="md-block" flex>
         <label>{{input.label}}</label>
-        <input type="email" name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-required="input.required">
+        <input type="email" name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-disabled="input.disabled" ng-required="input.required">
         <div ng-messages="fs.formData.form[input.name].$error" ng-show="fs.formData.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
         </div>
