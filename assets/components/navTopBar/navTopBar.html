@@ -14,9 +14,9 @@
         <md-menu-bar>
             <md-menu>
                 <button ng-click="$mdOpenMenu($event)" aria-label="My Profile">
-                    <div layout="row">
+                    <div layout="row" layout-align="center center">
                         <md-icon md-font-set="material-icons">face</md-icon>
-                        <span hide-xs>{{user.firstName}} {{user.lastName}}</span>
+                        <span id="username" hide-xs>{{user.firstName}} {{user.lastName}}</span>
                     </div>
                 </button>
 
