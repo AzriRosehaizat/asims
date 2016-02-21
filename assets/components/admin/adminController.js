@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, $filter, users, adminService, SearchHelper) {
+application.controller('adminController', function($scope, users, adminService, SearchHelper) {
 
     $scope.gridTitle = 'Admin Page';
     $scope.users = users.data;
@@ -8,6 +8,7 @@ application.controller('adminController', function($scope, $filter, users, admin
     $scope.gridOptions.data = $scope.users;
     
     adminService.initAddForm($scope.formData, $scope.gridOptions.data);
+    SearchHelper.init($scope.gridOptions, $scope.users);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
@@ -29,27 +30,4 @@ application.controller('adminController', function($scope, $filter, users, admin
     $scope.lastLogin = function(row) {
         adminService.lastLogin(row);
     };
-    
-    /* Search function */
-
-    $scope.$watch(
-        function() {
-            return SearchHelper.search;
-        },
-        function(newVal) {
-            searchData(newVal);
-        }
-    );
-
-    // ref: http://plnkr.co/edit/ijjzLX3jN7zWBvc5sdnQ?p=preview
-    function searchData(searchStr) {
-        $scope.gridOptions.data = $scope.users;
-
-        while (searchStr) {
-            var searchArray = searchStr.split(' ');
-            $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, searchArray[0], undefined);
-            searchArray.shift();
-            searchStr = (searchArray.length !== 0) ? searchArray.join(' ') : '';
-        }
-    }
 });

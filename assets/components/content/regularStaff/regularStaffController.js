@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, $filter, staffs, regularStaffService, SearchHelper) {
+application.controller('regularStaffController', function($scope, staffs, regularStaffService, SearchHelper) {
 
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaff = staffs.data;
@@ -9,6 +9,7 @@ application.controller('regularStaffController', function($scope, $filter, staff
     $scope.tabs = regularStaffService.tabs();
     
     regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
+    SearchHelper.init($scope.gridOptions, $scope.rStaff);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
@@ -29,27 +30,4 @@ application.controller('regularStaffController', function($scope, $filter, staff
     $scope.addRow = function() {
         regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
     };
-    
-    /* Search function */
-
-    $scope.$watch(
-        function() {
-            return SearchHelper.search;
-        },
-        function(newVal) {
-            searchData(newVal);
-        }
-    );
-
-    // ref: http://plnkr.co/edit/ijjzLX3jN7zWBvc5sdnQ?p=preview
-    function searchData(searchStr) {
-        $scope.gridOptions.data = $scope.rStaff;
-
-        while (searchStr) {
-            var searchArray = searchStr.split(' ');
-            $scope.gridOptions.data = $filter('filter')($scope.gridOptions.data, searchArray[0], undefined);
-            searchArray.shift();
-            searchStr = (searchArray.length !== 0) ? searchArray.join(' ') : '';
-        }
-    }
 });
