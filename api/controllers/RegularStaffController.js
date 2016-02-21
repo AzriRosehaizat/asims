@@ -37,7 +37,7 @@ module.exports = {
 			});
 	},
 	updateRAS: function(req, res) {
-		var id = req.param('id');
+		var academicStaffID = req.param('academicStaffID');
 		var data = {
 			firstName: req.param('firstName'),
 			lastName: req.param('lastName')
@@ -48,7 +48,7 @@ module.exports = {
 			tenureDate: req.param('tenureDate')
 		};
 
-		AcademicStaff.update(id, data)
+		AcademicStaff.update(academicStaffID, data)
 			.then(function(updated) {
 				var updatedRAS = RegularStaff.update(rasData.regularStaffID, rasData).then(function(updatedRAS) {
 					return updatedRAS;
@@ -58,7 +58,7 @@ module.exports = {
 				res.json({
 					AcademicStaff, RegularStaff
 				});
-				console.log("Updated staff successfully for: academicStaffID: " + AcademicStaff.academicStaffID + " and regularStaffID: " + RegularStaff.regularStaffID );
+				console.log("Updated staff successfully for: academicStaffID: " + AcademicStaff.academicStaffID.toString + " and regularStaffID: " + RegularStaff.regularStaffID );
 
 			}).catch(function(err) {
 				res.serverError(err);
@@ -67,12 +67,12 @@ module.exports = {
 	},
 	deleteRAS: function(req, res) {
 		var data = {
-			id: req.param('id'),
+			regularStaffID: req.param('regularStaffID'),
 			academicStaffID: req.param('academicStaffID')
 		};
 		//Delete child Regular Staff
 		RegularStaff.destroy({
-			regularStaffID: data.id
+			regularStaffID: data.regularStaffID
 		}).then(function(deletedRAS) {
 			//delete parent AcademicStaff
 			var deleted = AcademicStaff.destroy({
