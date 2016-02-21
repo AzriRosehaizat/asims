@@ -13,11 +13,10 @@ application.controller('adminController', function($scope, users, adminService, 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             if (row.entity.id === $scope.formData.model.id) {
-                // second click on the same row
                 row.isSelected = true;
             }
             else {
-                // first click
+                $scope.row = row;
                 adminService.initEditForm($scope.formData, row);
             }
         });
@@ -25,6 +24,10 @@ application.controller('adminController', function($scope, users, adminService, 
 
     $scope.addRow = function() {
         adminService.initAddForm($scope.formData, $scope.gridOptions.data);
+    };
+    
+    $scope.editRow = function() {
+        adminService.initEditForm($scope.formData, $scope.row);
     };
 
     $scope.lastLogin = function(row) {
