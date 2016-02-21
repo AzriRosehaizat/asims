@@ -1,4 +1,4 @@
--- MySQL Workbench Forward Engineering
+-- MySQL Workbench Forward Engineering cw 19/02/2016
 
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
@@ -24,12 +24,13 @@ USE `asims` ;
 DROP TABLE IF EXISTS `AcademicStaff` ;
 
 CREATE TABLE IF NOT EXISTS `AcademicStaff` (
-  `academicStaffID` INT(11) NOT NULL AUTO_INCREMENT,
-  `firstName` VARCHAR(50) NOT NULL,
-  `lastName` VARCHAR(50) NOT NULL,
-  `employeeNo` VARCHAR(50) NULL,
+  `academicStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `firstName` VARCHAR(50) NOT NULL COMMENT '',
+  `lastName` VARCHAR(50) NOT NULL COMMENT '',
+  `employeeNo` VARCHAR(50) NULL COMMENT '',
   PRIMARY KEY (`academicStaffID`)  COMMENT '')
 ENGINE = InnoDB
+AUTO_INCREMENT = 201
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -39,10 +40,11 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Faculty` ;
 
 CREATE TABLE IF NOT EXISTS `Faculty` (
-  `facultyID` INT(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(50) NOT NULL,
+  `facultyID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
   PRIMARY KEY (`facultyID`)  COMMENT '')
 ENGINE = InnoDB
+AUTO_INCREMENT = 7
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -52,18 +54,19 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Department` ;
 
 CREATE TABLE IF NOT EXISTS `Department` (
-  `departmentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `facultyID` INT(11) NOT NULL,
-  `departmentCode` VARCHAR(10) NULL DEFAULT NULL,
-  `title` VARCHAR(50) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`departmentID`) ,
-  UNIQUE INDEX `departmentCode` (`departmentCode` ASC) ,
-  INDEX `facultyID` (`facultyID` ASC) ,
+  `departmentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `facultyID` INT(11) NOT NULL COMMENT '',
+  `departmentCode` VARCHAR(10) NULL DEFAULT NULL COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`departmentID`)  COMMENT '',
+  UNIQUE INDEX `departmentCode` (`departmentCode` ASC)  COMMENT '',
+  INDEX `facultyID` (`facultyID` ASC)  COMMENT '',
   CONSTRAINT `Department_ibfk_1`
     FOREIGN KEY (`facultyID`)
     REFERENCES `Faculty` (`facultyID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 32
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -73,14 +76,15 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `AcademicStaff_Department` ;
 
 CREATE TABLE IF NOT EXISTS `AcademicStaff_Department` (
-  `academicStaffDepartmentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `departmentID` INT(11) NOT NULL,
-  `academicStaffID` INT(11) NOT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2000-01-01',
-  `endDate` DATE NULL,
-  PRIMARY KEY (`academicStaffDepartmentID`) ,
-  INDEX `departmentID` (`departmentID` ASC) ,
-  INDEX `academicStaffID` (`academicStaffID` ASC) ,
+  `academicStaffDepartmentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2000-01-01' COMMENT '',
+  `endDate` DATE NULL COMMENT '',
+  `isPrimaryDepartment` TINYINT(1) NULL DEFAULT 1 COMMENT '',
+  PRIMARY KEY (`academicStaffDepartmentID`)  COMMENT '',
+  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
   CONSTRAINT `AcademicStaff_Department_ibfk_2`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`),
@@ -88,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `AcademicStaff_Department` (
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 201
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -97,13 +102,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Section` ;
 
 CREATE TABLE IF NOT EXISTS `Section` (
-  `sectionID` INT(11) NOT NULL AUTO_INCREMENT,
-  `sectionNo` VARCHAR(10) NOT NULL,
-  `courseType` VARCHAR(50) NULL,
-  `FCEModifier` FLOAT NOT NULL DEFAULT 1,
-  PRIMARY KEY (`sectionID`) ,
+  `sectionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `sectionNo` VARCHAR(10) NOT NULL COMMENT '',
+  `courseType` VARCHAR(50) NULL COMMENT '',
+  `FCEModifier` FLOAT NOT NULL DEFAULT 1 COMMENT '',
+  PRIMARY KEY (`sectionID`)  COMMENT '',
   UNIQUE INDEX `sectionNo` (`sectionNo` ASC)  COMMENT '')
 ENGINE = InnoDB
+AUTO_INCREMENT = 14
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -113,13 +119,13 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Course` ;
 
 CREATE TABLE IF NOT EXISTS `Course` (
-  `courseID` INT(11) NOT NULL AUTO_INCREMENT,
-  `departmentID` INT(11) NOT NULL,
-  `courseNO` VARCHAR(11) NOT NULL,
-  `title` VARCHAR(50) NULL DEFAULT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`courseID`) ,
-  UNIQUE INDEX `uc_course` (`departmentID` ASC, `courseNO` ASC) ,
+  `courseID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `courseNO` VARCHAR(11) NOT NULL COMMENT '',
+  `title` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`courseID`)  COMMENT '',
+  UNIQUE INDEX `uc_course` (`departmentID` ASC, `courseNO` ASC)  COMMENT '',
   CONSTRAINT `Course_ibfk_1`
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`))
@@ -133,15 +139,15 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Section_Offered` ;
 
 CREATE TABLE IF NOT EXISTS `Section_Offered` (
-  `sectionOfferedID` INT(11) NOT NULL AUTO_INCREMENT,
-  `courseID` INT(11) NOT NULL,
-  `sectionID` INT(11) NOT NULL,
-  `groupID` INT(11) DEFAULT NULL,
+  `sectionOfferedID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `courseID` INT(11) NOT NULL COMMENT '',
+  `sectionID` INT(11) NOT NULL COMMENT '',
+  `groupID` INT(11) DEFAULT NULL COMMENT '',
   `startDate` DATE NOT NULL DEFAULT '2016-09-11',
   `endDate` DATE NOT NULL DEFAULT '2016-12-21',
-  PRIMARY KEY (`sectionOfferedID`) ,
-  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC) ,
-  INDEX `sectionID` (`sectionID` ASC) ,
+  PRIMARY KEY (`sectionOfferedID`)  COMMENT '',
+  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC)  COMMENT '',
+  INDEX `sectionID` (`sectionID` ASC)  COMMENT '',
   CONSTRAINT `Section_Offered_ibfk_2`
     FOREIGN KEY (`sectionID`)
     REFERENCES `Section` (`sectionID`),
@@ -157,14 +163,14 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `AcademicStaff_Section` ;
 CREATE TABLE IF NOT EXISTS `AcademicStaff_Section` (
-  `academicStaffSectionID` INT(11) NOT NULL AUTO_INCREMENT,
-  `academicStaffID` INT(11) NOT NULL,
-  `sectionOfferedID` INT(11) NOT NULL,
-  `role` VARCHAR(50) NULL,
-  `weight` FLOAT NOT NULL,
-  PRIMARY KEY (`academicStaffSectionID`) ,
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
-  INDEX `academicStaffID` (`academicStaffID` ASC) ,
+  `academicStaffSectionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
+  `role` VARCHAR(50) NULL COMMENT '',
+  `weight` FLOAT NOT NULL COMMENT '',
+  PRIMARY KEY (`academicStaffSectionID`)  COMMENT '',
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
   CONSTRAINT `AcademicStaff_Section_ibfk_2`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`),
@@ -181,16 +187,17 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaff` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaff` (
-  `academicStaffID` INT(11) NOT NULL,
-  `regularStaffID` INT(11) NOT NULL AUTO_INCREMENT,
-  `contAppDate` DATE NULL DEFAULT NULL,
-  `tenureDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`regularStaffID`) ,
-  INDEX `academicStaffID` (`academicStaffID` ASC) ,
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  `regularStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `contApptDate` DATE NULL DEFAULT NULL COMMENT '',
+  `tenureDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularStaffID`)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
   CONSTRAINT `RegularStaff_ibfk_1`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 151
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -200,14 +207,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Chair` ;
 
 CREATE TABLE IF NOT EXISTS `Chair` (
-  `chairID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `departmentID` INT(11) NOT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`chairID`) ,
-  INDEX `departmentID` (`departmentID` ASC) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `chairID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`chairID`)  COMMENT '',
+  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `Chair_ibfk_2`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`),
@@ -215,6 +222,7 @@ CREATE TABLE IF NOT EXISTS `Chair` (
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -224,14 +232,15 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `ContractStaff` ;
 
 CREATE TABLE IF NOT EXISTS `ContractStaff` (
-  `contractStaffID` INT(11) NOT NULL AUTO_INCREMENT,
-  `academicStaffID` INT(11) NOT NULL,
-  PRIMARY KEY (`contractStaffID`) ,
-  INDEX `academicStaffID` (`academicStaffID` ASC) ,
+  `contractStaffID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`contractStaffID`)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
   CONSTRAINT `ContractStaff_ibfk_1`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 51
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -241,16 +250,17 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `ContractStaffEmployment` ;
 
 CREATE TABLE IF NOT EXISTS `ContractStaffEmployment` (
-  `contractStaffID` INT(11) NOT NULL,
-  `contractEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`contractEmploymentID`) ,
-  INDEX `contractStaffID` (`contractStaffID` ASC) ,
+  `contractStaffID` INT(11) NOT NULL COMMENT '',
+  `contractEmploymentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`contractEmploymentID`)  COMMENT '',
+  INDEX `contractStaffID` (`contractStaffID` ASC)  COMMENT '',
   CONSTRAINT `ContractStaffEmployment_ibfk_1`
     FOREIGN KEY (`contractStaffID`)
     REFERENCES `ContractStaff` (`contractStaffID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 51
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -260,11 +270,11 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Crosslisting` ;
 
 CREATE TABLE IF NOT EXISTS `Crosslisting` (
-  `crosslistingID` INT(11) NOT NULL AUTO_INCREMENT,
-  `courseID` INT(11) NOT NULL,
-  `groupID` INT(11) NOT NULL,
-  PRIMARY KEY (`crosslistingID`) ,
-  INDEX `courseID` (`courseID` ASC) ,
+  `crosslistingID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `courseID` INT(11) NOT NULL COMMENT '',
+  `groupID` INT(11) NOT NULL COMMENT '',
+  PRIMARY KEY (`crosslistingID`)  COMMENT '',
+  INDEX `courseID` (`courseID` ASC)  COMMENT '',
   CONSTRAINT `Crosslisting_ibfk_1`
     FOREIGN KEY (`courseID`)
     REFERENCES `Course` (`courseID`))
@@ -278,11 +288,12 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Rank` ;
 
 CREATE TABLE IF NOT EXISTS `Rank` (
-  `rankID` INT(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(50) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
+  `rankID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
   PRIMARY KEY (`rankID`)  COMMENT '')
 ENGINE = InnoDB
+AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -292,14 +303,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `DefaultNormalLoad` ;
 
 CREATE TABLE IF NOT EXISTS `DefaultNormalLoad` (
-  `defaultNormalLoadID` INT(11) NOT NULL AUTO_INCREMENT,
-  `rankID` INT(11) NOT NULL,
-  `departmentID` INT(11) NOT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `FCEValue` FLOAT NOT NULL,
-  PRIMARY KEY (`defaultNormalLoadID`) ,
-  INDEX `rankID` (`rankID` ASC) ,
-  INDEX `departmentID` (`departmentID` ASC) ,
+  `defaultNormalLoadID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `rankID` INT(11) NOT NULL COMMENT '',
+  `departmentID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `FCEValue` FLOAT NOT NULL COMMENT '',
+  PRIMARY KEY (`defaultNormalLoadID`)  COMMENT '',
+  INDEX `rankID` (`rankID` ASC)  COMMENT '',
+  INDEX `departmentID` (`departmentID` ASC)  COMMENT '',
   CONSTRAINT `DefaultNormalLoad_ibfk_2`
     FOREIGN KEY (`departmentID`)
     REFERENCES `Department` (`departmentID`),
@@ -316,14 +327,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `FCECredit` ;
 
 CREATE TABLE IF NOT EXISTS `FCECredit` (
-  `FCECreditID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `amount` FLOAT NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `dateIssued` DATE NULL DEFAULT NULL,
-  `FCECreditType` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`FCECreditID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `FCECreditID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `FCECreditType` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`FCECreditID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `FCECredit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -337,14 +348,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `FCEDebit` ;
 
 CREATE TABLE IF NOT EXISTS `FCEDebit` (
-  `FCEDebitID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `amount` FLOAT NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `dateIssued` DATE NULL DEFAULT NULL,
-  `FCEDebitType` VARCHAR(50) NULL DEFAULT NULL,
-  PRIMARY KEY (`FCEDebitID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `FCEDebitID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `FCEDebitType` VARCHAR(50) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`FCEDebitID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `FCEDebit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -358,14 +369,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LeaveCredit` ;
 
 CREATE TABLE IF NOT EXISTS `LeaveCredit` (
-  `leaveCreditID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `amount` FLOAT NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `dateIssued` DATE NULL DEFAULT NULL,
-  `leaveCreditType` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`leaveCreditID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `leaveCreditID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `leaveCreditType` VARCHAR(50) NOT NULL COMMENT '',
+  PRIMARY KEY (`leaveCreditID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `LeaveCredit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -379,14 +390,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LeaveDebit` ;
 
 CREATE TABLE IF NOT EXISTS `LeaveDebit` (
-  `leaveDebitID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `amount` FLOAT NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `dateIssued` DATE NULL DEFAULT NULL,
-  `leaveDebitType` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`leaveDebitID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `leaveDebitID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `amount` FLOAT NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `dateIssued` DATE NULL DEFAULT NULL COMMENT '',
+  `leaveDebitType` VARCHAR(50) NOT NULL COMMENT '',
+  PRIMARY KEY (`leaveDebitID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `LeaveDebit_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -400,14 +411,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LoadIncrease` ;
 
 CREATE TABLE IF NOT EXISTS `LoadIncrease` (
-  `loadIncreaseID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
-  `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
-  PRIMARY KEY (`loadIncreaseID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `loadIncreaseID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
+  PRIMARY KEY (`loadIncreaseID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `LoadIncrease_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -421,14 +432,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `LoadReduction` ;
 
 CREATE TABLE IF NOT EXISTS `LoadReduction` (
-  `loadReductionID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
-  `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
-  PRIMARY KEY (`loadReductionID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `loadReductionID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `description` TEXT NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
+  PRIMARY KEY (`loadReductionID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `LoadReduction_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
@@ -442,16 +453,17 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaffEmployment` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaffEmployment` (
-  `regularStaffID` INT(11) NOT NULL,
-  `regularEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`regularEmploymentID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `regularEmploymentID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularEmploymentID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `RegularStaffEmployment_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 151
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -461,14 +473,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaff_Rank` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaff_Rank` (
-  `regularStaffRankID` INT(11) NOT NULL AUTO_INCREMENT,
-  `rankID` INT(11) NOT NULL,
-  `regularStaffID` INT(11) NOT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`regularStaffRankID`) ,
-  INDEX `rankID` (`rankID` ASC) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  `regularStaffRankID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `rankID` INT(11) NOT NULL COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01' COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularStaffRankID`)  COMMENT '',
+  INDEX `rankID` (`rankID` ASC)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
   CONSTRAINT `RegularStaff_Rank_ibfk_2`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`),
@@ -476,6 +488,7 @@ CREATE TABLE IF NOT EXISTS `RegularStaff_Rank` (
     FOREIGN KEY (`rankID`)
     REFERENCES `Rank` (`rankID`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 151
 DEFAULT CHARACTER SET = latin1;
 
 
@@ -485,11 +498,11 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `Research` ;
 
 CREATE TABLE IF NOT EXISTS `Research` (
-  `researchID` INT(11) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(50) NOT NULL,
-  `abstract` TEXT NULL DEFAULT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
+  `researchID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `title` VARCHAR(50) NOT NULL COMMENT '',
+  `abstract` TEXT NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
   PRIMARY KEY (`researchID`)  COMMENT '')
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
@@ -501,16 +514,16 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RegularStaff_Research` ;
 
 CREATE TABLE IF NOT EXISTS `RegularStaff_Research` (
-  `regularStaffResearchID` INT(11) NOT NULL AUTO_INCREMENT,
-  `researchID` INT(11) NOT NULL,
-  `regularStaffID` INT(11) NOT NULL,
-  `loadReductionID` INT(11) NULL DEFAULT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`regularStaffResearchID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  INDEX `researchID` (`researchID` ASC) ,
-  INDEX `loadReductionID` (`loadReductionID` ASC) ,
+  `regularStaffResearchID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `researchID` INT(11) NOT NULL COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `loadReductionID` INT(11) NULL DEFAULT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`regularStaffResearchID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  INDEX `researchID` (`researchID` ASC)  COMMENT '',
+  INDEX `loadReductionID` (`loadReductionID` ASC)  COMMENT '',
   CONSTRAINT `RegularStaff_Research_ibfk_3`
     FOREIGN KEY (`loadReductionID`)
     REFERENCES `LoadReduction` (`loadReductionID`),
@@ -530,14 +543,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `ResearchGrant` ;
 
 CREATE TABLE IF NOT EXISTS `ResearchGrant` (
-  `grantID` INT(11) NOT NULL AUTO_INCREMENT,
-  `researchID` INT(11) NOT NULL,
-  `grantingAgency` VARCHAR(50) NOT NULL,
-  `dateAwarded` DATE NULL DEFAULT NULL,
-  `duration` FLOAT(10,2) NULL DEFAULT NULL,
-  `amount` FLOAT(10,2) NULL DEFAULT NULL,
-  PRIMARY KEY (`grantID`) ,
-  INDEX `researchID` (`researchID` ASC) ,
+  `grantID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `researchID` INT(11) NOT NULL COMMENT '',
+  `grantingAgency` VARCHAR(50) NOT NULL COMMENT '',
+  `dateAwarded` DATE NULL DEFAULT NULL COMMENT '',
+  `duration` FLOAT(10,2) NULL DEFAULT NULL COMMENT '',
+  `amount` FLOAT(10,2) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`grantID`)  COMMENT '',
+  INDEX `researchID` (`researchID` ASC)  COMMENT '',
   CONSTRAINT `ResearchGrant_ibfk_1`
     FOREIGN KEY (`researchID`)
     REFERENCES `Research` (`researchID`))
@@ -551,14 +564,14 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `RightToRefusal` ;
 
 CREATE TABLE IF NOT EXISTS `RightToRefusal` (
-  `rightToRefusalID` INT(11) NOT NULL AUTO_INCREMENT,
-  `sectionOfferedID` INT(11) NOT NULL,
-  `contractStaffID` INT(11) NOT NULL,
-  `startTerm` VARCHAR(10) NOT NULL,
-  `endTerm` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`rightToRefusalID`) ,
-  INDEX `contractStaffID` (`contractStaffID` ASC) ,
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
+  `rightToRefusalID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
+  `contractStaffID` INT(11) NOT NULL COMMENT '',
+  `startTerm` VARCHAR(10) NOT NULL COMMENT '',
+  `endTerm` VARCHAR(10) NOT NULL COMMENT '',
+  PRIMARY KEY (`rightToRefusalID`)  COMMENT '',
+  INDEX `contractStaffID` (`contractStaffID` ASC)  COMMENT '',
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
   CONSTRAINT `RightToRefusal_ibfk_2`
     FOREIGN KEY (`sectionOfferedID`)
     REFERENCES `Section_Offered` (`sectionOfferedID`),
@@ -575,17 +588,17 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `StaffLeave` ;
 
 CREATE TABLE IF NOT EXISTS `StaffLeave` (
-  `leaveID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `leaveDebitID` INT(11) NOT NULL,
-  `description` TEXT NOT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
-  `leavePercentage` FLOAT NOT NULL,
-  `wagePercentage` FLOAT NOT NULL,
-  PRIMARY KEY (`leaveID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  INDEX `leaveDebitID` (`leaveDebitID` ASC) ,
+  `leaveID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `regularStaffID` INT(11) NOT NULL COMMENT '',
+  `leaveDebitID` INT(11) NOT NULL COMMENT '',
+  `description` TEXT NOT NULL COMMENT '',
+  `startDate` DATE NOT NULL COMMENT '',
+  `endDate` DATE NOT NULL COMMENT '',
+  `leavePercentage` FLOAT NOT NULL COMMENT '',
+  `wagePercentage` FLOAT NOT NULL COMMENT '',
+  PRIMARY KEY (`leaveID`)  COMMENT '',
+  INDEX `regularStaffID` (`regularStaffID` ASC)  COMMENT '',
+  INDEX `leaveDebitID` (`leaveDebitID` ASC)  COMMENT '',
   CONSTRAINT `StaffLeave_ibfk_2`
     FOREIGN KEY (`leaveDebitID`)
     REFERENCES `LeaveDebit` (`leaveDebitID`),
@@ -602,16 +615,16 @@ DEFAULT CHARACTER SET = latin1;
 DROP TABLE IF EXISTS `TeachingActivities` ;
 
 CREATE TABLE IF NOT EXISTS `TeachingActivities` (
-  `teachingActivitiesID` INT(11) NOT NULL AUTO_INCREMENT,
-  `academicStaffID` INT(11) NOT NULL,
-  `sectionOfferedID` INT(11) NOT NULL,
-  `role` VARCHAR(50) NULL,
-  `startDate` DATE NOT NULL DEFAULT '2015-09-05',
-  `endDate` DATE NOT NULL DEFAULT '2016-04-25',
-  `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
-  PRIMARY KEY (`teachingActivitiesID`) ,
-  INDEX `academicStaffID` (`academicStaffID` ASC) ,
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
+  `teachingActivitiesID` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `academicStaffID` INT(11) NOT NULL COMMENT '',
+  `sectionOfferedID` INT(11) NOT NULL COMMENT '',
+  `role` VARCHAR(50) NULL COMMENT '',
+  `startDate` DATE NOT NULL DEFAULT '2015-09-05' COMMENT '',
+  `endDate` DATE NOT NULL DEFAULT '2016-04-25' COMMENT '',
+  `FCEValue` FLOAT NOT NULL DEFAULT '0.5' COMMENT '',
+  PRIMARY KEY (`teachingActivitiesID`)  COMMENT '',
+  INDEX `academicStaffID` (`academicStaffID` ASC)  COMMENT '',
+  INDEX `sectionOfferedID` (`sectionOfferedID` ASC)  COMMENT '',
   CONSTRAINT `TeachingActivities_ibfk_2`
     FOREIGN KEY (`sectionOfferedID`)
     REFERENCES `section_offered` (`sectionOfferedID`),
@@ -656,10 +669,18 @@ INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES 
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (51,2,51),(52,4,52),(53,5,53),(54,6,54),(55,6,55),(56,5,56),(57,3,57),(58,4,58),(59,2,59),(60,5,60),(61,5,61),(62,3,62),(63,4,63),(64,5,64),(65,3,65),(66,4,66),(67,3,67),(68,1,68),(69,5,69),(70,7,70),(71,1,71),(72,6,72),(73,4,73),(74,1,74),(75,3,75),(76,2,76),(77,4,77),(78,1,78),(79,7,79),(80,1,80),(81,2,81),(82,2,82),(83,7,83),(84,6,84),(85,5,85),(86,4,86),(87,1,87),(88,6,88),(89,6,89),(90,6,90),(91,3,91),(92,4,92),(93,7,93),(94,3,94),(95,2,95),(96,6,96),(97,3,97),(98,5,98),(99,2,99),(100,4,100);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (101,6,101),(102,1,102),(103,4,103),(104,6,104),(105,2,105),(106,7,106),(107,2,107),(108,3,108),(109,3,109),(110,1,110),(111,7,111),(112,3,112),(113,6,113),(114,2,114),(115,4,115),(116,1,116),(117,6,117),(118,4,118),(119,2,119),(120,2,120),(121,2,121),(122,3,122),(123,4,123),(124,3,124),(125,4,125),(126,2,126),(127,1,127),(128,2,128),(129,3,129),(130,3,130),(131,4,131),(132,4,132),(133,4,133),(134,7,134),(135,3,135),(136,4,136),(137,2,137),(138,7,138),(139,3,139),(140,1,140),(141,5,141),(142,5,142),(143,4,143),(144,2,144),(145,3,145),(146,3,146),(147,6,147),(148,2,148),(149,4,149),(150,1,150);
 INSERT INTO Chair (chairID,regularStaffID,departmentID) VALUES (1,37,23),(2,85,26),(3,67,30),(4,99,20),(5,113,27),(6,58,29),(7,103,24),(8,79,31),(9,74,21),(10,141,22),(11,45,25),(12,107,28);
-INSERT INTO asims.section_offered (courseID, sectionID) VALUES (2,14),(3,14),(4,14),(5,14),(6,14),(7,14),(8,14),(9,14),(10,14),(11,14),(12,14),(13,14),(14,14),(15,14),(16,14),(17,14),(18,14),(19,14),(20,14),(21,14),(22,14),(23,14),(24,14),(25,14),(26,14),(27,14),(28,14),(29,14),(30,14),(31,14),(32,14),(33,14),(34,14),(35,14),(36,14),(37,14),(38,14),(39,14),(40,14),(41,14),(42,14),(43,14),(44,14),(45,14),(46,14),(47,14),(48,14),(49,14),(50,14),(51,14),(52,14),(53,14),(54,14),(55,14),(56,14),(57,14),(58,14),(59,14),(60,14),(61,14),(62,14),(63,14),(64,14),(65,14),(66,14),(67,14),(68,14),(69,14),(70,14),(71,14),(72,14),(73,14),(74,14),(75,14),(76,14),(77,14),(78,14),(79,14),(80,14),(81,14),(82,14),(83,14),(84,14),(85,14),(86,14),(87,14),(88,14),(89,14),(90,14),(91,14),(92,14),(93,14),(94,14),(95,14),(96,14),(97,14),(98,14),(99,14),(100,14),(101,14),(102,14),(103,14);
+INSERT INTO asims.Section_Offered (courseID, sectionID) VALUES (2,14),(3,14),(4,14),(5,14),(6,14),(7,14),(8,14),(9,14),(10,14),(11,14),(12,14),(13,14),(14,14),(15,14),(16,14),(17,14),(18,14),(19,14),(20,14),(21,14),(22,14),(23,14),(24,14),(25,14),(26,14),(27,14),(28,14),(29,14),(30,14),(31,14),(32,14),(33,14),(34,14),(35,14),(36,14),(37,14),(38,14),(39,14),(40,14),(41,14),(42,14),(43,14),(44,14),(45,14),(46,14),(47,14),(48,14),(49,14),(50,14),(51,14),(52,14),(53,14),(54,14),(55,14),(56,14),(57,14),(58,14),(59,14),(60,14),(61,14),(62,14),(63,14),(64,14),(65,14),(66,14),(67,14),(68,14),(69,14),(70,14),(71,14),(72,14),(73,14),(74,14),(75,14),(76,14),(77,14),(78,14),(79,14),(80,14),(81,14),(82,14),(83,14),(84,14),(85,14),(86,14),(87,14),(88,14),(89,14),(90,14),(91,14),(92,14),(93,14),(94,14),(95,14),(96,14),(97,14),(98,14),(99,14),(100,14),(101,14),(102,14),(103,14);
 
 
 -- default dates
-INSERT INTO `asims`.`teachingactivities` (`academicStaffID`,`sectionOfferedID`) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50),(51,51),(52,52),(53,53),(54,54),(55,55),(56,56),(57,57),(58,58),(59,59),(60,60),(61,61),(62,62),(63,63),(64,64),(65,65),(66,66),(67,67),(68,68),(69,69),(70,70),(71,71),(72,72),(73,73),(74,74),(75,75),(76,76),(77,77),(78,78),(79,79),(80,80),(81,81),(82,82),(83,83),(84,84),(85,85),(86,86),(87,87),(88,88),(89,89),(90,90),(91,91),(92,92),(93,93),(94,94),(95,95),(96,96),(97,97),(98,98),(99,99),(100,100),(101,101);
+INSERT INTO `asims`.`TeachingActivities` (`academicStaffID`,`sectionOfferedID`) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50),(51,51),(52,52),(53,53),(54,54),(55,55),(56,56),(57,57),(58,58),(59,59),(60,60),(61,61),(62,62),(63,63),(64,64),(65,65),(66,66),(67,67),(68,68),(69,69),(70,70),(71,71),(72,72),(73,73),(74,74),(75,75),(76,76),(77,77),(78,78),(79,79),(80,80),(81,81),(82,82),(83,83),(84,84),(85,85),(86,86),(87,87),(88,88),(89,89),(90,90),(91,91),(92,92),(93,93),(94,94),(95,95),(96,96),(97,97),(98,98),(99,99),(100,100),(101,101);
 -- non default dates
-INSERT INTO `asims`.`teachingactivities` (`academicStaffID`,`sectionOfferedID`, `startDate`,`endDate`) VALUES(1,1, '2017-09-11', '2017-12-21'),(2,2, '2017-09-11', '2017-12-21'),(3,3, '2017-09-11', '2017-12-21'),(4,4, '2017-09-11', '2017-12-21'),(5,5, '2017-09-11', '2017-12-21'),(6,6, '2017-09-11', '2017-12-21'),(7,7, '2017-09-11', '2017-12-21'),(8,8, '2017-09-11', '2017-12-21'),(9,9, '2017-09-11', '2017-12-21'),(10,10, '2017-09-11', '2017-12-21'),(11,11, '2017-09-11', '2017-12-21'),(12,12, '2017-09-11', '2017-12-21'),(13,13, '2017-09-11', '2017-12-21'),(14,14, '2017-09-11', '2017-12-21'),(15,15, '2017-09-11', '2017-12-21'),(16,16, '2017-09-11', '2017-12-21'),(17,17, '2017-09-11', '2017-12-21'),(18,18, '2017-09-11', '2017-12-21'),(19,19, '2017-09-11', '2017-12-21'),(20,20, '2017-09-11', '2017-12-21'),(21,21, '2017-09-11', '2017-12-21'),(22,22, '2017-09-11', '2017-12-21'),(23,23, '2017-09-11', '2017-12-21'),(24,24, '2017-09-11', '2017-12-21'),(25,25, '2017-09-11', '2017-12-21'),(26,26, '2017-09-11', '2017-12-21'),(27,27, '2017-09-11', '2017-12-21'),(28,28, '2017-09-11', '2017-12-21'),(29,29, '2017-09-11', '2017-12-21'),(30,30, '2017-09-11', '2017-12-21'),(31,31, '2017-09-11', '2017-12-21'),(32,32, '2017-09-11', '2017-12-21'),(33,33, '2017-09-11', '2017-12-21'),(34,34, '2017-09-11', '2017-12-21'),(35,35, '2017-09-11', '2017-12-21'),(36,36, '2017-09-11', '2017-12-21'),(37,37, '2017-09-11', '2017-12-21'),(38,38, '2017-09-11', '2017-12-21'),(39,39, '2017-09-11', '2017-12-21'),(40,40, '2017-09-11', '2017-12-21'),(41,41, '2017-09-11', '2017-12-21'),(42,42, '2017-09-11', '2017-12-21'),(43,43, '2017-09-11', '2017-12-21'),(44,44, '2017-09-11', '2017-12-21'),(45,45, '2017-09-11', '2017-12-21'),(46,46, '2017-09-11', '2017-12-21'),(47,47, '2017-09-11', '2017-12-21'),(48,48, '2017-09-11', '2017-12-21'),(49,49, '2017-09-11', '2017-12-21'),(50,50, '2017-09-11', '2017-12-21'),(51,51, '2017-09-11', '2017-12-21'),(52,52, '2017-09-11', '2017-12-21'),(53,53, '2017-09-11', '2017-12-21'),(54,54, '2017-09-11', '2017-12-21'),(55,55, '2017-09-11', '2017-12-21'),(56,56, '2017-09-11', '2017-12-21'),(57,57, '2017-09-11', '2017-12-21'),(58,58, '2017-09-11', '2017-12-21'),(59,59, '2017-09-11', '2017-12-21'),(60,60, '2017-09-11', '2017-12-21'),(61,61, '2017-09-11', '2017-12-21'),(62,62, '2017-09-11', '2017-12-21'),(63,63, '2017-09-11', '2017-12-21'),(64,64, '2017-09-11', '2017-12-21'),(65,65, '2017-09-11', '2017-12-21'),(66,66, '2017-09-11', '2017-12-21'),(67,67, '2017-09-11', '2017-12-21'),(68,68, '2017-09-11', '2017-12-21'),(69,69, '2017-09-11', '2017-12-21'),(70,70, '2017-09-11', '2017-12-21'),(71,71, '2017-09-11', '2017-12-21'),(72,72, '2017-09-11', '2017-12-21'),(73,73, '2017-09-11', '2017-12-21'),(74,74, '2017-09-11', '2017-12-21'),(75,75, '2017-09-11', '2017-12-21'),(76,76, '2017-09-11', '2017-12-21'),(77,77, '2017-09-11', '2017-12-21'),(78,78, '2017-09-11', '2017-12-21'),(79,79, '2017-09-11', '2017-12-21'),(80,80, '2017-09-11', '2017-12-21'),(81,81, '2017-09-11', '2017-12-21'),(82,82, '2017-09-11', '2017-12-21'),(83,83, '2017-09-11', '2017-12-21'),(84,84, '2017-09-11', '2017-12-21'),(85,85, '2017-09-11', '2017-12-21'),(86,86, '2017-09-11', '2017-12-21'),(87,87, '2017-09-11', '2017-12-21'),(88,88, '2017-09-11', '2017-12-21'),(89,89, '2017-09-11', '2017-12-21'),(90,90, '2017-09-11', '2017-12-21'),(91,91, '2017-09-11', '2017-12-21'),(92,92, '2017-09-11', '2017-12-21'),(93,93, '2017-09-11', '2017-12-21'),(94,94, '2017-09-11', '2017-12-21'),(95,95, '2017-09-11', '2017-12-21'),(96,96, '2017-09-11', '2017-12-21'),(97,97, '2017-09-11', '2017-12-21'),(98,98, '2017-09-11', '2017-12-21'),(99,99, '2017-09-11', '2017-12-21'),(100,100, '2017-09-11', '2017-12-21'),(101,101, '2017-09-11', '2017-12-21');ra
+INSERT INTO `asims`.`TeachingActivities` (`academicStaffID`,`sectionOfferedID`, `startDate`,`endDate`) VALUES(1,1, '2017-09-11', '2017-12-21'),(2,2, '2017-09-11', '2017-12-21'),(3,3, '2017-09-11', '2017-12-21'),(4,4, '2017-09-11', '2017-12-21'),(5,5, '2017-09-11', '2017-12-21'),(6,6, '2017-09-11', '2017-12-21'),(7,7, '2017-09-11', '2017-12-21'),(8,8, '2017-09-11', '2017-12-21'),(9,9, '2017-09-11', '2017-12-21'),(10,10, '2017-09-11', '2017-12-21'),(11,11, '2017-09-11', '2017-12-21'),(12,12, '2017-09-11', '2017-12-21'),(13,13, '2017-09-11', '2017-12-21'),(14,14, '2017-09-11', '2017-12-21'),(15,15, '2017-09-11', '2017-12-21'),(16,16, '2017-09-11', '2017-12-21'),(17,17, '2017-09-11', '2017-12-21'),(18,18, '2017-09-11', '2017-12-21'),(19,19, '2017-09-11', '2017-12-21'),(20,20, '2017-09-11', '2017-12-21'),(21,21, '2017-09-11', '2017-12-21'),(22,22, '2017-09-11', '2017-12-21'),(23,23, '2017-09-11', '2017-12-21'),(24,24, '2017-09-11', '2017-12-21'),(25,25, '2017-09-11', '2017-12-21'),(26,26, '2017-09-11', '2017-12-21'),(27,27, '2017-09-11', '2017-12-21'),(28,28, '2017-09-11', '2017-12-21'),(29,29, '2017-09-11', '2017-12-21'),(30,30, '2017-09-11', '2017-12-21'),(31,31, '2017-09-11', '2017-12-21'),(32,32, '2017-09-11', '2017-12-21'),(33,33, '2017-09-11', '2017-12-21'),(34,34, '2017-09-11', '2017-12-21'),(35,35, '2017-09-11', '2017-12-21'),(36,36, '2017-09-11', '2017-12-21'),(37,37, '2017-09-11', '2017-12-21'),(38,38, '2017-09-11', '2017-12-21'),(39,39, '2017-09-11', '2017-12-21'),(40,40, '2017-09-11', '2017-12-21'),(41,41, '2017-09-11', '2017-12-21'),(42,42, '2017-09-11', '2017-12-21'),(43,43, '2017-09-11', '2017-12-21'),(44,44, '2017-09-11', '2017-12-21'),(45,45, '2017-09-11', '2017-12-21'),(46,46, '2017-09-11', '2017-12-21'),(47,47, '2017-09-11', '2017-12-21'),(48,48, '2017-09-11', '2017-12-21'),(49,49, '2017-09-11', '2017-12-21'),(50,50, '2017-09-11', '2017-12-21'),(51,51, '2017-09-11', '2017-12-21'),(52,52, '2017-09-11', '2017-12-21'),(53,53, '2017-09-11', '2017-12-21'),(54,54, '2017-09-11', '2017-12-21'),(55,55, '2017-09-11', '2017-12-21'),(56,56, '2017-09-11', '2017-12-21'),(57,57, '2017-09-11', '2017-12-21'),(58,58, '2017-09-11', '2017-12-21'),(59,59, '2017-09-11', '2017-12-21'),(60,60, '2017-09-11', '2017-12-21'),(61,61, '2017-09-11', '2017-12-21'),(62,62, '2017-09-11', '2017-12-21'),(63,63, '2017-09-11', '2017-12-21'),(64,64, '2017-09-11', '2017-12-21'),(65,65, '2017-09-11', '2017-12-21'),(66,66, '2017-09-11', '2017-12-21'),(67,67, '2017-09-11', '2017-12-21'),(68,68, '2017-09-11', '2017-12-21'),(69,69, '2017-09-11', '2017-12-21'),(70,70, '2017-09-11', '2017-12-21'),(71,71, '2017-09-11', '2017-12-21'),(72,72, '2017-09-11', '2017-12-21'),(73,73, '2017-09-11', '2017-12-21'),(74,74, '2017-09-11', '2017-12-21'),(75,75, '2017-09-11', '2017-12-21'),(76,76, '2017-09-11', '2017-12-21'),(77,77, '2017-09-11', '2017-12-21'),(78,78, '2017-09-11', '2017-12-21'),(79,79, '2017-09-11', '2017-12-21'),(80,80, '2017-09-11', '2017-12-21'),(81,81, '2017-09-11', '2017-12-21'),(82,82, '2017-09-11', '2017-12-21'),(83,83, '2017-09-11', '2017-12-21'),(84,84, '2017-09-11', '2017-12-21'),(85,85, '2017-09-11', '2017-12-21'),(86,86, '2017-09-11', '2017-12-21'),(87,87, '2017-09-11', '2017-12-21'),(88,88, '2017-09-11', '2017-12-21'),(89,89, '2017-09-11', '2017-12-21'),(90,90, '2017-09-11', '2017-12-21'),(91,91, '2017-09-11', '2017-12-21'),(92,92, '2017-09-11', '2017-12-21'),(93,93, '2017-09-11', '2017-12-21'),(94,94, '2017-09-11', '2017-12-21'),(95,95, '2017-09-11', '2017-12-21'),(96,96, '2017-09-11', '2017-12-21'),(97,97, '2017-09-11', '2017-12-21'),(98,98, '2017-09-11', '2017-12-21'),(99,99, '2017-09-11', '2017-12-21'),(100,100, '2017-09-11', '2017-12-21'),(101,101, '2017-09-11', '2017-12-21');
+
+INSERT INTO `asims`.`LeaveDebit` (regularStaffID,amount,description,dateIssued,leaveDebitType) VALUES (1,4,"non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum","2016-07-06 ","accumsan"),(2,5,"ornare sagittis felis. Donec tempor, est ac mattis semper, dui lectus rutrum urna, nec","2016-03-14 ","accumsan"),(3,3,"pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla","2015-03-12 ","eu,"),(4,3,"gravida sit amet, dapibus id, blandit at, nisi. Cum sociis natoque penatibus et magnis","2015-07-28 ","sit"),(5,1,"Nunc mauris sapien, cursus in, hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu","2015-08-25 ","ante"),(6,2,"nec tempus mauris erat eget ipsum. Suspendisse sagittis. Nullam vitae diam. Proin dolor. Nulla","2015-09-21 ","rutrum"),(7,5,"mi tempor lorem, eget mollis lectus pede et risus. Quisque libero lacus, varius et,","2016-11-15 ","nec,"),(8,2,"Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum","2015-09-08 ","sit"),(9,1,"risus varius orci, in consequat enim diam vel arcu. Curabitur ut odio vel est","2016-06-16 ","fringilla"),(10,2,"sed dictum eleifend, nunc risus varius orci, in consequat enim diam vel arcu. Curabitur","2016-09-08 ","Donec"),(11,4,"Praesent eu dui. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus","2015-06-23 ","nec"),(12,4,"imperdiet ornare. In faucibus. Morbi vehicula. Pellentesque tincidunt tempus risus. Donec egestas. Duis ac","2015-03-02 ","Fusce"),(13,1,"Sed dictum. Proin eget odio. Aliquam vulputate ullamcorper magna. Sed eu eros. Nam consequat","2015-05-28 ","metus."),(14,1,"tempus non, lacinia at, iaculis quis, pede. Praesent eu dui. Cum sociis natoque penatibus","2015-10-03 ","arcu."),(15,4,"consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna. Ut","2017-01-25 ","faucibus"),(16,4,"Mauris nulla. Integer urna. Vivamus molestie dapibus ligula. Aliquam erat volutpat. Nulla dignissim. Maecenas","2015-10-06 ","non,"),(17,1,"eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit","2016-01-18 ","Pellentesque"),(18,2,"in sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer","2017-02-14 ","nulla."),(19,4,"dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras","2015-07-07 ","laoreet"),(20,4,"aliquam iaculis, lacus pede sagittis augue, eu tempor erat neque non quam. Pellentesque habitant","2016-04-04 ","faucibus"),(21,5,"auctor velit. Aliquam nisl. Nulla eu neque pellentesque massa lobortis ultrices. Vivamus rhoncus. Donec","2016-03-01 ","gravida"),(22,2,"sodales purus, in molestie tortor nibh sit amet orci. Ut sagittis lobortis mauris. Suspendisse","2015-05-20 ","Sed"),(23,4,"Suspendisse sagittis. Nullam vitae diam. Proin dolor. Nulla semper tellus id nunc interdum feugiat.","2016-07-08 ","in"),(24,3,"fermentum convallis ligula. Donec luctus aliquet odio. Etiam ligula tortor, dictum eu, placerat eget,","2015-06-04 ","urna"),(25,3,"ac orci. Ut semper pretium neque. Morbi quis urna. Nunc quis arcu vel quam","2015-12-01 ","iaculis"),(26,4,"fermentum metus. Aenean sed pede nec ante blandit viverra. Donec tempus, lorem fringilla ornare","2015-04-04 ","mattis"),(27,4,"iaculis aliquet diam. Sed diam lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus","2015-03-07 ","arcu."),(28,5,"dolor elit, pellentesque a, facilisis non, bibendum sed, est. Nunc laoreet lectus quis massa.","2016-09-09 ","enim"),(29,5,"orci, consectetuer euismod est arcu ac orci. Ut semper pretium neque. Morbi quis urna.","2015-11-03 ","volutpat"),(30,4,"vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget, dictum placerat, augue.","2016-12-09 ","a,"),(31,5,"orci lobortis augue scelerisque mollis. Phasellus libero mauris, aliquam eu, accumsan sed, facilisis vitae,","2015-08-17 ","felis."),(32,3,"odio a purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae","2016-05-28 ","tortor."),(33,4,"ante dictum mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla,","2017-01-13 ","tincidunt"),(34,5,"pede. Nunc sed orci lobortis augue scelerisque mollis. Phasellus libero mauris, aliquam eu, accumsan","2016-05-05 ","ipsum."),(35,2,"faucibus id, libero. Donec consectetuer mauris id sapien. Cras dolor dolor, tempus non, lacinia","2016-10-04 ","magna"),(36,2,"Phasellus elit pede, malesuada vel, venenatis vel, faucibus id, libero. Donec consectetuer mauris id","2016-10-17 ","Sed"),(37,5,"vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et","2016-02-20 ","luctus"),(38,2,"metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus elit pede, malesuada","2016-09-19 ","arcu."),(39,2,"egestas ligula. Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl.","2015-06-25 ","sit"),(40,3,"in sodales elit erat vitae risus. Duis a mi fringilla mi lacinia mattis. Integer","2016-06-01 ","justo."),(41,5,"erat eget ipsum. Suspendisse sagittis. Nullam vitae diam. Proin dolor. Nulla semper tellus id","2016-09-17 ","imperdiet"),(42,3,"et risus. Quisque libero lacus, varius et, euismod et, commodo at, libero. Morbi accumsan","2016-07-26 ","eu,"),(43,1,"hendrerit neque. In ornare sagittis felis. Donec tempor, est ac mattis semper, dui lectus","2017-02-02 ","semper"),(44,1,"hendrerit consectetuer, cursus et, magna. Praesent interdum ligula eu enim. Etiam imperdiet dictum magna.","2016-05-10 ","luctus"),(45,1,"tincidunt. Donec vitae erat vel pede blandit congue. In scelerisque scelerisque dui. Suspendisse ac","2015-07-09 ","neque."),(46,1,"parturient montes, nascetur ridiculus mus. Aenean eget magna. Suspendisse tristique neque venenatis lacus. Etiam","2016-10-06 ","cubilia"),(47,3,"Proin vel nisl. Quisque fringilla euismod enim. Etiam gravida molestie arcu. Sed eu nibh","2016-01-28 ","vulputate"),(48,3,"tortor. Nunc commodo auctor velit. Aliquam nisl. Nulla eu neque pellentesque massa lobortis ultrices.","2015-05-09 ","sodales"),(49,5,"eleifend vitae, erat. Vivamus nisi. Mauris nulla. Integer urna. Vivamus molestie dapibus ligula. Aliquam","2015-06-06 ","Nullam"),(50,1,"enim mi tempor lorem, eget mollis lectus pede et risus. Quisque libero lacus, varius","2016-08-27 ","est."),(51,4,"aliquet, metus urna convallis erat, eget tincidunt dui augue eu tellus. Phasellus elit pede,","2015-10-06 ","nulla"),(52,3,"luctus felis purus ac tellus. Suspendisse sed dolor. Fusce mi lorem, vehicula et, rutrum","2016-06-28 ","enim"),(53,5,"a, facilisis non, bibendum sed, est. Nunc laoreet lectus quis massa. Mauris vestibulum, neque","2016-07-01 ","venenatis"),(54,4,"a purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae sodales","2015-04-04 ","dui,"),(55,1,"malesuada id, erat. Etiam vestibulum massa rutrum magna. Cras convallis convallis dolor. Quisque tincidunt","2015-12-18 ","malesuada"),(56,3,"Suspendisse sagittis. Nullam vitae diam. Proin dolor. Nulla semper tellus id nunc interdum feugiat.","2015-09-12 ","risus"),(57,3,"Aliquam ornare, libero at auctor ullamcorper, nisl arcu iaculis enim, sit amet ornare lectus","2016-04-29 ","non,"),(58,5,"orci luctus et ultrices posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet","2016-09-14 ","aliquam"),(59,1,"ligula. Nullam feugiat placerat velit. Quisque varius. Nam porttitor scelerisque neque. Nullam nisl. Maecenas","2015-11-16 ","elementum"),(60,4,"mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate,","2017-01-15 ","pellentesque."),(61,2,"posuere cubilia Curae; Phasellus ornare. Fusce mollis. Duis sit amet diam eu dolor egestas","2015-07-14 ","odio"),(62,3,"urna, nec luctus felis purus ac tellus. Suspendisse sed dolor. Fusce mi lorem, vehicula","2015-09-26 ","cursus"),(63,1,"sagittis semper. Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est","2015-12-10 ","sed"),(64,1,"magna. Sed eu eros. Nam consequat dolor vitae dolor. Donec fringilla. Donec feugiat metus","2016-03-30 ","eleifend"),(65,3,"mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate,","2016-09-21 ","interdum"),(66,5,"lorem, auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris nulla. Integer urna.","2016-09-29 ","ligula"),(67,1,"et, commodo at, libero. Morbi accumsan laoreet ipsum. Curabitur consequat, lectus sit amet luctus","2016-09-16 ","et,"),(68,5,"auctor quis, tristique ac, eleifend vitae, erat. Vivamus nisi. Mauris nulla. Integer urna. Vivamus","2015-06-24 ","lacinia."),(69,5,"amet, consectetuer adipiscing elit. Etiam laoreet, libero et tristique pellentesque, tellus sem mollis dui,","2017-01-15 ","erat"),(70,1,"ultrices a, auctor non, feugiat nec, diam. Duis mi enim, condimentum eget, volutpat ornare,","2016-07-15 ","sed,"),(71,2,"sem, vitae aliquam eros turpis non enim. Mauris quis turpis vitae purus gravida sagittis.","2015-04-27 ","et"),(72,4,"et magnis dis parturient montes, nascetur ridiculus mus. Proin vel nisl. Quisque fringilla euismod","2016-07-08 ","nunc"),(73,1,"odio. Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend","2015-11-21 ","Fusce"),(74,3,"magna. Sed eu eros. Nam consequat dolor vitae dolor. Donec fringilla. Donec feugiat metus","2015-07-13 ","nibh"),(75,2,"Aenean sed pede nec ante blandit viverra. Donec tempus, lorem fringilla ornare placerat, orci","2016-09-14 ","Sed"),(76,3,"pede, malesuada vel, venenatis vel, faucibus id, libero. Donec consectetuer mauris id sapien. Cras","2016-02-02 ","ullamcorper."),(77,1,"ornare lectus justo eu arcu. Morbi sit amet massa. Quisque porttitor eros nec tellus.","2016-12-14 ","purus"),(78,3,"egestas. Fusce aliquet magna a neque. Nullam ut nisi a odio semper cursus. Integer","2017-01-31 ","auctor,"),(79,1,"nulla ante, iaculis nec, eleifend non, dapibus rutrum, justo. Praesent luctus. Curabitur egestas nunc","2016-02-24 ","taciti"),(80,4,"Donec dignissim magna a tortor. Nunc commodo auctor velit. Aliquam nisl. Nulla eu neque","2016-02-07 ","libero"),(81,5,"Curabitur consequat, lectus sit amet luctus vulputate, nisi sem semper erat, in consectetuer ipsum","2015-06-23 ","orci"),(82,4,"a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac","2016-05-12 ","semper."),(83,1,"magna sed dui. Fusce aliquam, enim nec tempus scelerisque, lorem ipsum sodales purus, in","2016-05-21 ","nisl."),(84,5,"Sed nulla ante, iaculis nec, eleifend non, dapibus rutrum, justo. Praesent luctus. Curabitur egestas","2016-06-04 ","at"),(85,4,"semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio. Nam interdum","2016-07-25 ","at"),(86,2,"luctus. Curabitur egestas nunc sed libero. Proin sed turpis nec mauris blandit mattis. Cras","2016-03-23 ","cursus"),(87,4,"dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor, velit","2016-07-03 ","rhoncus"),(88,5,"massa. Mauris vestibulum, neque sed dictum eleifend, nunc risus varius orci, in consequat enim","2016-12-25 ","vitae"),(89,4,"eu nibh vulputate mauris sagittis placerat. Cras dictum ultricies ligula. Nullam enim. Sed nulla","2015-12-17 ","Aliquam"),(90,2,"cursus. Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur","2016-05-22 ","habitant"),(91,2,"et pede. Nunc sed orci lobortis augue scelerisque mollis. Phasellus libero mauris, aliquam eu,","2015-12-10 ","nec"),(92,3,"quam quis diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac","2015-03-27 ","dictum"),(93,3,"Morbi quis urna. Nunc quis arcu vel quam dignissim pharetra. Nam ac nulla. In","2015-03-30 ","risus."),(94,3,"turpis nec mauris blandit mattis. Cras eget nisi dictum augue malesuada malesuada. Integer id","2016-02-03 ","nisl."),(95,5,"Integer vulputate, risus a ultricies adipiscing, enim mi tempor lorem, eget mollis lectus pede","2016-10-07 ","velit."),(96,4,"Sed malesuada augue ut lacus. Nulla tincidunt, neque vitae semper egestas, urna justo faucibus","2015-09-29 ","ipsum"),(97,5,"sed turpis nec mauris blandit mattis. Cras eget nisi dictum augue malesuada malesuada. Integer","2015-10-07 ","vestibulum"),(98,5,"in faucibus orci luctus et ultrices posuere cubilia Curae; Donec tincidunt. Donec vitae erat","2016-01-31 ","orci"),(99,1,"ut dolor dapibus gravida. Aliquam tincidunt, nunc ac mattis ornare, lectus ante dictum mi,","2015-11-28 ","dui"),(100,3,"lacus. Quisque imperdiet, erat nonummy ultricies ornare, elit elit fermentum risus, at fringilla purus","2016-03-01 ","malesuada");
+
+INSERT INTO `asims`.`StaffLeave` (regularStaffID,leaveDebitID,description,startDate,endDate,leavePercentage,wagePercentage) VALUES (1,1,"This is a deslription","2015-11-10","2015-03-03","0.62","0.78"),(2,2,"This is a deskription","2015-02-24","2015-03-21","0.92","0.76"),(3,3,"This is a desxription","2016-03-05","2016-11-04","0.92","0.76"),(4,4,"This is a desdription","2016-09-10","2016-11-29","0.94","0.59"),(5,5,"This is a desnription","2016-12-06","2015-06-07","0.50","0.76"),(6,6,"This is a deskription","2015-04-11","2016-06-13","0.96","0.51"),(7,7,"This is a desmription","2016-08-22","2015-11-30","0.91","0.69"),(8,8,"This is a desxription","2016-03-26","2017-02-08","0.66","0.70"),(9,9,"This is a destription","2016-05-06","2015-07-29","0.91","0.80"),(10,10,"This is a desqription","2016-06-05","2016-03-17","0.55","0.97"),(11,11,"This is a desjription","2016-01-27","2015-07-02","0.91","0.74"),(12,12,"This is a desvription","2015-04-15","2015-02-27","0.89","0.96"),(13,13,"This is a desrription","2016-07-22","2015-06-12","0.87","0.77"),(14,14,"This is a despription","2016-12-21","2015-03-03","0.79","0.52"),(15,15,"This is a desgription","2016-09-12","2016-09-15","0.75","0.80"),(16,16,"This is a desyription","2016-10-08","2017-01-21","0.96","0.80"),(17,17,"This is a desbription","2015-06-09","2017-01-19","0.99","0.71"),(18,18,"This is a deszription","2015-04-08","2016-02-24","0.68","0.94"),(19,19,"This is a destription","2016-02-15","2015-12-25","0.61","0.91"),(20,20,"This is a deszription","2016-05-24","2016-07-19","0.84","0.66"),(21,21,"This is a desfription","2016-05-22","2016-11-20","0.82","0.75"),(22,22,"This is a desvription","2015-10-09","2015-04-30","0.93","0.95"),(23,23,"This is a deszription","2015-11-24","2016-04-22","0.66","0.69"),(24,24,"This is a desvription","2015-07-02","2016-05-11","0.60","0.90"),(25,25,"This is a deszription","2016-04-17","2016-02-05","0.84","0.81"),(26,26,"This is a description","2015-11-26","2017-01-19","0.70","0.58"),(27,27,"This is a despription","2016-03-10","2015-02-23","0.62","0.51"),(28,28,"This is a deswription","2015-04-21","2016-10-19","0.51","0.78"),(29,29,"This is a desjription","2015-07-16","2015-11-17","0.71","0.58"),(30,30,"This is a desvription","2015-06-28","2017-01-22","0.92","0.92"),(31,31,"This is a desdription","2015-09-12","2015-12-31","0.69","0.76"),(32,32,"This is a desxription","2016-05-11","2015-09-26","0.98","0.83"),(33,33,"This is a dessription","2015-07-02","2015-02-26","0.97","0.81"),(34,34,"This is a destription","2016-12-23","2016-02-12","0.53","0.51"),(35,35,"This is a desfription","2016-02-25","2015-07-22","0.81","0.83"),(36,36,"This is a desnription","2015-07-10","2016-09-29","0.99","0.84"),(37,37,"This is a deshription","2016-08-05","2017-01-03","0.90","0.68"),(38,38,"This is a desgription","2016-01-01","2016-11-24","1.00","1.00"),(39,39,"This is a dessription","2016-11-17","2016-02-07","0.81","0.71"),(40,40,"This is a desbription","2016-03-23","2015-06-14","0.62","0.82"),(41,41,"This is a desrription","2016-01-02","2016-02-01","0.68","0.95"),(42,42,"This is a desqription","2016-05-14","2015-12-15","0.82","0.53"),(43,43,"This is a desfription","2015-06-23","2017-01-01","0.91","0.58"),(44,44,"This is a deswription","2016-01-30","2016-12-11","0.64","0.80"),(45,45,"This is a deshription","2016-03-13","2016-09-25","0.66","0.79"),(46,46,"This is a desqription","2016-02-21","2016-08-15","0.89","0.69"),(47,47,"This is a desdription","2016-10-25","2015-10-23","0.62","0.67"),(48,48,"This is a desrription","2015-06-04","2015-05-06","0.85","0.74"),(49,49,"This is a deswription","2016-11-18","2016-12-03","0.84","0.50"),(50,50,"This is a deskription","2016-05-20","2016-12-19","0.73","0.99"),(51,51,"This is a desfription","2016-06-15","2015-06-14","0.52","0.77"),(52,52,"This is a despription","2015-05-27","2015-11-30","0.53","0.57"),(53,53,"This is a desqription","2016-12-17","2015-12-09","0.78","0.68"),(54,54,"This is a desbription","2015-03-20","2015-08-21","0.75","0.70"),(55,55,"This is a destription","2016-10-02","2015-09-13","0.67","0.59"),(56,56,"This is a desfription","2016-06-03","2016-07-16","0.71","0.71"),(57,57,"This is a desxription","2016-02-05","2015-09-29","0.58","0.88"),(58,58,"This is a desmription","2015-08-01","2016-09-25","0.99","0.97"),(59,59,"This is a deslription","2016-12-26","2015-10-28","0.54","0.64"),(60,60,"This is a dessription","2015-03-30","2015-03-13","0.79","0.52"),(61,61,"This is a destription","2015-03-17","2015-08-21","0.70","0.59"),(62,62,"This is a deszription","2015-08-31","2016-01-12","0.83","0.97"),(63,63,"This is a deshription","2015-05-06","2015-06-11","0.94","0.78"),(64,64,"This is a desyription","2015-06-03","2016-08-28","0.62","0.67"),(65,65,"This is a desvription","2015-11-15","2016-05-23","0.59","0.99"),(66,66,"This is a deszription","2016-05-06","2015-12-11","0.67","0.55"),(67,67,"This is a desrription","2016-12-30","2016-12-17","0.86","0.89"),(68,68,"This is a description","2015-08-15","2017-01-20","0.94","0.79"),(69,69,"This is a desgription","2016-08-03","2016-12-16","0.54","0.57"),(70,70,"This is a desvription","2015-06-10","2016-04-22","0.58","0.76"),(71,71,"This is a desrription","2016-06-23","2015-12-27","0.72","0.55"),(72,72,"This is a despription","2016-09-01","2016-10-27","0.87","0.52"),(73,73,"This is a desfription","2016-08-15","2017-01-08","0.77","0.64"),(74,74,"This is a despription","2016-07-29","2015-06-05","0.66","0.90"),(75,75,"This is a description","2017-01-31","2016-05-13","0.57","0.91"),(76,76,"This is a desxription","2015-07-11","2015-12-06","0.69","0.57"),(77,77,"This is a dessription","2016-10-11","2015-06-05","0.79","0.54"),(78,78,"This is a desjription","2016-08-01","2016-09-12","0.92","0.70"),(79,79,"This is a desvription","2015-06-27","2016-08-07","0.59","0.62"),(80,80,"This is a desjription","2016-03-29","2015-06-18","0.94","0.68"),(81,81,"This is a desdription","2015-03-03","2015-06-08","0.72","0.61"),(82,82,"This is a desdription","2016-04-15","2016-01-03","1.00","0.62"),(83,83,"This is a desyription","2016-08-12","2016-02-16","0.97","0.94"),(84,84,"This is a desdription","2016-03-25","2015-05-08","0.56","0.80"),(85,85,"This is a desgription","2016-01-16","2016-08-19","0.78","0.82"),(86,86,"This is a desvription","2016-10-02","2016-03-13","0.56","0.80"),(87,87,"This is a desxription","2016-04-08","2017-02-05","1.00","0.58"),(88,88,"This is a deskription","2015-03-01","2016-03-07","0.56","0.94"),(89,89,"This is a deshription","2017-01-17","2015-04-30","0.97","0.81"),(90,90,"This is a deskription","2015-07-22","2015-08-12","0.75","0.58"),(91,91,"This is a despription","2015-12-06","2016-09-26","0.96","0.85"),(92,92,"This is a deswription","2016-05-03","2016-08-09","0.68","0.90"),(93,93,"This is a deslription","2015-05-23","2015-11-28","0.77","1.00"),(94,94,"This is a dessription","2016-07-07","2017-01-11","0.70","0.70"),(95,95,"This is a desmription","2016-05-03","2016-01-01","0.78","0.64"),(96,96,"This is a desrription","2016-11-21","2016-10-01","0.83","0.62"),(97,97,"This is a description","2015-05-12","2016-12-12","1.00","0.62"),(98,98,"This is a desnription","2015-10-20","2016-09-20","0.60","0.78"),(99,99,"This is a desvription","2016-10-20","2016-03-22","0.94","0.72"),(100,100,"This is a desjription","2015-08-14","2015-07-05","0.95","0.55");
+
+INSERT INTO `asims`.`LeaveCredit` (regularStaffID,amount,description,dateIssued,leaveCreditType) VALUES (1,2,"this is a description","2016-09-01","Kiass Danjeeed"),(4,2,"this is a desmription","2016-06-22","Qtass Rankeqed"),(7,1,"this is a deshription","2015-09-14","Fgass Nanlehed"),(10,1,"this is a description","2016-10-06","Rcass Gankened"),(13,1,"this is a desfription","2016-10-08","Laass Sandeged"),(16,1,"this is a desmription","2015-12-18","Jhass Santebed"),(19,1,"this is a deswription","2016-08-06","Jtass Danresed"),(22,1,"this is a desrription","2015-05-07","Vnass Gandebed"),(25,2,"this is a destription","2015-12-17","Nxass Kanhebed"),(28,1,"this is a deslription","2016-10-15","Fvass Janqemed"),(31,1,"this is a description","2015-11-18","Zdass Yangeyed"),(34,2,"this is a desjription","2016-03-03","Gfass Hanpexed"),(37,2,"this is a desbription","2016-06-16","Wfass Canneced"),(40,2,"this is a desmription","2017-02-08","Ygass Ganbeged"),(43,2,"this is a dessription","2017-02-17","Svass Ranhexed"),(46,2,"this is a deszription","2016-06-17","Jiass Nanyeced"),(49,2,"this is a deswription","2016-11-23","Ryass Yanqeped"),(52,1,"this is a deswription","2016-02-02","Htass Hanyemed"),(55,1,"this is a desjription","2016-10-11","Wnass Wanweqed"),(58,1,"this is a desqription","2016-01-05","Gpass Hanxefed"),(61,2,"this is a description","2016-10-04","Kiass Vanbeled"),(64,1,"this is a dessription","2016-08-09","Wiass Kanleted"),(67,1,"this is a desnription","2016-07-16","Yfass Xancened"),(70,2,"this is a desrription","2016-05-30","Cfass Wanjezed"),(73,1,"this is a desmription","2017-01-08","Vdass Fanlefed"),(76,1,"this is a deskription","2016-12-06","Gmass Manseced"),(79,1,"this is a desxription","2015-06-13","Plass Mankeoed"),(82,2,"this is a dessription","2017-02-02","Huass Danlewed"),(85,2,"this is a desqription","2016-04-24","Lsass Yanmeded"),(88,2,"this is a dessription","2015-12-15","Tiass Yanseied"),(91,1,"this is a despription","2016-10-27","Heass Wanveied"),(94,2,"this is a desrription","2016-11-26","Hgass Manheved"),(97,2,"this is a description","2015-12-12","Cjass Banjebed"),(100,2,"this is a desjription","2015-05-07","Dxass Hanjefed"),(103,2,"this is a desjription","2016-02-22","Skass Ranqeeed"),(106,1,"this is a desmription","2016-05-15","Qeass Nanweded");
+
+
