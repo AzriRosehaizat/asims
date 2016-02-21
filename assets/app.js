@@ -109,6 +109,28 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		})
+		.state('application.department', {
+			url: '/department',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'departmentController'
+				},
+				'grid@application.department': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.department': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				departments: function($http) {
+					return $http.get('/department');
+				}
+			}
+		})
 		.state('application.FLC', {
 			url: '/facultyLoadChart',
 			views: {
@@ -183,10 +205,8 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 .run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 		
-		formService.resetForm();
-		
-		// Initialize SearchHelper
 		SearchHelper.reset();
+		formService.resetForm();
 
 		Auth.authorize(toState.data.access).then(function(access) {
 			var shouldLogin = (toState.data) && (!access);

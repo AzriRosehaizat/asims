@@ -1,4 +1,4 @@
-application.service('contractStaffService', function($http, $q, _, formService) {
+application.service('departmentService', function($http, $q, _, formService) {
 
     return {
         gridOptions: function() {
@@ -7,26 +7,24 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 enableRowHeaderSelection: false,
                 enableHorizontalScrollbar: 0,
                 columnDefs: [{
-                    name: 'First Name',
-                    field: 'academicStaffID.firstName'
+                    name: 'Code',
+                    field: 'departmentCode'
                 }, {
-                    name: 'Last Name',
-                    field: 'academicStaffID.lastName'
+                    name: 'Name',
+                    field: 'title'
                 }, {
-                    name: 'Start Date',
-                    field: 'ContractStaffEmployment[0].startDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    name: 'Description',
+                    field: 'description'
                 }, {
-                    name: 'End Date',
-                    field: 'ContractStaffEmployment[0].endDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    name: 'Faculty',
+                    field: 'facultyID.title'
                 }]
             };
         },
         tabs: function() {
             return {
-                teachingActivity: {
-                    title: 'Teaching Activity',
+                course: {
+                    title: 'Course',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
@@ -45,8 +43,28 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                         }]
                     }
                 },
-                rightToRefuse: {
-                    title: 'Right to Refuse',
+                regularStaff: {
+                    title: 'Regular Staff',
+                    gridOptions: {
+                        multiSelect: false,
+                        enableRowHeaderSelection: false,
+                        enableHorizontalScrollbar: 0,
+                        columnDefs: [{
+                            name: 'Name',
+                            field: 'title'
+                        }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
+                contractStaff: {
+                    title: 'Contract Staff',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
@@ -82,60 +100,60 @@ application.service('contractStaffService', function($http, $q, _, formService) 
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Staff';
+            formData.title = 'Add Department';
             formData.inputs = [{
                 type: "text",
-                name: "firstName",
-                label: "First name",
+                name: "departmentCode",
+                label: "Code",
                 required: true
             }, {
                 type: "text",
-                name: "lastName",
-                label: "Last name",
+                name: "title",
+                label: "Name",
                 required: true
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
+                type: "text",
+                name: "description",
+                label: "Description",
                 required: false
             }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                required: false
+                type: "text",
+                name: "facultyTitle",
+                label: "Faculty",
+                required: true
             }];
             
             formService.setGridData(gridData);
-            formService.setFormData(formData, 'contractStaffService');
+            formService.setFormData(formData, 'departmentService');
         },
         initEditForm: function(formData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Staff';
+            formData.title = 'Edit Department';
             formData.inputs = [{
                 type: "text",
-                name: "firstName",
-                label: "First name",
+                name: "departmentCode",
+                label: "Code",
                 required: true
             }, {
                 type: "text",
-                name: "lastName",
-                label: "Last name",
+                name: "title",
+                label: "Name",
                 required: true
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
+                type: "text",
+                name: "description",
+                label: "Description",
                 required: false
             }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                required: false
+                type: "text",
+                name: "facultyTitle",
+                label: "Faculty",
+                required: true
             }];
             
             formService.setRow(row);
-            formService.setFormData(formData, 'contractStaffService');
+            formService.setFormData(formData, 'departmentService');
         },
         // getDepartment: function(departments, row) {
         //     $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
