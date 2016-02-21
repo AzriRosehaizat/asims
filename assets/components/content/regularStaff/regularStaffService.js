@@ -97,9 +97,9 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             };
         },
         update: function(formData) {
-            // console.log("update");
+            console.log(formData.model);
             // return $q.when(true);
-            // return $http.post('/regularStaff/updateRAS', formData.model);
+            return $http.post('/regularStaff/updateRAS', formData.model);
 
         },
         create: function(formData) {
@@ -117,21 +117,25 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
+                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
+                disabled: false,
                 required: false
             }, {
                 type: "date",
                 name: "contAppDate",
                 label: "Cont' appointment date",
+                disabled: false,
                 required: false
             }];
             
@@ -146,21 +150,25 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
+                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
+                disabled: false,
                 required: false
             }, {
                 type: "date",
                 name: "contAppDate",
                 label: "Cont' appointment date",
+                disabled: false,
                 required: false
             }];
             
