@@ -12,23 +12,20 @@ module.exports = {
 			firstName: req.param('firstName'),
 			lastName: req.param('lastName')
 		};
-
 		AcademicStaff.create(data)
 			.then(function(created) {
-				console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
-				// return created.academicStaffID
-				return created;
-			}).then(function(created) {
 				var rasData = {
 					academicStaffID: created.academicStaffID,
 					contAppDate: req.param('contAppDate'),
 					tenureDate: req.param('tenureDate')
 				};
-				var createdRAS = RegularStaff.create(rasData).then(function(createdRAS){
+				var createdRAS = RegularStaff.create(rasData).then(function(createdRAS) {
 					return createdRAS;
 				});
+				console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
+
 				return [created, createdRAS];
-			}).spread(function(created, createdRAS){
+			}).spread(function(created, createdRAS) {
 				res.json({
 					created,
 					createdRAS
@@ -38,6 +35,61 @@ module.exports = {
 				res.serverError(err);
 				console.log(err);
 			});
+	},
+	updateRAS: function(req, res) {
+		var id = req.param('id');
+		var data = {
+			firstName: req.param('firstName'),
+			lastName: req.param('lastName')
+		};
+		var rasData = {
+			regularStaffID: req.param('regularStaffID'),
+			contAppDate: req.param('contAppDate'),
+			tenureDate: req.param('tenureDate')
+		};
+
+		AcademicStaff.update(id, data)
+			.then(function(updated) {
+				var updatedRAS = RegularStaff.update(rasData.regularStaffID, rasData).then(function(updatedRAS) {
+					return updatedRAS;
+				});
+				return [updated, updatedRAS];
+			}).spread(function(AcademicStaff, RegularStaff) {
+				res.json({
+					AcademicStaff, RegularStaff
+				});
+				console.log("Updated staff successfully for: academicStaffID: " + AcademicStaff.academicStaffID + " and regularStaffID: " + RegularStaff.regularStaffID );
+
+			}).catch(function(err) {
+				res.serverError(err);
+				console.log(err);
+			});
+	},
+	deleteRAS: function(req, res) {
+		var data = {
+			id: req.param('id'),
+			academicStaffID: req.param('academicStaffID')
+		};
+		//Delete child Regular Staff
+		RegularStaff.destroy({
+			regularStaffID: data.id
+		}).then(function(deletedRAS) {
+			//delete parent AcademicStaff
+			var deleted = AcademicStaff.destroy({
+				academicStaffID: data.academicStaffID
+			}).then(function(deleted) {
+				return deleted;
+			});
+			return [deletedRAS, deleted];
+		}).spread(function(RegularStaff, AcademicStaff) {
+			res.ok({
+				RegularStaff, AcademicStaff
+			});
+			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff.academicStaffID + " and regularStaffID: " + RegularStaff.regularStaffID );
+		}).catch(function(err) {
+			res.serverError();
+			console.log("Unable to delete");
+		});
 	},
 	getAllRegularStaff: function(req, res) {
 		RegularStaffService.getAllRegularStaff(function(err, result) {
@@ -69,9 +121,10 @@ module.exports = {
 				break;
 			default:
 				res.serverError();
-				console.log("Incorrect REST url")
+				console.log("Incorrect REST url");
 		}
 	}
+
 };
 
 // module.exports = {
