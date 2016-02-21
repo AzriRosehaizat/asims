@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $q, _, formService) {
+application.service('contractStaffService', function($http, $q, _, formService) {
 
     return {
         gridOptions: function() {
@@ -8,39 +8,30 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 enableHorizontalScrollbar: 0,
                 columnDefs: [{
                     name: 'First Name',
-                    field: 'firstName'
+                    field: 'academicStaffID.firstName'
                 }, {
                     name: 'Last Name',
-                    field: 'lastName'
+                    field: 'academicStaffID.lastName'
                 }, {
-                    name: 'Department',
-                    field: 'departmentCode'
-                }, {
-                    name: 'Rank',
-                    field: 'Rank'
-                }, {
-                    name: 'Tenure Date',
-                    field: 'tenureDate',
+                    name: 'Start Date',
+                    field: 'ContractStaffEmployment[0].startDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }, {
-                    name: 'Cont\' appointment date',
-                    field: 'contAppDate',
+                    name: 'End Date',
+                    field: 'ContractStaffEmployment[0].endDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
             };
         },
         tabs: function() {
             return {
-                department: {
-                    title: 'Department',
+                teachingActivity: {
+                    title: 'Teaching Activity',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
                         columnDefs: [{
-                            name: 'Code',
-                            field: 'departmentCode'
-                        }, {
                             name: 'Name',
                             field: 'title'
                         }, {
@@ -54,8 +45,8 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                         }]
                     }
                 },
-                rank: {
-                    title: 'Rank',
+                rightToRefuse: {
+                    title: 'Right to Refuse',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
@@ -64,26 +55,6 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                             name: 'Name',
                             field: 'title'
                         }, {
-                            name: 'Description',
-                            field: 'description'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                },
-                employment: {
-                    title: 'Employement',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
@@ -101,10 +72,12 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             return $q.when(true);
         },
         create: function(formData) {
-            return $http.post('/regularStaff/createRAS', formData.model);
+            console.log("create");
+            return $q.when(true);
         },
         delete: function(formData) {
-            return $http.delete('/regularStaff/' + formData.model.academicStaffID);
+            console.log("delete");
+            return $q.when(true);
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -122,18 +95,18 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 required: true
             }, {
                 type: "date",
-                name: "tenureDate",
-                label: "Tenure date",
+                name: "startDate",
+                label: "Start date",
                 required: false
             }, {
                 type: "date",
-                name: "contAppDate",
-                label: "Cont' appointment date",
+                name: "endDate",
+                label: "End date",
                 required: false
             }];
             
             formService.setGridData(gridData);
-            formService.setFormData(formData, 'regularStaffService');
+            formService.setFormData(formData, 'contractStaffService');
         },
         initEditForm: function(formData, row) {
             formData.model = _.cloneDeep(row.entity);
@@ -151,36 +124,36 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 required: true
             }, {
                 type: "date",
-                name: "tenureDate",
-                label: "Tenure date",
+                name: "startDate",
+                label: "Start date",
                 required: false
             }, {
                 type: "date",
-                name: "contAppDate",
-                label: "Cont' appointment date",
+                name: "endDate",
+                label: "End date",
                 required: false
             }];
             
             formService.setRow(row);
-            formService.setFormData(formData, 'regularStaffService');
+            formService.setFormData(formData, 'contractStaffService');
         },
-        getDepartment: function(department, row) {
-            $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
-                .then(function(res) {
-                    department.gridOptions.data = res.data;
-                });
-        },
-        getRank: function(rank, row) {
-            $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
-                .then(function(res) {
-                    rank.gridOptions.data = res.data;
-                });
-        },
-        getEmployment: function(employment, row) {
-            $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
-                .then(function(res) {
-                    employment.gridOptions.data = res.data;
-                });
-        }
+        // getDepartment: function(departments, row) {
+        //     $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
+        //         .then(function(res) {
+        //             departments.gridOptions.data = res.data;
+        //         });
+        // },
+        // getRank: function(ranks, row) {
+        //     $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
+        //         .then(function(res) {
+        //             ranks.gridOptions.data = res.data;
+        //         });
+        // },
+        // getEmployment: function(employment, row) {
+        //     $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
+        //         .then(function(res) {
+        //             employment.gridOptions.data = res.data;
+        //         });
+        // }
     };
 });

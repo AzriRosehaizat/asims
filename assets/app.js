@@ -65,54 +65,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		})
-		.state('application.regularStaff', {
-			url: '/regularStaff',
-			views: {
-				'': {
-					templateUrl: '/components/content/content.html',
-					controller: 'regularStaffController'
-				},
-				'grid@application.regularStaff': {
-					templateUrl: '/components/grid/grid.html',
-					controller: 'gridController'
-				},
-				'tabset@application.regularStaff': {
-					templateUrl: '/components/tabset/tabset.html',
-					controller: 'tabsetController'
-				}
-			},
-			resolve: {
-				staffs: function($http) {
-					return $http.get('/regularStaff/getAllRegularStaff');
-				}
-			}
-		})
-		.state('application.FLC', {
-			url: '/facultyLoadChart',
-			views: {
-				'': {
-					templateUrl: '/components/report/report.html',
-					controller: 'reportController'
-				},
-				"chart@application.FLC": {
-					templateUrl: '/components/report/loadChart/loadChart.html',
-					controller: 'loadChartController'
-				}
-			},
-		})
-		.state('application.LEC',{
-			url: '/leaveEntitlementChart',
-			views: {
-				'': {
-					templateUrl: '/components/report/report.html',
-					controller: 'reportController'
-				},
-				"chart@application.LEC": {
-				templateUrl: '/components/report/leaveChart/leaveChart.html',
-				controller: 'leaveChartController'
-				}
-			},
-		})
 		.state('application.profile', {
 			url: '/profile',
 			views: {
@@ -150,6 +102,142 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			data: {
 				access: AccessLevels.admin
 			}
+		})
+		.state('application.regularStaff', {
+			url: '/regularStaff',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'regularStaffController'
+				},
+				'grid@application.regularStaff': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.regularStaff': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				staffs: function($http) {
+					return $http.get('/regularStaff/getAllRegularStaff');
+				}
+			}
+		})
+		.state('application.contractStaff', {
+			url: '/contractStaff',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'contractStaffController'
+				},
+				'grid@application.contractStaff': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.contractStaff': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				staffs: function($http) {
+					return $http.get('/contractStaff');
+				}
+			}
+		})
+		.state('application.department', {
+			url: '/department',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'departmentController'
+				},
+				'grid@application.department': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.department': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				departments: function($http) {
+					return $http.get('/department');
+				}
+			}
+		})
+		.state('application.course', {
+			url: '/course',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'courseController'
+				},
+				'grid@application.course': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.course': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				courses: function($http) {
+					return $http.get('/course');
+				}
+			}
+		})
+		.state('application.research', {
+			url: '/research',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'researchController'
+				},
+				'grid@application.research': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.research': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				researches: function($http) {
+					return $http.get('/research');
+				}
+			}
+		})
+		.state('application.FLC', {
+			url: '/facultyLoadChart',
+			views: {
+				'': {
+					templateUrl: '/components/report/report.html',
+					controller: 'reportController'
+				},
+				"chart@application.FLC": {
+					templateUrl: '/components/report/loadChart/loadChart.html',
+					controller: 'loadChartController'
+				}
+			},
+		})
+		.state('application.LEC',{
+			url: '/leaveEntitlementChart',
+			views: {
+				'': {
+					templateUrl: '/components/report/report.html',
+					controller: 'reportController'
+				},
+				"chart@application.LEC": {
+				templateUrl: '/components/report/leaveChart/leaveChart.html',
+				controller: 'leaveChartController'
+				}
+			},
 		});
 
 	$urlRouterProvider.otherwise(function($injector) {
@@ -161,10 +249,8 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 .run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 		
-		formService.resetForm();
-		
-		// Initialize SearchHelper
 		SearchHelper.reset();
+		formService.resetForm();
 
 		Auth.authorize(toState.data.access).then(function(access) {
 			var shouldLogin = (toState.data) && (!access);
