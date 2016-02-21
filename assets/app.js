@@ -87,6 +87,28 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		})
+		.state('application.contractStaff', {
+			url: '/contractStaff',
+			views: {
+				'': {
+					templateUrl: '/components/content/content.html',
+					controller: 'contractStaffController'
+				},
+				'grid@application.contractStaff': {
+					templateUrl: '/components/grid/grid.html',
+					controller: 'gridController'
+				},
+				'tabset@application.contractStaff': {
+					templateUrl: '/components/tabset/tabset.html',
+					controller: 'tabsetController'
+				}
+			},
+			resolve: {
+				staffs: function($http) {
+					return $http.get('/contractStaff');
+				}
+			}
+		})
 		.state('application.FLC', {
 			url: '/facultyLoadChart',
 			views: {
