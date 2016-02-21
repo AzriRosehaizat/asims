@@ -24,6 +24,8 @@ application.controller('regularStaffController', function($scope, staffs, regula
             regularStaffService.getDepartment($scope.tabs.department, row);
             regularStaffService.getRank($scope.tabs.rank, row);
             regularStaffService.getEmployment($scope.tabs.employment, row);
+            
+            
         });
     };
 

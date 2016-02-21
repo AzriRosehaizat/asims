@@ -171,6 +171,9 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             formService.setRow(row);
             formService.setFormData(formData, 'regularStaffService');
         },
+        getTab: function() {
+            
+        },
         getDepartment: function(department, row) {
             $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
                 .then(function(res) {
