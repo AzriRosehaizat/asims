@@ -10,8 +10,19 @@ body {
   overflow: hidden;
 }
 
+
 /*To strikeout Completed items*/
+
 .done-true {
   text-decoration: line-through;
   color: #000;
+}
+
+#rootTop {
+  margin: -20px;
+  margin-bottom: 1.2em;
+  width: 120%;
+  height: 124px;
+  background-image: url(images/topBar.png);
+  background-repeat: repeat-x;
 }
