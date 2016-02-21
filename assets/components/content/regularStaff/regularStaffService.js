@@ -97,16 +97,13 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             };
         },
         update: function(formData) {
-            console.log(formData.model);
-            // return $q.when(true);
             return $http.post('/regularStaff/updateRAS', formData.model);
-
         },
         create: function(formData) {
             return $http.post('/regularStaff/createRAS', formData.model);
         },
         delete: function(formData) {
-            return $http.delete('/regularStaff/deleteRAS', formData.model);
+            return $http.post('/regularStaff/deleteRAS', formData.model);
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};

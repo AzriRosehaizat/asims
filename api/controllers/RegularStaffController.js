@@ -58,7 +58,7 @@ module.exports = {
 					return updatedRAS;
 				});
 				console.log("Updated successfully for academicStaffID: " + updated[0].academicStaffID + updated[0].firstName + " " + updated[0].lastName);
-				return [updated, updatedRAS]
+				return [updated, updatedRAS];
 			}).spread(function(AcademicStaff, RegularStaff) {
 				res.json({
 					academicStaffID: AcademicStaff[0].academicStaffID,
