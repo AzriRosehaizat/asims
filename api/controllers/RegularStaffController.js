@@ -54,10 +54,12 @@ module.exports = {
 					return updatedRAS;
 				});
 				return [updated, updatedRAS];
-			}).spread(function(updated, updatedRAS) {
+			}).spread(function(AcademicStaff, RegularStaff) {
 				res.json({
-					updated, updatedRAS
-				})
+					AcademicStaff, RegularStaff
+				});
+				console.log("Updated staff successfully for: academicStaffID: " + AcademicStaff.academicStaffID + " and regularStaffID: " + RegularStaff.regularStaffID );
+
 			}).catch(function(err) {
 				res.serverError(err);
 				console.log(err);
@@ -83,7 +85,7 @@ module.exports = {
 			res.ok({
 				RegularStaff, AcademicStaff
 			});
-			console.log("Delete staff successful");
+			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff.academicStaffID + " and regularStaffID: " + RegularStaff.regularStaffID );
 		}).catch(function(err) {
 			res.serverError();
 			console.log("Unable to delete");
