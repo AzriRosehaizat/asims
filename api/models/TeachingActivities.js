@@ -1,9 +1,9 @@
 /**
-* TeachingActivities.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * TeachingActivities.js
+ *
+ * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @docs        :: http://sailsjs.org/#!documentation/models
+ */
 
 module.exports = {
 
@@ -19,15 +19,17 @@ module.exports = {
 			model: 'AcademicStaff',
 			required: true
 		},
-
-		startDate: {
-			type: 'date',
+		sectionOfferedID: {
+			model: 'Section_Offered',
 			required: true
 		},
-		endDate: {
-			type: 'date',
+		FCEValue: {
+			type: 'float',
 			required: true
+		},
+		role: {
+			type: 'string',
+			size: 30
 		}
 	}
 };
-
