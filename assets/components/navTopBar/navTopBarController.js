@@ -2,13 +2,16 @@ application.controller('navTopBarController', function($scope, $mdSidenav, user,
 
   $scope.user = user.data;
   $scope.auth = Auth;
-
+  
   $scope.logout = function() {
     Auth.logout();
   };
   
-  $scope.update = function(search) {
-    SearchHelper.search = search;
+  $scope.search = {};
+  SearchHelper.setSearch($scope.search);
+
+  $scope.update = function(searchData) {
+    SearchHelper.setInput(searchData);
   };
 
   $scope.toggleLeft = buildToggler('left');

@@ -33,6 +33,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
 					controller: 'navLeftBarController as vm'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
 				}
 			},
 			resolve: {
@@ -45,7 +49,21 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			}
 		})
 		.state('application.root', {
-			url: '/application'
+			url: '/application',
+			views: {
+				'' :{
+					templateUrl: '/views/application/root.html'
+				},
+				'toDoList@application.root' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
+				}
+			},
+			resolve: {
+				user: function(CurrentUser) {
+					return CurrentUser.getUser();
+				}
+			}
 		})
 		.state('application.regularStaff', {
 			url: '/regularStaff',
@@ -58,15 +76,42 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					templateUrl: '/components/grid/grid.html',
 					controller: 'gridController'
 				},
-				'details@application.regularStaff': {
-					templateUrl: '/components/content/regularStaff/details.html',
-					controller: 'detailsController'
-				},
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
 				}
+			},
+			resolve: {
+				staffs: function($http) {
+					return $http.get('/regularStaff/getAllRegularStaff');
+				}
 			}
+		})
+		.state('application.FLC', {
+			url: '/facultyLoadChart',
+			views: {
+				'': {
+					templateUrl: '/components/report/report.html',
+					controller: 'reportController'
+				},
+				"chart@application.FLC": {
+					templateUrl: '/components/report/loadChart/loadChart.html',
+					controller: 'loadChartController'
+				}
+			},
+		})
+		.state('application.LEC',{
+			url: '/leaveEntitlementChart',
+			views: {
+				'': {
+					templateUrl: '/components/report/report.html',
+					controller: 'reportController'
+				},
+				"chart@application.LEC": {
+				templateUrl: '/components/report/leaveChart/leaveChart.html',
+				controller: 'leaveChartController'
+				}
+			},
 		})
 		.state('application.profile', {
 			url: '/profile',
@@ -76,8 +121,7 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					controller: 'profileController'
 				},
 				'details@application.profile': {
-					templateUrl: '/components/profile/details.html',
-					controller: 'detailsController'
+					templateUrl: '/components/profile/details.html'
 				}
 			},
 			resolve: {
@@ -96,10 +140,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'grid@application.admin': {
 					templateUrl: '/components/grid/grid.html',
 					controller: 'gridController'
-				},
-				'details@application.admin': {
-					templateUrl: '/components/admin/details.html',
-					controller: 'detailsController'
 				}
 			},
 			resolve: {
@@ -118,8 +158,13 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	});
 })
 
-.run(function($rootScope, $state, loginModalService, Auth) {
+.run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+		
+		formService.resetForm();
+		
+		// Initialize SearchHelper
+		SearchHelper.reset();
 
 		Auth.authorize(toState.data.access).then(function(access) {
 			var shouldLogin = (toState.data) && (!access);
@@ -143,6 +188,5 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			}
 		});
-
 	});
 });

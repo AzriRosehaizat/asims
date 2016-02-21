@@ -1,4 +1,4 @@
-application.service('adminService', function($http, $mdDialog, _, moment, toaster) {
+application.service('adminService', function($http, _, moment, formService) {
 
     return {
         gridOptions: function() {
@@ -27,75 +27,126 @@ application.service('adminService', function($http, $mdDialog, _, moment, toaste
                 }]
             };
         },
-        updateUser: function(row, formData) {
-            var self = this;
-            formData.mode = 'indeterminate';
-            
-            $http.put('/user/update/', formData.user)
+        update: function(formData) {
+            return $http.put('/user/update/', formData.model)
                 .then(function(res) {
-                    _.merge(row.entity, res.data);
-                    self.resetPasswords(formData);
-                    toaster.open("Updated successfully!");
-                }, function(err) {
-                    toaster.open(err);
-                })
-                .finally(function(notice) {
-                    formData.mode = '';
+                    resetPasswords(formData);
+                    return res;
                 });
         },
-        createUser: function(gridData, formData) {
-            var self = this;
-            formData.mode = 'indeterminate';
-            
-            $http.post('/user/create/', formData.user)
-                .then(function(res) {
-                    gridData.push(res.data);
-                    formData.user = {};
-                    self.resetValidation(formData);
-                    toaster.open("Added successfully!");
-                }, function(err) {
-                    toaster.open(err);
-                })
-                .finally(function(notice) {
-                    formData.mode = '';
-                });
+        create: function(formData) {
+            return $http.post('/user/create/', formData.model);
         },
-        cancel: function(row, formData) {
-            if (formData.isEditing) {
-                _.merge(formData.user, row.entity);
-                this.resetPasswords(formData);
-            }
-            else {
-                formData.user = {};
-            }
-            this.resetValidation(formData);
+        cancel: function(formData) {
+            resetPasswords(formData);
         },
-        delete: function(ev, gridData, formData) {
-            var self = this;
-            var confirm = $mdDialog.confirm()
-                .title('You are deleting ' + formData.user.username)
-                .textContent('Are you sure?')
-                .targetEvent(ev)
-                .ok('Delete')
-                .cancel('Cancel');
+        delete: function(formData) {
+            return $http.delete('/user/' + formData.model.id);
+        },
+        initAddForm: function(formData, gridData) {
+            formData.model = {};
+            formData.isEditing = false;
+            formData.title = 'Add User';
+            formData.inputs = [{
+                type: "text",
+                name: "username",
+                label: "Username",
+                required: true
+            }, {
+                type: "text",
+                name: "firstName",
+                label: "First name",
+                required: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last name",
+                required: true
+            }, {
+                type: "email",
+                name: "email",
+                label: "Email",
+                required: true
+            }, {
+                type: "role",
+                name: "role",
+                label: "Role",
+                roles: [{
+                    id: 1,
+                    role: "Reader"
+                }, {
+                    id: 2,
+                    role: "Writer"
+                }, {
+                    id: 3,
+                    role: "Admin"
+                }],
+                required: true
+            }, {
+                type: "password",
+                name: "password",
+                label: "Password",
+                minLength: 6
+            }, {
+                type: "passwordConfirm",
+                name: "passwordConfirm",
+                label: "Confirm password",
+                match: "password"
+            }];
 
-            $mdDialog.show(confirm).then(function() {
-                var index = gridData.indexOf(formData.user);
-                formData.mode = 'indeterminate';
-                
-                $http.delete('/user/' + formData.user.id)
-                    .then(function(res) {
-                        gridData.splice(index, 1);  // delete the row in ui-grid
-                        self.initAddForm(formData);
-                        self.resetValidation(formData);  // because the form gives ugly errors...
-                        toaster.open("Deleted successfully!");
-                    }, function(err) {
-                        toaster.open(err);
-                    })
-                    .finally(function(notice) {
-                        formData.mode = '';
-                    });
-            });
+            formService.setGridData(gridData);
+            formService.setFormData(formData, 'adminService');
+        },
+        initEditForm: function(formData, row) {
+            formData.model = _.cloneDeep(row.entity);
+            formData.isEditing = true;
+            formData.title = 'Edit User';
+            formData.inputs = [{
+                type: "text",
+                name: "firstName",
+                label: "First name",
+                required: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last name",
+                required: true
+            }, {
+                type: "email",
+                name: "email",
+                label: "Email",
+                required: true
+            }, {
+                type: "role",
+                name: "role",
+                label: "Role",
+                roles: [{
+                    id: 1,
+                    role: "Reader"
+                }, {
+                    id: 2,
+                    role: "Writer"
+                }, {
+                    id: 3,
+                    role: "Admin"
+                }],
+                required: true
+            }, {
+                type: "passwordChange"
+            }, {
+                type: "password",
+                name: "password",
+                label: "Password",
+                minLength: 6
+            }, {
+                type: "passwordConfirm",
+                name: "passwordConfirm",
+                label: "Confirm password",
+                match: "password"
+            }];
+            
+            formService.setRow(row);
+            formService.setFormData(formData, 'adminService');
         },
         lastLogin: function(row) {
             if (row.entity.attempts) {
@@ -105,25 +156,12 @@ application.service('adminService', function($http, $mdDialog, _, moment, toaste
                 if (lastLogin)
                     return moment(lastLogin.createdAt).format('YYYY-MM-DD');
             }
-        },
-        resetValidation: function(formData) {
-            formData.form.$setPristine();
-            formData.form.$setUntouched();
-        },
-        resetPasswords: function(formData) {
-            formData.user.changePassword = false;
-            formData.user.password = '';
-            formData.user.passwordConfirm = '';
-        },
-        initAddForm: function(formData) {
-            formData.user = {};
-            formData.isEditing = false;
-            formData.title = 'Add a User';
-        },
-        initEditForm: function(formData, row) {
-            formData.user = _.cloneDeep(row.entity);
-            formData.isEditing = true;
-            formData.title = 'Edit a User';
         }
     };
+
+    function resetPasswords(formData) {
+        formData.model.changePassword = false;
+        formData.model.password = '';
+        formData.model.passwordConfirm = '';
+    }
 });
