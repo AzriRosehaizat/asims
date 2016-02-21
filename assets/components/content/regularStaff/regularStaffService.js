@@ -31,7 +31,7 @@ application.service('regularStaffService', function($http, $q, _, formService) {
         },
         tabs: function() {
             return {
-                departments: {
+                department: {
                     title: 'Department',
                     gridOptions: {
                         multiSelect: false,
@@ -54,7 +54,7 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                         }]
                     }
                 },
-                ranks: {
+                rank: {
                     title: 'Rank',
                     gridOptions: {
                         multiSelect: false,
@@ -164,16 +164,16 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             formService.setRow(row);
             formService.setFormData(formData, 'regularStaffService');
         },
-        getDepartment: function(departments, row) {
+        getDepartment: function(department, row) {
             $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
                 .then(function(res) {
-                    departments.gridOptions.data = res.data;
+                    department.gridOptions.data = res.data;
                 });
         },
-        getRank: function(ranks, row) {
+        getRank: function(rank, row) {
             $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
                 .then(function(res) {
-                    ranks.gridOptions.data = res.data;
+                    rank.gridOptions.data = res.data;
                 });
         },
         getEmployment: function(employment, row) {

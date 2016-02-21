@@ -21,8 +21,8 @@ application.controller('regularStaffController', function($scope, staffs, regula
                 regularStaffService.initEditForm($scope.formData, row);
             }
 
-            regularStaffService.getDepartment($scope.tabs.departments, row);
-            regularStaffService.getRank($scope.tabs.ranks, row);
+            regularStaffService.getDepartment($scope.tabs.department, row);
+            regularStaffService.getRank($scope.tabs.rank, row);
             regularStaffService.getEmployment($scope.tabs.employment, row);
         });
     };
