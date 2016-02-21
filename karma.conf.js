@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Sun Feb 07 2016 02:54:45 GMT+0000 (UTC)
+// Generated on Wed Feb 17 2016 17:09:56 GMT+0000 (UTC)
 
 module.exports = function(config) {
   config.set({
@@ -10,14 +10,13 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine', 'mocha', 'sinon-chai'],
+    frameworks: ['jasmine'],
 
 
     // list of files / patterns to load in the browser
-    files: ['bower_components/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'src/*.js',
-      'test/*.mocha.js'
+    files: [
+      'assets/test/*.js',
+      'assets/test/*Spec.js'
     ],
 
 
@@ -28,14 +27,14 @@ module.exports = function(config) {
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {'src/*.js': ['coverage']
+    preprocessors: {
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress'],
 
 
     // web server port
@@ -57,7 +56,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'PhantomJS'],
+    browsers: ['PhantomJS2', 'PhantomJS2_custom'],
 
 
     // Continuous Integration mode
@@ -67,5 +66,32 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Infinity
+  })
+}
+
+// karma.conf.js 
+module.exports = function(config) {
+  config.set({
+    browsers: ['PhantomJS2'],
+ 
+    // you can define custom flags 
+    customLaunchers: {
+      'PhantomJS2_custom': {
+        base: 'PhantomJS2',
+        options: {
+          windowName: 'my-window',
+          settings: {
+            webSecurityEnabled: false
+          },
+        },
+        flags: ['--load-images=true'],
+        debug: true
+      }
+    },
+ 
+    phantomjsLauncher: {
+      // Have phantomjs exit if a ResourceError is encountered (useful if karma exits without killing phantom) 
+      exitOnResourceError: true
+    }
   })
 }
