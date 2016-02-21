@@ -57,13 +57,17 @@ module.exports = {
 				var updatedRAS = RegularStaff.update(rasData.regularStaffID, rasData).then(function(updatedRAS) {
 					return updatedRAS;
 				});
-				console.log("Updated successfully: " );
-				console.dir(updated)
+				console.log("Updated successfully for academicStaffID: " + updated[0].academicStaffID + updated[0].firstName + " " + updated[0].lastName);
 				return [updated, updatedRAS]
 			}).spread(function(AcademicStaff, RegularStaff) {
 				res.json({
-					AcademicStaff,
-					RegularStaff
+					academicStaffID: AcademicStaff[0].academicStaffID,
+					firstName: AcademicStaff[0].firstName,
+					lastName: AcademicStaff[0].lastName,
+					employeeNo: AcademicStaff[0].employeeNo,
+					regularStaffID: RegularStaff[0].regularStaffID,
+					contAppDate: RegularStaff[0].contAppDate,
+					tenureDate: RegularStaff[0].tenureDate
 				});
 
 			}).catch(function(err) {
@@ -89,9 +93,15 @@ module.exports = {
 			return [deletedRAS, deleted];
 		}).spread(function(RegularStaff, AcademicStaff) {
 			res.json({
-				RegularStaff, AcademicStaff
+				academicStaffID: AcademicStaff[0].academicStaffID,
+				firstName: AcademicStaff[0].firstName,
+				lastName: AcademicStaff[0].lastName,
+				employeeNo: AcademicStaff[0].employeeNo,
+				regularStaffID: RegularStaff[0].regularStaffID,
+				contAppDate: RegularStaff[0].contAppDate,
+				tenureDate: RegularStaff[0].tenureDate
 			});
-			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff.academicStaffID + " and regularStaffID: " + RegularStaff.regularStaffID);
+			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff[0].academicStaffID + " and regularStaffID: " + RegularStaff[0].regularStaffID);
 		}).catch(function(err) {
 			res.serverError();
 			console.log("Unable to delete");
