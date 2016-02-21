@@ -31,6 +31,11 @@
     -webkit-appearance: none;
 }
 
+md-input-container textarea[md-no-autogrow].md-input {
+    height: inherit;
+    overflow-y: auto;
+}
+
 .md-icon-button.md-warn.md-hue-2 {
     margin-top: 4px;
 }

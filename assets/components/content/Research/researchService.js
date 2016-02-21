@@ -89,7 +89,7 @@ application.service('researchService', function($http, $q, _, formService) {
                 label: "Name",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "abstract",
                 label: "Abstract",
                 required: false
@@ -118,7 +118,7 @@ application.service('researchService', function($http, $q, _, formService) {
                 label: "Name",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "abstract",
                 label: "Abstract",
                 required: false
