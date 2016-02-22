@@ -1,3 +1,21 @@
 #tabset {
     margin: 0em 0.5em;
 }
+
+#gridTabs md-tabs-canvas {
+    height: 64px;
+    align-items: center;
+}
+
+#gridTabs md-tab-item {
+    top: 10px;
+}
+
+#gridTabs md-ink-bar {
+    top: 62px;
+}
+
+#tabMenu {
+    top: 0;
+    right: 0;
+}

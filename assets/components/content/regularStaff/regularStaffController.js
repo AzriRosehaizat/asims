@@ -37,6 +37,12 @@ application.controller('regularStaffController', function($scope, staffs, regula
     $scope.editRow = function() {
         regularStaffService.initEditForm($scope.formData, $scope.row);
     };
+    
+    $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            
+        });
+    };
 
     $scope.tabs.department.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
