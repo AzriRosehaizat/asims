@@ -9,7 +9,6 @@ application.controller('regularStaffController', function($scope, staffs, regula
     
     $scope.tabs = rsTabService.tabs();
     $scope.tab = $scope.tabs.teachingActivity;
-    $scope.tabData = {};
 
     regularStaffService.initAddForm($scope.formData, $scope.gridOptions.data);
     SearchHelper.init($scope.gridOptions, $scope.rStaff);
@@ -43,38 +42,38 @@ application.controller('regularStaffController', function($scope, staffs, regula
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.tabData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
         });
     };
 
     $scope.tabs.department.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.tabData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
         });
     };
 
     $scope.tabs.rank.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.tabData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
         });
     };
 
     $scope.tabs.employment.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.tabData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
         });
     };
     
     $scope.addTabRow = function() {
         if ($scope.row) 
-            rsTabService.initAddForm($scope.tabData, $scope.tab);
+            rsTabService.initAddForm($scope.formData, $scope.tab);
     };
 
     $scope.editTabRow = function() {
         if ($scope.tabRow) 
-            rsTabService.initEditForm($scope.tabData, $scope.tab, $scope.tabRow, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow, $scope.row);
     };
 });
