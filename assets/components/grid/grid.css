@@ -1,3 +1,8 @@
+#grid md-toolbar {
+  border-top-left-radius: 0.1em;
+  border-top-right-radius: 0.1em;
+}
+
 .grid {
   margin: 0.5em;
   border-radius: 0.2em;
