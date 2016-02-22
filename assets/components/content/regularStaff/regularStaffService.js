@@ -31,6 +31,35 @@ application.service('regularStaffService', function($http, $q, _, formService) {
         },
         tabs: function() {
             return {
+                teachingActivity: {
+                    title: 'Teaching Activity',
+                    gridOptions: {
+                        multiSelect: false,
+                        enableRowHeaderSelection: false,
+                        enableHorizontalScrollbar: 0,
+                        columnDefs: [{
+                            name: 'Dept. Code',
+                            field: 'departmentCode'
+                        }, {
+                            name: 'Course No.',
+                            field: 'courseNo',
+                        }, {
+                            name: 'Section No.',
+                            field: 'sectionNo',
+                        }, {
+                            name: 'Title',
+                            field: 'title',
+                        }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
                 department: {
                     title: 'Department',
                     gridOptions: {
@@ -134,7 +163,7 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
+
             formService.setGridData(gridData);
             formService.setFormData(formData, 'regularStaffService');
         },
@@ -167,9 +196,15 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
+
             formService.setRow(row);
             formService.setFormData(formData, 'regularStaffService');
+        },
+        getTeachingActivity: function(teachingActivity, row) {
+            $http.get('/regularStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    teachingActivity.gridOptions.data = res.data;
+                });
         },
         getDepartment: function(department, row) {
             $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)

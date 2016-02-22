@@ -37,11 +37,6 @@ module.exports = {
 			collection: 'AcademicStaff_Department',
 			via: 'academicStaffID'
 		},
-		//Join table AcademicStaff_Section 1:M
-		AcademicStaff_Section: {
-			collection: 'AcademicStaff_Section',
-			via: 'academicStaffID'
-		},
 		//has contract staffs 1:M
 		ContractStaff: {
 			collection: 'ContractStaff',

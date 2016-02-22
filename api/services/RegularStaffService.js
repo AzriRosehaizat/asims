@@ -55,23 +55,39 @@ module.exports = {
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
-	}
-	// ,
+	},
 
-	// getAcademicStaffID: function(regularStaffID) {
-	// 	RegularStaff.findOne({
-	// 			select: ['academicStaffID'],
-	// 			regularStaffID: regularStaffID
-	// 		})
-	// 		.then(function(result) {
-	// 			console.log("From service: " + result.academicStaffID);
-	// 			return result.academicStaffID;
-	// 		}).catch(function(err) {
-	// 			res.serverError();
-	// 			console.log("No parent id found for this regular staff");
-	// 		});
-	// }
+	getTeachingActivity: function(id, callback) {
+		sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+			.from('AcademicStaff AS a')
+			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
+			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
+			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
+			.where('a.academicStaffID', id)
+			.toString();
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
+	}
 };
+// ,
+
+// getAcademicStaffID: function(regularStaffID) {
+// 	RegularStaff.findOne({
+// 			select: ['academicStaffID'],
+// 			regularStaffID: regularStaffID
+// 		})
+// 		.then(function(result) {
+// 			console.log("From service: " + result.academicStaffID);
+// 			return result.academicStaffID;
+// 		}).catch(function(err) {
+// 			res.serverError();
+// 			console.log("No parent id found for this regular staff");
+// 		});
+// }
+
 
 
 // var async = require('async');

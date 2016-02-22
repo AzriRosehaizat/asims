@@ -14,9 +14,16 @@ application.controller('regularStaffController', function($scope, staffs, regula
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            $scope.row = row;
+            if (row.entity.academicStaffID === $scope.formData.model.academicStaffID) {
+                // Empty the form
+            }
+            else {
+                $scope.row = row;
+                regularStaffService.initEditForm($scope.formData, row);
+            }
             regularStaffService.initEditForm($scope.formData, row);
 
+            regularStaffService.getTeachingActivity($scope.tabs.teachingActivity, row);
             regularStaffService.getDepartment($scope.tabs.department, row);
             regularStaffService.getRank($scope.tabs.rank, row);
             regularStaffService.getEmployment($scope.tabs.employment, row);
