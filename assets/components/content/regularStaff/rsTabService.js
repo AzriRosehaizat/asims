@@ -1,4 +1,4 @@
-application.service('rsTabService', function($http, rsDepartment) {
+application.service('rsTabService', function($http, rsDepartment, rsEmployment) {
 
     return {
         tabs: function() {
@@ -94,7 +94,7 @@ application.service('rsTabService', function($http, rsDepartment) {
                 }
             };
         },
-        initAddForm: function(formData, tab) {
+        initAddForm: function(formData, tab, parentRow) {
             switch (tab.title) {
                 case 'Teaching Activity':
                     console.log("add TA");
@@ -106,7 +106,7 @@ application.service('rsTabService', function($http, rsDepartment) {
                     console.log("add rank");
                     break;
                 case 'Employement':
-                    console.log("add employment");
+                    rsEmployment.initAddForm(formData, tab.gridOptions.data, parentRow);
                     break;
             }
         },
@@ -122,7 +122,7 @@ application.service('rsTabService', function($http, rsDepartment) {
                     console.log("edit rank");
                     break;
                 case 'Employement':
-                    console.log("edit employment");
+                    rsEmployment.initEditForm(formData, row, parentRow);
                     break;
             }
         },
