@@ -6,10 +6,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
     this.setFormData = function(formData, serviceName) {
         this.formData = formData;
         service = $injector.get(serviceName);
-
-        // temporary solution
-        this.formData.tenureDate = (formData.model.tenureDate) ? new Date(formData.model.tenureDate) : null;
-        this.formData.contAppDate = (formData.model.contAppDate) ? new Date(formData.model.contAppDate) : null;
     };
 
     this.setRow = function(currentRow) {
@@ -38,6 +34,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
 
         service.update(formData)
             .then(function(res) {
+                console.log(res.data);
                 _.merge(row.entity, res.data);
                 toaster.open("Updated successfully!");
             }, function(err) {
@@ -107,6 +104,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
     };
 
     function resetValidation(formData) {
+        console.log(formData);
         formData.form.$setPristine();
         formData.form.$setUntouched();
     }

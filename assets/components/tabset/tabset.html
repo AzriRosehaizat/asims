@@ -1,7 +1,7 @@
 <md-content ng-cloak>
     
     <md-tabs id="gridTabs" md-dynamic-height md-border-bottom class="md-warn md-hue-2">
-        <md-tab ng-repeat="tab in tabs" label="{{tab.title}}">
+        <md-tab ng-repeat="tab in tabs" ng-click="selectTab(tab)" label="{{tab.title}}">
             <div ui-grid="tab.gridOptions" ui-grid-selection class="grid"></div>
         </md-tab>
     </md-tabs>
@@ -14,11 +14,11 @@
             </md-button>
         </md-fab-trigger>
         <md-fab-actions>
-            <md-button class="md-fab md-raised md-mini" ng-click="addRow()" aria-label="Add">
+            <md-button class="md-fab md-raised md-mini" ng-click="addTabRow()" aria-label="Add">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Add</md-tooltip>
                 <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">add</md-icon>
             </md-button>
-            <md-button class="md-fab md-raised md-mini" ng-click="editRow()" aria-label="Edit">
+            <md-button class="md-fab md-raised md-mini" ng-click="editTabRow()" aria-label="Edit">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Edit</md-tooltip>
                 <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">create</md-icon>
             </md-button>
