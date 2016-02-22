@@ -1,3 +1,0 @@
-application.service('navRightBarService', function() {
-    
-});

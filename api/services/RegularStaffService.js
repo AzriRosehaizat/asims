@@ -5,13 +5,13 @@ var sSQL;
 module.exports = {
 	//Page Regular Staff
 	getAllRegularStaff: function(callback) {
-		sSQL = mysql.select('a.*', 'r.contAppDate', 'r.tenureDate', 'd.departmentCode', 'rk.title AS Rank')
+		sSQL = mysql.select('a.*', 'r.*', 'd.departmentCode', 'rk.title AS Rank')
 			.from('AcademicStaff AS a')
-				.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
-					.leftJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
-					.leftJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
-				.leftJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
-					.leftJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
+			.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
+			.leftJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
+			.leftJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
+			.leftJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
+			.leftJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
 			.whereNull('rs.endDate')
 			.whereNull('ad.endDate')
 			.groupBy('a.academicStaffID')
@@ -55,10 +55,39 @@ module.exports = {
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
+	},
+
+	getTeachingActivity: function(id, callback) {
+		sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+			.from('AcademicStaff AS a')
+			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
+			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
+			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
+			.where('a.academicStaffID', id)
+			.toString();
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
 	}
-
-
 };
+// ,
+
+// getAcademicStaffID: function(regularStaffID) {
+// 	RegularStaff.findOne({
+// 			select: ['academicStaffID'],
+// 			regularStaffID: regularStaffID
+// 		})
+// 		.then(function(result) {
+// 			console.log("From service: " + result.academicStaffID);
+// 			return result.academicStaffID;
+// 		}).catch(function(err) {
+// 			res.serverError();
+// 			console.log("No parent id found for this regular staff");
+// 		});
+// }
+
 
 
 // var async = require('async');

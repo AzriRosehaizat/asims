@@ -105,21 +105,25 @@ application.service('departmentService', function($http, $q, _, formService) {
                 type: "text",
                 name: "departmentCode",
                 label: "Code",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Name",
+                disabled: false,
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description",
+                disabled: false,
                 required: false
             }, {
                 type: "text",
                 name: "facultyTitle",
                 label: "Faculty",
+                disabled: false,
                 required: true
             }];
             
@@ -134,21 +138,25 @@ application.service('departmentService', function($http, $q, _, formService) {
                 type: "text",
                 name: "departmentCode",
                 label: "Code",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Name",
+                disabled: false,
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description",
+                disabled: false,
                 required: false
             }, {
                 type: "text",
                 name: "facultyTitle",
                 label: "Faculty",
+                disabled: false,
                 required: true
             }];
             

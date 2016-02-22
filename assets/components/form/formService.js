@@ -6,10 +6,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
     this.setFormData = function(formData, serviceName) {
         this.formData = formData;
         service = $injector.get(serviceName);
-        
-        // temporary solution
-        this.formData.tenureDate = (formData.model.tenureDate) ? new Date(formData.model.tenureDate) : null;
-        this.formData.contAppDate = (formData.model.contAppDate) ? new Date(formData.model.contAppDate) : null;
     };
 
     this.setRow = function(currentRow) {
@@ -41,7 +37,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
                 _.merge(row.entity, res.data);
                 toaster.open("Updated successfully!");
             }, function(err) {
-                toaster.open(err);
+                toaster.error(err);
             })
             .finally(function(notice) {
                 formData.mode = '';
@@ -53,12 +49,12 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
 
         service.create(formData)
             .then(function(res) {
-                gridData.push(res.data);
+                gridData.unshift(res.data);
                 formData.model = {};
                 resetValidation(formData);
                 toaster.open("Added successfully!");
             }, function(err) {
-                toaster.open(err);
+                toaster.error(err);
             })
             .finally(function(notice) {
                 formData.mode = '';
@@ -98,7 +94,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
                     resetValidation(formData);
                     toaster.open("Deleted successfully!");
                 }, function(err) {
-                    toaster.open(err);
+                    toaster.error(err);
                 })
                 .finally(function(notice) {
                     formData.mode = '';
