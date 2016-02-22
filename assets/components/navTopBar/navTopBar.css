@@ -11,3 +11,7 @@
 #searchBox input:focus {
     outline: none;
 }
+
+#navbar-top #username {
+    margin-left: 4px;
+}
