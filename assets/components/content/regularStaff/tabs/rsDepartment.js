@@ -11,14 +11,28 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                 });
         },
         create: function(formData) {
-            return $q.when(true);
-            // return $http.post('/AcademicStaff_Department', formData.model);
+            if (_.isObject(formData.model.title)) {
+                formData.model.departmentID = formData.model.title.obj.departmentID;
+            }
+            formData.model.academicStaffID = parentRow.entity.academicStaffID;
+            return $http.post('/AcademicStaff_Department', formData.model)
+                .then(function(res) {
+                    return $http.get('/Department/' + res.data.departmentID)
+                        .then(function(department) {
+                            res.data.departmentCode = department.data.departmentCode;
+                            res.data.title = department.data.title;
+                            // Update parent row, more logic?
+                            if (!parentRow.entity.departmentCode) 
+                                parentRow.entity.departmentCode = res.data.departmentCode;
+                            return res;
+                        });
+                });
         },
         delete: function(formData) {
-            return $q.when(true);
-            // return $http.delete('/AcademicStaff_Department', formData.model);
+            return $http.delete('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID);
         },
-        initAddForm: function(formData, gridData) {
+        initAddForm: function(formData, gridData, pRow) {
+            parentRow = pRow;
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Department';
