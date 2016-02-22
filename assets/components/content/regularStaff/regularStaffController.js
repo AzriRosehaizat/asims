@@ -69,7 +69,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
     
     $scope.addTabRow = function() {
         if ($scope.row) 
-            rsTabService.initAddForm($scope.formData, $scope.tab);
+            rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
     };
 
     $scope.editTabRow = function() {
