@@ -11,7 +11,7 @@ application.service('toaster', function($mdToast) {
         error: function(err) {
             var text = err;
             
-            if (err.raw.sqlState === "23000") {
+            if (err.raw && err.raw.sqlState === "23000") {
                 text = "Foreign key conflicts!";
             }
             
