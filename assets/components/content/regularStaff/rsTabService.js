@@ -65,9 +65,6 @@ application.service('rsTabService', function($http, rsDepartment) {
                             name: 'Name',
                             field: 'title'
                         }, {
-                            name: 'Description',
-                            field: 'description'
-                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
