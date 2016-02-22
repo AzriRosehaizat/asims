@@ -31,6 +31,35 @@ application.service('regularStaffService', function($http, $q, _, formService) {
         },
         tabs: function() {
             return {
+                teachingActivity: {
+                    title: 'Teaching Activity',
+                    gridOptions: {
+                        multiSelect: false,
+                        enableRowHeaderSelection: false,
+                        enableHorizontalScrollbar: 0,
+                        columnDefs: [{
+                            name: 'Dept. Code',
+                            field: 'departmentCode'
+                        }, {
+                            name: 'Course No.',
+                            field: 'courseNo',
+                        }, {
+                            name: 'Section No.',
+                            field: 'sectionNo',
+                        }, {
+                            name: 'Title',
+                            field: 'title',
+                        }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
                 department: {
                     title: 'Department',
                     gridOptions: {
@@ -97,14 +126,16 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             };
         },
         update: function(formData) {
-            console.log("update");
-            return $q.when(true);
+            // console.log("update");
+            // return $q.when(true);
+            return $http.post('/regularStaff/updateRAS', formData.model);
+
         },
         create: function(formData) {
             return $http.post('/regularStaff/createRAS', formData.model);
         },
         delete: function(formData) {
-            return $http.delete('/regularStaff/' + formData.model.academicStaffID);
+            return $http.post('/regularStaff/deleteRAS', formData.model);
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -131,7 +162,7 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 label: "Cont' appointment date",
                 required: false
             }];
-            
+
             formService.setGridData(gridData);
             formService.setFormData(formData, 'regularStaffService');
         },
@@ -160,9 +191,15 @@ application.service('regularStaffService', function($http, $q, _, formService) {
                 label: "Cont' appointment date",
                 required: false
             }];
-            
+
             formService.setRow(row);
             formService.setFormData(formData, 'regularStaffService');
+        },
+        getTeachingActivity: function(teachingActivity, row) {
+            $http.get('/regularStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    teachingActivity.gridOptions.data = res.data;
+                });
         },
         getDepartment: function(department, row) {
             $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)

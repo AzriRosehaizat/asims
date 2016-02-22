@@ -35,9 +35,9 @@ module.exports = {
 			required: true 
 
 		},
-		AcademicStaff_Section: {
-			collection: 'AcademicStaff_Section',
-			via: 'sectionOfferedID'
+		TeachingActivities: {
+			collection: 'TeachingActivities',
+			via: 'teachingActivitiesID'
 		},
 		RightToRefusal: {
 			collection: 'RightToRefusal',
