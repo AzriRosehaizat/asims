@@ -1,9 +1,14 @@
 application.service('rsDepartment', function($http, $q, _, formService) {
 
+    var parentRow;
+
     return {
         update: function(formData) {
-            console.log(formData.model);
-            return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model);
+            return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model)
+                .then(function(res) {
+                    parentRow.entity.departmentCode = res.data.departmentCode;
+                    return res;
+                });
         },
         create: function(formData) {
             return $q.when(true);
@@ -23,7 +28,7 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                 label: "Name",
                 url: "/department?where={\"title\":{\"startsWith\":\"",
                 link: "application.department",
-                output: {id: "departmentID", name: "title"},
+                output: {obj: {}, name: "title"},
                 disabled: false,
                 required: true
             }, {
@@ -43,24 +48,19 @@ application.service('rsDepartment', function($http, $q, _, formService) {
             formService.setGridData(gridData);
             formService.setFormData(formData, 'rsDepartment');
         },
-        initEditForm: function(formData, row) {
+        initEditForm: function(formData, row, pRow) {
+            parentRow = pRow;
             formatDate(row.entity);
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Department';
             formData.inputs = [{
-                type: "text",
-                name: "departmentCode",
-                label: "Code",
-                disabled: true,
-                required: true
-            }, {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
                 url: "/department?where={\"title\":{\"startsWith\":\"",
                 link: "application.department",
-                output: {id: "departmentID", name: "title"},
+                output: {obj: {}, name: "title"},
                 disabled: false,
                 required: true
             }, {

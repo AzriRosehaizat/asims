@@ -5,14 +5,10 @@ application.controller('formController', function($http, _) {
             .then(function(res) {
                 return _.map(res.data, function(item) {
                     return {
-                        id: item[output.id],
+                        obj: item,
                         name: item[output.name]
                     };
                 });
             });
-    };
-    
-    this.redirect = function(link) {
-        console.log(link);    
     };
 });

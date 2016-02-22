@@ -34,7 +34,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
 
         service.update(formData)
             .then(function(res) {
-                console.log(res.data);
                 _.merge(row.entity, res.data);
                 toaster.open("Updated successfully!");
             }, function(err) {

@@ -113,13 +113,13 @@ application.service('rsTabService', function($http, rsDepartment) {
                     break;
             }
         },
-        initEditForm: function(formData, tab, row) {
+        initEditForm: function(formData, tab, row, parentRow) {
             switch (tab.title) {
                 case 'Teaching Activity':
                     console.log("edit TA");
                     break;
                 case 'Department':
-                    rsDepartment.initEditForm(formData, row);
+                    rsDepartment.initEditForm(formData, row, parentRow);
                     break;
                 case 'Rank':
                     console.log("edit rank");
