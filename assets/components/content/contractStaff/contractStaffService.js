@@ -87,21 +87,25 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 type: "text",
                 name: "firstName",
                 label: "First name",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
+                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
+                disabled: false,
                 required: false
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                disabled: false,
                 required: false
             }];
             
@@ -116,21 +120,25 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 type: "text",
                 name: "firstName",
                 label: "First name",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
+                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
+                disabled: false,
                 required: false
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                disabled: false,
                 required: false
             }];
             

@@ -51,21 +51,25 @@ application.service('adminService', function($http, _, moment, formService) {
                 type: "text",
                 name: "username",
                 label: "Username",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "firstName",
                 label: "First name",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
+                disabled: false,
                 required: true
             }, {
                 type: "email",
                 name: "email",
                 label: "Email",
+                disabled: false,
                 required: true
             }, {
                 type: "role",
@@ -81,17 +85,20 @@ application.service('adminService', function($http, _, moment, formService) {
                     id: 3,
                     role: "Admin"
                 }],
+                disabled: false,
                 required: true
             }, {
                 type: "password",
                 name: "password",
                 label: "Password",
+                disabled: false,
                 minLength: 6
             }, {
                 type: "passwordConfirm",
                 name: "passwordConfirm",
                 label: "Confirm password",
-                match: "password"
+                match: "password",
+                disabled: false,
             }];
 
             formService.setGridData(gridData);
@@ -105,16 +112,19 @@ application.service('adminService', function($http, _, moment, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
+                disabled: false,
                 required: true
             }, {
                 type: "email",
                 name: "email",
                 label: "Email",
+                disabled: false,
                 required: true
             }, {
                 type: "role",
@@ -130,6 +140,7 @@ application.service('adminService', function($http, _, moment, formService) {
                     id: 3,
                     role: "Admin"
                 }],
+                disabled: false,
                 required: true
             }, {
                 type: "passwordChange"
@@ -137,12 +148,14 @@ application.service('adminService', function($http, _, moment, formService) {
                 type: "password",
                 name: "password",
                 label: "Password",
+                disabled: false,
                 minLength: 6
             }, {
                 type: "passwordConfirm",
                 name: "passwordConfirm",
                 label: "Confirm password",
-                match: "password"
+                match: "password",
+                disabled: false,
             }];
             
             formService.setRow(row);

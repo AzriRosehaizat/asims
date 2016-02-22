@@ -1,7 +1,28 @@
 <md-content ng-cloak>
-    <md-tabs md-dynamic-height md-border-bottom class="md-warn md-hue-2">
-        <md-tab ng-repeat="tab in tabs" label="{{tab.title}}">
+    
+    <md-tabs id="gridTabs" md-dynamic-height md-border-bottom class="md-warn md-hue-2">
+        <md-tab ng-repeat="tab in tabs" ng-click="selectTab(tab)" label="{{tab.title}}">
             <div ui-grid="tab.gridOptions" ui-grid-selection class="grid"></div>
         </md-tab>
     </md-tabs>
+
+    <md-fab-speed-dial id="tabMenu" md-direction="left" md-open="tabMenu.isOpen" class="md-scale md-fab-top-right" ng-class="{'md-hover-full': true}" ng-mouseenter="tabMenu.isOpen=true" ng-mouseleave="tabMenu.isOpen=false">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-warn md-hue-2">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Menu</md-tooltip>
+                <md-icon md-font-set="material-icons">menu</md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button class="md-fab md-raised md-mini" ng-click="addTabRow()" aria-label="Add">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Add</md-tooltip>
+                <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">add</md-icon>
+            </md-button>
+            <md-button class="md-fab md-raised md-mini" ng-click="editTabRow()" aria-label="Edit">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Edit</md-tooltip>
+                <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">create</md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+    
 </md-content>
