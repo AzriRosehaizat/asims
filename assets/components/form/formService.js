@@ -103,7 +103,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
     };
 
     function resetValidation(formData) {
-        console.log(formData);
         formData.form.$setPristine();
         formData.form.$setUntouched();
     }
