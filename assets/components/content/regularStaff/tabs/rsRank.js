@@ -4,17 +4,39 @@ application.service('rsRank', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
-            return $q.when(true);
+            if (_.isObject(formData.model.title)) {
+                formData.model.rankID = formData.model.title.obj.rankID;
+            }
+            return $http.put('/regularStaff_Rank/' + formData.model.regularStaffRankID, formData.model)
+                .then(function(res) {
+                    res.data.title = res.data.rankID.title;
+                    res.data.rankID = res.data.rankID.rankID;
+                    // Update parent row
+                    parentRow.entity.Rank = res.data.title;
+                    return res;
+                });
         },
         create: function(formData) {
-            return $q.when(true);
-            // return $http.post('/AcademicStaff_Department', formData.model);
+            if (_.isObject(formData.model.title)) {
+                formData.model.rankID = formData.model.title.obj.rankID;
+            }
+            formData.model.regularStaffID = parentRow.entity.regularStaffID;
+            return $http.post('/regularStaff_Rank', formData.model)
+                .then(function(res) {
+                    return $http.get('/rank/' + res.data.rankID)
+                        .then(function(rank) {
+                            res.data.title = rank.data.title;
+                            // Update parent row, more logic?
+                            if (!parentRow.entity.Rank) parentRow.entity.Rank = res.data.title;
+                            return res;
+                        });
+                });
         },
         delete: function(formData) {
-            return $q.when(true);
-            // return $http.delete('/AcademicStaff_Department', formData.model);
+            return $http.delete('/regularStaff_Rank/' + formData.model.regularStaffRankID);
         },
-        initAddForm: function(formData, gridData) {
+        initAddForm: function(formData, gridData, pRow) {
+            parentRow = pRow;
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Rank';
@@ -22,9 +44,12 @@ application.service('rsRank', function($http, $q, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/department?where={\"title\":{\"startsWith\":\"",
+                url: "/rank?where={\"title\":{\"startsWith\":\"",
                 link: "application.rank",
-                output: {obj: {}, name: "title"},
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -54,9 +79,12 @@ application.service('rsRank', function($http, $q, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/department?where={\"title\":{\"startsWith\":\"",
-                link: "application.department",
-                output: {obj: {}, name: "title"},
+                url: "/rank?where={\"title\":{\"startsWith\":\"",
+                link: "application.rank",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -74,7 +102,7 @@ application.service('rsRank', function($http, $q, _, formService) {
             }];
 
             formService.setRow(row);
-            formService.setFormData(formData, 'rsDepartment');
+            formService.setFormData(formData, 'rsRank');
         },
     };
 
