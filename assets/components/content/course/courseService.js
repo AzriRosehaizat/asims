@@ -62,16 +62,19 @@ application.service('courseService', function($http, $q, _, formService) {
                 type: "text",
                 name: "courseNo",
                 label: "Course No",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Name",
+                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "description",
                 label: "Description",
+                disabled: false,
                 required: false
             }];
             
@@ -86,16 +89,19 @@ application.service('courseService', function($http, $q, _, formService) {
                 type: "text",
                 name: "courseNo",
                 label: "Course No",
+                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Name",
+                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "description",
                 label: "Description",
+                disabled: false,
                 required: false
             }];
             
