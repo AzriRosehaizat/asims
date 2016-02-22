@@ -131,8 +131,8 @@ module.exports = {
 			case 'employment':
 				RegularStaffService.getEmployment(data.id, responseFn)
 				break;
-			case 'teachingActivities':
-				RegularStaffService.getTeachingActivities(data.id, responseFn)
+			case 'teaching':
+				RegularStaffService.getTeachingActivity(data.id, responseFn)
 			case 'leave':
 				//code
 				break;
