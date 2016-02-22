@@ -1,4 +1,4 @@
-application.service('rsTabService', function($http, rsDepartment, rsEmployment) {
+application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmployment) {
 
     return {
         tabs: function() {
@@ -103,7 +103,7 @@ application.service('rsTabService', function($http, rsDepartment, rsEmployment) 
                     rsDepartment.initAddForm(formData, tab.gridOptions.data);
                     break;
                 case 'Rank':
-                    console.log("add rank");
+                    rsRank.initAddForm(formData, tab.gridOptions.data, parentRow);
                     break;
                 case 'Employement':
                     rsEmployment.initAddForm(formData, tab.gridOptions.data, parentRow);
@@ -119,7 +119,7 @@ application.service('rsTabService', function($http, rsDepartment, rsEmployment) 
                     rsDepartment.initEditForm(formData, row, parentRow);
                     break;
                 case 'Rank':
-                    console.log("edit rank");
+                    rsRank.initEditForm(formData, row, parentRow);
                     break;
                 case 'Employement':
                     rsEmployment.initEditForm(formData, row, parentRow);
