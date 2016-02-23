@@ -4,10 +4,20 @@ application.service('rsDepartment', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
+            if (_.isObject(formData.model.title)) {
+                formData.model.departmentID = formData.model.title.obj.departmentID;
+            }
             return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model)
                 .then(function(res) {
-                    parentRow.entity.departmentCode = res.data.departmentCode;
-                    return res;
+                    return $http.get('/Department/' + res.data.departmentID.departmentID)
+                        .then(function(department) {
+                            res.data.departmentCode = department.data.departmentCode;
+                            res.data.title = department.data.title;
+                            res.data.departmentID = department.data.departmentID;
+                            // Update parent row, more logic?
+                            parentRow.entity.departmentCode = res.data.departmentCode;
+                            return res;
+                        });
                 });
         },
         create: function(formData) {
@@ -22,7 +32,7 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                             res.data.departmentCode = department.data.departmentCode;
                             res.data.title = department.data.title;
                             // Update parent row, more logic?
-                            if (!parentRow.entity.departmentCode) 
+                            if (!parentRow.entity.departmentCode)
                                 parentRow.entity.departmentCode = res.data.departmentCode;
                             return res;
                         });
@@ -42,7 +52,10 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                 label: "Name",
                 url: "/department?where={\"title\":{\"startsWith\":\"",
                 link: "application.department",
-                output: {obj: {}, name: "title"},
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -74,7 +87,10 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                 label: "Name",
                 url: "/department?where={\"title\":{\"startsWith\":\"",
                 link: "application.department",
-                output: {obj: {}, name: "title"},
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
