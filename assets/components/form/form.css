@@ -24,17 +24,37 @@
     display: none;
 }
 
+
 /*Remove native browser date picker*/
+
 .noBrowserPicker::-webkit-inner-spin-button,
 .noBrowserPicker::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 md-input-container textarea[md-no-autogrow].md-input {
     height: inherit;
     overflow-y: auto;
 }
+
+md-autocomplete[md-floating-label] md-autocomplete-wrap {
+    top: -18px;
+    height: 58px;
+    margin: 18px 0;
+}
+
+md-autocomplete[md-floating-label] md-input-container {
+    padding-bottom: 0;
+}
+
+md-autocomplete > md-autocomplete-wrap > md-progress-linear {
+    display: none;
+}
+
+
+/*delete button*/
 
 .md-icon-button.md-warn.md-hue-2 {
     margin-top: 4px;
