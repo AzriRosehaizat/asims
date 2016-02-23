@@ -3,7 +3,6 @@ module.exports = {
   connection: 'MySQLServerMeta',
   autoPK: true,
   tableName: 'ToDoList',
-  migrate: 'alter',
 
   attributes: {
     text: {
