@@ -147,5 +147,3 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- INSERT into ROLE Table
 INSERT INTO role(role,id) VALUES ('reader',1),('writer',2),('admin',3);
--- INSERT into USER Table
-INSERT INTO user(username,firstName, lastName, email, role, id) VALUES ('testing', 'Test', 'Test', 'testing@test.com', 3, 1);
