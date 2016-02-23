@@ -147,3 +147,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- INSERT into ROLE Table
 INSERT INTO role(role,id) VALUES ('reader',1),('writer',2),('admin',3);
+-- INSERT credentials for test user
+INSERT INTO `asimsMeta`.`Auth`(`user`, `username`,`password`,`id`) 
+	VALUES(1, 'testing', '$2a$10$rscHa5MhulEah8J4pfNb6ufujPntqhu6a04NV7wZP3OwsSaFPGdNu', 1);
+INSERT INTO `asimsMeta`.`User`(`auth`,`username`,`firstName`,`lastName`,`email`,`role`,`id`)
+	VALUES (1,'testing','John','Doe', 'test@test.test', 3, 1);
