@@ -72,7 +72,8 @@ application.service('rsRank', function($http, $q, _, formService) {
         },
         initEditForm: function(formData, row, pRow) {
             parentRow = pRow;
-            formatDate(row.entity);
+            formService.formatDate(row.entity.startDate);
+            formService.formatDate(row.entity.endDate);
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Rank';
@@ -106,9 +107,4 @@ application.service('rsRank', function($http, $q, _, formService) {
             formService.setFormData(formData, 'rsRank');
         },
     };
-
-    function formatDate(entity) {
-        entity.startDate = (entity.startDate) ? new Date(entity.startDate) : null;
-        entity.endDate = (entity.endDate) ? new Date(entity.endDate) : null;
-    }
 });
