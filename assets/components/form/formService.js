@@ -1,4 +1,4 @@
-application.service('formService', function($injector, $mdDialog, _, toaster) {
+application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
 
     this.formData = {};
     var service, row, gridData;
@@ -100,6 +100,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster) {
                     formData.mode = '';
                 });
         });
+    };
+
+    this.formatDate = function(date) {
+        date = (date) ? (new moment(date).toDate()) : null;
     };
 
     function resetValidation(formData) {
