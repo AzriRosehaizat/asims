@@ -28,7 +28,7 @@ module.exports.connections = {
     user: process.env.ASIMS_USER,
     password: process.env.ASIMS_PW,
     database: 'asims',
-    timezone: 'utc'
+    timezone: 'America/Winnipeg'
   },
   //adapter to asims user administration database
   MySQLServerMeta: {
@@ -37,6 +37,6 @@ module.exports.connections = {
     user: process.env.ASIMS_USER,
     password: process.env.ASIMS_PW,
     database: 'asimsMeta',
-    timezone: 'utc'
+    timezone: 'America/Winnipeg'
   }
 };

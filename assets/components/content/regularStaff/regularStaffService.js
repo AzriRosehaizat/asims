@@ -72,7 +72,8 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             formService.setFormData(formData, 'regularStaffService');
         },
         initEditForm: function(formData, row) {
-            formatDate(row.entity);
+            formService.formatDate(row.entity.tenureDate);
+            formService.formatDate(row.entity.contAppDate);
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
@@ -106,10 +107,4 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             formService.setFormData(formData, 'regularStaffService');
         }
     };
-
-    function formatDate(entity) {
-        // If it's empty, set to null because Date() converts null to a date (1969~).
-        entity.tenureDate = (entity.tenureDate) ? new Date(entity.tenureDate) : null;
-        entity.contAppDate = (entity.contAppDate) ? new Date(entity.contAppDate) : null;
-    }
 });
