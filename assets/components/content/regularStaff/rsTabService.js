@@ -100,7 +100,7 @@ application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmpl
                     console.log("add TA");
                     break;
                 case 'Department':
-                    rsDepartment.initAddForm(formData, tab.gridOptions.data);
+                    rsDepartment.initAddForm(formData, tab.gridOptions.data, parentRow);
                     break;
                 case 'Rank':
                     rsRank.initAddForm(formData, tab.gridOptions.data, parentRow);
