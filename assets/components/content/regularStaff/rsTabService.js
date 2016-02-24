@@ -6,6 +6,7 @@ application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmpl
                 teachingActivity: {
                     title: 'Teaching Activity',
                     gridOptions: {
+                        noUnselect: true,
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
@@ -35,6 +36,7 @@ application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmpl
                 department: {
                     title: 'Department',
                     gridOptions: {
+                        noUnselect: true,
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
@@ -58,6 +60,7 @@ application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmpl
                 rank: {
                     title: 'Rank',
                     gridOptions: {
+                        noUnselect: true,
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
@@ -78,6 +81,7 @@ application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmpl
                 employment: {
                     title: 'Employement',
                     gridOptions: {
+                        noUnselect: true,
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
