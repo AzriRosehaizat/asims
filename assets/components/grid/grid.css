@@ -11,3 +11,52 @@
 .ui-grid-row.ui-grid-row-selected:hover .ui-grid-cell {
   cursor: pointer;
 }
+
+.ui-grid,
+.ui-grid-cell,
+.ui-grid-menu-inner {
+  border: none !important; }
+
+.ui-grid-menu-inner {
+  padding: 1em !important;
+  background: white !important; }
+
+.ui-grid-top-panel {
+  background: none !important; }
+
+.ui-grid-filter-input {
+  border: 1px solid rgba(0, 0, 0, 0.03) !important; }
+
+.ui-grid-menu-button,
+.ui-grid-menu {
+  border: none !important;
+  background: none !important; }
+
+.ui-grid-menu-mid {
+  overflow-x: hidden !important;
+  border: none !important;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important; }
+
+.ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid.ng-hide-remove {
+  transition: opacity 400ms;
+  opacity: 1;
+  transform: none !important; }
+
+.ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid.ng-hide {
+  transition: opacity 400ms;
+  opacity: 0;
+  transform: none !important; }
+
+.ui-grid-menu-inner ul li button {
+  box-shadow: none !important;
+  background: white !important; }
+
+.md-datepicker-input,
+.md-datepicker-triangle-button {
+  display: none; }
+
+md-tabs.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+  color: rgba(0, 0, 0, 0.8); }
+
+*:focus {
+  outline: none; }

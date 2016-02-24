@@ -27,7 +27,8 @@ application.service('rsRank', function($http, $q, _, formService) {
                         .then(function(rank) {
                             res.data.title = rank.data.title;
                             // Update parent row, more logic?
-                            if (!parentRow.entity.Rank) parentRow.entity.Rank = res.data.title;
+                            if (!parentRow.entity.Rank) 
+                                parentRow.entity.Rank = res.data.title;
                             return res;
                         });
                 });
