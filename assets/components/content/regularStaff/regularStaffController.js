@@ -36,7 +36,8 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
     
     $scope.selectTab = function(tab) {
-        $scope.tab = tab;    
+        $scope.tab = tab;
+        $scope.addTabRow();
     };
     
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
