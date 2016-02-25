@@ -1,4 +1,4 @@
-application.service('rsRank', function($http, _, formService) {
+application.service('rsTA', function($http, _, formService) {
 
     var parentRow;
 
@@ -68,7 +68,7 @@ application.service('rsRank', function($http, _, formService) {
             }];
 
             formService.setGridData(gridData);
-            formService.setFormData(formData, 'rsRank');
+            formService.setFormData(formData, 'rsTA');
         },
         initEditForm: function(formData, row, pRow) {
             parentRow = pRow;
@@ -104,7 +104,7 @@ application.service('rsRank', function($http, _, formService) {
             }];
 
             formService.setRow(row);
-            formService.setFormData(formData, 'rsRank');
+            formService.setFormData(formData, 'rsTA');
         },
     };
 });
