@@ -17,6 +17,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         }
     };
 
+    this.reset = function() {
+        this.formData = {};
+    };
+
     this.submit = function(formData) {
         if (formData.isEditing) {
             this.update(row, formData);
@@ -82,7 +86,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             .targetEvent(ev)
             .ok('Delete')
             .cancel('Cancel');
-            
+
         $mdDialog.show(confirm).then(function() {
             formData.mode = 'indeterminate';
             var index = grid.indexOf(row.entity);

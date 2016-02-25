@@ -269,6 +269,7 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 .run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 		
+		formService.reset();
 		SearchHelper.reset();
 
 		Auth.authorize(toState.data.access).then(function(access) {
