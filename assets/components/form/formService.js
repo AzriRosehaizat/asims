@@ -100,8 +100,8 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         });
     };
 
-    this.formatDate = function(date) {
-        date = (date) ? (new moment(date).toDate()) : null;
+    this.formatDate = function(datef) {
+        return (datef) ? (new moment(datef).toDate()) : null;
     };
 
     function resetValidation(formData) {

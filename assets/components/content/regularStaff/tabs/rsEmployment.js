@@ -37,8 +37,8 @@ application.service('rsEmployment', function($http, _, formService) {
         },
         initEditForm: function(formData, row, pRow) {
             parentRow = pRow;
-            formService.formatDate(row.entity.startDate);
-            formService.formatDate(row.entity.endDate);
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Employment';
