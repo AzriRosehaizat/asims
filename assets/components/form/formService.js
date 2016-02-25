@@ -8,8 +8,8 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         service = $injector.get(serviceName);
     };
 
-    this.setRow = function(currentRow) {
-        row = currentRow;
+    this.setRow = function(rowData) {
+        row = rowData;
     };
 
     this.setGridData = function(data) {
@@ -22,19 +22,20 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     this.submit = function(formData) {
         if (formData.isEditing) {
-            this.update(row, formData);
+            var currentRow = _.cloneDeep(row);
+            this.update(currentRow, formData);
         }
         else {
             this.create(gridData, formData);
         }
     };
 
-    this.update = function(row, formData) {
+    this.update = function(currentRow, formData) {
         formData.mode = 'indeterminate';
 
         service.update(formData)
             .then(function(res) {
-                _.merge(row.entity, res.data);
+                _.merge(currentRow.entity, res.data);
                 toaster.open("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -69,9 +70,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             formData.model = {};
         }
         resetValidation(formData);
-
-        // More specific?
-        if (service.cancel) service.cancel(formData);
     };
 
     this.delete = function(ev, formData) {

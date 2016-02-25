@@ -1,4 +1,4 @@
-application.service('rsDepartment', function($http, $q, _, formService) {
+application.service('rsDepartment', function($http, _, formService) {
 
     var parentRow;
 
