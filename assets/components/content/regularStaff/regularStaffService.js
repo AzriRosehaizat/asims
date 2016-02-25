@@ -73,8 +73,8 @@ application.service('regularStaffService', function($http, $q, _, formService) {
             formService.setFormData(formData, 'regularStaffService');
         },
         initEditForm: function(formData, row) {
-            formService.formatDate(row.entity.tenureDate);
-            formService.formatDate(row.entity.contAppDate);
+            row.entity.tenureDate = formService.formatDate(row.entity.tenureDate);
+            row.entity.contAppDate = formService.formatDate(row.entity.contAppDate);
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
