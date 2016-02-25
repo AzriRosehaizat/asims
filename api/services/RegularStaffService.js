@@ -4,7 +4,7 @@ var mysql = require('knex')({
 var sSQL;
 module.exports = {
 	//Page Regular Staff
-	getAllRegularStaff: function(callback) {
+	getAllRegularStaff: function(data, callback) {
 		sSQL = mysql.select('a.*', 'r.*', 'd.departmentCode', 'rk.title AS Rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
@@ -12,9 +12,7 @@ module.exports = {
 			.leftJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
 			.leftJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.leftJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
-			.whereNull('rs.endDate')
-			.whereNull('ad.endDate')
-			.groupBy('a.academicStaffID')
+			// .groupBy('a.academicStaffID')
 			.orderBy('a.academicStaffID', 'desc')
 			.toString();
 		// console.log(sSQL);
