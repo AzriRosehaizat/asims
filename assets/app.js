@@ -33,10 +33,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
 					controller: 'navLeftBarController as vm'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
 				}
 			},
 			resolve: {
@@ -117,6 +113,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
+				},
+				'navRightBar@application.regularStaff': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
 				}
 			},
 			resolve: {
@@ -250,7 +250,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 		
 		SearchHelper.reset();
-		formService.resetForm();
 
 		Auth.authorize(toState.data.access).then(function(access) {
 			var shouldLogin = (toState.data) && (!access);

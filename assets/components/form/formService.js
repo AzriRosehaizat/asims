@@ -17,10 +17,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         }
     };
 
-    this.resetForm = function() {
-        this.formData = {};
-    };
-
     this.submit = function(formData) {
         if (formData.isEditing) {
             this.update(row, formData);
