@@ -15,13 +15,8 @@ application.controller('regularStaffController', function($scope, staffs, regula
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.academicStaffID === $scope.formData.model.academicStaffID) {
-                // Empty the form
-            }
-            else {
-                $scope.row = row;
-                regularStaffService.initEditForm($scope.formData, row);
-            }
+            $scope.row = row;
+            regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, row);
             
             rsTabService.getTabs($scope.tabs, row);
         });
@@ -32,7 +27,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
 
     $scope.editRow = function() {
-        regularStaffService.initEditForm($scope.formData, $scope.row);
+        regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
     };
     
     $scope.selectTab = function(tab) {
@@ -43,28 +38,28 @@ application.controller('regularStaffController', function($scope, staffs, regula
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
 
     $scope.tabs.department.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
 
     $scope.tabs.rank.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
 
     $scope.tabs.employment.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
-            rsTabService.initEditForm($scope.formData, $scope.tab, row, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
     
@@ -75,6 +70,6 @@ application.controller('regularStaffController', function($scope, staffs, regula
 
     $scope.editTabRow = function() {
         if ($scope.tabRow) 
-            rsTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow, $scope.row);
+            rsTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
     };
 });
