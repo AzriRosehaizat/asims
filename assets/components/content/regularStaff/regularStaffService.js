@@ -3,6 +3,7 @@ application.service('regularStaffService', function($http, $q, _, formService) {
     return {
         gridOptions: function() {
             return {
+                noUnselect: true,
                 multiSelect: false,
                 enableRowHeaderSelection: false,
                 enableHorizontalScrollbar: 0,
