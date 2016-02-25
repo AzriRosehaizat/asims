@@ -5,13 +5,11 @@
 <div flex layout="column">
     <div ui-view="navTopBar"></div>
 
-    <div id="main" flex layout="row">
-        <md-content id="content" flex layout-padding>
+    <div flex layout="row">
+        <div id="content" flex layout-padding>
             <div ui-view></div>
-        </md-content>
-
-        <md-sidenav id="navbar-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" layout-margin>
-            <div ui-view="navRightBar"></div>
-        </md-sidenav>
+        </div>
+        
+        <div ui-view="navRightBar" ng-cloak></div>
     </div>
 </div>

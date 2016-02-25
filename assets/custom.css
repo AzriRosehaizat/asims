@@ -1,13 +1,11 @@
 body {
   font-family: 'Roboto', Arial, sans-serif;
-}
-
-#main {
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
 
 #content {
   background-color: #F5F5F5;
+  overflow-y: scroll;
 }
 
 .md-dialog-container {
