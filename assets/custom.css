@@ -8,6 +8,11 @@ body {
   overflow-y: scroll;
 }
 
+#rightNavDiv {
+  overflow-x: hidden;
+  overflow-y: auto; 
+}
+
 .md-dialog-container {
   overflow: hidden;
 }

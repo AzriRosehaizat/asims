@@ -70,6 +70,8 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             formData.model = {};
         }
         resetValidation(formData);
+        // Do something specific
+        if (service.cancel) service.cancel(formData);
     };
 
     this.delete = function(ev, formData) {
