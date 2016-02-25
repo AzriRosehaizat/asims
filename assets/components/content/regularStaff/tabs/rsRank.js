@@ -1,4 +1,4 @@
-application.service('rsRank', function($http, $q, _, formService) {
+application.service('rsRank', function($http, _, formService) {
 
     var parentRow;
 

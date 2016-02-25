@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, $q, _, formService) {
+application.service('regularStaffService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
