@@ -3,6 +3,7 @@ application.service('contractStaffService', function($http, $q, _, formService) 
     return {
         gridOptions: function() {
             return {
+                noUnselect: true,
                 multiSelect: false,
                 enableRowHeaderSelection: false,
                 enableHorizontalScrollbar: 0,
@@ -21,50 +22,6 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                     field: 'ContractStaffEmployment[0].endDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
-            };
-        },
-        tabs: function() {
-            return {
-                teachingActivity: {
-                    title: 'Teaching Activity',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                },
-                rightToRefuse: {
-                    title: 'Right to Refuse',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                }
             };
         },
         update: function(formData) {
@@ -108,11 +65,13 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 disabled: false,
                 required: false
             }];
-            
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'contractStaffService');
+
+            formService.init(formData, gridData, null, 'contractStaffService', true);
         },
-        initEditForm: function(formData, row) {
+        initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
@@ -141,27 +100,11 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 disabled: false,
                 required: false
             }];
-            
-            formService.setRow(row);
-            formService.setFormData(formData, 'contractStaffService');
+
+            formService.init(formData, gridData, row, 'contractStaffService', true);
         },
-        // getDepartment: function(departments, row) {
-        //     $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             departments.gridOptions.data = res.data;
-        //         });
-        // },
-        // getRank: function(ranks, row) {
-        //     $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             ranks.gridOptions.data = res.data;
-        //         });
-        // },
-        // getEmployment: function(employment, row) {
-        //     $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             employment.gridOptions.data = res.data;
-        //         });
-        // }
+        getRow: function(row) {
+            return $q.when(true);
+        }
     };
 });
