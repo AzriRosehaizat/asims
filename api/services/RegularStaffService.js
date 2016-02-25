@@ -18,8 +18,8 @@ module.exports = {
 			sSQL = sSQL.where('r.regularStaffID', regularStaffID).toString();
 		}
 		else {
-			sSQL = sSQL.orderBy('a.academicStaffID', 'desc').toString();
-			// .groupBy('a.academicStaffID')
+			sSQL = sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
+			
 		}
 		// console.log(sSQL);
 		RegularStaff.query(sSQL, function(err, result) {
