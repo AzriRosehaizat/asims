@@ -9,8 +9,9 @@ body {
 }
 
 #rightNavDiv {
+  /*background: #3F51B5;*/
   overflow-x: hidden;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .md-dialog-container {

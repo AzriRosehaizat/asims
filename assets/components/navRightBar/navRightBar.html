@@ -1,4 +1,4 @@
-<md-sidenav id="navbar-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" layout-margin>
+<md-sidenav id="navbar-right" ng-show="$state.current.data.dataPage" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" layout-margin>
     <md-tabs md-dynamic-height md-border-bottom>
         
         <md-tab ng-if="fs.formData.title" label="{{fs.formData.title}}">

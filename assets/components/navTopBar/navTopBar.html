@@ -4,7 +4,7 @@
             <md-icon md-font-set="material-icons">menu</md-icon>
         </md-button>
 
-        <div id="searchBox" flex-gt-sm="70" flex-sm="60" layout="row" layout-align="start center">
+        <div id="searchBox" ng-show="$state.current.data.dataPage" flex-gt-sm="70" flex-sm="60" layout="row" layout-align="start center">
             <md-icon md-font-set="material-icons">search</md-icon>
             <input type="text" ng-model="search.data" ng-change="update(search.data)" placeholder="Search" style="width:100%" aria-label="Search"/>
         </div>
@@ -33,9 +33,5 @@
                 </md-menu-content>
             </md-menu>
         </md-menu-bar>
-
-        <md-button class="md-icon-button" aria-label="Settings">
-            <md-icon md-font-set="material-icons">settings</md-icon>
-        </md-button>
     </div>
 </md-toolbar>

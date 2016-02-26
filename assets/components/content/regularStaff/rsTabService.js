@@ -79,7 +79,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                     }
                 },
                 employment: {
-                    title: 'Employement',
+                    title: 'Employment',
                     gridOptions: {
                         noUnselect: true,
                         multiSelect: false,
