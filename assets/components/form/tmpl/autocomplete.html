@@ -1,5 +1,6 @@
 <div>
     <md-autocomplete
+        md-min-length="0"
         md-input-name="input.name" 
         md-floating-label="{{input.label}}" 
         md-selected-item="fs.formData.model[input.name]"
@@ -8,7 +9,7 @@
         md-item-text="item.name" 
         ng-disabled="input.disabled" 
         ng-required="input.required"
-        md-min-length="0">
+        >
         <md-item-template>
             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>
