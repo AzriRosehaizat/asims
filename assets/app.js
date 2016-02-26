@@ -33,10 +33,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
 					controller: 'navLeftBarController as vm'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
 				}
 			},
 			resolve: {
@@ -92,6 +88,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'grid@application.admin': {
 					templateUrl: '/components/grid/grid.html',
 					controller: 'gridController'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
+				},
+				'toDoList@application.admin' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -117,6 +121,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
+				},
+				'toDoList@application.regularStaff' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -139,6 +151,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.contractStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
+				},
+				'toDoList@application.contractStaff' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -161,6 +181,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.department': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
+				},
+				'toDoList@application.department' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -183,6 +211,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.course': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
+				},
+				'toDoList@application.course' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -205,6 +241,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.research': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
+				},
+				'toDoList@application.research' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -249,8 +293,8 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 .run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 		
+		formService.reset();
 		SearchHelper.reset();
-		formService.resetForm();
 
 		Auth.authorize(toState.data.access).then(function(access) {
 			var shouldLogin = (toState.data) && (!access);

@@ -1,4 +1,4 @@
-application.controller('departmentController', function($scope, departments, departmentService, SearchHelper) {
+application.controller('departmentController', function($scope, departments, departmentService, dTabService, SearchHelper) {
 
     $scope.gridTitle = 'Department';
     $scope.department = departments.data;
@@ -6,32 +6,27 @@ application.controller('departmentController', function($scope, departments, dep
 
     $scope.gridOptions = departmentService.gridOptions();
     $scope.gridOptions.data = $scope.department;
-    $scope.tabs = departmentService.tabs();
-    
+
+    $scope.tabs = dTabService.tabs();
+    $scope.tab = $scope.tabs.course;
+
     departmentService.initAddForm($scope.formData, $scope.gridOptions.data);
     SearchHelper.init($scope.gridOptions, $scope.department);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.departmentID === $scope.formData.model.departmentID) {
-                row.isSelected = true;
-            }
-            else {
-                $scope.row = row;
-                departmentService.initEditForm($scope.formData, row);
-            }
-
-            // departmentService.getDepartment($scope.tabs.departments, row);
-            // departmentService.getRank($scope.tabs.ranks, row);
-            // departmentService.getEmployment($scope.tabs.employment, row);
+            $scope.row = row;
+            departmentService.initEditForm($scope.formData, $scope.gridOptions.data, row);
+        
+            // dTabService.getTabs($scope.tabs, row);
         });
     };
 
     $scope.addRow = function() {
         departmentService.initAddForm($scope.formData, $scope.gridOptions.data);
     };
-    
+
     $scope.editRow = function() {
-        departmentService.initEditForm($scope.formData, $scope.row);
+        departmentService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
     };
 });

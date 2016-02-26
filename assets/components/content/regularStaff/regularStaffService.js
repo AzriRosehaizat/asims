@@ -69,12 +69,12 @@ application.service('regularStaffService', function($http, _, formService) {
                 required: false
             }];
 
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'regularStaffService');
+            formService.init(formData, gridData, null, 'regularStaffService', true);
         },
-        initEditForm: function(formData, row) {
+        initEditForm: function(formData, gridData, row) {
             row.entity.tenureDate = formService.formatDate(row.entity.tenureDate);
             row.entity.contAppDate = formService.formatDate(row.entity.contAppDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
@@ -104,8 +104,10 @@ application.service('regularStaffService', function($http, _, formService) {
                 required: false
             }];
 
-            formService.setRow(row);
-            formService.setFormData(formData, 'regularStaffService');
+            formService.init(formData, gridData, row, 'regularStaffService', true);
+        },
+        getRow: function(row) {
+            return $http.get('/regularStaff/getAllRegularStaff/' + row.entity.regularStaffID);
         }
     };
 });

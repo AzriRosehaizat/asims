@@ -3,6 +3,7 @@ application.service('adminService', function($http, _, moment, formService) {
     return {
         gridOptions: function() {
             return {
+                noUnselect: true,
                 multiSelect: false,
                 enableRowHeaderSelection: false,
                 enableHorizontalScrollbar: 0,
@@ -101,10 +102,9 @@ application.service('adminService', function($http, _, moment, formService) {
                 disabled: false,
             }];
 
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'adminService');
+            formService.init(formData, gridData, null, 'adminService', true);
         },
-        initEditForm: function(formData, row) {
+        initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit User';
@@ -157,9 +157,8 @@ application.service('adminService', function($http, _, moment, formService) {
                 match: "password",
                 disabled: false,
             }];
-            
-            formService.setRow(row);
-            formService.setFormData(formData, 'adminService');
+
+            formService.init(formData, gridData, row, 'adminService', true);
         },
         lastLogin: function(row) {
             if (row.entity.attempts) {
