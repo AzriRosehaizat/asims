@@ -92,6 +92,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navRightBar@application': {
 					templateUrl: '/components/navRightBar/navRightBar.html',
 					controller: 'navRightBarController'
+				},
+				'toDoList@application.admin' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -121,6 +125,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navRightBar@application': {
 					templateUrl: '/components/navRightBar/navRightBar.html',
 					controller: 'navRightBarController'
+				},
+				'toDoList@application.regularStaff' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -147,6 +155,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navRightBar@application': {
 					templateUrl: '/components/navRightBar/navRightBar.html',
 					controller: 'navRightBarController'
+				},
+				'toDoList@application.contractStaff' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -173,6 +185,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navRightBar@application': {
 					templateUrl: '/components/navRightBar/navRightBar.html',
 					controller: 'navRightBarController'
+				},
+				'toDoList@application.department' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -199,6 +215,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navRightBar@application': {
 					templateUrl: '/components/navRightBar/navRightBar.html',
 					controller: 'navRightBarController'
+				},
+				'toDoList@application.course' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -225,6 +245,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navRightBar@application': {
 					templateUrl: '/components/navRightBar/navRightBar.html',
 					controller: 'navRightBarController'
+				},
+				'toDoList@application.research' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
