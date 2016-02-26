@@ -1,6 +1,6 @@
-application.service('rsDepartment', function($http, $q, _, formService) {
+application.service('rsDepartment', function($http, _, formService) {
 
-    var parentRow;
+    var mainRow;
 
     return {
         update: function(formData) {
@@ -14,8 +14,6 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                             res.data.departmentCode = department.data.departmentCode;
                             res.data.title = department.data.title;
                             res.data.departmentID = department.data.departmentID;
-                            // Update parent row, more logic?
-                            parentRow.entity.departmentCode = res.data.departmentCode;
                             return res;
                         });
                 });
@@ -24,16 +22,14 @@ application.service('rsDepartment', function($http, $q, _, formService) {
             if (_.isObject(formData.model.title)) {
                 formData.model.departmentID = formData.model.title.obj.departmentID;
             }
-            formData.model.academicStaffID = parentRow.entity.academicStaffID;
+            formData.model.academicStaffID = mainRow.entity.academicStaffID;
+            
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
                     return $http.get('/Department/' + res.data.departmentID)
                         .then(function(department) {
                             res.data.departmentCode = department.data.departmentCode;
                             res.data.title = department.data.title;
-                            // Update parent row, more logic?
-                            if (!parentRow.entity.departmentCode)
-                                parentRow.entity.departmentCode = res.data.departmentCode;
                             return res;
                         });
                 });
@@ -41,8 +37,9 @@ application.service('rsDepartment', function($http, $q, _, formService) {
         delete: function(formData) {
             return $http.delete('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID);
         },
-        initAddForm: function(formData, gridData, pRow) {
-            parentRow = pRow;
+        initAddForm: function(formData, gridData, mRow) {
+            mainRow = mRow;
+            
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Department';
@@ -71,14 +68,13 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'rsDepartment');
+            
+            formService.init(formData, gridData, null, 'rsDepartment', false);
         },
-        initEditForm: function(formData, row, pRow) {
-            parentRow = pRow;
+        initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Department';
@@ -107,9 +103,8 @@ application.service('rsDepartment', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-
-            formService.setRow(row);
-            formService.setFormData(formData, 'rsDepartment');
+            
+            formService.init(formData, gridData, row, 'rsDepartment', false);
         },
     };
 });

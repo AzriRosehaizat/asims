@@ -1,4 +1,4 @@
-application.controller('courseController', function($scope, courses, courseService, SearchHelper) {
+application.controller('courseController', function($scope, courses, courseService, cTabService, SearchHelper) {
 
     $scope.gridTitle = 'Course';
     $scope.course = courses.data;
@@ -6,32 +6,27 @@ application.controller('courseController', function($scope, courses, courseServi
 
     $scope.gridOptions = courseService.gridOptions();
     $scope.gridOptions.data = $scope.course;
-    $scope.tabs = courseService.tabs();
-    
+
+    $scope.tabs = cTabService.tabs();
+    $scope.tab = $scope.tabs.section;
+
     courseService.initAddForm($scope.formData, $scope.gridOptions.data);
     SearchHelper.init($scope.gridOptions, $scope.course);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            if (row.entity.courseID === $scope.formData.model.courseID) {
-                row.isSelected = true;
-            }
-            else {
-                $scope.row = row;
-                courseService.initEditForm($scope.formData, row);
-            }
+            $scope.row = row;
+            courseService.initEditForm($scope.formData, $scope.gridOptions.data, row);
 
-            // courseService.getDepartment($scope.tabs.departments, row);
-            // courseService.getRank($scope.tabs.ranks, row);
-            // courseService.getEmployment($scope.tabs.employment, row);
+            // cTabService.getTabs($scope.tabs, row);
         });
     };
 
     $scope.addRow = function() {
         courseService.initAddForm($scope.formData, $scope.gridOptions.data);
     };
-    
+
     $scope.editRow = function() {
-        courseService.initEditForm($scope.formData, $scope.row);
+        courseService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
     };
 });

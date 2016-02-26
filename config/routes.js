@@ -45,7 +45,7 @@ module.exports.routes = {
    * for configuration options and examples.                                  *
    *                                                                          *
    ***************************************************************************/
-  'GET /RegularStaff/getAllRegularStaff': 'RegularStaffController.getAllRegularStaff',
+  'GET /RegularStaff/getAllRegularStaff/:regularStaffID': 'RegularStaffController.getAllRegularStaff',
   'GET /RegularStaff/getInfo': 'RegularStaffController.getInfo',
   'POST /RegularStaff/createRAS': 'RegularStaffController.createRAS',
   'PUT /RegularStaff/updateRAS': 'RegularStaffController.updateRAS',

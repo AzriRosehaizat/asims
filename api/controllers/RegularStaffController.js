@@ -107,7 +107,8 @@ module.exports = {
 		});
 	},
 	getAllRegularStaff: function(req, res) {
-		RegularStaffService.getAllRegularStaff(function(err, result) {
+		var	regularStaffID = req.param('regularStaffID');
+		RegularStaffService.getAllRegularStaff(regularStaffID, function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);
 		});
