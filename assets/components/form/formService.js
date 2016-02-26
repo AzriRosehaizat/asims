@@ -1,22 +1,23 @@
 application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
 
     this.formData = {};
-    var service, row, gridData;
+    var grid, row, service;
+    var mainRow, mainService, isMain;
 
-    this.setFormData = function(formData, serviceName) {
+    this.init = function(formData, gridData, rowData, serviceName, main) {
         this.formData = formData;
+        grid = gridData;
+        row = rowData;
         service = $injector.get(serviceName);
+        isMain = main;
+
+        if (isMain) {
+            mainRow = rowData;
+            mainService = service;
+        }
     };
 
-    this.setRow = function(currentRow) {
-        row = currentRow;
-    };
-
-    this.setGridData = function(data) {
-        gridData = data;
-    };
-
-    this.resetForm = function() {
+    this.reset = function() {
         this.formData = {};
     };
 
@@ -25,7 +26,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             this.update(row, formData);
         }
         else {
-            this.create(gridData, formData);
+            this.create(grid, formData);
         }
     };
 
@@ -35,6 +36,8 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         service.update(formData)
             .then(function(res) {
                 _.merge(row.entity, res.data);
+                updateMainRow();
+
                 toaster.open("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -44,12 +47,14 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             });
     };
 
-    this.create = function(gridData, formData) {
+    this.create = function(grid, formData) {
         formData.mode = 'indeterminate';
 
         service.create(formData)
             .then(function(res) {
-                gridData.unshift(res.data);
+                grid.unshift(res.data);
+                updateMainRow();
+
                 formData.model = {};
                 resetValidation(formData);
                 toaster.open("Added successfully!");
@@ -69,8 +74,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             formData.model = {};
         }
         resetValidation(formData);
-
-        // More specific?
+        // Do something specific
         if (service.cancel) service.cancel(formData);
     };
 
@@ -78,19 +82,22 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         var confirm = $mdDialog.confirm()
             .title('You are deleting a row')
             .textContent('Are you sure?')
+            .clickOutsideToClose(true)
             .targetEvent(ev)
             .ok('Delete')
             .cancel('Cancel');
 
         $mdDialog.show(confirm).then(function() {
             formData.mode = 'indeterminate';
-            var gridData = row.grid.options.data;
-            var index = gridData.indexOf(formData.model);
+            var index = grid.indexOf(row.entity);
 
             service.delete(formData)
                 .then(function(res) {
-                    gridData.splice(index, 1);
-                    service.initAddForm(formData);
+                    grid.splice(index, 1);
+                    updateMainRow();
+
+                    var mRow = (isMain) ? null : mainRow;
+                    service.initAddForm(formData, grid, mRow);
                     resetValidation(formData);
                     toaster.open("Deleted successfully!");
                 }, function(err) {
@@ -109,5 +116,20 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
     function resetValidation(formData) {
         formData.form.$setPristine();
         formData.form.$setUntouched();
+    }
+
+    function updateMainRow() {
+        if (isMain) {
+            return;
+        }
+        else {
+            mainService.getRow(mainRow)
+                .then(function(res) {
+                    console.log(mainRow.entity);
+                    _.merge(mainRow.entity, res.data[0]);
+                }, function(err) {
+                    toaster.error(err);
+                });
+        }
     }
 });

@@ -5,7 +5,7 @@ application.service('toaster', function($mdToast) {
             $mdToast.show(
                 $mdToast.simple()
                 .textContent(text)
-                .hideDelay(2000)
+                .hideDelay(5000)
             );
         },
         error: function(err) {

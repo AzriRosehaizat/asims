@@ -1,4 +1,4 @@
-application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmployment) {
+application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, rsEmployment) {
 
     return {
         tabs: function() {
@@ -98,35 +98,35 @@ application.service('rsTabService', function($http, rsDepartment, rsRank, rsEmpl
                 }
             };
         },
-        initAddForm: function(formData, tab, parentRow) {
+        initAddForm: function(formData, tab, mainRow) {
             switch (tab.title) {
                 case 'Teaching Activity':
-                    console.log("add TA");
+                    rsTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Department':
-                    rsDepartment.initAddForm(formData, tab.gridOptions.data, parentRow);
+                    rsDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Rank':
-                    rsRank.initAddForm(formData, tab.gridOptions.data, parentRow);
+                    rsRank.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Employement':
-                    rsEmployment.initAddForm(formData, tab.gridOptions.data, parentRow);
+                    rsEmployment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
         },
-        initEditForm: function(formData, tab, row, parentRow) {
+        initEditForm: function(formData, tab, row) {
             switch (tab.title) {
                 case 'Teaching Activity':
-                    console.log("edit TA");
+                    rsTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Department':
-                    rsDepartment.initEditForm(formData, row, parentRow);
+                    rsDepartment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Rank':
-                    rsRank.initEditForm(formData, row, parentRow);
+                    rsRank.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Employement':
-                    rsEmployment.initEditForm(formData, row, parentRow);
+                    rsEmployment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }
         },

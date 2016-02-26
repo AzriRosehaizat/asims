@@ -1,4 +1,4 @@
-application.service('rsRank', function($http, _, formService) {
+application.service('rsTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -64,11 +64,11 @@ application.service('rsRank', function($http, _, formService) {
                 required: false
             }];
             
-            formService.init(formData, gridData, null, 'rsRank', false);
+            formService.init(formData, gridData, null, 'rsTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            formService.formatDate(row.entity.startDate);
+            formService.formatDate(row.entity.endDate);
             
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
@@ -99,7 +99,7 @@ application.service('rsRank', function($http, _, formService) {
                 required: false
             }];
             
-            formService.init(formData, gridData, row, 'rsRank', false);
+            formService.init(formData, gridData, row, 'rsTA', false);
         },
     };
 });
