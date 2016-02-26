@@ -33,6 +33,14 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'navLeftBar@application': {
 					templateUrl: '/components/navLeftBar/navLeftBar.html',
 					controller: 'navLeftBarController as vm'
+				},
+				'navRightBar@application': {
+					templateUrl: '/components/navRightBar/navRightBar.html',
+					controller: 'navRightBarController'
+				},
+				'toDoList@application' :{
+					templateUrl: '/components/toDoList/toDoList.html',
+					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -41,7 +49,8 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			},
 			data: {
-				access: AccessLevels.reader
+				access: AccessLevels.reader,
+				dataPage: false
 			}
 		})
 		.state('application.root', {
@@ -49,10 +58,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			views: {
 				'' :{
 					templateUrl: '/views/application/root.html'
-				},
-				'toDoList@application.root' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -88,14 +93,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'grid@application.admin': {
 					templateUrl: '/components/grid/grid.html',
 					controller: 'gridController'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
-				},
-				'toDoList@application.admin' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
 				}
 			},
 			resolve: {
@@ -104,7 +101,8 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			},
 			data: {
-				access: AccessLevels.admin
+				access: AccessLevels.admin,
+				dataPage: true
 			}
 		})
 		.state('application.regularStaff', {
@@ -121,20 +119,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.regularStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
-				},
-				'toDoList@application.regularStaff' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
 				}
 			},
 			resolve: {
 				staffs: function($http) {
 					return $http.get('/regularStaff/getAllRegularStaff');
 				}
+			},
+			data: {
+				dataPage: true
 			}
 		})
 		.state('application.contractStaff', {
@@ -151,20 +144,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.contractStaff': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
-				},
-				'toDoList@application.contractStaff' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
 				}
 			},
 			resolve: {
 				staffs: function($http) {
 					return $http.get('/contractStaff');
 				}
+			},
+			data: {
+				dataPage: true
 			}
 		})
 		.state('application.department', {
@@ -181,20 +169,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.department': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
-				},
-				'toDoList@application.department' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
 				}
 			},
 			resolve: {
 				departments: function($http) {
 					return $http.get('/department');
 				}
+			},
+			data: {
+				dataPage: true
 			}
 		})
 		.state('application.course', {
@@ -211,20 +194,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.course': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
-				},
-				'toDoList@application.course' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
 				}
 			},
 			resolve: {
 				courses: function($http) {
 					return $http.get('/course');
 				}
+			},
+			data: {
+				dataPage: true
 			}
 		})
 		.state('application.research', {
@@ -241,20 +219,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				'tabset@application.research': {
 					templateUrl: '/components/tabset/tabset.html',
 					controller: 'tabsetController'
-				},
-				'navRightBar@application': {
-					templateUrl: '/components/navRightBar/navRightBar.html',
-					controller: 'navRightBarController'
-				},
-				'toDoList@application.research' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
 				}
 			},
 			resolve: {
 				researches: function($http) {
 					return $http.get('/research');
 				}
+			},
+			data: {
+				dataPage: true
 			}
 		})
 		.state('application.FLC', {

@@ -1,5 +1,6 @@
-application.controller('navRightBarController', function($scope, $http, _, formService) {
+application.controller('navRightBarController', function($scope, $state, $http, _, formService) {
     
+    $scope.$state = $state;
     $scope.fs = formService;
 
     $scope.submit = function() {
