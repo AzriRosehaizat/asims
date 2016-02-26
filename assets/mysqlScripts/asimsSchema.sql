@@ -624,13 +624,9 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- View `asims`.`MostRecentDepartment`
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS `asims`.`MostRecentDepartment` ;
+DROP VIEW IF EXISTS `asims`.`MostRecentDepartment`;
 
-CREATE  OR REPLACE 
-  ALGORITHM=UNDEFINED
-  DEFINER=`anelson`@`%`
-  SQL SECURITY DEFINER 
-VIEW `asims`.`MostRecentDepartment` AS 
+CREATE  OR REPLACE VIEW `asims`.`MostRecentDepartment` AS 
   SELECT 
     `AcademicStaff_Department`.`academicStaffDepartmentID` AS `academicStaffDepartmentID`,
     `AcademicStaff_Department`.`departmentID` AS `departmentID`,
@@ -650,13 +646,9 @@ VIEW `asims`.`MostRecentDepartment` AS
 -- -----------------------------------------------------
 -- View `asims`.`MostRecentRank`
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS `asims`.`MostRecentRank` ;
-USE `asims`;
-CREATE  OR REPLACE
-  ALGORITHM=UNDEFINED
-  DEFINER=`anelson`@`%`
-  SQL SECURITY DEFINER
-VIEW `asims`.`MostRecentRank` AS 
+DROP VIEW IF EXISTS `asims`.`MostRecentRank`;
+
+CREATE  OR REPLACE VIEW `asims`.`MostRecentRank` AS 
   SELECT 
     `RegularStaff_Rank`.`regularStaffRankID` AS `regularStaffRankID`,
     `RegularStaff_Rank`.`rankID` AS `rankID`,
