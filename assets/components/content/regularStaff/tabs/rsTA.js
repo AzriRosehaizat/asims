@@ -11,13 +11,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                     
                 formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
             }
-            // return $http.put('/regularStaff_Rank/' + formData.model.regularStaffRankID, formData.model)
-            //     .then(function(res) {
-            //         res.data.title = res.data.rankID.title;
-            //         res.data.rankID = res.data.rankID.rankID;
-            //         return res;
-            //     });
-            $q.when(true);
+            
+            return $http.put('/TeachingActivities/' + formData.model.teachingActivitiesID, formData.model)
+                .then(function(res) {
+                    console.log(res.data);
+                });
         },
         create: function(formData) {
             console.log(formData.model);
@@ -29,7 +27,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
                 formData.model.FCEValue = 0.5;
             }
-
+            
             return $http.post('/TeachingActivities', formData.model)
                 .then(function(res) {
                     console.log(res.data);
@@ -124,8 +122,8 @@ application.service('rsTA', function($http, $q, _, formService) {
             formService.init(formData, gridData, null, 'rsTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            formService.formatDate(row.entity.startDate);
-            formService.formatDate(row.entity.endDate);
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
