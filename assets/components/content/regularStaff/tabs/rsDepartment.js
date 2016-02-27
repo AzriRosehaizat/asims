@@ -46,11 +46,16 @@ application.service('rsDepartment', function($http, _, formService) {
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
+<<<<<<< HEAD
                 label: "Name",
                 url: {
                     start: "/department?where={",
                     end: "\"title\":{\"startsWith\":\""
                 },
+=======
+                label: "Department",
+                url: "/department?where={\"title\":{\"startsWith\":\"",
+>>>>>>> 721f83cde6d2cbf1f15ee882b65896cc9af3f918
                 link: "application.department",
                 output: {
                     obj: {},
@@ -84,7 +89,7 @@ application.service('rsDepartment', function($http, _, formService) {
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
-                label: "Name",
+                label: "Department",
                 url: {
                     start: "/department?where={",
                     end: "\"title\":{\"startsWith\":\""

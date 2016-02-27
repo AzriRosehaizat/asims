@@ -1,16 +1,21 @@
 <div>
-    <md-autocomplete md-input-name="{{input.name}}" 
-                     md-floating-label="{{input.label}}" 
-                     md-selected-item="fs.formData.model[input.name]" 
-                     md-search-text="searchText"
-                     md-search-text-change="copyValue(input.copy)"
-                     md-items="item in querySearch(searchText, input.url, input.output)" 
-                     md-item-text="item.name"
-                     ng-disabled="{{input.disabled}}" 
-                     ng-required="{{input.required}}">
+    <md-autocomplete 
+            md-min-length="0"
+            md-input-name="{{input.name}}" 
+            md-floating-label="{{input.label}}" 
+            md-selected-item="fs.formData.model[input.name]" 
+            md-search-text="searchText"
+            md-search-text-change="copyValue(input.copy)"
+            md-items="item in querySearch(searchText, input.url, input.output)" 
+            md-item-text="item.name"
+            ng-disabled="{{input.disabled}}" 
+            ng-required="{{input.required}}">
         <md-item-template>
             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>
+        <md-not-found>
+          "{{searchText}}" not found. <a ng-click="">Add New?</a>
+        </md-not-found>
         <div ng-messages="fs.formData.form[input.name].$error" ng-show="fs.formData.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
         </div>
