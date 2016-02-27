@@ -23,9 +23,8 @@ module.exports = {
 			required: true
 		},
 		groupID: {
-			type: 'integer'
-			// ,
-			// required: true
+			type: 'integer',
+			required: true
 		},
 		startDate:{
 			type: 'date',
@@ -33,8 +32,7 @@ module.exports = {
 		},
 		endDate:{
 			type: 'date',
-			required: true 
-
+			required: true
 		},
 		TeachingActivities: {
 			collection: 'TeachingActivities',
