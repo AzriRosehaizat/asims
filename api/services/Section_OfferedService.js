@@ -17,7 +17,7 @@ module.exports = {
         // Stringify
         sSQL = sSQL.toString();
 
-        console.log(sSQL);
+        // console.log(sSQL);
         Section_Offered.query(sSQL, function(err, result) {
             callback(err, result);
         });

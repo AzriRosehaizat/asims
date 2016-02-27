@@ -20,6 +20,9 @@ application.service('sectionOfferedService', function($http, _, formService) {
                     name: 'End Date',
                     field: 'endDate',
                     cellFilter: 'date:\'yyyy-MM-dd\''
+                }, {
+                    name: 'Title',
+                    field: 'title'
                 }]
             };
         },
