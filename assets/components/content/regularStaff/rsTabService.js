@@ -6,10 +6,6 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 teachingActivity: {
                     title: 'Teaching Activity',
                     gridOptions: {
-                        noUnselect: true,
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Dept. Code',
                             field: 'departmentCode'
@@ -36,10 +32,6 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 department: {
                     title: 'Department',
                     gridOptions: {
-                        noUnselect: true,
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Code',
                             field: 'departmentCode'
@@ -60,10 +52,6 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 rank: {
                     title: 'Rank',
                     gridOptions: {
-                        noUnselect: true,
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Name',
                             field: 'title'
@@ -81,10 +69,6 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 employment: {
                     title: 'Employment',
                     gridOptions: {
-                        noUnselect: true,
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Start Date',
                             field: 'startDate',
