@@ -4,18 +4,18 @@ var mysql = require('knex')({
 module.exports = {
 	//Page Regular Staff
 	getAllRegularStaff: function(regularStaffID, callback) {
-		console.log(regularStaffID);
+		// console.log(regularStaffID);
 		var sSQL = mysql.select('a.*', 'r.*', 'd.departmentCode', 'rk.title AS Rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
-			.leftJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
-			.leftJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
-			.leftJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
-			.leftJoin('Department AS d', 'ad.departmentID', 'd.departmentID');
+				.leftJoin('MostRecentRank AS rv', 'r.regularStaffID', 'rv.regularStaffID')
+					.leftJoin('Rank AS rk', 'rv.rankID', 'rk.rankID')
+			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
+				.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID');
 		
 		//check if criteriea needed
 		if (regularStaffID) {
-			sSQL = sSQL.where('r.regularStaffID', regularStaffID).toString();
+			sSQL = sSQL.where('r.regularStaffID', regularStaffID).groupBy('a.academicStaffID').toString();
 		}
 		else {
 			sSQL = sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();

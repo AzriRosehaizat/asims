@@ -19,7 +19,7 @@ module.exports = {
 			size: 10,
 			unique: true
 		},
-		type: {
+		courseType: {
 			type: 'string',
 			size: 50
 		},
