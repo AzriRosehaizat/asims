@@ -23,7 +23,7 @@ application.service('rsDepartment', function($http, _, formService) {
                 formData.model.departmentID = formData.model.title.obj.departmentID;
             }
             formData.model.academicStaffID = mainRow.entity.academicStaffID;
-            
+
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
                     return $http.get('/Department/' + res.data.departmentID)
@@ -39,7 +39,7 @@ application.service('rsDepartment', function($http, _, formService) {
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
-            
+
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Department';
@@ -47,7 +47,10 @@ application.service('rsDepartment', function($http, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/department?where={\"title\":{\"startsWith\":\"",
+                url: {
+                    start: "/department?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
                 link: "application.department",
                 output: {
                     obj: {},
@@ -68,13 +71,13 @@ application.service('rsDepartment', function($http, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
+
             formService.init(formData, gridData, null, 'rsDepartment', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
-            
+
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Department';
@@ -82,7 +85,10 @@ application.service('rsDepartment', function($http, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/department?where={\"title\":{\"startsWith\":\"",
+                url: {
+                    start: "/department?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
                 link: "application.department",
                 output: {
                     obj: {},
@@ -103,7 +109,7 @@ application.service('rsDepartment', function($http, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
+
             formService.init(formData, gridData, row, 'rsDepartment', false);
         },
     };

@@ -109,7 +109,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 case 'Rank':
                     rsRank.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Employement':
+                case 'Employment':
                     rsEmployment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
@@ -125,7 +125,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 case 'Rank':
                     rsRank.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Employement':
+                case 'Employment':
                     rsEmployment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }
