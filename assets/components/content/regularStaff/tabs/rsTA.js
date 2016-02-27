@@ -67,8 +67,8 @@ application.service('rsTA', function($http, _, formService) {
             formService.init(formData, gridData, null, 'rsTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            formService.formatDate(row.entity.startDate);
-            formService.formatDate(row.entity.endDate);
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
             
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;

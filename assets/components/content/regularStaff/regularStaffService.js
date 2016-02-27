@@ -3,10 +3,6 @@ application.service('regularStaffService', function($http, _, formService) {
     return {
         gridOptions: function() {
             return {
-                noUnselect: true,
-                multiSelect: false,
-                enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
                 columnDefs: [{
                     name: 'First Name',
                     field: 'firstName'
