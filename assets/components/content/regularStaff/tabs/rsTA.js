@@ -4,9 +4,13 @@ application.service('rsTA', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
-            // if (_.isObject(formData.model.title)) {
-            //     formData.model.rankID = formData.model.title.obj.rankID;
-            // }
+            console.log(formData.model);
+            if (_.isObject(formData.model.departmentCode) &&
+                _.isObject(formData.model.courseNo) &&
+                _.isObject(formData.model.sectionNo)) {
+                    
+                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
+            }
             // return $http.put('/regularStaff_Rank/' + formData.model.regularStaffRankID, formData.model)
             //     .then(function(res) {
             //         res.data.title = res.data.rankID.title;
@@ -16,24 +20,23 @@ application.service('rsTA', function($http, $q, _, formService) {
             $q.when(true);
         },
         create: function(formData) {
-            // if (_.isObject(formData.model.title)) {
-            //     formData.model.rankID = formData.model.title.obj.rankID;
-            // }
-            // formData.model.regularStaffID = mainRow.entity.regularStaffID;
+            console.log(formData.model);
+            if (_.isObject(formData.model.departmentCode) &&
+                _.isObject(formData.model.courseNo) &&
+                _.isObject(formData.model.sectionNo)) {
+                    
+                formData.model.academicStaffID = mainRow.entity.academicStaffID;
+                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
+                formData.model.FCEValue = 0.5;
+            }
 
-            // return $http.post('/regularStaff_Rank', formData.model)
-            //     .then(function(res) {
-            //         return $http.get('/rank/' + res.data.rankID)
-            //             .then(function(rank) {
-            //                 res.data.title = rank.data.title;
-            //                 return res;
-            //             });
-            //     });
-            $q.when(true);
+            return $http.post('/TeachingActivities', formData.model)
+                .then(function(res) {
+                    console.log(res.data);
+                });
         },
         delete: function(formData) {
-            // return $http.delete('/regularStaff_Rank/' + formData.model.regularStaffRankID);
-            $q.when(true);
+            return $http.delete('/TeachingActivities/' + formData.model.teachingActivitiesID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
@@ -64,7 +67,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     start: "/course?where={",
                     end: "\"courseNo\":{\"startsWith\":\"",
                     where: [{
-                        key: "departmentID", 
+                        key: "departmentID",
                         value: "departmentCode.obj.departmentID"
                     }]
                 },
@@ -83,7 +86,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     start: "/section_offered/search?where={",
                     end: "\"sectionNo\":{\"startsWith\":\"",
                     where: [{
-                        key: "courseID", 
+                        key: "courseID",
                         value: "courseNo.obj.courseID"
                     }]
                 },
@@ -150,7 +153,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     start: "/course?where={",
                     end: "\"courseNo\":{\"startsWith\":\"",
                     where: [{
-                        key: "departmentID", 
+                        key: "departmentID",
                         value: "departmentCode.obj.departmentID"
                     }]
                 },
@@ -169,7 +172,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     start: "/section_offered/search?where={",
                     end: "\"sectionNo\":{\"startsWith\":\"",
                     where: [{
-                        key: "courseID", 
+                        key: "courseID",
                         value: "courseNo.obj.courseID"
                     }]
                 },

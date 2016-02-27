@@ -28,6 +28,7 @@ module.exports = {
                 
                 _.forEach(section_offered, function(value) {
                     value.sectionNo = value.sectionID.sectionNo;
+                    value.sectionID = value.sectionID.sectionID;
                 });
                 
                 res.json(section_offered);
