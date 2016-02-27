@@ -1,5 +1,5 @@
 application.controller('navRightBarController', function($scope, $state, $http, _, formService) {
-    
+
     $scope.$state = $state;
     $scope.fs = formService;
 
@@ -15,8 +15,18 @@ application.controller('navRightBarController', function($scope, $state, $http, 
         formService.delete(ev, $scope.fs.formData);
     };
 
-    $scope.querySearch = function(query, url, output) {
-        return $http.get(url + query + "\"}}")
+    $scope.querySearch = function(searchText, url, output) {
+        var query = url.start;
+        if (url.where) {
+            _.forEach(url.where, function(where) {
+                var value = _.get($scope.fs.formData.model, where.value);
+                query += "\"" + where.key + "\":\"" + value + "\",";
+            });
+        }
+        query += url.end + searchText + "\"}}";
+        // console.log(query);
+
+        return $http.get(query)
             .then(function(res) {
                 return _.map(res.data, function(item) {
                     return {
@@ -25,5 +35,19 @@ application.controller('navRightBarController', function($scope, $state, $http, 
                     };
                 });
             });
+    };
+
+    /* For ng-disabled */
+    $scope.isObject = function(value) {
+        var modelAttr = $scope.fs.formData.model[value];
+        return _.isObject(modelAttr);
+    };
+
+    /* To change disabled value copying from another attribute */
+    $scope.copyValue = function(copy) {
+        if (copy) {
+            var value = _.get($scope.fs.formData.model, copy.from);
+            _.set($scope.fs.formData.model, copy.to, value);
+        }
     };
 });

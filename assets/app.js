@@ -38,10 +38,10 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					templateUrl: '/components/navRightBar/navRightBar.html',
 					controller: 'navRightBarController'
 				},
-				'toDoList@application' :{
-					templateUrl: '/components/toDoList/toDoList.html',
-					controller: 'toDoListController'
-				}
+				// 'toDoList@application' :{
+				// 	templateUrl: '/components/toDoList/toDoList.html',
+				// 	controller: 'toDoListController'
+				// }
 			},
 			resolve: {
 				user: function(CurrentUser) {
