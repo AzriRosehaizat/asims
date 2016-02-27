@@ -57,6 +57,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				views: {
 					'': {
 						templateUrl: '/views/application/root.html'
+					},
+					'toDoList@application.root': {
+						templateUrl: '/components/toDoList/toDoList.html',
+						controller: 'toDoListController'
 					}
 				}
 			})
@@ -69,11 +73,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'details@application.profile': {
 						templateUrl: '/components/profile/details.html'
-					}
-				},
-				resolve: {
-					user: function(CurrentUser) {
-						return CurrentUser.getUser();
 					}
 				}
 			})
