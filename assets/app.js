@@ -222,6 +222,31 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				data: {
 					dataPage: true
 				}
+			})			
+			.state('application.sectionOffered', {
+				url: '/sectionOffered',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'sectionOfferedController'
+					},
+					'grid@application.sectionOffered': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					'tabset@application.sectionOffered': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController'
+					}
+				},
+				resolve: {
+					sectionOffered: function($http) {
+						return $http.get('Section_Offered/getSectionOffered');
+					}
+				},
+				data: {
+					dataPage: true
+				}
 			})
 			.state('application.FLC', {
 				url: '/facultyLoadChart',
