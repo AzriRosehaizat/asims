@@ -61,7 +61,7 @@ module.exports = {
 		});
 	},
 
-	getTeachingActivity: function(id, callback) {
+	getTeachingActivity: function(id, where, callback) {
 		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
@@ -69,8 +69,14 @@ module.exports = {
 			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
 			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
-			.where('a.academicStaffID', id)
-			.toString();
+			.where('a.academicStaffID', id);
+			
+			if (where) {
+				sSQL = sSQL.where('t.teachingActivitiesID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});

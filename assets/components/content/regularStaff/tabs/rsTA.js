@@ -1,104 +1,225 @@
-application.service('rsTA', function($http, _, formService) {
+application.service('rsTA', function($http, $q, _, formService) {
 
     var mainRow;
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.rankID = formData.model.title.obj.rankID;
+            if (_.isObject(formData.model.departmentCode) &&
+                _.isObject(formData.model.courseNo) &&
+                _.isObject(formData.model.sectionNo)) {
+
+                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
             }
-            return $http.put('/regularStaff_Rank/' + formData.model.regularStaffRankID, formData.model)
+
+            return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
-                    res.data.title = res.data.rankID.title;
-                    res.data.rankID = res.data.rankID.rankID;
-                    return res;
+                    return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID + 
+                                     '&where=' + res.data.teachingActivitiesID)
+                        .then(function(TA) {
+                            return TA;
+                        });
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.rankID = formData.model.title.obj.rankID;
+            if (_.isObject(formData.model.departmentCode) &&
+                _.isObject(formData.model.courseNo) &&
+                _.isObject(formData.model.sectionNo)) {
+
+                formData.model.academicStaffID = mainRow.entity.academicStaffID;
+                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
             }
-            formData.model.regularStaffID = mainRow.entity.regularStaffID;
-            
-            return $http.post('/regularStaff_Rank', formData.model)
+
+            return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
-                    return $http.get('/rank/' + res.data.rankID)
-                        .then(function(rank) {
-                            res.data.title = rank.data.title;
-                            return res;
+                    return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID + 
+                                     '&where=' + res.data.teachingActivitiesID)
+                        .then(function(TA) {
+                            return TA;
                         });
                 });
         },
         delete: function(formData) {
-            return $http.delete('/regularStaff_Rank/' + formData.model.regularStaffRankID);
+            return $http.delete('/TeachingActivities/' + formData.model.teachingActivitiesID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
-            
+
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Rank';
+            formData.title = 'Add Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
-                name: "title",
-                label: "Name",
-                url: "/rank?where={\"title\":{\"startsWith\":\"",
-                link: "application.rank",
+                name: "departmentCode",
+                label: "Dept. Code",
+                url: {
+                    start: "/department?where={",
+                    end: "\"departmentCode\":{\"startsWith\":\""
+                },
+                link: "application.department",
                 output: {
                     obj: {},
-                    name: "title"
+                    name: "departmentCode"
+                },
+                change: {
+                    // set null when departmentCode changes
+                    to: "courseNo"
                 },
                 disabled: false,
                 required: true
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
+                type: "autocomplete",
+                name: "courseNo",
+                label: "Course No.",
+                url: {
+                    start: "/course?where={",
+                    end: "\"courseNo\":{\"startsWith\":\"",
+                    where: [{
+                        key: "departmentID",
+                        value: "departmentCode.obj.departmentID"
+                    }]
+                },
+                link: "application.course",
+                output: {
+                    obj: {},
+                    name: "courseNo"
+                },
+                change: {
+                    to: "sectionNo"
+                },
+                disabled: "!isObject('departmentCode')",
+                required: true
             }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
+                type: "autocomplete",
+                name: "sectionNo",
+                label: "Section No.",
+                url: {
+                    start: "/section_offered/search?where={",
+                    end: "\"sectionNo\":{\"startsWith\":\"",
+                    where: [{
+                        key: "courseID",
+                        value: "courseNo.obj.courseID"
+                    }]
+                },
+                link: "application.course",
+                output: {
+                    obj: {},
+                    name: "sectionNo"
+                },
+                change: {
+                    from: "courseNo.obj.title",
+                    to: "title"
+                },
+                disabled: "!isObject('courseNo')",
+                required: true
+            }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
+                required: true
+            }, {
+                type: "number",
+                name: "FCEValue",
+                label: "FCE Value",
+                disabled: false,
+                required: true
+            }, {
+                type: "text",
+                name: "role",
+                label: "Role",
                 disabled: false,
                 required: false
             }];
-            
+
             formService.init(formData, gridData, null, 'rsTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
-            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Rank';
+            formData.title = 'Edit Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
-                name: "title",
-                label: "Name",
-                url: "/rank?where={\"title\":{\"startsWith\":\"",
-                link: "application.rank",
+                name: "departmentCode",
+                label: "Dept. Code",
+                url: {
+                    start: "/department?where={",
+                    end: "\"departmentCode\":{\"startsWith\":\""
+                },
+                link: "application.department",
                 output: {
                     obj: {},
-                    name: "title"
+                    name: "departmentCode"
+                },
+                change: {
+                    to: "courseNo"
                 },
                 disabled: false,
                 required: true
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
+                type: "autocomplete",
+                name: "courseNo",
+                label: "Course No.",
+                url: {
+                    start: "/course?where={",
+                    end: "\"courseNo\":{\"startsWith\":\"",
+                    where: [{
+                        key: "departmentID",
+                        value: "departmentCode.obj.departmentID"
+                    }]
+                },
+                link: "application.course",
+                output: {
+                    obj: {},
+                    name: "courseNo"
+                },
+                change: {
+                    to: "sectionNo"
+                },
+                disabled: "!isObject('departmentCode')",
+                required: true
             }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
+                type: "autocomplete",
+                name: "sectionNo",
+                label: "Section No.",
+                url: {
+                    start: "/section_offered/search?where={",
+                    end: "\"sectionNo\":{\"startsWith\":\"",
+                    where: [{
+                        key: "courseID",
+                        value: "courseNo.obj.courseID"
+                    }]
+                },
+                link: "application.course",
+                output: {
+                    obj: {},
+                    name: "sectionNo"
+                },
+                change: {
+                    from: "courseNo.obj.title",
+                    to: "title"
+                },
+                disabled: "!isObject('courseNo')",
+                required: true
+            }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
+                required: true
+            }, {
+                type: "number",
+                name: "FCEValue",
+                label: "FCE Value",
+                disabled: false,
+                required: true
+            }, {
+                type: "text",
+                name: "role",
+                label: "Role",
                 disabled: false,
                 required: false
             }];
-            
+
             formService.init(formData, gridData, row, 'rsTA', false);
         },
     };

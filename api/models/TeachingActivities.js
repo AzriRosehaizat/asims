@@ -31,5 +31,6 @@ module.exports = {
 			type: 'string',
 			size: 30
 		}
-	}
+	},
+	tableName: 'TeachingActivities'
 };

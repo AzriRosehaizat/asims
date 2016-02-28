@@ -19,7 +19,7 @@ application.service('rsRank', function($http, _, formService) {
                 formData.model.rankID = formData.model.title.obj.rankID;
             }
             formData.model.regularStaffID = mainRow.entity.regularStaffID;
-            
+
             return $http.post('/regularStaff_Rank', formData.model)
                 .then(function(res) {
                     return $http.get('/rank/' + res.data.rankID)
@@ -34,7 +34,7 @@ application.service('rsRank', function($http, _, formService) {
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
-            
+
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Rank';
@@ -42,7 +42,10 @@ application.service('rsRank', function($http, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/rank?where={\"title\":{\"startsWith\":\"",
+                url: {
+                    start: "/rank?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
                 link: "application.rank",
                 output: {
                     obj: {},
@@ -63,13 +66,13 @@ application.service('rsRank', function($http, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
+
             formService.init(formData, gridData, null, 'rsRank', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
-            
+
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Rank';
@@ -77,7 +80,10 @@ application.service('rsRank', function($http, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/rank?where={\"title\":{\"startsWith\":\"",
+                url: {
+                    start: "/rank?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
                 link: "application.rank",
                 output: {
                     obj: {},
@@ -98,7 +104,7 @@ application.service('rsRank', function($http, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
+
             formService.init(formData, gridData, row, 'rsRank', false);
         },
     };

@@ -1,10 +1,10 @@
-<md-sidenav id="navbar-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" layout-margin>
+<md-sidenav id="navbar-right" ng-show="$state.current.data.dataPage" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" layout-margin>
     <md-tabs md-dynamic-height md-border-bottom>
         
         <md-tab ng-if="fs.formData.title" label="{{fs.formData.title}}">
             <md-progress-linear class="md-hue-2" md-mode="{{fs.formData.mode}}"></md-progress-linear>
             <md-content class="formContent md-padding">
-                <form name="fs.formData.form" class="md-inline-form" ng-submit="submit()">
+                <form name="fs.formData.form" class="md-inline-form" ng-submit="submit()" novalidate>
 
                     <div ng-repeat="input in fs.formData.inputs" ng-include="'components/form/tmpl/' + input.type + '.html'"></div>
 
@@ -22,6 +22,10 @@
                 </form>
             </md-content>
         </md-tab>
+        
+        <!--<md-tab label="To Do">-->
+        <!--    <div ui-view="toDoList" ng-cloak></div>-->
+        <!--</md-tab>-->
         
     </md-tabs>
 </md-sidenav>

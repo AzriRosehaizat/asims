@@ -2,8 +2,7 @@ var application = angular.module('application', ['lodash', 'ui.router', 'ui.boot
 	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
-application.
-config(function($stateProvider, $urlRouterProvider, AccessLevels) {
+application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		$stateProvider
 			.state('index', {
 				url: '/index',
@@ -33,7 +32,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'navLeftBar@application': {
 						templateUrl: '/components/navLeftBar/navLeftBar.html',
 						controller: 'navLeftBarController as vm'
-					}
+					},
+					'navRightBar@application': {
+						templateUrl: '/components/navRightBar/navRightBar.html',
+						controller: 'navRightBarController'
+					},
+					// 'toDoList@application' :{
+					// 	templateUrl: '/components/toDoList/toDoList.html',
+					// 	controller: 'toDoListController'
+					// }
 				},
 				resolve: {
 					user: function(CurrentUser) {
@@ -41,7 +48,8 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					}
 				},
 				data: {
-					access: AccessLevels.reader
+					access: AccessLevels.reader,
+					dataPage: false
 				}
 			})
 			.state('application.root', {
@@ -53,11 +61,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
 						controller: 'toDoListController'
-					}
-				},
-				resolve: {
-					user: function(CurrentUser) {
-						return CurrentUser.getUser();
 					}
 				}
 			})
@@ -71,11 +74,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'details@application.profile': {
 						templateUrl: '/components/profile/details.html'
 					}
-				},
-				resolve: {
-					user: function(CurrentUser) {
-						return CurrentUser.getUser();
-					}
 				}
 			})
 			.state('application.admin', {
@@ -88,10 +86,6 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.admin': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-					'navRightBar@application': {
-						templateUrl: '/components/navRightBar/navRightBar.html',
-						controller: 'navRightBarController'
 					}
 				},
 				resolve: {
@@ -100,7 +94,8 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					}
 				},
 				data: {
-					access: AccessLevels.admin
+					access: AccessLevels.admin,
+					dataPage: true
 				}
 			})
 			.state('application.regularStaff', {
@@ -117,16 +112,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'tabset@application.regularStaff': {
 						templateUrl: '/components/tabset/tabset.html',
 						controller: 'tabsetController'
-					},
-					'navRightBar@application': {
-						templateUrl: '/components/navRightBar/navRightBar.html',
-						controller: 'navRightBarController'
 					}
 				},
 				resolve: {
 					staffs: function($http) {
 						return $http.get('/regularStaff/getAllRegularStaff');
 					}
+				},
+				data: {
+					dataPage: true
 				}
 			})
 			.state('application.contractStaff', {
@@ -143,16 +137,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'tabset@application.contractStaff': {
 						templateUrl: '/components/tabset/tabset.html',
 						controller: 'tabsetController'
-					},
-					'navRightBar@application': {
-						templateUrl: '/components/navRightBar/navRightBar.html',
-						controller: 'navRightBarController'
 					}
 				},
 				resolve: {
 					staffs: function($http) {
 						return $http.get('/contractStaff');
 					}
+				},
+				data: {
+					dataPage: true
 				}
 			})
 			.state('application.department', {
@@ -169,16 +162,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'tabset@application.department': {
 						templateUrl: '/components/tabset/tabset.html',
 						controller: 'tabsetController'
-					},
-					'navRightBar@application': {
-						templateUrl: '/components/navRightBar/navRightBar.html',
-						controller: 'navRightBarController'
 					}
 				},
 				resolve: {
 					departments: function($http) {
 						return $http.get('/department');
 					}
+				},
+				data: {
+					dataPage: true
 				}
 			})
 			.state('application.course', {
@@ -195,16 +187,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'tabset@application.course': {
 						templateUrl: '/components/tabset/tabset.html',
 						controller: 'tabsetController'
-					},
-					'navRightBar@application': {
-						templateUrl: '/components/navRightBar/navRightBar.html',
-						controller: 'navRightBarController'
 					}
 				},
 				resolve: {
 					courses: function($http) {
 						return $http.get('/course');
 					}
+				},
+				data: {
+					dataPage: true
 				}
 			})
 			.state('application.research', {
@@ -221,16 +212,15 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'tabset@application.research': {
 						templateUrl: '/components/tabset/tabset.html',
 						controller: 'tabsetController'
-					},
-					'navRightBar@application': {
-						templateUrl: '/components/navRightBar/navRightBar.html',
-						controller: 'navRightBarController'
 					}
 				},
 				resolve: {
 					researches: function($http) {
 						return $http.get('/research');
 					}
+				},
+				data: {
+					dataPage: true
 				}
 			})
 			.state('application.FLC', {
@@ -240,11 +230,7 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						templateUrl: '/components/report/report.html',
 						controller: 'reportController'
 					},
-					"chart@application.FLC": {
-						templateUrl: '/components/report/loadChart/loadChart.html',
-						controller: 'loadChartController'
-					}
-				},
+				}
 			})
 			.state('application.LEC', {
 				url: '/leaveEntitlementChart',
@@ -266,7 +252,7 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		});
 	})
 	.config(function($provide) {
-		$provide.decorator('GridOptions', function($delegate) {
+		$provide.decorator('GridOptions', function($delegate ,uiGridConstants) {
 			var gridOptions;
 			gridOptions = angular.copy($delegate);
 			gridOptions.initialize = function(options) {
@@ -275,11 +261,35 @@ config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				//set global options
 				//don't need header menus if we are using the speed dial
 				initOptions.enableColumnMenus = false;
+				initOptions.enableGridMenu = true,
 				initOptions.enableColumnResizing = true;
 				initOptions.noUnselect = true;
-				initOptions.multiSelect =  false;
-				initOptions.enableRowHeaderSelection  =  false;
-				initOptions.enableHorizontalScrollbar  =  0;
+				initOptions.multiSelect = false;
+				initOptions.enableRowHeaderSelection = false;
+				initOptions.enableHorizontalScrollbar = 0;
+	        	initOptions.gridMenuCustomItems = [
+		            {
+		                title: 'Toggle Filters',
+		                action: function ( $event ) {
+		                    initOptions
+		                    .enableFiltering = (
+		                        !initOptions
+		                        .enableFiltering
+		                    );
+		                    
+		                    this
+		                    .grid
+		                    .api
+		                    .core
+		                    .notifyDataChange( 
+		                        uiGridConstants
+		                        .dataChange
+		                        .COLUMN 
+		                    );
+		                },
+		                order: 1
+		            }
+		        ];
 
 				return initOptions;
 			};
