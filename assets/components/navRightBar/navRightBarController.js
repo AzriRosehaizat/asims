@@ -1,4 +1,4 @@
-application.controller('navRightBarController', function($scope, $state, $http, _, formService, $timeout, $q) {
+application.controller('navRightBarController', function($scope, $state, $http, _, formService) {
 
     $scope.$state = $state;
     $scope.fs = formService;
