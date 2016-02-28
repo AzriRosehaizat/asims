@@ -31,7 +31,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
         if ($scope.row)
             regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
         else 
-            toaster.open("Select a row first.");
+            toaster.info("Select a row first.");
     };
     
     $scope.selectTab = function(tab) {
@@ -72,13 +72,13 @@ application.controller('regularStaffController', function($scope, staffs, regula
         if ($scope.row) 
             rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
         else 
-            toaster.open("Select a row first in the main table.");
+            toaster.info("Select a row first in the main table.");
     };
 
     $scope.editTabRow = function() {
         if ($scope.tabRow) 
             rsTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
         else
-            toaster.open("Select a row first in the tab table.");
+            toaster.info("Select a row first in the tab table.");
     };
 });
