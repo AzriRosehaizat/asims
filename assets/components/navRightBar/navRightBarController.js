@@ -42,12 +42,20 @@ application.controller('navRightBarController', function($scope, $state, $http, 
         var modelAttr = $scope.fs.formData.model[value];
         return _.isObject(modelAttr);
     };
-
-    /* To change disabled value copying from another attribute */
-    $scope.copyValue = function(copy) {
-        if (copy) {
-            var value = _.get($scope.fs.formData.model, copy.from);
-            _.set($scope.fs.formData.model, copy.to, value);
+    
+    /* 1. Update disabled value from another attribute.
+    ** 2. Delete input value on change of another input. */
+    $scope.changeValue = function(change) {
+        if (change) {
+            var value = null;
+            
+            if (change.from) {
+                value = _.get($scope.fs.formData.model, change.from);
+            } 
+            else {
+                _.set($scope.fs.formData.model.searchText, change.to, undefined);
+            }
+            _.set($scope.fs.formData.model, change.to, value);
         }
     };
 });

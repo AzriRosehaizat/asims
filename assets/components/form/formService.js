@@ -73,14 +73,12 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
     };
 
     this.cancel = function(formData) {
-        console.log(formData);
         if (formData.isEditing) {
             _.merge(formData.model, row.entity);
         }
         else {
             formData.model = {};
         }
-        console.log(formData);
         resetValidation(formData);
         // Do something specific
         if (service.cancel) service.cancel(formData);
@@ -101,7 +99,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
             service.delete(formData)
                 .then(function(res) {
-                    console.log(res);
                     grid.splice(index, 1);
                     updateMainRow();
 

@@ -41,9 +41,6 @@ application.service('rsTA', function($http, $q, _, formService) {
         delete: function(formData) {
             return $http.delete('/TeachingActivities/' + formData.model.teachingActivitiesID);
         },
-        cancel: function(formData) {
-            
-        },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
 
@@ -62,6 +59,10 @@ application.service('rsTA', function($http, $q, _, formService) {
                 output: {
                     obj: {},
                     name: "departmentCode"
+                },
+                change: {
+                    // set null when departmentCode changes
+                    to: "courseNo"
                 },
                 disabled: false,
                 required: true
@@ -82,6 +83,9 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "courseNo"
                 },
+                change: {
+                    to: "sectionNo"
+                },
                 disabled: "!isObject('departmentCode')",
                 required: true
             }, {
@@ -101,7 +105,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "sectionNo"
                 },
-                copy: {
+                change: {
                     from: "courseNo.obj.title",
                     to: "title"
                 },
@@ -146,6 +150,9 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "departmentCode"
                 },
+                change: {
+                    to: "courseNo"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -164,6 +171,9 @@ application.service('rsTA', function($http, $q, _, formService) {
                 output: {
                     obj: {},
                     name: "courseNo"
+                },
+                change: {
+                    to: "sectionNo"
                 },
                 disabled: "!isObject('departmentCode')",
                 required: true
@@ -184,7 +194,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "sectionNo"
                 },
-                copy: {
+                change: {
                     from: "courseNo.obj.title",
                     to: "title"
                 },
