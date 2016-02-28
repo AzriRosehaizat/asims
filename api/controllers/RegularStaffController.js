@@ -101,13 +101,13 @@ module.exports = {
 			});
 			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff[0].academicStaffID + " and regularStaffID: " + RegularStaff[0].regularStaffID);
 		}).catch(function(err) {
+			console.log(err)
+			console.log("Unable to delete right now");
 			res.serverError(err);
-			console.log(err);
-			console.log("Unable to delete");
 		});
 	},
 	getAllRegularStaff: function(req, res) {
-		var	regularStaffID = req.param('regularStaffID');
+		var regularStaffID = req.param('regularStaffID');
 		RegularStaffService.getAllRegularStaff(regularStaffID, function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);

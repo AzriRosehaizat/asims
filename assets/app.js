@@ -1,4 +1,4 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns',
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 
 	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
@@ -217,6 +217,33 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				resolve: {
 					researches: function($http) {
 						return $http.get('/research');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})			
+			.state('application.sectionOffered', {
+				url: '/sectionOffered',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'sectionOfferedController'
+					},
+					'grid@application.sectionOffered': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					}
+					//This page does not have tabset yet
+					// ,
+					// 'tabset@application.sectionOffered': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
+				},
+				resolve: {
+					sectionOffered: function($http) {
+						return $http.get('Section_Offered/getSectionOffered');
 					}
 				},
 				data: {
