@@ -8,8 +8,8 @@
   border-radius: 0.2em;
 }
 
-.ui-grid-row.ui-grid-row-selected:hover .ui-grid-cell {
-  cursor: pointer;
+#menuFab {
+  box-shadow: 0 0 0 0 rgba(0,0,0,.26);
 }
 
 .ui-grid,

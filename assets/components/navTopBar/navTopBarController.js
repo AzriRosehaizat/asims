@@ -1,12 +1,14 @@
-application.controller('navTopBarController', function($scope, $mdSidenav, user, Auth, SearchHelper) {
+application.controller('navTopBarController', function($scope, $state, $mdSidenav, user, _, Auth, SearchHelper) {
 
+  $scope.$state = $state;
   $scope.user = user.data;
   $scope.auth = Auth;
-  
+
   $scope.logout = function() {
     Auth.logout();
   };
-  
+
+  /* Set search string to SearchHelper service */
   $scope.search = {};
   SearchHelper.setSearch($scope.search);
 
@@ -14,6 +16,7 @@ application.controller('navTopBarController', function($scope, $mdSidenav, user,
     SearchHelper.setInput(searchData);
   };
 
+  /* Toggle left navigation bar */
   $scope.toggleLeft = buildToggler('left');
 
   function buildToggler(navID) {
