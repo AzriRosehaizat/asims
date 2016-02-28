@@ -120,7 +120,8 @@ module.exports = {
 		};
 		var data = {
 			id: req.param('id'),
-			type: req.param('type')
+			type: req.param('type'),
+			where: req.param('where')
 		};
 		switch (data.type) {
 			case 'department':
@@ -133,7 +134,7 @@ module.exports = {
 				RegularStaffService.getEmployment(data.id, responseFn)
 				break;
 			case 'teaching':
-				RegularStaffService.getTeachingActivity(data.id, responseFn)
+				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn)
 			case 'leave':
 				//code
 				break;
