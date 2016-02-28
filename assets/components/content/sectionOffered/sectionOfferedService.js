@@ -34,19 +34,26 @@ application.service('sectionOfferedService', function($http, _, formService) {
             if (_.isObject(formData.model.departmentCode) &&
                 _.isObject(formData.model.courseNo) &&
                 _.isObject(formData.model.sectionNo)) {
-                
+
                 //Define the IDs
                 formData.model.courseID = formData.model.courseNo.obj.courseID;
                 formData.model.sectionID = formData.model.sectionNo.obj.sectionID;
 
             }
+            // console.log(formData.model)
             //For the sake of simplicity pass everything
             //Should really pass only whats needed
-            return $http.post('/Section_Offered',formData.model);
+            return $http.post('/Section_Offered', formData.model)
+                .then(function(res) {
+                    return $http.get('/Section_Offered/getSectionOffered/' + res.data.sectionOfferedID)
+                        .then(function(SO) {
+                            return SO;
+                        });
+                });
         },
-        delete: function(formData) {  
+        delete: function(formData) {
             console.log(formData.model.sectionOfferedID)
-            return $http.delete('/Section_Offered/' +  formData.model.sectionOfferedID);
+            return $http.delete('/Section_Offered/' + formData.model.sectionOfferedID);
         },
         //On add new section to offer
         initAddForm: function(formData, gridData) {
@@ -155,8 +162,8 @@ application.service('sectionOfferedService', function($http, _, formService) {
             formService.init(formData, gridData, row, 'sectionOfferedService', true);
         },
         getRow: function(row) {
-            console.log(row.entity.sectionOfferedID)
-            return $http.get('/Section_Offered/' + row.entity.sectionOfferedID);
+            console.log(row.entity.sectionOfferedID);
+            return $http.get('/Section_Offered/getSectionOffered/' + row.entity.sectionOfferedID);
         }
     };
 });
