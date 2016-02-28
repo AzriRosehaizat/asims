@@ -35,6 +35,9 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
         service.update(formData)
             .then(function(res) {
+                if (_.isArray(res.data)) {
+                    res.data = res.data[0];
+                }
                 _.merge(row.entity, res.data);
                 updateMainRow();
 
@@ -52,6 +55,9 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
         service.create(formData)
             .then(function(res) {
+                if (_.isArray(res.data)) {
+                    res.data = res.data[0];
+                }
                 grid.unshift(res.data);
                 updateMainRow();
 
@@ -67,12 +73,14 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
     };
 
     this.cancel = function(formData) {
+        console.log(formData);
         if (formData.isEditing) {
             _.merge(formData.model, row.entity);
         }
         else {
             formData.model = {};
         }
+        console.log(formData);
         resetValidation(formData);
         // Do something specific
         if (service.cancel) service.cancel(formData);
@@ -93,6 +101,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
             service.delete(formData)
                 .then(function(res) {
+                    console.log(res);
                     grid.splice(index, 1);
                     updateMainRow();
 
@@ -125,7 +134,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         else {
             mainService.getRow(mainRow)
                 .then(function(res) {
-                    console.log(mainRow.entity);
                     _.merge(mainRow.entity, res.data[0]);
                 }, function(err) {
                     toaster.error(err);
