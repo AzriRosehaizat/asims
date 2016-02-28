@@ -37,7 +37,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
     $scope.selectTab = function(tab) {
         $scope.tab = tab;
         $scope.tabRow = null;
-        $scope.addTabRow();
+        if ($scope.row) $scope.addTabRow();
     };
     
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
@@ -69,6 +69,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
     
     $scope.addTabRow = function() {
+        console.log($scope.row);
         if ($scope.row) 
             rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
         else 
