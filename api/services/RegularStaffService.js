@@ -49,7 +49,7 @@ module.exports = {
 			callback(err, result);
 		});
 	},
-	// get rank by id
+	// get employment by id
 	getEmployment: function(id, callback) {
 		var sSQL = mysql.select('re.*', 'r.academicStaffID')
 			.from('RegularStaff AS r')

@@ -620,6 +620,31 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
+-- View `asims`.`MostRecentChair`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`MostRecentChair` ;
+
+CREATE  OR REPLACE VIEW `asims`.`MostRecentChair` AS 
+  SELECT 
+    `Chair`.`chairID` AS `chairID`,
+    `Chair`.`regularStaffID` AS `regularStaffID`,
+    `Chair`.`departmentID` AS `departmentID`,
+    `Chair`.`startDate` AS `startDate`,
+    `Chair`.`endDate` AS `endDate`,
+    CONTACT(`AcademicStaff`.`firstName`,' ',`asims`.`AcademicStaff`.`lastName`) AS `Chair`
+  FROM
+    `Chair` JOIN `RegularStaff` 
+      ON `Chair`.`regularStaffID` = `RegularStaff`.`regularStaffID`
+    JOIN `AcademicStaff` 
+      ON `RegularStaff`.`academicStaffID` = `AcademicStaff`.`academicStaffID`
+  WHERE
+    (`Chair`.`departmentID`, `Chair`.`startDate`) IN (SELECT
+      `Chair`.`departmentID`,
+      MAX(`Chair`.`startDate`) AS `startDate` 
+    FROM `Chair` 
+    GROUP BY `Chair`.`departmentID`);
+
+-- -----------------------------------------------------
 -- View `asims`.`MostRecentDepartment`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `asims`.`MostRecentDepartment`;
