@@ -41,7 +41,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                 _.merge(row.entity, res.data);
                 updateMainRow();
 
-                toaster.open("Updated successfully!");
+                toaster.done("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
             })
@@ -63,7 +63,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
                 formData.model = {};
                 resetValidation(formData);
-                toaster.open("Added successfully!");
+                toaster.done("Added successfully!");
             }, function(err) {
                 toaster.error(err);
             })
@@ -105,7 +105,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
                     resetValidation(formData);
-                    toaster.open("Deleted successfully!");
+                    toaster.done("Deleted successfully!");
                 }, function(err) {
                     toaster.error(err);
                 })
