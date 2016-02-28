@@ -17,14 +17,14 @@ application.controller('navRightBarController', function($scope, $state, $http, 
 
     $scope.querySearch = function(searchText, url, output) {
         var query = url.start;
-        if (url.where) {
-            _.forEach(url.where, function(where) {
-                var value = _.get($scope.fs.formData.model, where.value);
-                query += "\"" + where.key + "\":\"" + value + "\",";
-            });
-        }
-        query += url.end + searchText + "\"}}";
-        // console.log(query);
+            if (url.where) {
+                _.forEach(url.where, function(where) {
+                    var value = _.get($scope.fs.formData.model, where.value);
+                    query += "\"" + where.key + "\":\"" + value + "\",";
+                });
+            }
+            query += url.end + searchText + "\"}}";
+            // console.log(query);
 
         return $http.get(query)
             .then(function(res) {
