@@ -7,16 +7,16 @@
             md-search-text-change="changeValue(input.change)"
             md-items="item in querySearch(fs.formData.model.searchText[input.name], input.url, input.output)" 
             md-item-text="item.name"
-            md-min-length="0"
+            md-min-length="1"
             md-no-cache="true"
             ng-disabled="{{input.disabled}}" 
             ng-required="{{input.required}}">
         <md-item-template>
+            <!--The querySearch needs to be rewritten with promise-->
             <span md-highlight-text="fs.formData.model.searchText[input.name]" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>
         <md-not-found>
-            <!--This may be a bit hacky-->
-          <span ng-show="fs.formData.model.searchText[input.name].length">"{{fs.formData.model.searchText[input.name]}}" not found. <a ui-sref="{{input.link}}">Add New?</a></span>
+          "{{fs.formData.model.searchText[input.name]}}" not found. <a ui-sref="{{input.link}}">Add New?</a>
         </md-not-found>
         <div ng-messages="fs.formData.form[input.name].$error" ng-show="fs.formData.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
