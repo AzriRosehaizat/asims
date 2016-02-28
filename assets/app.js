@@ -1,4 +1,4 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns',
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 'ui.grid.autoResize',
 	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
@@ -233,11 +233,13 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-					'tabset@application.sectionOffered': {
-						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
 					}
+					//This page does not have tabset yet
+					// ,
+					// 'tabset@application.sectionOffered': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
 				},
 				resolve: {
 					sectionOffered: function($http) {
