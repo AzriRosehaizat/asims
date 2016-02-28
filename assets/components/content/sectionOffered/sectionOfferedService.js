@@ -1,6 +1,7 @@
 application.service('sectionOfferedService', function($http, _, formService) {
 
     return {
+        //Define Grid Options here
         gridOptions: function() {
             return {
                 columnDefs: [{
@@ -30,27 +31,49 @@ application.service('sectionOfferedService', function($http, _, formService) {
             return $http.post('', formData.model);
         },
         create: function(formData) {
-            return $http.post('', formData.model);
+            if (_.isObject(formData.model.departmentCode) &&
+                _.isObject(formData.model.courseNo) &&
+                _.isObject(formData.model.sectionNo)) {
+                
+                //Define the IDs
+                formData.model.courseID = formData.model.courseNo.obj.courseID;
+                formData.model.sectionID = formData.model.sectionNo.obj.sectionID;
+
+            }
+            //For the sake of simplicity pass everything
+            //Should really pass only whats needed
+            return $http.post('/Section_Offered', formData.model);
         },
         delete: function(formData) {
-            return $http.post('', formData.model);
+            // return $http.post('', formData.model);
         },
+        //On add new section to offer
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Section Offered';
+            //Here you define your form types, to generate the html form
+            //templates are stored in /form/tmpl/*
             formData.inputs = [{
+                //This is an example for md-autocomplete/dropdown
                 type: "autocomplete",
+                //object name
                 name: "departmentCode",
+                //Caption
                 label: "Dept. Code",
+                //URL to parse the dropdown items
                 url: {
                     start: "/department?where={",
                     end: "\"departmentCode\":{\"startsWith\":\""
                 },
+                //for UI-sref linking 
                 link: "application.department",
                 output: {
                     obj: {},
                     name: "departmentCode"
+                },
+                change: {
+                    to: "courseNo"
                 },
                 disabled: false,
                 required: true
@@ -71,6 +94,9 @@ application.service('sectionOfferedService', function($http, _, formService) {
                     obj: {},
                     name: "courseNo"
                 },
+                change: {
+                    to: "sectionNo"
+                },
                 disabled: "!isObject('departmentCode')",
                 required: true
             }, {
@@ -78,13 +104,17 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section_offered/search?where={",
+                    start: "/Section?where={",
                     end: "\"sectionNo\":{\"startsWith\":\""
                 },
-                link: "application.course",
+                link: "application.section",
                 output: {
                     obj: {},
                     name: "sectionNo"
+                },
+                change: {
+                    from: "courseNo.obj.title",
+                    to: "title"
                 },
                 disabled: "!isObject('courseNo')",
                 required: true
@@ -92,6 +122,12 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 type: "date",
                 name: "startDate",
                 label: "Start Date",
+                required: true,
+                disabled: false
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End Date",
                 required: true,
                 disabled: false
             }, {
