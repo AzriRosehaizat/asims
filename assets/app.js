@@ -277,13 +277,15 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		                        .enableFiltering
 		                    );
 		                    
-		                    // gridApi
-		                    // .core
-		                    // .notifyDataChange( 
-		                    //     uiGridConstants
-		                    //     .dataChange
-		                    //     .COLUMN 
-		                    // );
+		                    this
+		                    .grid
+		                    .api
+		                    .core
+		                    .notifyDataChange( 
+		                        uiGridConstants
+		                        .dataChange
+		                        .COLUMN 
+		                    );
 		                },
 		                order: 1
 		            }
