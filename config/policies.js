@@ -25,8 +25,6 @@ module.exports.policies = {
   * access)                                                                  *
   *                                                                          *
   ***************************************************************************/
-
-  //'*': true,
   
   // '*': ['hasJsonWebToken'], // Everything resctricted here
   

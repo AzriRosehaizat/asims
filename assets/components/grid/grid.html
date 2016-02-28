@@ -1,4 +1,4 @@
-<md-content class="grid md-whiteframe-1dp" ng-cloak>
+<div style="position:relative;" class="grid md-whiteframe-1dp" ng-cloak>
     
     <md-toolbar class="md-warn md-hue-2">
         <div class="md-toolbar-tools">
@@ -8,9 +8,9 @@
     
     <md-fab-speed-dial id="tabMenu" md-direction="left" md-open="tabMenu.isOpen" class="md-scale md-fab-top-right" ng-class="{'md-hover-full': true}" ng-mouseenter="tabMenu.isOpen=true" ng-mouseleave="tabMenu.isOpen=false">
         <md-fab-trigger>
-            <md-button class="md-fab md-warn md-hue-2" aria-label="menu">
+            <md-button id="menuFab" class="md-fab md-warn md-hue-2" aria-label="menu">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Menu</md-tooltip>
-                <md-icon md-font-set="material-icons">menu</md-icon>
+                <md-icon md-font-set="material-icons">more_horiz</md-icon>
             </md-button>
         </md-fab-trigger>
         <md-fab-actions>
@@ -25,5 +25,5 @@
         </md-fab-actions>
     </md-fab-speed-dial>
 
-    <div ui-grid="gridOptions" ui-grid-selection class="grid"></div>
-</md-content>
+    <div ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns class="grid"></div>
+</div>

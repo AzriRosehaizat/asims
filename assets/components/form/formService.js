@@ -35,10 +35,13 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
         service.update(formData)
             .then(function(res) {
+                if (_.isArray(res.data)) {
+                    res.data = res.data[0];
+                }
                 _.merge(row.entity, res.data);
                 updateMainRow();
 
-                toaster.open("Updated successfully!");
+                toaster.done("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
             })
@@ -52,12 +55,15 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
         service.create(formData)
             .then(function(res) {
+                if (_.isArray(res.data)) {
+                    res.data = res.data[0];
+                }
                 grid.unshift(res.data);
                 updateMainRow();
 
                 formData.model = {};
                 resetValidation(formData);
-                toaster.open("Added successfully!");
+                toaster.done("Added successfully!");
             }, function(err) {
                 toaster.error(err);
             })
@@ -99,7 +105,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
                     resetValidation(formData);
-                    toaster.open("Deleted successfully!");
+                    toaster.done("Deleted successfully!");
                 }, function(err) {
                     toaster.error(err);
                 })
@@ -125,7 +131,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         else {
             mainService.getRow(mainRow)
                 .then(function(res) {
-                    console.log(mainRow.entity);
                     _.merge(mainRow.entity, res.data[0]);
                 }, function(err) {
                     toaster.error(err);
