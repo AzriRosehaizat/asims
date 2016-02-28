@@ -6,10 +6,6 @@ application.service('csTabService', function($http, csTA, csRTR) {
                 teachingActivity: {
                     title: 'Teaching Activity',
                     gridOptions: {
-                        noUnselect: true,
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Name',
                             field: 'title'
@@ -27,10 +23,6 @@ application.service('csTabService', function($http, csTA, csRTR) {
                 rightToRefuse: {
                     title: 'Right to Refuse',
                     gridOptions: {
-                        noUnselect: true,
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Name',
                             field: 'title'
