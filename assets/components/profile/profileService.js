@@ -9,9 +9,9 @@ application.service('profileService', function($http, _, toaster) {
                 .then(function(res) {
                     _.merge(user, res.data);
                     self.resetPasswords(formData);
-                    toaster.open("Updated successfully!");
+                    toaster.done("Updated successfully!");
                 }, function(err) {
-                    toaster.open(err);
+                    toaster.error(err);
                 })
                 .finally(function() {
                     formData.mode = '';

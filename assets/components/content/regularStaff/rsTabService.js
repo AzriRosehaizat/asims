@@ -26,6 +26,13 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                             name: 'End Date',
                             field: 'endDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'FCE',
+                            displayName: 'FCE',
+                            field: 'FCEValue'
+                        }, {
+                            name: 'Role',
+                            field: 'role'
                         }]
                     }
                 },
@@ -67,7 +74,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                     }
                 },
                 employment: {
-                    title: 'Employement',
+                    title: 'Employment',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Start Date',
@@ -93,7 +100,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 case 'Rank':
                     rsRank.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Employement':
+                case 'Employment':
                     rsEmployment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
@@ -109,7 +116,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 case 'Rank':
                     rsRank.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Employement':
+                case 'Employment':
                     rsEmployment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }

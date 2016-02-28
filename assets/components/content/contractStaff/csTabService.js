@@ -1,4 +1,4 @@
-application.service('csTabService', function($http) {
+application.service('csTabService', function($http, csTA, csRTR) {
 
     return {
         tabs: function() {
@@ -6,6 +6,7 @@ application.service('csTabService', function($http) {
                 teachingActivity: {
                     title: 'Teaching Activity',
                     gridOptions: {
+                        noUnselect: true,
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
@@ -26,6 +27,7 @@ application.service('csTabService', function($http) {
                 rightToRefuse: {
                     title: 'Right to Refuse',
                     gridOptions: {
+                        noUnselect: true,
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
@@ -44,6 +46,42 @@ application.service('csTabService', function($http) {
                     }
                 }
             };
+        },
+        initAddForm: function(formData, tab, mainRow) {
+            switch (tab.title) {
+                case 'Teaching Activity':
+                    csTA.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    break;
+                case 'Right to Refuse':
+                    csRTR.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    break;
+            }
+        },
+        initEditForm: function(formData, tab, row) {
+            switch (tab.title) {
+                case 'Teaching Activity':
+                    csTA.initEditForm(formData, tab.gridOptions.data, row);
+                    break;
+                case 'Right to Refuse':
+                    csRTR.initEditForm(formData, tab.gridOptions.data, row);
+                    break;
+            }
+        },
+        getTabs: function(tabs, row) {
+            this.getTeachingActivity(tabs.teachingActivity, row);
+            this.getRightToRefuse(tabs.rightToRefuse, row);
+        },
+        getTeachingActivity: function(teachingActivity, row) {
+            // $http.get('/contractStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
+            //     .then(function(res) {
+            //         teachingActivity.gridOptions.data = res.data;
+            //     });
+        },
+        getRightToRefuse: function(rightToRefuse, row) {
+            // $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + row.entity.academicStaffID)
+            //     .then(function(res) {
+            //         rightToRefuse.gridOptions.data = res.data;
+            //     });
         },
     };
 });
