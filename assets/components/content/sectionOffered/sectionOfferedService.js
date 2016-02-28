@@ -40,7 +40,70 @@ application.service('sectionOfferedService', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Add Section Offered';
             formData.inputs = [{
-
+                type: "autocomplete",
+                name: "departmentCode",
+                label: "Dept. Code",
+                url: {
+                    start: "/department?where={",
+                    end: "\"departmentCode\":{\"startsWith\":\""
+                },
+                link: "application.department",
+                output: {
+                    obj: {},
+                    name: "departmentCode"
+                },
+                disabled: false,
+                required: true
+            }, {
+                type: "autocomplete",
+                name: "courseNo",
+                label: "Course No.",
+                url: {
+                    start: "/course?where={",
+                    end: "\"courseNo\":{\"startsWith\":\"",
+                    where: [{
+                        key: "departmentID",
+                        value: "departmentCode.obj.departmentID"
+                    }]
+                },
+                link: "application.course",
+                output: {
+                    obj: {},
+                    name: "courseNo"
+                },
+                disabled: "!isObject('departmentCode')",
+                required: true
+            }, {
+                type: "autocomplete",
+                name: "sectionNo",
+                label: "Section No.",
+                url: {
+                    start: "/section_offered/search?where={",
+                    end: "\"sectionNo\":{\"startsWith\":\""
+                },
+                link: "application.course",
+                output: {
+                    obj: {},
+                    name: "sectionNo"
+                },
+                copy: {
+                    from: "courseNo.obj.title",
+                    to: "title"
+                },
+                disabled: "!isObject('courseNo')",
+                required: true
+            }, , {
+                type: "date",
+                name: "startDate",
+                label: "Start Date",
+                required: true,
+                disabled: false
+            }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
+                required: true
             }];
 
             formService.init(formData, gridData, null, 'sectionOfferedService', true);
