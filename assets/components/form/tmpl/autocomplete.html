@@ -14,7 +14,8 @@
             <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>
         <md-not-found>
-          "{{searchText}}" not found. <a ui-sref="{{input.link}}">Add New?</a>
+            <!--This may be a bit hacky-->
+          <span ng-show="searchText.length">"{{searchText}}" not found. <a ui-sref="{{input.link}}">Add New?</a></span>
         </md-not-found>
         <div ng-messages="fs.formData.form[input.name].$error" ng-show="fs.formData.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
