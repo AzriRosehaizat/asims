@@ -37,7 +37,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						templateUrl: '/components/navRightBar/navRightBar.html',
 						controller: 'navRightBarController'
 					},
-					// 'toDoList@application' :{
+					// 'toDoList@application': {
 					// 	templateUrl: '/components/toDoList/toDoList.html',
 					// 	controller: 'toDoListController'
 					// }
