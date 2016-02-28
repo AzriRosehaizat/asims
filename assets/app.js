@@ -1,4 +1,4 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 'ui.grid.autoResize',
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 
 	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
