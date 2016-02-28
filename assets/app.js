@@ -267,29 +267,27 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				initOptions.multiSelect = false;
 				initOptions.enableRowHeaderSelection = false;
 				initOptions.enableHorizontalScrollbar = 0;
-		        initOptions.onRegisterApi = function( gridApi ){
-		        	initOptions.gridMenuCustomItems = [
-			            {
-			                title: 'Toggle Filters',
-			                action: function ( $event ) {
-			                    initOptions
-			                    .enableFiltering = (
-			                        !initOptions
-			                        .enableFiltering
-			                    );
-			                    
-			                    gridApi
-			                    .core
-			                    .notifyDataChange( 
-			                        uiGridConstants
-			                        .dataChange
-			                        .COLUMN 
-			                    );
-			                },
-			                order: 1
-			            }
-			        ];
-		        };
+	        	initOptions.gridMenuCustomItems = [
+		            {
+		                title: 'Toggle Filters',
+		                action: function ( $event ) {
+		                    initOptions
+		                    .enableFiltering = (
+		                        !initOptions
+		                        .enableFiltering
+		                    );
+		                    
+		                    // gridApi
+		                    // .core
+		                    // .notifyDataChange( 
+		                    //     uiGridConstants
+		                    //     .dataChange
+		                    //     .COLUMN 
+		                    // );
+		                },
+		                order: 1
+		            }
+		        ];
 
 				return initOptions;
 			};
