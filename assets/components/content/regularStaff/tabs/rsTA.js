@@ -27,7 +27,6 @@ application.service('rsTA', function($http, $q, _, formService) {
 
                 formData.model.academicStaffID = mainRow.entity.academicStaffID;
                 formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
-                formData.model.FCEValue = 0.5;
             }
 
             return $http.post('/teachingActivities', formData.model)
@@ -40,7 +39,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                 });
         },
         delete: function(formData) {
-            console.log(formData.model.teachingActivitiesID)
             return $http.delete('/TeachingActivities/' + formData.model.teachingActivitiesID);
         },
         cancel: function(formData) {
@@ -115,6 +113,18 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Title",
                 disabled: true,
                 required: true
+            }, {
+                type: "number",
+                name: "FCEValue",
+                label: "FCE Value",
+                disabled: false,
+                required: true
+            }, {
+                type: "text",
+                name: "role",
+                label: "Role",
+                disabled: false,
+                required: false
             }];
 
             formService.init(formData, gridData, null, 'rsTA', false);
@@ -186,6 +196,18 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Title",
                 disabled: true,
                 required: true
+            }, {
+                type: "number",
+                name: "FCEValue",
+                label: "FCE Value",
+                disabled: false,
+                required: true
+            }, {
+                type: "text",
+                name: "role",
+                label: "Role",
+                disabled: false,
+                required: false
             }];
 
             formService.init(formData, gridData, row, 'rsTA', false);
