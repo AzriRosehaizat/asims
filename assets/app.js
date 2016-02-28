@@ -252,7 +252,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		});
 	})
 	.config(function($provide) {
-		$provide.decorator('GridOptions', function($delegate) {
+		$provide.decorator('GridOptions', function($delegate ,uiGridConstants) {
 			var gridOptions;
 			gridOptions = angular.copy($delegate);
 			gridOptions.initialize = function(options) {
@@ -261,11 +261,35 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				//set global options
 				//don't need header menus if we are using the speed dial
 				initOptions.enableColumnMenus = false;
+				initOptions.enableGridMenu = true,
 				initOptions.enableColumnResizing = true;
 				initOptions.noUnselect = true;
 				initOptions.multiSelect = false;
 				initOptions.enableRowHeaderSelection = false;
 				initOptions.enableHorizontalScrollbar = 0;
+		        initOptions.onRegisterApi = function( gridApi ){
+		        	initOptions.gridMenuCustomItems = [
+			            {
+			                title: 'Toggle Filters',
+			                action: function ( $event ) {
+			                    initOptions
+			                    .enableFiltering = (
+			                        !initOptions
+			                        .enableFiltering
+			                    );
+			                    
+			                    gridApi
+			                    .core
+			                    .notifyDataChange( 
+			                        uiGridConstants
+			                        .dataChange
+			                        .COLUMN 
+			                    );
+			                },
+			                order: 1
+			            }
+			        ];
+		        };
 
 				return initOptions;
 			};
