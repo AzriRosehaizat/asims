@@ -42,10 +42,11 @@ application.service('sectionOfferedService', function($http, _, formService) {
             }
             //For the sake of simplicity pass everything
             //Should really pass only whats needed
-            return $http.post('/Section_Offered', formData.model);
+            return $http.post('/Section_Offered',formData.model);
         },
-        delete: function(formData) {
-            // return $http.post('', formData.model);
+        delete: function(formData) {  
+            console.log(formData.model.sectionOfferedID)
+            return $http.delete('/Section_Offered/' +  formData.model.sectionOfferedID);
         },
         //On add new section to offer
         initAddForm: function(formData, gridData) {
@@ -154,7 +155,8 @@ application.service('sectionOfferedService', function($http, _, formService) {
             formService.init(formData, gridData, row, 'sectionOfferedService', true);
         },
         getRow: function(row) {
-            return $http.get('');
+            console.log(row.entity.sectionOfferedID)
+            return $http.get('/Section_Offered/' + row.entity.sectionOfferedID);
         }
     };
 });

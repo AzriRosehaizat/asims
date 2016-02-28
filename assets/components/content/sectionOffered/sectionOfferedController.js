@@ -6,7 +6,7 @@ application.controller('sectionOfferedController', function($scope, sectionOffer
 
     $scope.gridOptions = sectionOfferedService.gridOptions();
     $scope.gridOptions.data = $scope.sectionData;
-    
+
     $scope.tabs = soTabService.tabs();
     $scope.tab = $scope.tabs.teachingActivity;
 
@@ -17,8 +17,9 @@ application.controller('sectionOfferedController', function($scope, sectionOffer
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             sectionOfferedService.initEditForm($scope.formData, $scope.gridOptions.data, row);
-            
-            soTabService.getTabs($scope.tabs, row);
+            console.log(row.entity)
+
+            // soTabService.getTabs($scope.tabs, row);
         });
     };
 
@@ -29,12 +30,12 @@ application.controller('sectionOfferedController', function($scope, sectionOffer
     $scope.editRow = function() {
         sectionOfferedService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
     };
-    
+
     $scope.selectTab = function(tab) {
         $scope.tab = tab;
         $scope.addTabRow();
     };
-    
+
     // $scope.tabs.regularStaff.gridOptions.onRegisterApi = function(gridApi) {
     //     gridApi.selection.on.rowSelectionChanged($scope, function(row) {
     //         $scope.tabRow = row;
@@ -56,14 +57,14 @@ application.controller('sectionOfferedController', function($scope, sectionOffer
     //     });
     // };
 
-    
+
     $scope.addTabRow = function() {
-        if ($scope.row) 
+        if ($scope.row)
             soTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
     };
 
     $scope.editTabRow = function() {
-        if ($scope.tabRow) 
+        if ($scope.tabRow)
             soTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
     };
 });
