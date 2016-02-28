@@ -4,37 +4,47 @@ application.service('rsTA', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
-            console.log(formData.model);
             if (_.isObject(formData.model.departmentCode) &&
                 _.isObject(formData.model.courseNo) &&
                 _.isObject(formData.model.sectionNo)) {
-                    
+
                 formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
             }
-            
-            return $http.put('/TeachingActivities/' + formData.model.teachingActivitiesID, formData.model)
+
+            return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
-                    console.log(res.data);
+                    return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID + 
+                                     '&where=' + res.data.teachingActivitiesID)
+                        .then(function(TA) {
+                            return TA;
+                        });
                 });
         },
         create: function(formData) {
-            console.log(formData.model);
             if (_.isObject(formData.model.departmentCode) &&
                 _.isObject(formData.model.courseNo) &&
                 _.isObject(formData.model.sectionNo)) {
-                    
+
                 formData.model.academicStaffID = mainRow.entity.academicStaffID;
                 formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
                 formData.model.FCEValue = 0.5;
             }
-            
-            return $http.post('/TeachingActivities', formData.model)
+
+            return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
-                    console.log(res.data);
+                    return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID + 
+                                     '&where=' + res.data.teachingActivitiesID)
+                        .then(function(TA) {
+                            return TA;
+                        });
                 });
         },
         delete: function(formData) {
+            console.log(formData.model.teachingActivitiesID)
             return $http.delete('/TeachingActivities/' + formData.model.teachingActivitiesID);
+        },
+        cancel: function(formData) {
+            
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
@@ -105,26 +115,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Title",
                 disabled: true,
                 required: true
-            }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
             }];
 
             formService.init(formData, gridData, null, 'rsTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
-
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Teaching Activity';
@@ -191,18 +186,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Title",
                 disabled: true,
                 required: true
-            }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
             }];
 
             formService.init(formData, gridData, row, 'rsTA', false);
