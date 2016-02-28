@@ -86,13 +86,9 @@ application.service('sectionOfferedService', function($http, _, formService) {
                     obj: {},
                     name: "sectionNo"
                 },
-                copy: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
                 disabled: "!isObject('courseNo')",
                 required: true
-            }, , {
+            }, {
                 type: "date",
                 name: "startDate",
                 label: "Start Date",
