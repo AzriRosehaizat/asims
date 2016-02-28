@@ -614,7 +614,7 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
   CONSTRAINT `TeachingActivities_ibfk_2`
     FOREIGN KEY (`sectionOfferedID`)
-    REFERENCES `section_offered` (`sectionOfferedID`),
+    REFERENCES `Section_Offered` (`sectionOfferedID`),
   CONSTRAINT `TeachingActivities_ibfk_1`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`))
