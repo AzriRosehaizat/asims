@@ -1,4 +1,4 @@
-application.controller('regularStaffController', function($scope, staffs, regularStaffService, rsTabService, SearchHelper) {
+application.controller('regularStaffController', function($scope, staffs, regularStaffService, rsTabService, SearchHelper, toaster) {
 
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaff = staffs.data;
@@ -16,6 +16,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
+            $scope.tabRow = null;
             regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, row);
             
             rsTabService.getTabs($scope.tabs, row);
@@ -27,11 +28,15 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
 
     $scope.editRow = function() {
-        regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        if ($scope.row)
+            regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else 
+            toaster.open("Select a row first.");
     };
     
     $scope.selectTab = function(tab) {
         $scope.tab = tab;
+        $scope.tabRow = null;
         $scope.addTabRow();
     };
     
@@ -66,10 +71,14 @@ application.controller('regularStaffController', function($scope, staffs, regula
     $scope.addTabRow = function() {
         if ($scope.row) 
             rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
+        else 
+            toaster.open("Select a row first in the main table.");
     };
 
     $scope.editTabRow = function() {
         if ($scope.tabRow) 
             rsTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
+        else
+            toaster.open("Select a row first in the tab table.");
     };
 });
