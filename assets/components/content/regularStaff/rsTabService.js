@@ -26,6 +26,13 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                             name: 'End Date',
                             field: 'endDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'FCE',
+                            displayName: 'FCE',
+                            field: 'FCEValue'
+                        }, {
+                            name: 'Role',
+                            field: 'role'
                         }]
                     }
                 },
