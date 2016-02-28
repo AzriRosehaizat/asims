@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `AcademicStaff` (
   `firstName` VARCHAR(50) NOT NULL,
   `lastName` VARCHAR(50) NOT NULL,
   `employeeNo` VARCHAR(50) NULL,
-  PRIMARY KEY (`academicStaffID`)  COMMENT '')
+  PRIMARY KEY (`academicStaffID`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `Faculty` ;
 CREATE TABLE IF NOT EXISTS `Faculty` (
   `facultyID` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`facultyID`)  COMMENT '')
+  PRIMARY KEY (`facultyID`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `Section` (
   `courseType` VARCHAR(50) NULL,
   `FCEModifier` FLOAT NOT NULL DEFAULT 1,
   PRIMARY KEY (`sectionID`) ,
-  UNIQUE INDEX `sectionNo` (`sectionNo` ASC)  COMMENT '')
+  UNIQUE INDEX `sectionNo` (`sectionNo` ASC) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `Section_Offered` (
   `startDate` DATE NOT NULL DEFAULT '2016-09-11',
   `endDate` DATE NOT NULL DEFAULT '2016-12-21',
   PRIMARY KEY (`sectionOfferedID`) ,
-  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC) ,
+  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC, `startDate` ASC) ,
   INDEX `sectionID` (`sectionID` ASC) ,
   CONSTRAINT `Section_Offered_ibfk_2`
     FOREIGN KEY (`sectionID`)
@@ -281,7 +281,7 @@ CREATE TABLE IF NOT EXISTS `Rank` (
   `rankID` INT(11) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(50) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  PRIMARY KEY (`rankID`)  COMMENT '')
+  PRIMARY KEY (`rankID`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -490,7 +490,7 @@ CREATE TABLE IF NOT EXISTS `Research` (
   `abstract` TEXT NULL DEFAULT NULL,
   `startDate` DATE NOT NULL,
   `endDate` DATE NOT NULL,
-  PRIMARY KEY (`researchID`)  COMMENT '')
+  PRIMARY KEY (`researchID`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -606,8 +606,6 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   `academicStaffID` INT(11) NOT NULL,
   `sectionOfferedID` INT(11) NOT NULL,
   `role` VARCHAR(50) NULL,
-  `startDate` DATE NOT NULL DEFAULT '2015-09-05',
-  `endDate` DATE NOT NULL DEFAULT '2016-04-25',
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
   PRIMARY KEY (`teachingActivitiesID`) ,
   INDEX `academicStaffID` (`academicStaffID` ASC) ,
