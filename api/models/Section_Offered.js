@@ -36,7 +36,7 @@ module.exports = {
 		},
 		TeachingActivities: {
 			collection: 'TeachingActivities',
-			via: 'teachingActivitiesID'
+			via: 'sectionOfferedID'
 		},
 		RightToRefusal: {
 			collection: 'RightToRefusal',
