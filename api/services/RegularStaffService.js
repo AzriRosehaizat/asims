@@ -1,6 +1,7 @@
 var mysql = require('knex')({
 	client: 'mysql'
 });
+
 module.exports = {
 	//Page Regular Staff
 	getAllRegularStaff: function(regularStaffID, callback) {
