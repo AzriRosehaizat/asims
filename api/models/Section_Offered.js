@@ -26,14 +26,6 @@ module.exports = {
 			type: 'integer',
 			required: true
 		},
-		startDate:{
-			type: 'date',
-			required: true 
-		},
-		endDate:{
-			type: 'date',
-			required: true
-		},
 		TeachingActivities: {
 			collection: 'TeachingActivities',
 			via: 'sectionOfferedID'
