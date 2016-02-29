@@ -26,43 +26,61 @@ module.exports = {
 			callback(err, result);
 		});
 	},
-	getDepartment: function(id, callback) {
+	getDepartment: function(id, where, callback) {
 		var sSQL = mysql.select('d.*', 'ad.*', 'ad.academicStaffID')
 			.from('AcademicStaff AS a')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id)
-			.toString();
+			
+			if (where) {
+				sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
 	},
 	// get rank by id
-	getRank: function(id, callback) {
+	getRank: function(id, where, callback) {
 		var sSQL = mysql.select('rk.*', 'rs.*', 'r.academicStaffID')
 			.from('RegularStaff AS r')
 			.innerJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
 			.innerJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
-			.where('r.academicStaffID', id)
-			.toString();
+			.where('r.academicStaffID', id);
+			
+		if (where) {
+				sSQL = sSQL.where('rk.regularStaffRankID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
 	},
-	// get rank by id
-	getEmployment: function(id, callback) {
+	// get employment by id
+	getEmployment: function(id, where, callback) {
 		var sSQL = mysql.select('re.*', 'r.academicStaffID')
 			.from('RegularStaff AS r')
 			.innerJoin('RegularStaffEmployment AS re', 'r.regularStaffID', 're.regularStaffID')
-			.where('r.academicStaffID', id)
-			.toString();
+			.where('r.academicStaffID', id);
+			
+		if (where) {
+				sSQL = sSQL.where('re.regularStaffEmploymentID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
 	},
 
 	getTeachingActivity: function(id, where, callback) {
-		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 't.startDate', 't.endDate')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
 			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
