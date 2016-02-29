@@ -70,6 +70,9 @@ body {
 .material-icons.md-48 {
   font-size: 48px;
 }
+.material-icons.md-96 {
+  font-size: 96px;
+}
 
 
 /* Rules for using icons as black on a light background. */
@@ -109,3 +112,39 @@ body {
   background: #ff8a80; }
  .md-grid-tile {
   transition: all 400ms ease-out 50ms; }
+
+
+
+  .userhome-page__button {
+      color: white;
+      text-decoration: none;
+      background-color: #ea9448;
+      padding: .8em;
+      border-radius: .5em;
+      width: 14em;
+      display: inline-block;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: 2em;
+  }
+  .userhome-page i {
+      font-size: 1.6em;
+      vertical-align: middle;
+      margin-right: .25em;
+      color: black;
+  }
+  .userhome-page {
+      margin-right: 4em;
+  }
+  .userhome-page p {
+      color: black;
+      font-size: .8em;
+      margin-left: 3rem;
+  }
+  p {
+      margin-bottom: 1.3em;
+  }
+  article, section {
+      display: block;
+  }
