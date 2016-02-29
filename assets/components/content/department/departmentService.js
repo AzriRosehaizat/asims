@@ -22,10 +22,13 @@ application.service('departmentService', function($http, $q, _, formService) {
             };
         },
         update: function(formData) {
+            if (_.isObject(formData.model.facultyTitle)) {
+                formData.model.facultyID = formData.model.facultyTitle.obj.facultyID;
+            }
             //Return a flattned object after update
-            return $http.put('/Department', formData.model)
+            return $http.put('/Department/' + formData.model.departmentID, formData.model)
                 .then(function(res) {
-                    return $http.get('/Department/' + res.data.departmentID)
+                    return $http.get('/Department/getAllDepartment/' + res.data.departmentID)
                         .then(function(Dept) {
                             return Dept;
                         });
