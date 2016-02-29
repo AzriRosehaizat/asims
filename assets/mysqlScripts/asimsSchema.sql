@@ -137,10 +137,8 @@ CREATE TABLE IF NOT EXISTS `Section_Offered` (
   `courseID` INT(11) NOT NULL,
   `sectionID` INT(11) NOT NULL,
   `groupID` INT(11) DEFAULT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2016-09-11',
-  `endDate` DATE NOT NULL DEFAULT '2016-12-21',
   PRIMARY KEY (`sectionOfferedID`) ,
-  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC, `startDate` ASC) ,
+  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC) ,
   INDEX `sectionID` (`sectionID` ASC) ,
   CONSTRAINT `Section_Offered_ibfk_2`
     FOREIGN KEY (`sectionID`)
@@ -607,6 +605,8 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   `sectionOfferedID` INT(11) NOT NULL,
   `role` VARCHAR(50) NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
+  `startDate` DATE NOT NULL DEFAULT '2016-09-11',
+  `endDate` DATE NOT NULL DEFAULT '2016-12-21',
   PRIMARY KEY (`teachingActivitiesID`) ,
   INDEX `academicStaffID` (`academicStaffID` ASC) ,
   INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
