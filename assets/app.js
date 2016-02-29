@@ -1,4 +1,4 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns',
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns','ui.grid.exporter',
 	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
@@ -267,6 +267,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				initOptions.multiSelect = false;
 				initOptions.enableRowHeaderSelection = false;
 				initOptions.enableHorizontalScrollbar = 0;
+				initOptions.exporterMenuPdf = false;
 	        	initOptions.gridMenuCustomItems = [
 		            {
 		                title: 'Toggle Filters',
