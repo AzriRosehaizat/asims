@@ -31,7 +31,6 @@ module.exports = {
 			type: 'string',
 			size: 30
 		},
-		
 		startDate:{
 			type: 'date',
 			required: true 
