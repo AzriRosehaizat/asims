@@ -27,7 +27,7 @@ module.exports = {
 		var sSQL = mysql.select('c.*', 'd.departmentCode')
 			.from('Course AS c')
 			.innerJoin('Department as d', 'c.departmentID', 'd.departmentID')
-			.where('c.departmentID', id)
+			.where('c.departmentID', id);
 			
 			if (where) {
 				sSQL = sSQL.where('c.courseID', where).toString();
@@ -35,6 +35,7 @@ module.exports = {
 			else {
 				sSQL = sSQL.toString();
 			}
+			console.log(sSQL)
 		Department.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
@@ -48,7 +49,7 @@ module.exports = {
 			.innerJoin('MostRecentRank as rv', 'r.regularStaffID', 'rv.regularStaffID')
 			.innerJoin('Rank as rk', 'rv.rankID', 'rk.rankID')
 			.groupBy('a.academicStaffID')
-			.where('ad.departmentID', id)
+			.where('ad.departmentID', id);
 			
 			if (where) {
 				sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
@@ -67,7 +68,7 @@ module.exports = {
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
 			.groupBy('a.academicStaffID')
-			.where('ad.departmentID', id)
+			.where('ad.departmentID', id);
 			
 			if (where) {
 				sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
@@ -86,7 +87,7 @@ module.exports = {
 			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
-			.where('ch.departmentID', id)
+			.where('ch.departmentID', id);
 			
 			if (where) {
 				sSQL = sSQL.where('ch.chairID', where).toString();

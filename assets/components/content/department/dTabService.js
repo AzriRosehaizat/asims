@@ -6,32 +6,30 @@ application.service('dTabService', function($http) {
                 course: {
                     title: 'Course',
                     gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
-                            name: 'Name',
+                            name: 'Department',
+                            field: 'departmentCode'
+                        }, {
+                            name: 'Course',
+                            field: 'courseNo'
+                        }, {
+                            name: 'Title',
                             field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
                         }]
                     }
                 },
                 regularStaff: {
                     title: 'Regular Staff',
                     gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
+                            name: 'First Name',
+                            field: 'firstName'
+                        }, {
+                            name: 'Last Name',
+                            field: 'lastName'
+                        }, {
+                            name: 'Rank',
+                            field: 'Rank'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
@@ -39,6 +37,14 @@ application.service('dTabService', function($http) {
                         }, {
                             name: 'End Date',
                             field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'Tenure Date',
+                            field: 'tenureDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'Cont\' appointment date',
+                            field: 'contAppDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
                         }]
                     }
@@ -46,9 +52,23 @@ application.service('dTabService', function($http) {
                 contractStaff: {
                     title: 'Contract Staff',
                     gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
+                        columnDefs: [{
+                            name: 'Name',
+                            field: 'title'
+                        }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
+                chair: {
+                    title: 'Chair',
+                    gridOptions: {
                         columnDefs: [{
                             name: 'Name',
                             field: 'title'
@@ -64,6 +84,6 @@ application.service('dTabService', function($http) {
                     }
                 }
             };
-        },
+        }
     };
 });
