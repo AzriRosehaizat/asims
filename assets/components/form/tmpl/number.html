@@ -1,7 +1,7 @@
 <div>
     <md-input-container class="md-block" flex>
         <label>{{input.label}}</label>
-        <textarea name="{{input.name}}" ng-model="fs.formData.model[input.name]" md-maxlength="" rows="6" ng-disabled="input.disabled" ng-required="input.required" md-no-autogrow></textarea>
+        <input type="number" step="0.5" name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-disabled="input.disabled" ng-required="input.required">
         <div ng-messages="fs.formData.form[input.name].$error" ng-show="fs.formData.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
         </div>

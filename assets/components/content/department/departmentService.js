@@ -3,99 +3,57 @@ application.service('departmentService', function($http, $q, _, formService) {
     return {
         gridOptions: function() {
             return {
-                multiSelect: false,
-                enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
                 columnDefs: [{
                     name: 'Code',
                     field: 'departmentCode'
                 }, {
-                    name: 'Name',
+                    name: 'Department',
                     field: 'title'
+                }, {
+                    name: 'Chair',
+                    field: 'Chair'
                 }, {
                     name: 'Description',
                     field: 'description'
                 }, {
                     name: 'Faculty',
-                    field: 'facultyID.title'
+                    field: 'facultyTitle'
                 }]
             };
         },
-        tabs: function() {
-            return {
-                course: {
-                    title: 'Course',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                },
-                regularStaff: {
-                    title: 'Regular Staff',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                },
-                contractStaff: {
-                    title: 'Contract Staff',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                }
-            };
-        },
         update: function(formData) {
-            console.log("update");
-            return $q.when(true);
+            if (_.isObject(formData.model.facultyTitle)) {
+                formData.model.facultyID = formData.model.facultyTitle.obj.facultyID;
+            }
+            //Return a flattned object after update
+            return $http.put('/Department/' + formData.model.departmentID, formData.model)
+                .then(function(res) {
+                    return $http.get('/Department/getAllDepartment/' + res.data.departmentID)
+                        .then(function(Dept) {
+                            return Dept;
+                        });
+                });
         },
         create: function(formData) {
-            console.log("create");
-            return $q.when(true);
+            console.log(formData.model);
+            if (_.isObject(formData.model.facultyTitle)) {
+
+                formData.model.facultyID = formData.model.facultyTitle.obj.facultyID;
+
+            }
+
+            //Return a flattned object after create
+            return $http.post('/Department', formData.model)
+                .then(function(res) {
+                    return $http.get('/Department/getAllDepartment/' + res.data.departmentID)
+                        .then(function(Dept) {
+                            return Dept;
+                        });
+                });
         },
         delete: function(formData) {
-            console.log("delete");
-            return $q.when(true);
+            return $http.delete('/Department/' + formData.model.departmentID);
+
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -110,7 +68,22 @@ application.service('departmentService', function($http, $q, _, formService) {
             }, {
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Department",
+                disabled: false,
+                required: true
+            }, {
+                type: "autocomplete",
+                name: "facultyTitle",
+                label: "Faculty",
+                url: {
+                    start: "/Faculty?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.faculty",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -119,18 +92,11 @@ application.service('departmentService', function($http, $q, _, formService) {
                 label: "Description",
                 disabled: false,
                 required: false
-            }, {
-                type: "text",
-                name: "facultyTitle",
-                label: "Faculty",
-                disabled: false,
-                required: true
             }];
-            
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'departmentService');
+
+            formService.init(formData, gridData, null, 'departmentService', true);
         },
-        initEditForm: function(formData, row) {
+        initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Department';
@@ -143,7 +109,22 @@ application.service('departmentService', function($http, $q, _, formService) {
             }, {
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Department",
+                disabled: false,
+                required: true
+            }, {
+                type: "autocomplete",
+                name: "facultyTitle",
+                label: "Faculty",
+                url: {
+                    start: "/Faculty?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.faculty",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -152,34 +133,13 @@ application.service('departmentService', function($http, $q, _, formService) {
                 label: "Description",
                 disabled: false,
                 required: false
-            }, {
-                type: "text",
-                name: "facultyTitle",
-                label: "Faculty",
-                disabled: false,
-                required: true
             }];
-            
-            formService.setRow(row);
-            formService.setFormData(formData, 'departmentService');
+
+            formService.init(formData, gridData, row, 'departmentService', true);
         },
-        // getDepartment: function(departments, row) {
-        //     $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             departments.gridOptions.data = res.data;
-        //         });
-        // },
-        // getRank: function(ranks, row) {
-        //     $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             ranks.gridOptions.data = res.data;
-        //         });
-        // },
-        // getEmployment: function(employment, row) {
-        //     $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             employment.gridOptions.data = res.data;
-        //         });
-        // }
+        getRow: function(row) {
+            return $http.get('/Department/getAllDepartment/' + row.entity.departmentID);
+
+        }
     };
 });
