@@ -1,4 +1,4 @@
-application.service('dTabService', function($http, dCourse, dChair) {
+application.service('dTabService', function($http, dCourse, dChair, dRegularStaff) {
 
     return {
         tabs: function() {
@@ -97,10 +97,11 @@ application.service('dTabService', function($http, dCourse, dChair) {
                     dCourse.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Regular Staff':
-                    dRegularStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    console.log("clicked")
+                    // dRegularStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Contract Staff':
-                    dContractStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    // dContractStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Chair':
                     dChair.initAddForm(formData, tab.gridOptions.data, mainRow);
@@ -116,7 +117,7 @@ application.service('dTabService', function($http, dCourse, dChair) {
                     dRegularStaff.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Contract Staff':
-                    dContractStaff.initEditForm(formData, tab.gridOptions.data, row);
+                    // dContractStaff.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Chair':
                     dChair.initEditForm(formData, tab.gridOptions.data, row);
