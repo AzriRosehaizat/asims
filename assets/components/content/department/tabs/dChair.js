@@ -1,4 +1,4 @@
-application.service('dCourse', function($http, _, formService) {
+application.service('dChair', function($http, _, formService) {
    var mainRow;
    
    return {
@@ -19,24 +19,15 @@ application.service('dCourse', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Add Chair';
             formData.inputs = [{
-                type: "autocomplete",
+                type: "text",
                 name: "firstName",
                 label: "First Name",
-                url: {
-                    start: "/academicStaff?where={",
-                    end: "\"firstName\":{\"startsWith\":\""
-                },
-                link: "application.academicStaff",
-                output: {
-                    obj: {},
-                    name: "firstName"
-                },
                 disabled: false,
                 required: true
             }, {
                 type: "text",
-                name: "title",
-                label: "Name",
+                name: "lastName",
+                label: "Last Name",
                 disabled: false,
                 required: true
             }, {
@@ -64,14 +55,14 @@ application.service('dCourse', function($http, _, formService) {
             formData.title = 'Edit Chair';
             formData.inputs = [{
                 type: "text",
-                name: "courseNo",
-                label: "Course No",
+                name: "firstName",
+                label: "First Name",
                 disabled: false,
                 required: true
             }, {
                 type: "text",
-                name: "title",
-                label: "Name",
+                name: "lastName",
+                label: "Last Name",
                 disabled: false,
                 required: true
             }, {
