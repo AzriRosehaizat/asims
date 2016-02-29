@@ -19,7 +19,7 @@ application.controller('contractStaffController', function($scope, staffs, contr
             $scope.tabRow = null;
             contractStaffService.initEditForm($scope.formData, $scope.gridOptions.data, row);
 
-            // csTabService.getTabs($scope.tabs, row);
+            csTabService.getTabs($scope.tabs, row);
         });
     };
 
@@ -40,5 +40,38 @@ application.controller('contractStaffController', function($scope, staffs, contr
         if ($scope.row) $scope.addTabRow();
     };
     
+    $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            csTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
     
+    $scope.tabs.rightToRefuse.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            csTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
+    
+    $scope.tabs.department.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            csTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
+    
+    $scope.addTabRow = function() {
+        if ($scope.row)
+            csTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
+        else
+            toaster.info("Select a row first in the main table.");
+    };
+
+    $scope.editTabRow = function() {
+        if ($scope.tabRow)
+            csTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
+        else
+            toaster.info("Select a row first in the tab table.");
+    };
 });

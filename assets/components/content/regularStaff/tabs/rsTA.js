@@ -14,10 +14,7 @@ application.service('rsTA', function($http, $q, _, formService) {
             return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID + 
-                                     '&where=' + res.data.teachingActivitiesID)
-                        .then(function(TA) {
-                            return TA;
-                        });
+                                     '&where=' + res.data.teachingActivitiesID);
                 });
         },
         create: function(formData) {
@@ -33,10 +30,7 @@ application.service('rsTA', function($http, $q, _, formService) {
             return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID + 
-                                     '&where=' + res.data.teachingActivitiesID)
-                        .then(function(TA) {
-                            return TA;
-                        });
+                                     '&where=' + res.data.teachingActivitiesID);
                 });
         },
         delete: function(formData) {

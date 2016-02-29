@@ -70,7 +70,6 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
 
     $scope.addTabRow = function() {
-        console.log($scope.row);
         if ($scope.row)
             rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
         else
