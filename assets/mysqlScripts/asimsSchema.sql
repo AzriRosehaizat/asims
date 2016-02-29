@@ -137,8 +137,10 @@ CREATE TABLE IF NOT EXISTS `Section_Offered` (
   `courseID` INT(11) NOT NULL,
   `sectionID` INT(11) NOT NULL,
   `groupID` INT(11) DEFAULT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2016-09-11',
+  `endDate` DATE NOT NULL DEFAULT '2016-12-21',
   PRIMARY KEY (`sectionOfferedID`) ,
-  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC) ,
+  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC, `startDate` ASC) ,
   INDEX `sectionID` (`sectionID` ASC) ,
   CONSTRAINT `Section_Offered_ibfk_2`
     FOREIGN KEY (`sectionID`)
@@ -251,6 +253,31 @@ CREATE TABLE IF NOT EXISTS `ContractStaffEmployment` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
+
+-- -----------------------------------------------------
+-- Table `ContractStaff_Rank`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ContractStaff_Rank` ;
+
+CREATE TABLE `asims`.`ContractStaff_Rank` (
+  `contractStaffRankID` INT(11) NOT NULL AUTO_INCREMENT,
+  `rankID` INT(11) NOT NULL,
+  `contractStaffID` INT(11) NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
+  `endDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`contractStaffRankID`),
+  INDEX `ContractStaff_Rank_ibfk_1_idx` (`rankID` ASC),
+  INDEX `ContractStaff_Rank_ibfk_2_idx` (`contractStaffID` ASC),
+  CONSTRAINT `ContractStaff_Rank_ibfk_1`
+    FOREIGN KEY (`rankID`)
+    REFERENCES `asims`.`Rank` (`rankID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ContractStaff_Rank_ibfk_2`
+    FOREIGN KEY (`contractStaffID`)
+    REFERENCES `asims`.`ContractStaff` (`contractStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
 -- Table `Crosslisting`
@@ -605,8 +632,6 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   `sectionOfferedID` INT(11) NOT NULL,
   `role` VARCHAR(50) NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
-  `startDate` DATE NOT NULL DEFAULT '2016-09-11',
-  `endDate` DATE NOT NULL DEFAULT '2016-12-21',
   PRIMARY KEY (`teachingActivitiesID`) ,
   INDEX `academicStaffID` (`academicStaffID` ASC) ,
   INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
