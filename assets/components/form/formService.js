@@ -62,7 +62,6 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
                 if (_.isArray(res.data)) {
                     res.data = res.data[0];
                 }
-                console.log(res.data);
                 grid.unshift(res.data);
                 updateMainRow();
 

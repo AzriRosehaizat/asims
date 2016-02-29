@@ -1,4 +1,4 @@
-application.service('csTabService', function($http, csTA, csRTR) {
+application.service('csTabService', function($http, csTA, csRTR, csDepartment) {
 
     return {
         tabs: function() {
@@ -7,8 +7,17 @@ application.service('csTabService', function($http, csTA, csRTR) {
                     title: 'Teaching Activity',
                     gridOptions: {
                         columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
+                            name: 'Dept. Code',
+                            field: 'departmentCode'
+                        }, {
+                            name: 'Course No.',
+                            field: 'courseNo',
+                        }, {
+                            name: 'Section No.',
+                            field: 'sectionNo',
+                        }, {
+                            name: 'Title',
+                            field: 'title',
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
@@ -17,6 +26,13 @@ application.service('csTabService', function($http, csTA, csRTR) {
                             name: 'End Date',
                             field: 'endDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'FCE',
+                            displayName: 'FCE',
+                            field: 'FCEValue'
+                        }, {
+                            name: 'Role',
+                            field: 'role'
                         }]
                     }
                 },
@@ -24,6 +40,35 @@ application.service('csTabService', function($http, csTA, csRTR) {
                     title: 'Right to Refuse',
                     gridOptions: {
                         columnDefs: [{
+                            name: 'Dept. Code',
+                            field: 'departmentCode'
+                        }, {
+                            name: 'Course No.',
+                            field: 'courseNo',
+                        }, {
+                            name: 'Section No.',
+                            field: 'sectionNo',
+                        }, {
+                            name: 'Title',
+                            field: 'title',
+                        }, {
+                            name: 'Start Term',
+                            field: 'startTerm',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Term',
+                            field: 'endTerm',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
+                department: {
+                    title: 'Department',
+                    gridOptions: {
+                        columnDefs: [{
+                            name: 'Code',
+                            field: 'departmentCode'
+                        }, {
                             name: 'Name',
                             field: 'title'
                         }, {
@@ -47,6 +92,8 @@ application.service('csTabService', function($http, csTA, csRTR) {
                 case 'Right to Refuse':
                     csRTR.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
+                case 'Department':
+                    csDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
             }
         },
         initEditForm: function(formData, tab, row) {
@@ -57,23 +104,32 @@ application.service('csTabService', function($http, csTA, csRTR) {
                 case 'Right to Refuse':
                     csRTR.initEditForm(formData, tab.gridOptions.data, row);
                     break;
+                case 'Department':
+                    csDepartment.initEditForm(formData, tab.gridOptions.data, row);
             }
         },
         getTabs: function(tabs, row) {
             this.getTeachingActivity(tabs.teachingActivity, row);
             this.getRightToRefuse(tabs.rightToRefuse, row);
+            this.getDepartment(tabs.department, row);
         },
         getTeachingActivity: function(teachingActivity, row) {
-            // $http.get('/contractStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
-            //     .then(function(res) {
-            //         teachingActivity.gridOptions.data = res.data;
-            //     });
+            $http.get('/contractStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    teachingActivity.gridOptions.data = res.data;
+                });
         },
         getRightToRefuse: function(rightToRefuse, row) {
-            // $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + row.entity.academicStaffID)
-            //     .then(function(res) {
-            //         rightToRefuse.gridOptions.data = res.data;
-            //     });
+            $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + row.entity.contractStaffID)
+                .then(function(res) {
+                    rightToRefuse.gridOptions.data = res.data;
+                });
         },
+        getDepartment: function(department, row) {
+            $http.get('/contractStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    department.gridOptions.data = res.data;
+                });
+        }
     };
 });

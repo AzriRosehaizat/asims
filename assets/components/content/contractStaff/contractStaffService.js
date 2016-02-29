@@ -5,32 +5,36 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             return {
                 columnDefs: [{
                     name: 'First Name',
-                    field: 'academicStaffID.firstName'
+                    field: 'firstName'
                 }, {
                     name: 'Last Name',
-                    field: 'academicStaffID.lastName'
+                    field: 'lastName'
                 }, {
-                    name: 'Start Date',
-                    field: 'ContractStaffEmployment[0].startDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    name: 'Employee No.',
+                    field: 'employeeNo'
                 }, {
-                    name: 'End Date',
-                    field: 'ContractStaffEmployment[0].endDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    name: 'Department',
+                    field: 'departmentCode'
                 }]
             };
         },
         update: function(formData) {
-            console.log("update");
-            return $q.when(true);
+            return $http.put('/academicStaff/' + formData.model.academicStaffID, formData.model);
         },
         create: function(formData) {
-            console.log("create");
-            return $q.when(true);
+            return $http.post('/academicStaff', formData.model)
+                .then(function(aStaff) {
+                    return $http.post('/contractStaff', aStaff.data)
+                        .then(function(cStaff) {
+                            return $http.get('/contractStaff/getAllContractStaff/' + cStaff.data.contractStaffID);
+                        });
+                });
         },
         delete: function(formData) {
-            console.log("delete");
-            return $q.when(true);
+            return $http.delete('/contractStaff/' + formData.model.contractStaffID)
+                .then(function(res) {
+                    return $http.delete('/academicStaff/' + formData.model.academicStaffID);    
+                });
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -49,15 +53,9 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 disabled: false,
                 required: true
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
+                type: "text",
+                name: "employeeNo",
+                label: "Employee No.",
                 disabled: false,
                 required: false
             }];
@@ -65,9 +63,6 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             formService.init(formData, gridData, null, 'contractStaffService', true);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
-            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
@@ -84,15 +79,9 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 disabled: false,
                 required: true
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
+                type: "text",
+                name: "employeeNo",
+                label: "Employee No.",
                 disabled: false,
                 required: false
             }];
@@ -100,7 +89,7 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             formService.init(formData, gridData, row, 'contractStaffService', true);
         },
         getRow: function(row) {
-            return $q.when(true);
+            return $http.get('/contractStaff/getAllContractStaff/' + row.entity.contractStaffID);
         }
     };
 });
