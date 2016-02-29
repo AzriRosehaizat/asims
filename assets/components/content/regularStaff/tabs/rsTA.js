@@ -117,6 +117,18 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Title",
                 disabled: true,
                 required: true
+            },  {
+                type: "date",
+                name: "startDate",
+                label: "Start date",
+                disabled: false,
+                required: false
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date",
+                disabled: false,
+                required: false
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -134,6 +146,9 @@ application.service('rsTA', function($http, $q, _, formService) {
             formService.init(formData, gridData, null, 'rsTA', false);
         },
         initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Teaching Activity';
@@ -206,6 +221,18 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Title",
                 disabled: true,
                 required: true
+            },  {
+                type: "date",
+                name: "startDate",
+                label: "Start date",
+                disabled: false,
+                required: false
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date",
+                disabled: false,
+                required: false
             }, {
                 type: "number",
                 name: "FCEValue",

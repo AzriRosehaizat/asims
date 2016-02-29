@@ -32,10 +32,17 @@ application.service('departmentService', function($http, $q, _, formService) {
                 });
         },
         create: function(formData) {
+            console.log(formData.model);
+            if (_.isObject(formData.model.facultyTitle)) {
+
+                formData.model.facultyID = formData.model.facultyTitle.obj.facultyID;
+
+            }
+
             //Return a flattned object after create
             return $http.post('/Department', formData.model)
                 .then(function(res) {
-                    return $http.get('/Department/' + res.data.departmentID)
+                    return $http.get('/Department/getAllDepartment/' + res.data.departmentID)
                         .then(function(Dept) {
                             return Dept;
                         });
@@ -65,6 +72,15 @@ application.service('departmentService', function($http, $q, _, formService) {
                 type: "autocomplete",
                 name: "facultyTitle",
                 label: "Faculty",
+                url: {
+                    start: "/Faculty?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.faculty",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -90,7 +106,22 @@ application.service('departmentService', function($http, $q, _, formService) {
             }, {
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Department",
+                disabled: false,
+                required: true
+            }, {
+                type: "autocomplete",
+                name: "facultyTitle",
+                label: "Faculty",
+                url: {
+                    start: "/Faculty?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.faculty",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
                 disabled: false,
                 required: true
             }, {
@@ -99,12 +130,6 @@ application.service('departmentService', function($http, $q, _, formService) {
                 label: "Description",
                 disabled: false,
                 required: false
-            }, {
-                type: "text",
-                name: "facultyTitle",
-                label: "Faculty",
-                disabled: false,
-                required: true
             }];
 
             formService.init(formData, gridData, row, 'departmentService', true);
