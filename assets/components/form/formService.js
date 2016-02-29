@@ -3,8 +3,12 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
     this.formData = {};
     var grid, row, service;
     var mainRow, mainService, isMain;
+    var self = this;
 
     this.init = function(formData, gridData, rowData, serviceName, main) {
+        // Toggle right nav-bar after current form is initialized.
+        if (!_.isEmpty(this.formData)) toggleRight();
+
         this.formData = formData;
         grid = gridData;
         row = rowData;
@@ -15,10 +19,6 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
             mainRow = rowData;
             mainService = service;
         }
-
-        $mdSidenav('right').then(function(instance) {
-            toggleRight(instance);
-        });
     };
 
     this.reset = function() {
@@ -143,12 +143,17 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
         }
     }
 
-    function toggleRight(instance) {
-        console.log(instance);
-        if (!instance.isLockedOpen()) {
-            instance.toggle().then(function() {
-                console.log("toggled");
-            });
-        }
+    /* Toggle navRightBar on smaller screen */
+    function toggleRight() {
+        $mdSidenav('right').then(function(instance) {
+            if (!instance.isLockedOpen()) {
+                // It's used in navRightBarController to change its z-index
+                self.formData.isLockedOpen = false;  
+                instance.toggle().then(function() {});
+            }
+            else {
+                self.formData.isLockedOpen = true;
+            }
+        });
     }
 });

@@ -1,4 +1,4 @@
-application.controller('navRightBarController', function($scope, $state, $http, _, formService) {
+application.controller('navRightBarController', function($scope, $state, $http, $mdSidenav, _, formService) {
 
     $scope.$state = $state;
     $scope.fs = formService;
@@ -59,8 +59,21 @@ application.controller('navRightBarController', function($scope, $state, $http, 
         }
     };
     
+    /* Currently not working */
     $scope.changeState = function(link) {
           console.log("change state to " + link);
           $state.go(link);
     };
+    
+    
+    /* navRightBar related */
+    
+    $scope.style = changeStyle();
+    
+    function changeStyle() {
+        if (!$scope.fs.formData.isLockedOpen) {
+            return {"z-index": "60"};
+        }
+        // Otherwise, use z-index: 58 in navRightBar.css
+    }
 });
