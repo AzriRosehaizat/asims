@@ -53,5 +53,11 @@ module.exports.routes = {
   
   'GET /Department/getAllDepartment/:departmentID': 'DepartmentController.getAllDepartment',
   'GET /Department/getInfo' : 'DepartmentController.getInfo',
+  
+  'GET /ContractStaff/getAllContractStaff/:contractStaffID': 'ContractStaffController.getAllContractStaff',
+  'GET /ContractStaff/getInfo': 'ContractStaffController.getInfo',
+
+  'GET /Section_Offered/getSectionOffered/:sectionOfferedID': 'Section_OfferedController.getSectionOffered'
+
 
 };

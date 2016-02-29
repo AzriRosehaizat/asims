@@ -23,7 +23,7 @@
     "angular": "",
     "angular-bootstrap": "",
     "angular-animate": "",
-    "angular-material": "~1.0.3",
+    "angular-material": "",
     "angular-route": "",
     "angular-ui-router": "",
     "angular-ui-grid": "",

@@ -1,4 +1,4 @@
-application.controller('navRightBarController', function($scope, $state, $http, _, formService) {
+application.controller('navRightBarController', function($scope, $state, $http, $mdSidenav, _, formService) {
 
     $scope.$state = $state;
     $scope.fs = formService;
@@ -17,14 +17,14 @@ application.controller('navRightBarController', function($scope, $state, $http, 
 
     $scope.querySearch = function(searchText, url, output) {
         var query = url.start;
-        if (url.where) {
-            _.forEach(url.where, function(where) {
-                var value = _.get($scope.fs.formData.model, where.value);
-                query += "\"" + where.key + "\":\"" + value + "\",";
-            });
-        }
-        query += url.end + searchText + "\"}}";
-        // console.log(query);
+            if (url.where) {
+                _.forEach(url.where, function(where) {
+                    var value = _.get($scope.fs.formData.model, where.value);
+                    query += "\"" + where.key + "\":\"" + value + "\",";
+                });
+            }
+            query += url.end + searchText + "\"}}";
+            // console.log(query);
 
         return $http.get(query)
             .then(function(res) {
@@ -58,4 +58,22 @@ application.controller('navRightBarController', function($scope, $state, $http, 
             _.set($scope.fs.formData.model, change.to, value);
         }
     };
+    
+    /* Currently not working */
+    $scope.changeState = function(link) {
+          console.log("change state to " + link);
+          $state.go(link);
+    };
+    
+    
+    /* navRightBar related */
+    
+    $scope.style = changeStyle();
+    
+    function changeStyle() {
+        if (!$scope.fs.formData.isLockedOpen) {
+            return {"z-index": "60"};
+        }
+        // Otherwise, use z-index: 58 in navRightBar.css
+    }
 });
