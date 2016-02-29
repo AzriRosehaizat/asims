@@ -125,13 +125,13 @@ module.exports = {
 		};
 		switch (data.type) {
 			case 'department':
-				RegularStaffService.getDepartment(data.id, responseFn);
+				RegularStaffService.getDepartment(data.id, data.where, responseFn)
 				break;
 			case 'rank':
-				RegularStaffService.getRank(data.id, responseFn);
+				RegularStaffService.getRank(data.id, data.where, responseFn)
 				break;
 			case 'employment':
-				RegularStaffService.getEmployment(data.id, responseFn);
+				RegularStaffService.getEmployment(data.id, data.where, responseFn)
 				break;
 			case 'teaching':
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);

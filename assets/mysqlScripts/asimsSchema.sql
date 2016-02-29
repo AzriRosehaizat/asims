@@ -115,7 +115,7 @@ DROP TABLE IF EXISTS `Course` ;
 CREATE TABLE IF NOT EXISTS `Course` (
   `courseID` INT(11) NOT NULL AUTO_INCREMENT,
   `departmentID` INT(11) NOT NULL,
-  `courseNO` VARCHAR(11) NOT NULL,
+  `courseNo` VARCHAR(11) NOT NULL,
   `title` VARCHAR(50) NULL DEFAULT NULL,
   `description` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`courseID`) ,
@@ -137,10 +137,8 @@ CREATE TABLE IF NOT EXISTS `Section_Offered` (
   `courseID` INT(11) NOT NULL,
   `sectionID` INT(11) NOT NULL,
   `groupID` INT(11) DEFAULT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2016-09-11',
-  `endDate` DATE NOT NULL DEFAULT '2016-12-21',
   PRIMARY KEY (`sectionOfferedID`) ,
-  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC, `startDate` ASC) ,
+  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC) ,
   INDEX `sectionID` (`sectionID` ASC) ,
   CONSTRAINT `Section_Offered_ibfk_2`
     FOREIGN KEY (`sectionID`)
@@ -607,6 +605,8 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   `sectionOfferedID` INT(11) NOT NULL,
   `role` VARCHAR(50) NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
+  `startDate` DATE NOT NULL DEFAULT '2016-09-11',
+  `endDate` DATE NOT NULL DEFAULT '2016-12-21',
   PRIMARY KEY (`teachingActivitiesID`) ,
   INDEX `academicStaffID` (`academicStaffID` ASC) ,
   INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
@@ -618,6 +618,31 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
     REFERENCES `AcademicStaff` (`academicStaffID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
+
+-- -----------------------------------------------------
+-- View `asims`.`MostRecentChair`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`MostRecentChair` ;
+
+CREATE  OR REPLACE VIEW `asims`.`MostRecentChair` AS 
+  SELECT 
+    `Chair`.`chairID` AS `chairID`,
+    `Chair`.`regularStaffID` AS `regularStaffID`,
+    `Chair`.`departmentID` AS `departmentID`,
+    `Chair`.`startDate` AS `startDate`,
+    `Chair`.`endDate` AS `endDate`,
+    CONTACT(`AcademicStaff`.`firstName`,' ',`asims`.`AcademicStaff`.`lastName`) AS `Chair`
+  FROM
+    `Chair` JOIN `RegularStaff` 
+      ON `Chair`.`regularStaffID` = `RegularStaff`.`regularStaffID`
+    JOIN `AcademicStaff` 
+      ON `RegularStaff`.`academicStaffID` = `AcademicStaff`.`academicStaffID`
+  WHERE
+    (`Chair`.`departmentID`, `Chair`.`startDate`) IN (SELECT
+      `Chair`.`departmentID`,
+      MAX(`Chair`.`startDate`) AS `startDate` 
+    FROM `Chair` 
+    GROUP BY `Chair`.`departmentID`);
 
 -- -----------------------------------------------------
 -- View `asims`.`MostRecentDepartment`
