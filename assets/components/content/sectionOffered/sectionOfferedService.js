@@ -16,6 +16,14 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 }, {
                     name: 'Title',
                     field: 'title'
+                }, {
+                    name: 'Start Date',
+                    field: 'startDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
+                }, {
+                    name: 'End Date',
+                    field: 'endDate',
+                    cellFilter: 'date:\'yyyy-MM-dd\''
                 }]
             };
         },
@@ -116,6 +124,12 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 disabled: "!isObject('departmentCode')",
                 required: true
             }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
+                required: true
+            }, {
                 type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
@@ -135,16 +149,25 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 disabled: "!isObject('courseNo')",
                 required: true
             },  {
-                type: "text",
-                name: "title",
-                label: "Title",
-                disabled: true,
-                required: true
+                type: "date",
+                name: "startDate",
+                label: "Start Date",
+                required: true,
+                disabled: false
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End Date",
+                required: true,
+                disabled: false
             }];
 
             formService.init(formData, gridData, null, 'sectionOfferedService', true);
         },
         initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Section Offered';
@@ -194,6 +217,12 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 disabled: "!isObject('departmentCode')",
                 required: true
             }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
+                required: true
+            }, {
                 type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
@@ -213,11 +242,17 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 disabled: "!isObject('courseNo')",
                 required: true
             },  {
-                type: "text",
-                name: "title",
-                label: "Title",
-                disabled: true,
-                required: true
+                type: "date",
+                name: "startDate",
+                label: "Start Date",
+                required: true,
+                disabled: false
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End Date",
+                required: true,
+                disabled: false
             }];
 
             formService.init(formData, gridData, row, 'sectionOfferedService', true);
