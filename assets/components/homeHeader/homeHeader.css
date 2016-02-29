@@ -1,7 +1,7 @@
 .custom-header {
-    height: 125px;
-    min-height: 125px;
-    max-height: 125px;
+    height: 105px;
+    min-height: 105px;
+    max-height: 105px;
     padding: 24px;
     background-image: url("../../images/backgrounds/header-bg.png");
     background-size: cover;
