@@ -20,7 +20,8 @@ module.exports = {
         };
         var data = {
             id: req.param('id'),
-            type: req.param('type')
+            type: req.param('type'),
+            where: req.param('where')
         };
         switch (data.type) {
             case 'course':
