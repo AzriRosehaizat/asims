@@ -5,7 +5,7 @@ module.exports = {
     //Page Department
 	getAllDepartment: function(departmentID, callback) {
 		// console.log(regularStaffID);
-		var sSQL = mysql.select('d.*', 'f.*', 'cv.Chair')
+		var sSQL = mysql.select('d.*', 'f.title as facultyTitle', 'f.facultyID', 'cv.Chair')
 			.from('Department AS d')
 			.innerJoin('Faculty AS f', 'd.facultyID', 'f.facultyID')
 				.leftJoin('MostRecentChair AS cv', 'd.departmentID', 'cv.departmentID');
@@ -23,18 +23,24 @@ module.exports = {
 			callback(err, result);
 		});
 	},
-	getCourse: function(id, callback) {
+	getCourse: function(id, where, callback) {
 		var sSQL = mysql.select('c.*', 'd.departmentCode')
 			.from('Course AS c')
 			.innerJoin('Department as d', 'c.departmentID', 'd.departmentID')
 			.where('c.departmentID', id)
-			.toString();
+			
+			if (where) {
+				sSQL = sSQL.where('c.courseID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
 		Department.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
 	},
-	getRegularStaff: function(id, callback) {
-		var sSQL = mysql.select('a.*', 'r.*', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
+	getRegularStaff: function(id, where, callback) {
+		var sSQL = mysql.select('a.*', 'r.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
 			.from('RegularStaff AS r')
 			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
@@ -42,21 +48,52 @@ module.exports = {
 			.innerJoin('MostRecentRank as rv', 'r.regularStaffID', 'rv.regularStaffID')
 			.innerJoin('Rank as rk', 'rv.rankID', 'rk.rankID')
 			.groupBy('a.academicStaffID')
-			.where('d.departmentID', id)
-			.toString();
+			.where('ad.departmentID', id)
+			
+			if (where) {
+				sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
 		Department.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
 	},
-	getContractStaff: function(id, callback) {
-		var sSQL = mysql.select('a.*', 'ad.startDate', 'ad.endDate')
+	getContractStaff: function(id, where, callback) {
+		var sSQL = mysql.select('a.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate')
 			.from('ContractStaff AS cs')
 			.innerJoin('AcademicStaff AS a', 'cs.academicStaffID', 'a.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
 			.groupBy('a.academicStaffID')
-			.where('d.departmentID', id)
-			.toString();
+			.where('ad.departmentID', id)
+			
+			if (where) {
+				sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
+		Department.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
+	},
+	getChair: function(id, where, callback) {
+		var sSQL = mysql.select('a.*', 'ch.startDate', 'ch.endDate')
+			.from('Chair AS ch')
+			.innerJoin('RegularStaff AS r', 'ch.RegularStaffID', 'r.regularStaffID')
+			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
+			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
+			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
+			.where('ch.departmentID', id)
+			
+			if (where) {
+				sSQL = sSQL.where('ch.chairID', where).toString();
+			}
+			else {
+				sSQL = sSQL.toString();
+			}
 		Department.query(sSQL, function(err, result) {
 			callback(err, result);
 		});

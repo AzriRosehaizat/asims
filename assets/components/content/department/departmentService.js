@@ -3,36 +3,47 @@ application.service('departmentService', function($http, $q, _, formService) {
     return {
         gridOptions: function() {
             return {
-                noUnselect: true,
-                multiSelect: false,
-                enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
                 columnDefs: [{
                     name: 'Code',
                     field: 'departmentCode'
                 }, {
-                    name: 'Name',
+                    name: 'Department',
                     field: 'title'
+                }, {
+                    name: 'Chair',
+                    field: 'Chair'
                 }, {
                     name: 'Description',
                     field: 'description'
                 }, {
                     name: 'Faculty',
-                    field: 'facultyID.title'
+                    field: 'facultyTitle'
                 }]
             };
         },
         update: function(formData) {
-            console.log("update");
-            return $q.when(true);
+            //Return a flattned object after update
+            return $http.put('/Department', formData.model)
+                .then(function(res) {
+                    return $http.get('/Department/' + res.data.departmentID)
+                        .then(function(Dept) {
+                            return Dept;
+                        });
+                });
         },
         create: function(formData) {
-            console.log("create");
-            return $q.when(true);
+            //Return a flattned object after create
+            return $http.post('/Department', formData.model)
+                .then(function(res) {
+                    return $http.get('/Department/' + res.data.departmentID)
+                        .then(function(Dept) {
+                            return Dept;
+                        });
+                });
         },
         delete: function(formData) {
-            console.log("delete");
-            return $q.when(true);
+            return $http.delete('/Department/' + formData.model.departmentID);
+
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -47,7 +58,13 @@ application.service('departmentService', function($http, $q, _, formService) {
             }, {
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Department",
+                disabled: false,
+                required: true
+            }, {
+                type: "autocomplete",
+                name: "facultyTitle",
+                label: "Faculty",
                 disabled: false,
                 required: true
             }, {
@@ -56,12 +73,6 @@ application.service('departmentService', function($http, $q, _, formService) {
                 label: "Description",
                 disabled: false,
                 required: false
-            }, {
-                type: "text",
-                name: "facultyTitle",
-                label: "Faculty",
-                disabled: false,
-                required: true
             }];
 
             formService.init(formData, gridData, null, 'departmentService', true);
@@ -99,8 +110,8 @@ application.service('departmentService', function($http, $q, _, formService) {
             formService.init(formData, gridData, row, 'departmentService', true);
         },
         getRow: function(row) {
-            console.log("departmentService: getRow");
-            return $q.when(true);
+            return $http.get('/Department/getAllDepartment/' + row.entity.departmentID);
+
         }
     };
 });
