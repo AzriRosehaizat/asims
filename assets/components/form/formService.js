@@ -56,7 +56,6 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
 
     this.create = function(grid, formData) {
         formData.mode = 'indeterminate';
-
         service.create(formData)
             .then(function(res) {
                 if (_.isArray(res.data)) {

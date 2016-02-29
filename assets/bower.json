@@ -30,11 +30,12 @@
     "angular-moment": "",
     "angular-mocks": "",
     "bootstrap": "",
-    "pdfmake": "",
-    "angular-lodash-module": "",
-    "moment": ""
+    "pdfmake": "~0.1.20",
+    "angular-lodash-module": "~1.2.0",
+    "moment": "^2.11.2"
   },
   "resolutions": {
-    "angular": "1.5.0"
+    "angular": "1.5.0",
+    "moment": "^2.11.2"
   }
 }
