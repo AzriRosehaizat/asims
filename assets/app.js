@@ -166,7 +166,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					departments: function($http) {
-						return $http.get('/department');
+						return $http.get('/Department/getAllDepartment');
 					}
 				},
 				data: {

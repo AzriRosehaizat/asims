@@ -6,7 +6,6 @@
  */
 
 module.exports = {
-
     getAllDepartment: function(req, res) {
         var departmentID = req.param('departmentID');
         DepartmentService.getAllDepartment(departmentID, function(err, result) {
@@ -25,14 +24,17 @@ module.exports = {
         };
         switch (data.type) {
             case 'course':
-                DepartmentService.getCourse(data.id, responseFn)
+                DepartmentService.getCourse(data.id, data.where, responseFn)
                 break;
             case 'regularStaff':
-                DepartmentService.getRegularStaff(data.id, responseFn)
+                DepartmentService.getRegularStaff(data.id, data.where, responseFn)
                 break;
             case 'contractStaff':
-                DepartmentService.getContractStaff(data.id, responseFn)
+                DepartmentService.getContractStaff(data.id, data.where, responseFn)
                 break;
+            case 'chair':
+                DepartmentService.getChair(data.id, data.where, responseFn)
+                break;    
             default:
                 res.serverError();
                 console.log("Incorrect REST url");
