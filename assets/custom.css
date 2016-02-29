@@ -18,15 +18,6 @@ body {
   overflow-y: auto;
 }
 
-#rootTop {
-  margin: -20px;
-  margin-bottom: 1.2em;
-  width: 120%;
-  height: 124px;
-  background-image: url(images/topBar.png);
-  background-repeat: repeat-x;
-}
-
 
 /* To strikeout Completed items */
 
@@ -101,3 +92,4 @@ body {
 .material-icons.md-light.md-inactive {
   color: rgba(255, 255, 255, 0.3);
 }
+
