@@ -58,4 +58,9 @@ application.controller('navRightBarController', function($scope, $state, $http, 
             _.set($scope.fs.formData.model, change.to, value);
         }
     };
+    
+    $scope.changeState = function(link) {
+          console.log("change state to " + link);
+          $state.go(link);
+    };
 });

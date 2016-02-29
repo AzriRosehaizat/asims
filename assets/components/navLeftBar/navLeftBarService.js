@@ -101,8 +101,4 @@ application
       }
       return doc.label || doc.name;
     };
-    // Helper function to use if want to sort alphabetically
-    function sortByName(a, b) {
-      return a.name < b.name ? -1 : 1;
-    }
   });

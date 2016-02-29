@@ -1,4 +1,4 @@
-application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
+application.service('formService', function($injector, $mdDialog, $mdSidenav, _, toaster, moment) {
 
     this.formData = {};
     var grid, row, service;
@@ -15,6 +15,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             mainRow = rowData;
             mainService = service;
         }
+
+        $mdSidenav('right').then(function(instance) {
+            toggleRight(instance);
+        });
     };
 
     this.reset = function() {
@@ -52,7 +56,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     this.create = function(grid, formData) {
         formData.mode = 'indeterminate';
-        
+
         service.create(formData)
             .then(function(res) {
                 if (_.isArray(res.data)) {
@@ -138,6 +142,13 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                 });
         }
     }
-    
 
+    function toggleRight(instance) {
+        console.log(instance);
+        if (!instance.isLockedOpen()) {
+            instance.toggle().then(function() {
+                console.log("toggled");
+            });
+        }
+    }
 });

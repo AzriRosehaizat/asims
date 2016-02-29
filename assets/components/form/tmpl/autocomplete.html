@@ -16,7 +16,7 @@
             <span md-highlight-text="fs.formData.model.searchText[input.name]" md-highlight-flags="^i">{{item.name}}</span>
         </md-item-template>
         <md-not-found>
-          "{{fs.formData.model.searchText[input.name]}}" not found. <a ui-sref="{{input.link}}">Add New?</a>
+          "{{fs.formData.model.searchText[input.name]}}" not found. <a ng-click="changeState(input.link)">Add New?</a>
         </md-not-found>
         <div ng-messages="fs.formData.form[input.name].$error" ng-show="fs.formData.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>

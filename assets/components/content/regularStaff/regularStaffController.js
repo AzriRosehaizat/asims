@@ -6,7 +6,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
 
     $scope.gridOptions = regularStaffService.gridOptions();
     $scope.gridOptions.data = $scope.rStaff;
-    
+
     $scope.tabs = rsTabService.tabs();
     $scope.tab = $scope.tabs.teachingActivity;
 
@@ -18,7 +18,7 @@ application.controller('regularStaffController', function($scope, staffs, regula
             $scope.row = row;
             $scope.tabRow = null;
             regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, row);
-            
+
             rsTabService.getTabs($scope.tabs, row);
         });
     };
@@ -28,18 +28,19 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
 
     $scope.editRow = function() {
-        if ($scope.row)
+        if ($scope.row) {
             regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
-        else 
+        }
+        else
             toaster.info("Select a row first.");
     };
-    
+
     $scope.selectTab = function(tab) {
         $scope.tab = tab;
         $scope.tabRow = null;
         if ($scope.row) $scope.addTabRow();
     };
-    
+
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
@@ -67,17 +68,17 @@ application.controller('regularStaffController', function($scope, staffs, regula
             rsTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
-    
+
     $scope.addTabRow = function() {
         console.log($scope.row);
-        if ($scope.row) 
+        if ($scope.row)
             rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
-        else 
+        else
             toaster.info("Select a row first in the main table.");
     };
 
     $scope.editTabRow = function() {
-        if ($scope.tabRow) 
+        if ($scope.tabRow)
             rsTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
         else
             toaster.info("Select a row first in the tab table.");
