@@ -19,7 +19,7 @@ application.controller('departmentController', function($scope, departments, dep
             //resets related tab selection
             $scope.tabRow = null;
             departmentService.initEditForm($scope.formData, $scope.gridOptions.data, row);
-            // dTabService.getTabs($scope.tabs, row);
+            dTabService.getTabs($scope.tabs, row);
         });
     };
 
@@ -55,6 +55,12 @@ application.controller('departmentController', function($scope, departments, dep
         });
     };
     $scope.tabs.contractStaff.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            dTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
+    $scope.tabs.chair.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             dTabService.initEditForm($scope.formData, $scope.tab, row);

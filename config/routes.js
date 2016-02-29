@@ -52,5 +52,6 @@ module.exports.routes = {
   'DELETE /RegularStaff/deleteRAS': 'RegularStaffController.deleteRAS',
   
   'GET /Department/getAllDepartment/:departmentID': 'DepartmentController.getAllDepartment',
+  'GET /Department/getInfo' : 'DepartmentController.getInfo',
 
 };
