@@ -1,37 +1,20 @@
-application.service('courseService', function($http, $q, _, formService) {
-
-    return {
-        gridOptions: function() {
-            return {
-                noUnselect: true,
-                multiSelect: false,
-                enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
-                columnDefs: [{
-                    name: 'Course No',
-                    field: 'courseNo'
-                }, {
-                    name: 'Name',
-                    field: 'title'
-                }, {
-                    name: 'Description',
-                    field: 'description'
-                }]
-            };
-        },
-        update: function(formData) {
-            console.log("update");
-            return $q.when(true);
-        },
-        create: function(formData) {
-            console.log("create");
-            return $q.when(true);
-        },
-        delete: function(formData) {
-            console.log("delete");
-            return $q.when(true);
-        },
-        initAddForm: function(formData, gridData) {
+application.service('dCourse', function($http, _, formService) {
+   var mainRow;
+   
+   return {
+       update: function(formData){
+           return $http.put('/Course/' + formData.model.courseID, formData.model);
+       },
+       create: function(formData){
+           formData.model.departmentID = mainRow.entity.departmentID;
+            return $http.post('/Course/', formData.model);
+       },
+       delete: function(formData){
+           return $http.delete('/Course/' + formData.model.courseID);
+       },
+       initAddForm: function(formData, gridData, mRow) {
+           mainRow = mRow;
+           
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Course';
@@ -55,7 +38,7 @@ application.service('courseService', function($http, $q, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, null, 'courseService', true);
+            formService.init(formData, gridData, null, 'dCourse', true);
         },
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
@@ -81,11 +64,7 @@ application.service('courseService', function($http, $q, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, row, 'courseService', true);
+            formService.init(formData, gridData, row, 'dCourse', false);
         },
-        getRow: function(row) {
-            console.log("courseService: getRow");
-            return $q.when(true);
-        }
-    };
+   };
 });

@@ -1,20 +1,21 @@
-application.service('rsEmployment', function($http, $q, _, formService) {
+application.service('rsEmployment', function($http, _, formService) {
 
-    var parentRow;
+    var mainRow;
 
     return {
         update: function(formData) {
             return $http.put('/regularStaffEmployment/' + formData.model.regularEmploymentID, formData.model);
         },
         create: function(formData) {
-            formData.model.regularStaffID = parentRow.entity.regularStaffID;
+            formData.model.regularStaffID = mainRow.entity.regularStaffID;
             return $http.post('/regularStaffEmployment/', formData.model);
         },
         delete: function(formData) {
             return $http.delete('/regularStaffEmployment/' + formData.model.regularEmploymentID);
         },
-        initAddForm: function(formData, gridData, pRow) {
-            parentRow = pRow;
+        initAddForm: function(formData, gridData, mRow) {
+            mainRow = mRow;
+            
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Employement';
@@ -31,14 +32,13 @@ application.service('rsEmployment', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'rsEmployment');
+            
+            formService.init(formData, gridData, null, 'rsEmployment', false);
         },
-        initEditForm: function(formData, row, pRow) {
-            parentRow = pRow;
-            formService.formatDate(row.entity.startDate);
-            formService.formatDate(row.entity.endDate);
+        initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Employment';
@@ -55,9 +55,8 @@ application.service('rsEmployment', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-
-            formService.setRow(row);
-            formService.setFormData(formData, 'rsEmployment');
+            
+            formService.init(formData, gridData, row, 'rsEmployment', false);
         },
     };
 });

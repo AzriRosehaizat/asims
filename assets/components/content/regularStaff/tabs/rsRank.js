@@ -1,6 +1,6 @@
-application.service('rsRank', function($http, $q, _, formService) {
+application.service('rsRank', function($http, _, formService) {
 
-    var parentRow;
+    var mainRow;
 
     return {
         update: function(formData) {
@@ -11,8 +11,6 @@ application.service('rsRank', function($http, $q, _, formService) {
                 .then(function(res) {
                     res.data.title = res.data.rankID.title;
                     res.data.rankID = res.data.rankID.rankID;
-                    // Update parent row
-                    parentRow.entity.Rank = res.data.title;
                     return res;
                 });
         },
@@ -20,15 +18,13 @@ application.service('rsRank', function($http, $q, _, formService) {
             if (_.isObject(formData.model.title)) {
                 formData.model.rankID = formData.model.title.obj.rankID;
             }
-            formData.model.regularStaffID = parentRow.entity.regularStaffID;
+            formData.model.regularStaffID = mainRow.entity.regularStaffID;
+
             return $http.post('/regularStaff_Rank', formData.model)
                 .then(function(res) {
                     return $http.get('/rank/' + res.data.rankID)
                         .then(function(rank) {
                             res.data.title = rank.data.title;
-                            // Update parent row, more logic?
-                            if (!parentRow.entity.Rank) 
-                                parentRow.entity.Rank = res.data.title;
                             return res;
                         });
                 });
@@ -36,8 +32,9 @@ application.service('rsRank', function($http, $q, _, formService) {
         delete: function(formData) {
             return $http.delete('/regularStaff_Rank/' + formData.model.regularStaffRankID);
         },
-        initAddForm: function(formData, gridData, pRow) {
-            parentRow = pRow;
+        initAddForm: function(formData, gridData, mRow) {
+            mainRow = mRow;
+
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Rank';
@@ -45,7 +42,10 @@ application.service('rsRank', function($http, $q, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/rank?where={\"title\":{\"startsWith\":\"",
+                url: {
+                    start: "/rank?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
                 link: "application.rank",
                 output: {
                     obj: {},
@@ -67,13 +67,12 @@ application.service('rsRank', function($http, $q, _, formService) {
                 required: false
             }];
 
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'rsRank');
+            formService.init(formData, gridData, null, 'rsRank', false);
         },
-        initEditForm: function(formData, row, pRow) {
-            parentRow = pRow;
-            formService.formatDate(row.entity.startDate);
-            formService.formatDate(row.entity.endDate);
+        initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Rank';
@@ -81,7 +80,10 @@ application.service('rsRank', function($http, $q, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Name",
-                url: "/rank?where={\"title\":{\"startsWith\":\"",
+                url: {
+                    start: "/rank?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
                 link: "application.rank",
                 output: {
                     obj: {},
@@ -103,8 +105,7 @@ application.service('rsRank', function($http, $q, _, formService) {
                 required: false
             }];
 
-            formService.setRow(row);
-            formService.setFormData(formData, 'rsRank');
+            formService.init(formData, gridData, row, 'rsRank', false);
         },
     };
 });

@@ -23,50 +23,6 @@ application.service('researchService', function($http, $q, _, formService) {
                 }]
             };
         },
-        tabs: function() {
-            return {
-                grant: {
-                    title: 'Grant',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                },
-                professor: {
-                    title: 'Professor',
-                    gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
-                        columnDefs: [{
-                            name: 'Name',
-                            field: 'title'
-                        }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
-                        }]
-                    }
-                }
-            };
-        },
         update: function(formData) {
             console.log("update");
             return $q.when(true);
@@ -108,11 +64,13 @@ application.service('researchService', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
-            formService.setGridData(gridData);
-            formService.setFormData(formData, 'researchService');
+
+            formService.init(formData, gridData, null, 'researchService', true);
         },
-        initEditForm: function(formData, row) {
+        initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Research';
@@ -141,27 +99,12 @@ application.service('researchService', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
-            
-            formService.setRow(row);
-            formService.setFormData(formData, 'researchService');
+
+            formService.init(formData, gridData, row, 'researchService', true);
         },
-        // getDepartment: function(departments, row) {
-        //     $http.get('/regularStaff/getInfo?type=department&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             departments.gridOptions.data = res.data;
-        //         });
-        // },
-        // getRank: function(ranks, row) {
-        //     $http.get('/regularStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             ranks.gridOptions.data = res.data;
-        //         });
-        // },
-        // getEmployment: function(employment, row) {
-        //     $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
-        //         .then(function(res) {
-        //             employment.gridOptions.data = res.data;
-        //         });
-        // }
+        getRow: function(row) {
+            console.log("researchService: getRow");
+            return $q.when(true);
+        }
     };
 });

@@ -107,7 +107,8 @@ module.exports = {
 		});
 	},
 	getAllRegularStaff: function(req, res) {
-		RegularStaffService.getAllRegularStaff(function(err, result) {
+		var	regularStaffID = req.param('regularStaffID');
+		RegularStaffService.getAllRegularStaff(regularStaffID, function(err, result) {
 			if (err) return res.serverError(err);
 			return res.ok(result);
 		});
@@ -119,20 +120,21 @@ module.exports = {
 		};
 		var data = {
 			id: req.param('id'),
-			type: req.param('type')
+			type: req.param('type'),
+			where: req.param('where')
 		};
 		switch (data.type) {
 			case 'department':
-				RegularStaffService.getDepartment(data.id, responseFn)
+				RegularStaffService.getDepartment(data.id, data.where, responseFn)
 				break;
 			case 'rank':
-				RegularStaffService.getRank(data.id, responseFn)
+				RegularStaffService.getRank(data.id, data.where, responseFn)
 				break;
 			case 'employment':
-				RegularStaffService.getEmployment(data.id, responseFn)
+				RegularStaffService.getEmployment(data.id, data.where, responseFn)
 				break;
 			case 'teaching':
-				RegularStaffService.getTeachingActivity(data.id, responseFn)
+				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn)
 			case 'leave':
 				//code
 				break;

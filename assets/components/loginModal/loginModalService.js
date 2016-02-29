@@ -14,11 +14,11 @@ application.service('loginModalService', function($state, $mdDialog, Auth, toast
 
             Auth.login(formData)
                 .then(function(res) {
-                    toaster.open("Welcome!");
+                    toaster.done("Welcome!");
                     $state.go("application.root");
                     $mdDialog.cancel();
                 }, function(err) {
-                    toaster.open(err);
+                    toaster.error(err);
                 })
                 .finally(function(notice) {
                     formData.mode = '';
