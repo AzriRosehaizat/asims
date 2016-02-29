@@ -18,7 +18,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                 });
         },
         create: function(formData) {
-            // console.log(formData.model)
             if (_.isObject(formData.model.departmentCode) &&
                 _.isObject(formData.model.courseNo) &&
                 _.isObject(formData.model.sectionNo)) {
