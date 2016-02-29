@@ -50,6 +50,9 @@ module.exports.routes = {
   'POST /RegularStaff/createRAS': 'RegularStaffController.createRAS',
   'PUT /RegularStaff/updateRAS': 'RegularStaffController.updateRAS',
   'DELETE /RegularStaff/deleteRAS': 'RegularStaffController.deleteRAS',
+  
+  'GET /ContractStaff/getAllContractStaff/:contractStaffID': 'ContractStaffController.getAllContractStaff',
+  'GET /ContractStaff/getInfo': 'ContractStaffController.getInfo',
 
   'GET /Section_Offered/getSectionOffered/:sectionOfferedID': 'Section_OfferedController.getSectionOffered'
 

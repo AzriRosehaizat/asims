@@ -141,7 +141,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					staffs: function($http) {
-						return $http.get('/contractStaff');
+						return $http.get('/contractStaff/getAllContractStaff');
 					}
 				},
 				data: {
