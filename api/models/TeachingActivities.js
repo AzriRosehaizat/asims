@@ -30,7 +30,16 @@ module.exports = {
 		role: {
 			type: 'string',
 			size: 30
-		}
+		},
+		
+		startDate:{
+			type: 'date',
+			required: true 
+		},
+		endDate:{
+			type: 'date',
+			required: true
+		},
 	},
 	tableName: 'TeachingActivities'
 };
