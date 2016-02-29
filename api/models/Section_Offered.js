@@ -23,8 +23,8 @@ module.exports = {
 			required: true
 		},
 		groupID: {
-			type: 'integer',
-			required: true
+			type: 'integer'
+			// required: true
 		},
 		TeachingActivities: {
 			collection: 'TeachingActivities',
