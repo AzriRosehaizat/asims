@@ -1,6 +1,6 @@
 application.service('formService', function($injector, $mdDialog, $mdSidenav, _, toaster, moment) {
 
-    this.formData = {};
+    this.formData;
     var grid, row, service;
     var mainRow, mainService, isMain;
     var self = this;
@@ -39,9 +39,8 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
 
         service.update(formData)
             .then(function(res) {
-                if (_.isArray(res.data)) {
+                if (_.isArray(res.data)) 
                     res.data = res.data[0];
-                }
                 _.merge(row.entity, res.data);
                 updateMainRow();
 
@@ -56,11 +55,11 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
 
     this.create = function(grid, formData) {
         formData.mode = 'indeterminate';
+        
         service.create(formData)
             .then(function(res) {
-                if (_.isArray(res.data)) {
+                if (_.isArray(res.data)) 
                     res.data = res.data[0];
-                }
                 grid.unshift(res.data);
                 updateMainRow();
 
@@ -104,7 +103,7 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
                 .then(function(res) {
                     grid.splice(index, 1);
                     updateMainRow();
-
+                    
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
                     resetValidation(formData);

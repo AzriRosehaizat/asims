@@ -43,7 +43,7 @@ application
         pages: [{
           name: 'Faculty',
           type: 'link',
-          state: 'application.root'
+          state: 'application.faculty'
         }, {
           name: 'Department',
           state: 'application.department',
