@@ -37,7 +37,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						templateUrl: '/components/navRightBar/navRightBar.html',
 						controller: 'navRightBarController'
 					},
-					// 'toDoList@application' :{
+					// 'toDoList@application': {
 					// 	templateUrl: '/components/toDoList/toDoList.html',
 					// 	controller: 'toDoListController'
 					// }
@@ -57,6 +57,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				views: {
 					'': {
 						templateUrl: '/views/application/root.html'
+
+					},
+					'homeHeader@application': {
+						templateUrl: '/components/homeHeader/homeHeader.html',
+						controller: 'homeHeaderController'
 					},
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
@@ -141,7 +146,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					staffs: function($http) {
-						return $http.get('/contractStaff');
+						return $http.get('/contractStaff/getAllContractStaff');
 					}
 				},
 				data: {
@@ -166,7 +171,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					departments: function($http) {
-						return $http.get('/department');
+						return $http.get('/Department/getAllDepartment');
 					}
 				},
 				data: {
@@ -198,6 +203,32 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.rank', {
+				url: '/rank',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'rankController'
+					},
+					'grid@application.rank': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					// This Page does not have Related tabs
+					// 'tabset@application.rank': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
+				},
+				resolve: {
+					ranks: function($http) {
+						return $http.get('/rank');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.research', {
 				url: '/research',
 				views: {
@@ -217,6 +248,32 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				resolve: {
 					researches: function($http) {
 						return $http.get('/research');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})			
+			.state('application.sectionOffered', {
+				url: '/sectionOffered',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'sectionOfferedController'
+					},
+					'grid@application.sectionOffered': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					// This Page does not have Related tabs
+					// 'tabset@application.sectionOffered': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
+				},
+				resolve: {
+					sectionOffered: function($http) {
+						return $http.get('Section_Offered/getSectionOffered');
 					}
 				},
 				data: {
@@ -261,7 +318,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				//set global options
 				//don't need header menus if we are using the speed dial
 				initOptions.enableColumnMenus = false;
-				initOptions.enableGridMenu = true,
+				initOptions.enableGridMenu = true;
 				initOptions.enableColumnResizing = true;
 				initOptions.noUnselect = true;
 				initOptions.multiSelect = false;

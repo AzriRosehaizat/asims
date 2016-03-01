@@ -32,6 +32,14 @@ application
           state: 'application.course',
           type: 'link'
         }, {
+          name: 'Rank',
+          state: 'application.rank',
+          type: 'link'
+        }, {
+          name: 'Section Offered',
+          state: 'application.sectionOffered',
+          type: 'link'
+        }, {
           name: 'Research',
           state: 'application.research',
           type: 'link'
@@ -97,8 +105,4 @@ application
       }
       return doc.label || doc.name;
     };
-    // Helper function to use if want to sort alphabetically
-    function sortByName(a, b) {
-      return a.name < b.name ? -1 : 1;
-    }
   });

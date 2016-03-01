@@ -1,10 +1,14 @@
-application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
+application.service('formService', function($injector, $mdDialog, $mdSidenav, _, toaster, moment) {
 
     this.formData = {};
     var grid, row, service;
     var mainRow, mainService, isMain;
+    var self = this;
 
     this.init = function(formData, gridData, rowData, serviceName, main) {
+        // Toggle right nav-bar after current form is initialized.
+        if (!_.isEmpty(this.formData)) toggleRight();
+
         this.formData = formData;
         grid = gridData;
         row = rowData;
@@ -52,7 +56,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     this.create = function(grid, formData) {
         formData.mode = 'indeterminate';
-
         service.create(formData)
             .then(function(res) {
                 if (_.isArray(res.data)) {
@@ -136,5 +139,19 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                     toaster.error(err);
                 });
         }
+    }
+
+    /* Toggle navRightBar on smaller screen */
+    function toggleRight() {
+        $mdSidenav('right').then(function(instance) {
+            if (!instance.isLockedOpen()) {
+                // It's used in navRightBarController to change its z-index
+                self.formData.isLockedOpen = false;  
+                instance.toggle().then(function() {});
+            }
+            else {
+                self.formData.isLockedOpen = true;
+            }
+        });
     }
 });

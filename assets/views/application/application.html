@@ -1,10 +1,10 @@
-<md-sidenav id="navbar-left" md-component-id="left">
+<md-sidenav id="navbar-left" class="md-sidenav-left" md-component-id="left">
     <div ui-view="navLeftBar"></div>
 </md-sidenav>
 
 <div flex layout="column">
     <div ui-view="navTopBar"></div>
-
+    <div ui-view="homeHeader"></div>
     <div flex layout="row">
         <div id="content" flex layout-padding>
             <div ui-view></div>
