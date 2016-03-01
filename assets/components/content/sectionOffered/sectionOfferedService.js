@@ -97,12 +97,12 @@ application.service('sectionOfferedService', function($http, _, formService) {
                     name: "departmentCode"
                 },
                 change: {
-                    to: "courseNo"
+                    reset: "courseNo"
                 },
                 disabled: false,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -116,18 +116,16 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 link: "application.course",
                 output: {
                     obj: {},
-                    name: "courseNo"
+                    name: "courseNo",
+                    meta: [{
+                        tag: "",
+                        name: "title"
+                    }]
                 },
                 change: {
-                    to: "sectionNo"
+                    reset: "sectionNo"
                 },
                 disabled: "!isObject('departmentCode')",
-                required: true
-            }, {
-                type: "text",
-                name: "title",
-                label: "Title",
-                disabled: true,
                 required: true
             }, {
                 type: "autocomplete",
@@ -190,12 +188,12 @@ application.service('sectionOfferedService', function($http, _, formService) {
                     name: "departmentCode"
                 },
                 change: {
-                    to: "courseNo"
+                    reset: "courseNo"
                 },
                 disabled: false,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -209,10 +207,14 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 link: "application.course",
                 output: {
                     obj: {},
-                    name: "courseNo"
+                    name: "courseNo",
+                    meta: [{
+                        tag: "",
+                        name: "title"
+                    }]
                 },
                 change: {
-                    to: "sectionNo"
+                    reset: "sectionNo"
                 },
                 disabled: "!isObject('departmentCode')",
                 required: true
