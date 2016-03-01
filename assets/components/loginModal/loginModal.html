@@ -1,0 +1,35 @@
+<md-dialog aria-label="Log In" ng-cloak>
+    <form name="loginForm" ng-submit="submit()" novalidate>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Log In</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()" aria-label="Cancel">
+                    <md-icon md-font-set="material-icons">clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+    
+        <md-progress-linear class="md-hue-2" md-mode="{{formData.mode}}"></md-progress-linear>
+
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-input-container class="md-block">
+                    <md-icon md-font-set="material-icons">account_circle</md-icon>
+                    <input name="username" ng-model="formData.username" placeholder="Username" md-autofocus>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <md-icon md-font-set="material-icons">lock</md-icon>
+                    <input name="password" ng-model="formData.password" type="password" placeholder="Password">
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <md-button type="submit" class="md-raised">
+                Log In
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

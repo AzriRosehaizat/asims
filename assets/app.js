@@ -10,9 +10,9 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'': {
 						templateUrl: '/views/index/index.html'
 					},
-					'login@index': {
-						templateUrl: '/components/login/login.html',
-						controller: 'loginController'
+					'loginModalButton@index': {
+						templateUrl: '/components/loginButton/loginButton.html',
+						controller: 'loginButtonController'
 					}
 				},
 				data: {
@@ -58,10 +58,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'homeHeader@application': {
 						templateUrl: '/components/homeHeader/homeHeader.html',
 						controller: 'homeHeaderController'
-					},
-					'counter@application.root': {
-						templateUrl: '/components/counter/counter.html',
-						controller: 'counterController as ctrl'
 					},
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
@@ -264,58 +260,16 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					}
+					},
+					// This Page does not have Related tabs
+					// 'tabset@application.sectionOffered': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
 				},
 				resolve: {
 					sectionOffered: function($http) {
 						return $http.get('Section_Offered/getSectionOffered');
-					}
-				},
-				data: {
-					dataPage: true
-				}
-			})
-			.state('application.section', {
-				url: '/section',
-				views: {
-					'': {
-						templateUrl: '/components/content/content.html',
-						controller: 'sectionController'
-					},
-					'grid@application.section': {
-						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
-					},
-				
-				},
-				resolve: {
-					section: function($http) {
-						return $http.get('/Section?populate');
-					}
-				},
-				data: {
-					dataPage: true
-				}
-			})
-			.state('application.faculty', {
-				url: '/faculty',
-				views: {
-					'': {
-						templateUrl: '/components/content/content.html',
-						controller: 'facultyController'
-					},
-					'grid@application.faculty': {
-						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
-					},
-					'tabset@application.faculty': {
-						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
-					}
-				},
-				resolve: {
-					faculty: function($http) {
-						return $http.get('/Faculty?populate');
 					}
 				},
 				data: {
