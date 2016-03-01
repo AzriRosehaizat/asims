@@ -264,9 +264,8 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					}
-					//This page does not have tabset yet
-					// ,
+					},
+					// This Page does not have Related tabs
 					// 'tabset@application.sectionOffered': {
 					// 	templateUrl: '/components/tabset/tabset.html',
 					// 	controller: 'tabsetController'

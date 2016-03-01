@@ -13,13 +13,13 @@ application.service('rankService', function($http, _, formService) {
             };
         },
         update: function(formData) {
-            return $http.put('/rank/', formData.model.rankID, formData.model);
+            return $http.put('/rank/' +  formData.model.rankID, formData.model);
         },
         create: function(formData) {
             return $http.post('/rank/', formData.model);
         },
         delete: function(formData) {
-            return $http.delete('/rank/', formData.model.rankID);
+            return $http.delete('/rank/' + formData.model.rankID);
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -42,6 +42,7 @@ application.service('rankService', function($http, _, formService) {
             formService.init(formData, gridData, null, 'rankService', true);
         },
         initEditForm: function(formData, gridData, row) {
+            console.log(row.entity);
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Rank';
@@ -62,7 +63,6 @@ application.service('rankService', function($http, _, formService) {
             formService.init(formData, gridData, row, 'rankService', true);
         },
         getRow: function(row) {
-            console.log(row.entity.rankID);
             return $http.get('/rank/' + row.entity.rankID);
         }
     };
