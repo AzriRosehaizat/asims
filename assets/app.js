@@ -57,6 +57,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				views: {
 					'': {
 						templateUrl: '/views/application/root.html'
+
+					},
+					'homeHeader@application': {
+						templateUrl: '/components/homeHeader/homeHeader.html',
+						controller: 'homeHeaderController'
 					},
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
@@ -288,7 +293,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				//set global options
 				//don't need header menus if we are using the speed dial
 				initOptions.enableColumnMenus = false;
-				initOptions.enableGridMenu = true,
+				initOptions.enableGridMenu = true;
 				initOptions.enableColumnResizing = true;
 				initOptions.noUnselect = true;
 				initOptions.multiSelect = false;
