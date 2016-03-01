@@ -40,6 +40,10 @@ application
           state: 'application.sectionOffered',
           type: 'link'
         }, {
+          name: 'Section',
+          state: 'application.section',
+          type: 'link'
+        }, {
           name: 'Research',
           state: 'application.research',
           type: 'link'
