@@ -1,4 +1,4 @@
-application.controller('contractStaffController', function($scope, staffs, contractStaffService, csTabService, SearchHelper) {
+application.controller('contractStaffController', function($scope, staffs, contractStaffService, csTabService, SearchHelper, toaster) {
 
     $scope.gridTitle = 'Contract Staff';
     $scope.cStaff = staffs.data;
@@ -16,9 +16,10 @@ application.controller('contractStaffController', function($scope, staffs, contr
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
+            $scope.tabRow = null;
             contractStaffService.initEditForm($scope.formData, $scope.gridOptions.data, row);
 
-            // csTabService.getTabs($scope.tabs, row);
+            csTabService.getTabs($scope.tabs, row);
         });
     };
 
@@ -27,6 +28,50 @@ application.controller('contractStaffController', function($scope, staffs, contr
     };
 
     $scope.editRow = function() {
-        contractStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        if ($scope.row)
+            contractStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else
+            toaster.info("Select a row first.");
+    };
+    
+    $scope.selectTab = function(tab) {
+        $scope.tab = tab;
+        $scope.tabRow = null;
+        if ($scope.row) $scope.addTabRow();
+    };
+    
+    $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            csTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
+    
+    $scope.tabs.rightToRefuse.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            csTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
+    
+    $scope.tabs.department.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            csTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
+    
+    $scope.addTabRow = function() {
+        if ($scope.row)
+            csTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
+        else
+            toaster.info("Select a row first in the main table.");
+    };
+
+    $scope.editTabRow = function() {
+        if ($scope.tabRow)
+            csTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
+        else
+            toaster.info("Select a row first in the tab table.");
     };
 });
