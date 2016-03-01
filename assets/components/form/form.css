@@ -85,11 +85,6 @@ md-autocomplete > md-autocomplete-wrap > md-progress-linear {
     line-height: 2;
 }
 
-.autocomplete-custom-template .item-title md-icon {
-    height: 18px;
-    width: 18px;
-}
-
 .md-virtual-repeat-container.md-autocomplete-suggestions-container {
     height: 200px !important;
     max-height: 200px !important;
