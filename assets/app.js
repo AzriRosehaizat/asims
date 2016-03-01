@@ -59,6 +59,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						templateUrl: '/components/homeHeader/homeHeader.html',
 						controller: 'homeHeaderController'
 					},
+					'counter@application.root': {
+						templateUrl: '/components/counter/counter.html',
+						controller: 'counterController as ctrl'
+					},
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
 						controller: 'toDoListController'
@@ -260,12 +264,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-					// This Page does not have Related tabs
-					// 'tabset@application.sectionOffered': {
-					// 	templateUrl: '/components/tabset/tabset.html',
-					// 	controller: 'tabsetController'
-					// }
+					}
 				},
 				resolve: {
 					sectionOffered: function($http) {
