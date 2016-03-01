@@ -1,4 +1,4 @@
-application.service('rsRank', function($http, _, formService) {
+application.service('csRank', function($http, _, formService) {
 
     var mainRow;
 
@@ -7,10 +7,10 @@ application.service('rsRank', function($http, _, formService) {
             if (_.isObject(formData.model.title)) {
                 formData.model.rankID = formData.model.title.obj.rankID;
             }
-            return $http.put('/regularStaff_Rank/' + formData.model.regularStaffRankID, formData.model)
+            return $http.put('/contractStaff_Rank/' + formData.model.contractStaffRankID, formData.model)
                 .then(function(res) {
-                    return $http.get('/regularStaff/getInfo?type=rank&id=' + formData.model.academicStaffID +
-                                     '&where=' + res.data.regularStaffRankID);
+                    return $http.get('/contractStaff/getInfo?type=rank&id=' + formData.model.academicStaffID +
+                                     '&where=' + res.data.contractStaffRankID);
                 });
         },
         create: function(formData) {
@@ -18,15 +18,15 @@ application.service('rsRank', function($http, _, formService) {
                 formData.model.rankID = formData.model.title.obj.rankID;
             }
             formData.model.academicStaffID = mainRow.entity.academicStaffID;
-            formData.model.regularStaffID = mainRow.entity.regularStaffID;
-            return $http.post('/regularStaff_Rank', formData.model)
+            formData.model.contractStaffID = mainRow.entity.contractStaffID;
+            return $http.post('/contractStaff_Rank', formData.model)
                 .then(function(res) {
-                    return $http.get('/regularStaff/getInfo?type=rank&id=' + formData.model.academicStaffID +
-                                     '&where=' + res.data.regularStaffRankID);
+                    return $http.get('/contractStaff/getInfo?type=rank&id=' + formData.model.academicStaffID +
+                                     '&where=' + res.data.contractStaffRankID);
                 });
         },
         delete: function(formData) {
-            return $http.delete('/regularStaff_Rank/' + formData.model.regularStaffRankID);
+            return $http.delete('/contractStaff_Rank/' + formData.model.contractStaffRankID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
@@ -63,7 +63,7 @@ application.service('rsRank', function($http, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, null, 'rsRank', false);
+            formService.init(formData, gridData, null, 'csRank', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
@@ -101,7 +101,7 @@ application.service('rsRank', function($http, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, row, 'rsRank', false);
+            formService.init(formData, gridData, row, 'csRank', false);
         },
     };
 });
