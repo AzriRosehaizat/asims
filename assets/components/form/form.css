@@ -84,3 +84,8 @@ md-autocomplete > md-autocomplete-wrap > md-progress-linear {
     display: block;
     line-height: 2;
 }
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    height: 200px !important;
+    max-height: 200px !important;
+}
