@@ -7,8 +7,8 @@ application.service('sectionService', function($http, _, formService) {
                     name: 'Section No.',
                     field: 'sectionNo'
                 }, {
-                    name: 'Course Type',
-                    field: 'courseType'
+                    name: 'Section Type',
+                    field: 'sectionType'
                 }, {
                     name: 'FCE Modifier',
                     field: 'FCEModifier'
@@ -43,8 +43,8 @@ application.service('sectionService', function($http, _, formService) {
                 required: true
             }, {
                 type: "text",
-                name: "courseType",
-                label: "Course Type",
+                name: "sectionType",
+                label: "Section Type",
                 disabled: false,
                 required: true
             }, {
@@ -69,8 +69,8 @@ application.service('sectionService', function($http, _, formService) {
                 required: true
             }, {
                 type: "text",
-                name: "courseType",
-                label: "Course Type",
+                name: "sectionType",
+                label: "Section Type",
                 disabled: false,
                 required: true
             }, {
