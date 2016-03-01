@@ -9,7 +9,7 @@ module.exports = {
 		var sSQL = mysql.select('a.*', 'r.*', 'd.departmentCode', 'rk.title AS Rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
-				.leftJoin('MostRecentRank AS rv', 'r.regularStaffID', 'rv.regularStaffID')
+				.leftJoin('MostRecentRank_Regular AS rv', 'r.regularStaffID', 'rv.regularStaffID')
 					.leftJoin('Rank AS rk', 'rv.rankID', 'rk.rankID')
 			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
 				.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID');
