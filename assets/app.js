@@ -53,6 +53,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				views: {
 					'': {
 						templateUrl: '/views/application/root.html'
+
+					},
+					'homeHeader@application': {
+						templateUrl: '/components/homeHeader/homeHeader.html',
+						controller: 'homeHeaderController'
 					},
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
@@ -194,6 +199,32 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.rank', {
+				url: '/rank',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'rankController'
+					},
+					'grid@application.rank': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					// This Page does not have Related tabs
+					// 'tabset@application.rank': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
+				},
+				resolve: {
+					ranks: function($http) {
+						return $http.get('/rank');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.research', {
 				url: '/research',
 				views: {
@@ -229,9 +260,8 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					}
-					//This page does not have tabset yet
-					// ,
+					},
+					// This Page does not have Related tabs
 					// 'tabset@application.sectionOffered': {
 					// 	templateUrl: '/components/tabset/tabset.html',
 					// 	controller: 'tabsetController'
@@ -284,7 +314,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				//set global options
 				//don't need header menus if we are using the speed dial
 				initOptions.enableColumnMenus = false;
-				initOptions.enableGridMenu = true,
+				initOptions.enableGridMenu = true;
 				initOptions.enableColumnResizing = true;
 				initOptions.noUnselect = true;
 				initOptions.multiSelect = false;
