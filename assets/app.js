@@ -275,6 +275,53 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.section', {
+				url: '/section',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'sectionController'
+					},
+					'grid@application.section': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+				
+				},
+				resolve: {
+					section: function($http) {
+						return $http.get('/Section?populate');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
+			.state('application.faculty', {
+				url: '/faculty',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'facultyController'
+					},
+					'grid@application.faculty': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					'tabset@application.faculty': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController'
+					}
+				},
+				resolve: {
+					faculty: function($http) {
+						return $http.get('/Faculty?populate');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.FLC', {
 				url: '/facultyLoadChart',
 				views: {
