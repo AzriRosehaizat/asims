@@ -8,9 +8,9 @@ Technical Lead: Anita N.
 
 Systems Analyst: James M.
 
-Lead Programmer: Azri A. , Darren K.
+Lead Programmer: Azri A. , Daeyoun K.
 
-Lead QA: Daeyoun K.
+Lead QA: Darren K.
 
 How to deploy application in development:
 -------------------------------------------
