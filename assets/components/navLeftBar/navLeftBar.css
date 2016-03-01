@@ -36,7 +36,7 @@ md-sidenav {
 }
 
 .side-menu .md-button.active {
-  color: #FF5722; /* deep-orange 500 */
+  color: #B71C1C; /* deep-red 900 to match application */
 }
 
 .side-menu .menu-toggle-list a.md-button {
