@@ -265,15 +265,33 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
 					},
-					// This Page does not have Related tabs
-					// 'tabset@application.sectionOffered': {
-					// 	templateUrl: '/components/tabset/tabset.html',
-					// 	controller: 'tabsetController'
-					// }
+				
 				},
 				resolve: {
 					sectionOffered: function($http) {
 						return $http.get('Section_Offered/getSectionOffered');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
+			.state('application.section', {
+				url: '/section',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'sectionController'
+					},
+					'grid@application.section': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+				
+				},
+				resolve: {
+					section: function($http) {
+						return $http.get('/Section?populate');
 					}
 				},
 				data: {
