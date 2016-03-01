@@ -115,7 +115,7 @@ DROP TABLE IF EXISTS `Course` ;
 CREATE TABLE IF NOT EXISTS `Course` (
   `courseID` INT(11) NOT NULL AUTO_INCREMENT,
   `departmentID` INT(11) NOT NULL,
-  `courseNO` VARCHAR(11) NOT NULL,
+  `courseNo` VARCHAR(11) NOT NULL,
   `title` VARCHAR(50) NULL DEFAULT NULL,
   `description` TEXT NULL DEFAULT NULL,
   PRIMARY KEY (`courseID`) ,
@@ -253,6 +253,31 @@ CREATE TABLE IF NOT EXISTS `ContractStaffEmployment` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
+
+-- -----------------------------------------------------
+-- Table `ContractStaff_Rank`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `ContractStaff_Rank` ;
+
+CREATE TABLE `asims`.`ContractStaff_Rank` (
+  `contractStaffRankID` INT(11) NOT NULL AUTO_INCREMENT,
+  `rankID` INT(11) NOT NULL,
+  `contractStaffID` INT(11) NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
+  `endDate` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`contractStaffRankID`),
+  INDEX `ContractStaff_Rank_ibfk_1_idx` (`rankID` ASC),
+  INDEX `ContractStaff_Rank_ibfk_2_idx` (`contractStaffID` ASC),
+  CONSTRAINT `ContractStaff_Rank_ibfk_1`
+    FOREIGN KEY (`rankID`)
+    REFERENCES `asims`.`Rank` (`rankID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `ContractStaff_Rank_ibfk_2`
+    FOREIGN KEY (`contractStaffID`)
+    REFERENCES `asims`.`ContractStaff` (`contractStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
 -- Table `Crosslisting`
@@ -618,6 +643,31 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
     REFERENCES `AcademicStaff` (`academicStaffID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
+
+-- -----------------------------------------------------
+-- View `asims`.`MostRecentChair`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`MostRecentChair` ;
+
+CREATE  OR REPLACE VIEW `asims`.`MostRecentChair` AS 
+  SELECT 
+    `Chair`.`chairID` AS `chairID`,
+    `Chair`.`regularStaffID` AS `regularStaffID`,
+    `Chair`.`departmentID` AS `departmentID`,
+    `Chair`.`startDate` AS `startDate`,
+    `Chair`.`endDate` AS `endDate`,
+    CONTACT(`AcademicStaff`.`firstName`,' ',`asims`.`AcademicStaff`.`lastName`) AS `Chair`
+  FROM
+    `Chair` JOIN `RegularStaff` 
+      ON `Chair`.`regularStaffID` = `RegularStaff`.`regularStaffID`
+    JOIN `AcademicStaff` 
+      ON `RegularStaff`.`academicStaffID` = `AcademicStaff`.`academicStaffID`
+  WHERE
+    (`Chair`.`departmentID`, `Chair`.`startDate`) IN (SELECT
+      `Chair`.`departmentID`,
+      MAX(`Chair`.`startDate`) AS `startDate` 
+    FROM `Chair` 
+    GROUP BY `Chair`.`departmentID`);
 
 -- -----------------------------------------------------
 -- View `asims`.`MostRecentDepartment`
