@@ -191,7 +191,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					courses: function($http) {
-						return $http.get('/course');
+						return $http.get('/course/getAllCourse');
 					}
 				},
 				data: {
