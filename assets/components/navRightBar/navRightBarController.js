@@ -34,7 +34,15 @@ application.controller('navRightBarController', function($scope, $state, $http, 
                         name: item[output.name]
                     };
                     // For the custom autocomplete template
-                    result.meta = (output.meta) ? item[output.meta.name] : null;
+                    if (output.meta) {
+                        result.meta = [];
+                        _.forEach(output.meta, function(meta) {
+                            result.meta.push({
+                                tag: meta.tag,
+                                name: item[meta.name]
+                            });
+                        });
+                    }
                     return result;
                 });
             });
@@ -59,14 +67,12 @@ application.controller('navRightBarController', function($scope, $state, $http, 
         var modelAttr = $scope.fs.formData.model[value];
         return _.isObject(modelAttr);
     };
-    
 
     /* Currently not working */
     $scope.changeState = function(link) {
         console.log("change state to " + link);
         $state.go(link);
     };
-
 
     /* navRightBar related */
     // using ng-style to change its css

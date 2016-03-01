@@ -19,8 +19,8 @@
                 </span>
             </span>
             <span class="item-metadata">
-                <span class="item-metastat">
-                    <strong>{{input.output.meta.tag}}</strong> {{item.meta}}
+                <span class="item-metastat" ng-repeat="meta in item.meta">
+                    <strong>{{meta.tag}}</strong> {{meta.name}}
                 </span>
             </span>
         </md-item-template>
