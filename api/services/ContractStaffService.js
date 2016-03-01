@@ -10,17 +10,17 @@ module.exports = {
 			.from('AcademicStaff AS a')
 			.innerJoin('ContractStaff AS c', 'a.academicStaffID', 'c.academicStaffID')
 			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
-				.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID');
-		
+			.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID');
+
 		//check if criteriea needed
 		if (contractStaffID) {
 			sSQL = sSQL.where('c.contractStaffID', contractStaffID).groupBy('a.academicStaffID').toString();
 		}
 		else {
 			sSQL = sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
-			
+
 		}
-		
+
 		ContractStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
@@ -34,33 +34,33 @@ module.exports = {
 			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
-			
-			if (where) {
-				sSQL = sSQL.where('t.teachingActivitiesID', where).toString();
-			}
-			else {
-				sSQL = sSQL.toString();
-			}
+
+		if (where) {
+			sSQL = sSQL.where('t.teachingActivitiesID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
 		ContractStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
 	},
 	getRightToRefuse: function(id, where, callback) {
-	    var sSQL = mysql.select('r.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
-	        .from('ContractStaff AS cs')
-	        .innerJoin('RightToRefusal AS r', 'cs.contractStaffID', 'r.contractStaffID')
-	        .innerJoin('Section_Offered AS so', 'r.sectionOfferedID', 'so.sectionOfferedID')
-	        .innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
+		var sSQL = mysql.select('r.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
+			.from('ContractStaff AS cs')
+			.innerJoin('RightToRefusal AS r', 'cs.contractStaffID', 'r.contractStaffID')
+			.innerJoin('Section_Offered AS so', 'r.sectionOfferedID', 'so.sectionOfferedID')
+			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
 			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('cs.contractStaffID', id);
-			
-			if (where) {
-				sSQL = sSQL.where('r.rightToRefusalID', where).toString();
-			}
-			else {
-				sSQL = sSQL.toString();
-			}
+
+		if (where) {
+			sSQL = sSQL.where('r.rightToRefusalID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
 		ContractStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
@@ -71,13 +71,29 @@ module.exports = {
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
-			
-			if (where) {
-				sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
-			}
-			else {
-				sSQL = sSQL.toString();
-			}
+
+		if (where) {
+			sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
+		ContractStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
+	},
+	getEmployment: function(id, where, callback) {
+		var sSQL = mysql.select('ce.*', 'c.academicStaffID')
+			.from('ContractStaff AS c')
+			.innerJoin('ContractStaffEmployment AS ce', 'c.contractStaffID', 'ce.contractStaffID')
+			.where('c.academicStaffID', id);
+
+		if (where) {
+			sSQL = sSQL.where('ce.contractEmploymentID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
 		ContractStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});
