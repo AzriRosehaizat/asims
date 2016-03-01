@@ -203,6 +203,32 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.rank', {
+				url: '/rank',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'rankController'
+					},
+					'grid@application.rank': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					// This Page does not have Related tabs
+					// 'tabset@application.rank': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
+				},
+				resolve: {
+					ranks: function($http) {
+						return $http.get('/rank');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.research', {
 				url: '/research',
 				views: {
@@ -238,9 +264,8 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					}
-					//This page does not have tabset yet
-					// ,
+					},
+					// This Page does not have Related tabs
 					// 'tabset@application.sectionOffered': {
 					// 	templateUrl: '/components/tabset/tabset.html',
 					// 	controller: 'tabsetController'

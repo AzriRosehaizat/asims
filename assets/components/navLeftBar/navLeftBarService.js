@@ -32,6 +32,10 @@ application
           state: 'application.course',
           type: 'link'
         }, {
+          name: 'Rank',
+          state: 'application.rank',
+          type: 'link'
+        }, {
           name: 'Section Offered',
           state: 'application.sectionOffered',
           type: 'link'
