@@ -47,6 +47,10 @@ application
           name: 'Research',
           state: 'application.research',
           type: 'link'
+        }, {
+          name: 'Faculty',
+          state: 'application.faculty',
+          type: 'link'
         }]
       });
 

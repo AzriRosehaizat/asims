@@ -298,6 +298,28 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.faculty', {
+				url: '/faculty',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'facultyController'
+					},
+					'grid@application.faculty': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+				
+				},
+				resolve: {
+					faculty: function($http) {
+						return $http.get('/Faculty?populate');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.FLC', {
 				url: '/facultyLoadChart',
 				views: {
