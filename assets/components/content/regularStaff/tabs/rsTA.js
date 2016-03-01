@@ -52,7 +52,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 disabled: false,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -66,7 +66,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                 link: "application.course",
                 output: {
                     obj: {},
-                    name: "courseNo"
+                    name: "courseNo",
+                    meta: [{
+                        tag: "",
+                        name: "title"
+                    }]
                 },
                 change: {
                     reset: "sectionNo"
@@ -151,7 +155,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 disabled: false,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -165,7 +169,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                 link: "application.course",
                 output: {
                     obj: {},
-                    name: "courseNo"
+                    name: "courseNo",
+                    meta: [{
+                        tag: "",
+                        name: "title"
+                    }]
                 },
                 change: {
                     reset: "sectionNo"
