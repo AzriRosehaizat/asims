@@ -309,7 +309,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
 					},
-				
+					'tabset@application.faculty': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController'
+					}
 				},
 				resolve: {
 					faculty: function($http) {
