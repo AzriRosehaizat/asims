@@ -67,10 +67,10 @@ application.service('csRTR', function($http, _, formService) {
                 output: {
                     obj: {},
                     name: "courseNo",
-                    meta: {
+                    meta: [{
                         tag: "",
                         name: "title"
-                    }
+                    }]
                 },
                 change: {
                     reset: "sectionNo"
@@ -84,7 +84,7 @@ application.service('csRTR', function($http, _, formService) {
                 disabled: true,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
@@ -95,10 +95,17 @@ application.service('csRTR', function($http, _, formService) {
                         value: "courseNo.obj.courseID"
                     }]
                 },
-                link: "application.course",
+                link: "application.sectionOffered",
                 output: {
                     obj: {},
-                    name: "sectionNo"
+                    name: "sectionNo",
+                    meta: [{
+                        tag: "",
+                        name: "startDate"
+                    }, {
+                        tag: "- ",
+                        name: "endDate"
+                    }]
                 },
                 change: {
                     from: "courseNo.obj.title",
@@ -160,10 +167,10 @@ application.service('csRTR', function($http, _, formService) {
                 output: {
                     obj: {},
                     name: "courseNo",
-                    meta: {
+                    meta: [{
                         tag: "",
                         name: "title"
-                    }
+                    }]
                 },
                 change: {
                     reset: "sectionNo"
@@ -177,7 +184,7 @@ application.service('csRTR', function($http, _, formService) {
                 disabled: true,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
@@ -188,10 +195,17 @@ application.service('csRTR', function($http, _, formService) {
                         value: "courseNo.obj.courseID"
                     }]
                 },
-                link: "application.course",
+                link: "application.sectionOffered",
                 output: {
                     obj: {},
-                    name: "sectionNo"
+                    name: "sectionNo",
+                    meta: [{
+                        tag: "",
+                        name: "startDate"
+                    }, {
+                        tag: "- ",
+                        name: "endDate"
+                    }]
                 },
                 change: {
                     from: "courseNo.obj.title",

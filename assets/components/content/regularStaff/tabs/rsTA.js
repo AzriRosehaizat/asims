@@ -4,13 +4,9 @@ application.service('rsTA', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.departmentCode) &&
-                _.isObject(formData.model.courseNo) &&
-                _.isObject(formData.model.sectionNo)) {
-
+            if (_.isObject(formData.model.sectionNo)) {
                 formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
             }
-
             return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID +
@@ -18,14 +14,10 @@ application.service('rsTA', function($http, $q, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.departmentCode) &&
-                _.isObject(formData.model.courseNo) &&
-                _.isObject(formData.model.sectionNo)) {
-
+            if (_.isObject(formData.model.sectionNo)) {
                 formData.model.academicStaffID = mainRow.entity.academicStaffID;
                 formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
             }
-
             return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID +
@@ -55,7 +47,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                     name: "departmentCode"
                 },
                 change: {
-                    // set null when departmentCode changes
                     reset: "courseNo"
                 },
                 disabled: false,
@@ -83,7 +74,13 @@ application.service('rsTA', function($http, $q, _, formService) {
                 disabled: "!isObject('departmentCode')",
                 required: true
             }, {
-                type: "autocomplete",
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
+                required: true
+            }, {
+                type: "acCustom",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
@@ -94,10 +91,17 @@ application.service('rsTA', function($http, $q, _, formService) {
                         value: "courseNo.obj.courseID"
                     }]
                 },
-                link: "application.course",
+                link: "application.sectionOffered",
                 output: {
                     obj: {},
-                    name: "sectionNo"
+                    name: "sectionNo",
+                    meta: [{
+                        tag: "",
+                        name: "startDate"
+                    }, {
+                        tag: "- ",
+                        name: "endDate"
+                    }]
                 },
                 change: {
                     from: "courseNo.obj.title",
@@ -105,24 +109,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                 },
                 disabled: "!isObject('courseNo')",
                 required: true
-            }, {
-                type: "text",
-                name: "title",
-                label: "Title",
-                disabled: true,
-                required: true
-            }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -193,7 +179,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 disabled: true,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
@@ -204,10 +190,17 @@ application.service('rsTA', function($http, $q, _, formService) {
                         value: "courseNo.obj.courseID"
                     }]
                 },
-                link: "application.course",
+                link: "application.sectionOffered",
                 output: {
                     obj: {},
-                    name: "sectionNo"
+                    name: "sectionNo",
+                    meta: [{
+                        tag: "",
+                        name: "startDate"
+                    }, {
+                        tag: "- ",
+                        name: "endDate"
+                    }]
                 },
                 change: {
                     from: "courseNo.obj.title",
@@ -215,18 +208,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                 },
                 disabled: "!isObject('courseNo')",
                 required: true
-            }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
             }, {
                 type: "number",
                 name: "FCEValue",
