@@ -48,7 +48,7 @@ module.exports = {
 	getRightToRefuse: function(id, where, callback) {
 	    var sSQL = mysql.select('r.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 	        .from('ContractStaff AS cs')
-	        .innerJoin('RightToRefusal AS r', 'c.contractStaffID', 'r.contractStaffID')
+	        .innerJoin('RightToRefusal AS r', 'cs.contractStaffID', 'r.contractStaffID')
 	        .innerJoin('Section_Offered AS so', 'r.sectionOfferedID', 'so.sectionOfferedID')
 	        .innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
 			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')

@@ -13,8 +13,8 @@ application.service('csTA', function($http, _, formService) {
 
             return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID + 
-                                     '&where=' + res.data.teachingActivitiesID);
+                    return $http.get('/contractStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID +
+                        '&where=' + res.data.teachingActivitiesID);
                 });
         },
         create: function(formData) {
@@ -28,8 +28,8 @@ application.service('csTA', function($http, _, formService) {
 
             return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=teaching&id=' + res.data.academicStaffID + 
-                                     '&where=' + res.data.teachingActivitiesID);
+                    return $http.get('/contractStaff/getInfo?type=teaching&id=' + res.data.academicStaffID +
+                        '&where=' + res.data.teachingActivitiesID);
                 });
         },
         delete: function(formData) {
@@ -55,8 +55,7 @@ application.service('csTA', function($http, _, formService) {
                     name: "departmentCode"
                 },
                 change: {
-                    // set null when departmentCode changes
-                    to: "courseNo"
+                    reset: "courseNo"
                 },
                 disabled: false,
                 required: true
@@ -82,9 +81,15 @@ application.service('csTA', function($http, _, formService) {
                     }
                 },
                 change: {
-                    to: "sectionNo"
+                    reset: "sectionNo"
                 },
                 disabled: "!isObject('departmentCode')",
+                required: true
+            }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
                 required: true
             }, {
                 type: "autocomplete",
@@ -110,24 +115,6 @@ application.service('csTA', function($http, _, formService) {
                 disabled: "!isObject('courseNo')",
                 required: true
             }, {
-                type: "text",
-                name: "title",
-                label: "Title",
-                disabled: true,
-                required: true
-            },  {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
-            }, {
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
@@ -141,12 +128,9 @@ application.service('csTA', function($http, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, null, 'rsTA', false);
+            formService.init(formData, gridData, null, 'csTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
-            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Teaching Activity';
@@ -164,12 +148,12 @@ application.service('csTA', function($http, _, formService) {
                     name: "departmentCode"
                 },
                 change: {
-                    to: "courseNo"
+                    reset: "courseNo"
                 },
                 disabled: false,
                 required: true
             }, {
-                type: "autocomplete",
+                type: "acCustom",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -183,12 +167,22 @@ application.service('csTA', function($http, _, formService) {
                 link: "application.course",
                 output: {
                     obj: {},
-                    name: "courseNo"
+                    name: "courseNo",
+                    meta: {
+                        tag: "",
+                        name: "title"
+                    }
                 },
                 change: {
-                    to: "sectionNo"
+                    reset: "sectionNo"
                 },
                 disabled: "!isObject('departmentCode')",
+                required: true
+            }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                disabled: true,
                 required: true
             }, {
                 type: "autocomplete",
@@ -214,24 +208,6 @@ application.service('csTA', function($http, _, formService) {
                 disabled: "!isObject('courseNo')",
                 required: true
             }, {
-                type: "text",
-                name: "title",
-                label: "Title",
-                disabled: true,
-                required: true
-            },  {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
-            }, {
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
@@ -245,7 +221,7 @@ application.service('csTA', function($http, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, row, 'rsTA', false);
+            formService.init(formData, gridData, row, 'csTA', false);
         },
     };
 });

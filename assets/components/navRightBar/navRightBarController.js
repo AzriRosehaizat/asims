@@ -39,28 +39,27 @@ application.controller('navRightBarController', function($scope, $state, $http, 
                 });
             });
     };
+    
+    $scope.changeValue = function(change) {
+        if (change) {
+            // Update disabled value from another attribute
+            if (change.from && change.to) {
+                var value = _.get($scope.fs.formData.model, change.from);
+                _.set($scope.fs.formData.model, change.to, value);
+            }
+            // Reset input value on change of another input
+            if (change.reset) {
+                _.set($scope.fs.formData.model.searchText, change.reset, undefined);
+            }
+        }
+    };
 
     /* For ng-disabled */
     $scope.isObject = function(value) {
         var modelAttr = $scope.fs.formData.model[value];
         return _.isObject(modelAttr);
     };
-
-    /* 1. Update disabled value from another attribute.
-     * 2. Delete input value on change of another input. */
-    $scope.changeValue = function(change) {
-        if (change) {
-            var value = null;
-
-            if (change.from) {
-                value = _.get($scope.fs.formData.model, change.from);
-            }
-            else {
-                _.set($scope.fs.formData.model.searchText, change.to, undefined);
-            }
-            _.set($scope.fs.formData.model, change.to, value);
-        }
-    };
+    
 
     /* Currently not working */
     $scope.changeState = function(link) {

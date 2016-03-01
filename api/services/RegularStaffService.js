@@ -81,7 +81,7 @@ module.exports = {
 	},
 
 	getTeachingActivity: function(id, where, callback) {
-		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 't.startDate', 't.endDate')
+		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
 			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
