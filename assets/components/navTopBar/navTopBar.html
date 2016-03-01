@@ -6,7 +6,7 @@
 
         <div id="searchBox" ng-show="$state.current.data.dataPage" flex-gt-sm="70" flex-sm="60" layout="row" layout-align="start center">
             <md-icon md-font-set="material-icons">search</md-icon>
-            <input type="text" ng-model="search.data" ng-change="update(search.data)" placeholder="Search" style="width:100%" aria-label="Search"/>
+            <input type="text" ng-model="search.data" ng-change="update(search.data)" placeholder="Search" style="width:100%" aria-label="Search" />
         </div>
 
         <span flex></span>
@@ -15,7 +15,7 @@
             <md-menu>
                 <button ng-click="$mdOpenMenu($event)" aria-label="My Profile">
                     <div layout="row" layout-align="center center">
-                        <md-icon md-font-set="material-icons">face</md-icon>
+                        <md-icon md-font-set="material-icons">account_circle</md-icon>
                         <span id="username" hide-xs>{{user.firstName}} {{user.lastName}}</span>
                     </div>
                 </button>
