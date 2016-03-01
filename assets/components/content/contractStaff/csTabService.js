@@ -1,4 +1,4 @@
-application.service('csTabService', function($http, csTA, csRTR, csDepartment, csEmployment) {
+application.service('csTabService', function($http, csTA, csRTR, csDepartment, csRank, csEmployment) {
 
     return {
         tabs: function() {
@@ -82,6 +82,23 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }]
                     }
                 },
+                rank: {
+                    title: 'Rank',
+                    gridOptions: {
+                        columnDefs: [{
+                            name: 'Name',
+                            field: 'title'
+                        }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'yyyy-MM-dd\''
+                        }]
+                    }
+                },
                 employment: {
                     title: 'Employment',
                     gridOptions: {
@@ -109,6 +126,9 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Department':
                     csDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
+                case 'Rank':
+                    csRank.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    break;
                 case 'Employment':
                     csEmployment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -125,6 +145,9 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Department':
                     csDepartment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
+                case 'Rank':
+                    csRank.initEditForm(formData, tab.gridOptions.data, row);
+                    break;
                 case 'Employment':
                     csEmployment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
@@ -134,6 +157,7 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
             this.getTeachingActivity(tabs.teachingActivity, row);
             this.getRightToRefuse(tabs.rightToRefuse, row);
             this.getDepartment(tabs.department, row);
+            this.getRank(tabs.rank, row);
             this.getEmployment(tabs.employment, row);
         },
         getTeachingActivity: function(teachingActivity, row) {
@@ -153,6 +177,12 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 .then(function(res) {
                     department.gridOptions.data = res.data;
                 });
+        },
+        getRank: function(rank, row) {
+            // $http.get('/contractStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
+            //     .then(function(res) {
+            //         rank.gridOptions.data = res.data;
+            //     });
         },
         getEmployment: function(employment, row) {
             $http.get('/contractStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)

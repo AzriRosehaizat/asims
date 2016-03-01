@@ -34,6 +34,9 @@ module.exports = {
 			case 'department':
 				ContractStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
+			case 'rank':
+				ContractStaffService.getRank(data.id, data.where, responseFn);
+				break;
 			case 'employment':
 				ContractStaffService.getEmployment(data.id, data.where, responseFn);
 				break;
