@@ -179,10 +179,10 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 });
         },
         getRank: function(rank, row) {
-            // $http.get('/contractStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
-            //     .then(function(res) {
-            //         rank.gridOptions.data = res.data;
-            //     });
+            $http.get('/contractStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
+                .then(function(res) {
+                    rank.gridOptions.data = res.data;
+                });
         },
         getEmployment: function(employment, row) {
             $http.get('/contractStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
