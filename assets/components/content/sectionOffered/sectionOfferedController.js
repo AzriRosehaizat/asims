@@ -1,4 +1,4 @@
-application.controller('sectionOfferedController', function($scope, sectionOffered, sectionOfferedService, soTabService, SearchHelper) {
+application.controller('sectionOfferedController', function($scope, sectionOffered, sectionOfferedService, SearchHelper) {
 
     $scope.gridTitle = 'Section Offered';
     $scope.sectionData = sectionOffered.data;
