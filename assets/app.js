@@ -10,9 +10,9 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'': {
 						templateUrl: '/views/index/index.html'
 					},
-					'loginModalButton@index': {
-						templateUrl: '/components/loginButton/loginButton.html',
-						controller: 'loginButtonController'
+					'login@index': {
+						templateUrl: '/components/login/login.html',
+						controller: 'loginController'
 					}
 				},
 				data: {
