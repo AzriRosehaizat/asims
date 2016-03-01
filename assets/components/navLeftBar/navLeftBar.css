@@ -71,8 +71,8 @@ md-sidenav {
   padding-top: 12px;
   width: 15px;
   float: right;
-  transition: transform .3s ease-in-out;
-  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: transform .5s linear;
+  -webkit-transition: -webkit-transform .5s linear;
 }
 
 .menu-toggle-list.ng-hide {
