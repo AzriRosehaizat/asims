@@ -36,7 +36,7 @@ application.service('rankService', function($http, _, formService) {
                 name: "description",
                 label: "Description",
                 disabled: false,
-                required: true
+                required: false
             }];
 
             formService.init(formData, gridData, null, 'rankService', true);
@@ -57,7 +57,7 @@ application.service('rankService', function($http, _, formService) {
                 name: "description",
                 label: "Description",
                 disabled: false,
-                required: true
+                required: false
             }];
 
             formService.init(formData, gridData, row, 'rankService', true);
