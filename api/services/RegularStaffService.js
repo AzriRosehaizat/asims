@@ -27,6 +27,26 @@ module.exports = {
 			callback(err, result);
 		});
 	},
+	getTeachingActivity: function(id, where, callback) {
+		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+			.from('AcademicStaff AS a')
+			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
+			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
+			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
+			.where('a.academicStaffID', id);
+
+		if (where) {
+			sSQL = sSQL.where('t.teachingActivitiesID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
+	},
 	getDepartment: function(id, where, callback) {
 		var sSQL = mysql.select('d.*', 'ad.*', 'ad.academicStaffID')
 			.from('AcademicStaff AS a')
@@ -44,7 +64,6 @@ module.exports = {
 			callback(err, result);
 		});
 	},
-	// get rank by id
 	getRank: function(id, where, callback) {
 		var sSQL = mysql.select('rk.*', 'rs.*', 'r.academicStaffID')
 			.from('RegularStaff AS r')
@@ -62,7 +81,6 @@ module.exports = {
 			callback(err, result);
 		});
 	},
-	// get employment by id
 	getEmployment: function(id, where, callback) {
 		var sSQL = mysql.select('re.*', 'r.academicStaffID')
 			.from('RegularStaff AS r')
@@ -70,28 +88,7 @@ module.exports = {
 			.where('r.academicStaffID', id);
 
 		if (where) {
-			sSQL = sSQL.where('re.regularStaffEmploymentID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		RegularStaff.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
-	},
-
-	getTeachingActivity: function(id, where, callback) {
-		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
-			.from('AcademicStaff AS a')
-			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
-			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
-			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
-			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
-			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
-			.where('a.academicStaffID', id);
-
-		if (where) {
-			sSQL = sSQL.where('t.teachingActivitiesID', where).toString();
+			sSQL = sSQL.where('re.regularEmploymentID', where).toString();
 		}
 		else {
 			sSQL = sSQL.toString();
@@ -116,8 +113,6 @@ module.exports = {
 // 			console.log("No parent id found for this regular staff");
 // 		});
 // }
-
-
 
 // var async = require('async');
 
