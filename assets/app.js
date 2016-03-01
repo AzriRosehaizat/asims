@@ -37,7 +37,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						templateUrl: '/components/navRightBar/navRightBar.html',
 						controller: 'navRightBarController'
 					},
-					// 'toDoList@application' :{
+					// 'toDoList@application': {
 					// 	templateUrl: '/components/toDoList/toDoList.html',
 					// 	controller: 'toDoListController'
 					// }
@@ -146,7 +146,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					staffs: function($http) {
-						return $http.get('/contractStaff');
+						return $http.get('/contractStaff/getAllContractStaff');
 					}
 				},
 				data: {
@@ -171,7 +171,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					departments: function($http) {
-						return $http.get('/department');
+						return $http.get('/Department/getAllDepartment');
 					}
 				},
 				data: {
@@ -222,6 +222,33 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				resolve: {
 					researches: function($http) {
 						return $http.get('/research');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})			
+			.state('application.sectionOffered', {
+				url: '/sectionOffered',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'sectionOfferedController'
+					},
+					'grid@application.sectionOffered': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					}
+					//This page does not have tabset yet
+					// ,
+					// 'tabset@application.sectionOffered': {
+					// 	templateUrl: '/components/tabset/tabset.html',
+					// 	controller: 'tabsetController'
+					// }
+				},
+				resolve: {
+					sectionOffered: function($http) {
+						return $http.get('Section_Offered/getSectionOffered');
 					}
 				},
 				data: {
