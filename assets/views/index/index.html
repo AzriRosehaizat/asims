@@ -1,21 +1,13 @@
-<style>
-body {background-color: #FFFFF2;}
-img { max-width: 35%; height: 35%;}
-.index {position: fixed;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
-div {color:#CC0000;  text-decoration:none;font-weight:normal;font-family:inherit}
-.btn-primary, .btn-primary:focus, .btn-primary.active, .btn-primary:active .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover{background: #990000; color: #ffffff; border: #990000;}
-.btn-primary:hover{background: #cc0000; border: #990000;}
-</style>
-<div class="index">
-    <div class=text-center>
-        <img ng-src="/images/logo.png" alt="Logo" width="150" height="270"/>
-        <h1 align="center">
+<div flex="50" class="indexBG">
+
+</div>
+<div flex="50" class="indexContent" layout="column" layout-align="center space-around">
+    <h1 align="center">
             A.S.I.M.S
         </h1>
-        <h3 align="center">
+    <h3 align="center">
             Central Hub for Academic Staff Information
         </h3>
-        <hr>
-        <div ui-view="loginModalButton"></div>
-    </div>
+    <hr>
+    <div ui-view="loginModalButton"></div>
 </div>
