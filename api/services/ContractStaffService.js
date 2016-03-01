@@ -82,6 +82,23 @@ module.exports = {
 			callback(err, result);
 		});
 	},
+	getRank: function(id, where, callback) {
+		var sSQL = mysql.select('rk.*', 'cs.*', 'c.academicStaffID')
+			.from('ContractStaff AS c')
+			.innerJoin('ContractStaff_Rank AS cs', 'c.contractStaffID', 'cs.contractStaffID')
+			.innerJoin('Rank AS rk', 'cs.rankID', 'rk.rankID')
+			.where('c.academicStaffID', id);
+
+		if (where) {
+			sSQL = sSQL.where('cs.contractStaffRankID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
+		ContractStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
+	},
 	getEmployment: function(id, where, callback) {
 		var sSQL = mysql.select('ce.*', 'c.academicStaffID')
 			.from('ContractStaff AS c')
