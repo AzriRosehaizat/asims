@@ -47,10 +47,20 @@ application
                 null
             );
             
+            leaveService
+            .setForm(
+                $scope
+                .formData,
+                $scope
+                .gridOptions
+                .data,
+                row
+            );
+            
             leaveTabs
             .initializeTabs(
                 $scope
-                .tabs, 
+                .tabs,
                 row
             );
         });
@@ -75,7 +85,5 @@ application
     $scope
     .formData = {
     };
-    
-    
     
 });

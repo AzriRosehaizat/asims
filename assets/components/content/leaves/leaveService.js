@@ -49,6 +49,55 @@ application
                             'date:\'yyyy-MM-dd\''
                     }
                 ]
+            },
+            setForm: function( formData, gridData, row ) {
+                formData
+                .model = (
+                    _.cloneDeep(
+                        row.entity
+                    )
+                );
+                
+                formData
+                .isEditing = (
+                    true
+                );
+                
+                formData
+                .title = (
+                    'Regular Staff Details'
+                );
+                
+                formData
+                .inputs = [
+                    {
+                        type: 
+                            "text",
+                        name: 
+                            "firstName",
+                        label: 
+                            "First name",
+                        disabled: 
+                            true
+                    }, {
+                        type: 
+                            "text",
+                        name: 
+                            "lastName",
+                        label: 
+                            "Last name",
+                        disabled: 
+                            true
+                    }
+                ];
+    
+                formService.init( 
+                    formData, 
+                    gridData, 
+                    row, 
+                    'leaveService', 
+                    true
+                );
             }
         };
     }
