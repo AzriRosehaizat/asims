@@ -32,6 +32,7 @@ module.exports = {
 			required: true,
 			size: 10
 		}
-	}
+	},
+	tableName: 'RightToRefusal'
 };
 

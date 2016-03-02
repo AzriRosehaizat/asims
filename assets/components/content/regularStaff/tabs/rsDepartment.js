@@ -9,13 +9,8 @@ application.service('rsDepartment', function($http, _, formService) {
             }
             return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model)
                 .then(function(res) {
-                    return $http.get('/Department/' + res.data.departmentID.departmentID)
-                        .then(function(department) {
-                            res.data.departmentCode = department.data.departmentCode;
-                            res.data.title = department.data.title;
-                            res.data.departmentID = department.data.departmentID;
-                            return res;
-                        });
+                    return $http.get('/regularStaff/getInfo?type=department&id=' + formData.model.academicStaffID +
+                                     '&where=' + res.data.academicStaffDepartmentID);
                 });
         },
         create: function(formData) {
@@ -26,12 +21,8 @@ application.service('rsDepartment', function($http, _, formService) {
 
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
-                    return $http.get('/Department/' + res.data.departmentID)
-                        .then(function(department) {
-                            res.data.departmentCode = department.data.departmentCode;
-                            res.data.title = department.data.title;
-                            return res;
-                        });
+                    return $http.get('/regularStaff/getInfo?type=department&id=' + formData.model.academicStaffID +
+                                     '&where=' + res.data.academicStaffDepartmentID);
                 });
         },
         delete: function(formData) {

@@ -42,7 +42,6 @@ application.service('rankService', function($http, _, formService) {
             formService.init(formData, gridData, null, 'rankService', true);
         },
         initEditForm: function(formData, gridData, row) {
-            console.log(row.entity);
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Rank';
@@ -63,7 +62,7 @@ application.service('rankService', function($http, _, formService) {
             formService.init(formData, gridData, row, 'rankService', true);
         },
         getRow: function(row) {
-            return $http.get('/rank/' + row.entity.rankID);
+            return $http.get('/rank/' + row.entity.rankID + '?populate');
         }
     };
 });

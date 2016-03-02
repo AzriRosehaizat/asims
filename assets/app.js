@@ -10,9 +10,9 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'': {
 						templateUrl: '/views/index/index.html'
 					},
-					'loginModalButton@index': {
-						templateUrl: '/components/loginButton/loginButton.html',
-						controller: 'loginButtonController'
+					'login@index': {
+						templateUrl: '/components/login/login.html',
+						controller: 'loginController'
 					}
 				},
 				data: {
@@ -36,11 +36,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'navRightBar@application': {
 						templateUrl: '/components/navRightBar/navRightBar.html',
 						controller: 'navRightBarController'
-					},
-					// 'toDoList@application': {
-					// 	templateUrl: '/components/toDoList/toDoList.html',
-					// 	controller: 'toDoListController'
-					// }
+					}
 				},
 				resolve: {
 					user: function(CurrentUser) {
@@ -62,6 +58,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'homeHeader@application': {
 						templateUrl: '/components/homeHeader/homeHeader.html',
 						controller: 'homeHeaderController'
+					},
+					'counter@application.root': {
+						templateUrl: '/components/counter/counter.html',
+						controller: 'counterController as ctrl'
 					},
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
@@ -213,16 +213,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.rank': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-					// This Page does not have Related tabs
-					// 'tabset@application.rank': {
-					// 	templateUrl: '/components/tabset/tabset.html',
-					// 	controller: 'tabsetController'
-					// }
+					}
 				},
 				resolve: {
 					ranks: function($http) {
-						return $http.get('/rank');
+						return $http.get('/rank?populate');
 					}
 				},
 				data: {
@@ -247,7 +242,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					researches: function($http) {
-						return $http.get('/research');
+						return $http.get('/research?populate');
 					}
 				},
 				data: {
@@ -264,16 +259,57 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-					// This Page does not have Related tabs
-					// 'tabset@application.sectionOffered': {
-					// 	templateUrl: '/components/tabset/tabset.html',
-					// 	controller: 'tabsetController'
-					// }
+					}
 				},
 				resolve: {
 					sectionOffered: function($http) {
 						return $http.get('Section_Offered/getSectionOffered');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
+			.state('application.section', {
+				url: '/section',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'sectionController'
+					},
+					'grid@application.section': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					}
+				},
+				resolve: {
+					section: function($http) {
+						return $http.get('/Section?populate');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
+			.state('application.faculty', {
+				url: '/faculty',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'facultyController'
+					},
+					'grid@application.faculty': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					'tabset@application.faculty': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController'
+					}
+				},
+				resolve: {
+					faculty: function($http) {
+						return $http.get('/Faculty?populate');
 					}
 				},
 				data: {
@@ -354,7 +390,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			return gridOptions;
 		});
 	})
-	.run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
+	.run(function($rootScope, $state, Auth, formService, SearchHelper) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
 			formService.reset();
@@ -367,7 +403,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				if (shouldLogin) {
 					$state.go('index');
 					event.preventDefault();
-					loginModalService.open();
 					return;
 				}
 
