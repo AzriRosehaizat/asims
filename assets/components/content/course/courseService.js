@@ -24,10 +24,10 @@ application.service('courseService', function($http, $q, _, formService) {
         },
         update: function(formData) {
             if (_.isObject(formData.model.courseID)) {
-                formData.model.courseID = formData.model.courseID.obj.courseID;
+                formData.model.courseID = formData.model.seachText.courseID;
             }
             //Return a flattned object after update
-            return $http.put('/Course/' + formData.model.courseID, formData.model)
+            return $http.put('/Course' + formData.model.courseID, formData.model)
                 .then(function(res) {
                     return $http.get('/Course/getAllCourse/' + res.data.courseID)
                         .then(function(Sect) {
@@ -37,8 +37,8 @@ application.service('courseService', function($http, $q, _, formService) {
         },
         create: function(formData) {
             console.log(formData.model);
-            if (_.isObject(formData.model.courseID)) {
-                formData.model.courseID = formData.model.courseID.obj.courseID;
+            if (_.isObject(formData.model.departmentID)) {
+                formData.model.departmentID = formData.model.searchText.departmentID;
             }
 
             //Return a flattned object after create
@@ -70,7 +70,7 @@ application.service('courseService', function($http, $q, _, formService) {
             formData.title = 'Add Course';
             formData.inputs = [{
                 type: "text",
-                name: "courseID",
+                name: "courseNo",
                 label: "Course No",
                 disabled: false,
                 required: true
@@ -102,10 +102,13 @@ application.service('courseService', function($http, $q, _, formService) {
                 disabled: false,
                 required: false
             }];
+            console.log(formData);
+
 
             formService.init(formData, gridData, null, 'courseService', true);
         },
         initEditForm: function(formData, gridData, row) {
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Course';
@@ -129,6 +132,7 @@ application.service('courseService', function($http, $q, _, formService) {
                 required: false
             }];
 
+            console.log(formData);
             formService.init(formData, gridData, row, 'courseService', true);
         },
       
