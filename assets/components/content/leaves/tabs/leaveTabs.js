@@ -18,7 +18,10 @@ application
                             'Credits',
                         gridOptions: 
                             leaveCredits
-                            .gridOptions( $scope )
+                            .gridOptions( $scope ),
+                        initializeAdd:
+                            leaveCredits
+                            .initAddForm
                     },
                     debits : {
                         title: 

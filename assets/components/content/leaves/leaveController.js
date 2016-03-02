@@ -91,11 +91,36 @@ application
         )
     );
     
+    $scope
+    .selectTab = function( tab ) {
+        $scope
+        .addTabRow = function(){
+            tab
+            .initializeAdd(
+                $scope.formData,
+                tab.gridOptions.data,
+                $scope.row
+            );    
+        };
+    };
+    
+    $scope
+    .selectTab(
+        $scope
+        .tabs[ 
+            Object
+            .keys(
+                $scope
+                .tabs
+            )[0]
+        ]
+    );
     
     $scope
     .formData = {
     };
-
+    
+    
     function modifyRows(){
         $scope
         .gridApi
