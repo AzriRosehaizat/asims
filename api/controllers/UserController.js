@@ -95,7 +95,7 @@ module.exports = require('waterlock').actions.user({
     
     Jwt.findOne({token: token}).exec(function tokenFound(err, jwt) {
       if (err) {
-        return res.negotiate(err);
+        return res.badRequest('Token is not valid');
       }
       if (!jwt) {
         return res.badRequest('Token does not exist.');
