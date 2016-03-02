@@ -29,7 +29,7 @@ application
           type: 'link'
         }, {
           name: 'Research',
-          state: 'application.root',
+          state: 'application.research',
           type: 'link'
         }, {
           name: 'Teaching Activities',
