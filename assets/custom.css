@@ -17,13 +17,6 @@ body {
   overflow-y: scroll;
 }
 
-#rightNavDiv {
-  /*background: #3F51B5;*/
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-
 /* material icons */
 
 .material-icons {
