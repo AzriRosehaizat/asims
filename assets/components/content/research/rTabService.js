@@ -19,7 +19,9 @@ application.service('rTabService', function($http, rGrant, rProfessor) {
                         }, {
                             name: 'Duration',
                             field: 'duration',
-                           
+                        }, {
+                            name: 'Amount',
+                            field: 'amount'
                         }]
                     }
                 },
@@ -38,9 +40,6 @@ application.service('rTabService', function($http, rGrant, rProfessor) {
                         }, {
                             name: 'Load Reduction ID',
                             field: 'loadReductionID'
-                        },{
-                            name: 'Reduction Amount',
-                            field: 'amount'
                         },{
                             name: 'Start Date',
                             field: 'startDate'

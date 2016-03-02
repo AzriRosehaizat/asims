@@ -37,12 +37,6 @@ application.service('rProfessor', function($http, _, formService) {
                 disabled: false,
                 required: false
             }, {
-                type: "text",
-                name: "amount",
-                label: "Reduction Amount",
-                disabled: false,
-                required: false
-            },{
                 type: "date",
                 name: "startDate",
                 label: "Start Date",
