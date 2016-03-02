@@ -111,7 +111,7 @@ module.exports = {
 	*	@param:	function callback - function to call post processing
 	*/
 	
-	getLeaveCredit: function( id, where, callback ) {
+	getLeaveCredits: function( id, where, callback ) {
 		var sql;
 		
 		sql = mysql
@@ -147,7 +147,7 @@ module.exports = {
 	*	@param:	function callback - function to call post processing
 	*/
 	
-	getLeaveDebit: function( id, where, callback ) {
+	getLeaveDebits: function( id, where, callback ) {
 		var sql;
 		
 		sql = mysql

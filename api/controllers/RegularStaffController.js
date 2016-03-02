@@ -143,17 +143,17 @@ module.exports = {
 			case 'employment':
 				RegularStaffService.getEmployment(data.id, data.where, responseFn);
 				break;
-			case 'leaveCredit':
+			case 'leaveCredits':
 				RegularStaffService
-				.getLeaveCredit( 
+				.getLeaveCredits( 
 					data.id, 
 					data.where, 
 					responseFn 
 				);
 				break;
-			case 'leaveDebit':
+			case 'leaveDebits':
 				RegularStaffService
-				.getLeaveDebit( 
+				.getLeaveDebits( 
 					data.id, 
 					data.where, 
 					responseFn 
