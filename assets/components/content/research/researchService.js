@@ -1,11 +1,8 @@
-application.service('researchService', function($http, $q, _, formService) {
+application.service('researchService', function($http, formService) {
 
     return {
         gridOptions: function() {
             return {
-                multiSelect: false,
-                enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
                 columnDefs: [{
                     name: 'Title',
                     field: 'title'

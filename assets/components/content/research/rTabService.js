@@ -6,9 +6,6 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 grant: {
                     title: 'Grant',
                     gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'Granting Agency',
                             field: 'grantingAgency'
@@ -28,9 +25,6 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 staff: {
                     title: 'Staff',
                     gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
                             name: 'First Name',
                             field: 'firstName'
@@ -55,7 +49,7 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 case 'Grant':
                     rGrant.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'staff':
+                case 'Staff':
                     rStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
@@ -65,7 +59,7 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 case 'Grant':
                     rGrant.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'staff':
+                case 'Staff':
                     rStaff.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }
