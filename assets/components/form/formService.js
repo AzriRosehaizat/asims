@@ -1,4 +1,4 @@
-application.service('formService', function($injector, $mdDialog, $mdSidenav, _, toaster, moment) {
+application.service('formService', function($injector, $mdDialog, $mdSidenav, _, toaster, moment, navRightBarService) {
 
     this.formData;
     var grid, row, service;
