@@ -23,6 +23,15 @@ application.service('toaster', function($mdToast) {
         },
         error: function(err) {
             var text = (err.message) ? (err.message) : "You cannot perform this operation at the moment";
+            
+            // var text;
+            // if (err.message) {
+            //     text = (err.message);
+            // } else if (err.error) {
+            //     text = (err.error);
+            // } else {
+            //     text = "Error occurred. Operation cannot be performed at the moment";
+            // }
 
             this.open("error_outline", text);
         }
