@@ -10,9 +10,9 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'': {
 						templateUrl: '/views/index/index.html'
 					},
-					'loginModalButton@index': {
-						templateUrl: '/components/loginButton/loginButton.html',
-						controller: 'loginButtonController'
+					'login@index': {
+						templateUrl: '/components/login/login.html',
+						controller: 'loginController'
 					}
 				},
 				data: {
@@ -58,6 +58,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'homeHeader@application': {
 						templateUrl: '/components/homeHeader/homeHeader.html',
 						controller: 'homeHeaderController'
+					},
+					'counter@application.root': {
+						templateUrl: '/components/counter/counter.html',
+						controller: 'counterController as ctrl'
 					},
 					'toDoList@application.root': {
 						templateUrl: '/components/toDoList/toDoList.html',
@@ -260,8 +264,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-				
+					}
 				},
 				resolve: {
 					sectionOffered: function($http) {
@@ -393,7 +396,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			return gridOptions;
 		});
 	})
-	.run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
+	.run(function($rootScope, $state, Auth, formService, SearchHelper) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
 			formService.reset();
@@ -406,7 +409,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				if (shouldLogin) {
 					$state.go('index');
 					event.preventDefault();
-					loginModalService.open();
 					return;
 				}
 
