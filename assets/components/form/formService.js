@@ -26,11 +26,19 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
     };
 
     this.submit = function(formData) {
-        if (formData.isEditing) {
-            this.update(row, formData);
+        var startDate = formData.model.startDate;
+        var endDate = formData.model.endDate;
+
+        if (endDate < startDate) {
+            toaster.warning("Start Date has to be greater than End Date");
         }
         else {
-            this.create(grid, formData);
+            if (formData.isEditing) {
+                this.update(row, formData);
+            }
+            else {
+                this.create(grid, formData);
+            }
         }
     };
 
@@ -39,7 +47,7 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
 
         service.update(formData)
             .then(function(res) {
-                if (_.isArray(res.data)) 
+                if (_.isArray(res.data))
                     res.data = res.data[0];
                 _.merge(row.entity, res.data);
                 updateMainRow();
@@ -55,10 +63,10 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
 
     this.create = function(grid, formData) {
         formData.mode = 'indeterminate';
-        
+
         service.create(formData)
             .then(function(res) {
-                if (_.isArray(res.data)) 
+                if (_.isArray(res.data))
                     res.data = res.data[0];
                 grid.unshift(res.data);
                 updateMainRow();
@@ -103,7 +111,7 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
                 .then(function(res) {
                     grid.splice(index, 1);
                     updateMainRow();
-                    
+
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
                     resetValidation(formData);
@@ -145,7 +153,7 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
         $mdSidenav('right').then(function(instance) {
             if (!instance.isLockedOpen()) {
                 // It's used in navRightBarController to change its z-index
-                self.formData.isLockedOpen = false;  
+                self.formData.isLockedOpen = false;
                 instance.toggle().then(function() {});
             }
             else {
