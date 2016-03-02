@@ -23,20 +23,20 @@ application.controller('navRightBarController', function($scope, $state, $http, 
         acService.changeValue($scope.fs.formData, change);
     };
 
-    /* For ng-disabled */
-    $scope.isObject = function(value) {
-        var modelAttr = $scope.fs.formData.model[value];
-        return _.isObject(modelAttr);
-    };
-
     /* Currently not working */
     $scope.changeState = function(link) {
         console.log("change state to " + link);
         $state.go(link);
     };
 
+    /* For ng-disabled */
+    $scope.isObject = function(value) {
+        var modelAttr = $scope.fs.formData.model[value];
+        return _.isObject(modelAttr);
+    };
+
     /* navRightBar related */
-    // using ng-style to change its css
+    // using ng-style to change its style
     $scope.style = changeStyle();
 
     function changeStyle() {
