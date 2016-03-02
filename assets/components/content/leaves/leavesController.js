@@ -8,7 +8,8 @@ application
     function( 
         $scope, 
         staff, 
-        leavesService, 
+        leavesService,
+        leavesTabs,
         SearchHelper, 
         toaster
     ){
@@ -32,5 +33,11 @@ application
     $scope
     .formData = {
     };
+    
+    $scope
+    .tabs = (
+        leavesTabs
+        .tabs
+    );
     
 });

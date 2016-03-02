@@ -7,8 +7,8 @@ application
     'leavesTabs', 
     function(
         $http, 
-        leaveCredits,
-        leaveDebits
+        leavesCredits,
+        leavesDebits
     ){
         return {
             tabs : {
@@ -16,14 +16,14 @@ application
                     title: 
                         'Credits',
                     gridOptions: 
-                        leaveCredits
+                        leavesCredits
                         .gridOptions
                 },
                 debits : {
                     title: 
                         'Debits',
                     gridOptions: 
-                        leaveDebits
+                        leavesDebits
                         .gridOptions
                 }
             }
