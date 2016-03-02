@@ -654,7 +654,7 @@ CREATE TABLE IF NOT `Overload` (
   `FCEValue` FLOAT NULL DEFAULT 0.5,
   `amount` DECIMAL(10,2) NULL DEFAULT 0.00,
   PRIMARY KEY (`overloadID`),
-  INDEX `overload_ibfk_1_idx` (`teachingActivitiesID` ASC),
+  INDEX `teachingActivitiesID` (`teachingActivitiesID` ASC),
   CONSTRAINT `Overload_ibfk_1`
     FOREIGN KEY (`teachingActivitiesID`)
     REFERENCES `TeachingActivities` (`teachingActivitiesID`))
