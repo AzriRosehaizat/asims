@@ -9,24 +9,20 @@ application.service('rsRank', function($http, _, formService) {
             }
             return $http.put('/regularStaff_Rank/' + formData.model.regularStaffRankID, formData.model)
                 .then(function(res) {
-                    res.data.title = res.data.rankID.title;
-                    res.data.rankID = res.data.rankID.rankID;
-                    return res;
+                    return $http.get('/regularStaff/getInfo?type=rank&id=' + formData.model.academicStaffID +
+                                     '&where=' + res.data.regularStaffRankID);
                 });
         },
         create: function(formData) {
             if (_.isObject(formData.model.title)) {
                 formData.model.rankID = formData.model.title.obj.rankID;
             }
+            formData.model.academicStaffID = mainRow.entity.academicStaffID;
             formData.model.regularStaffID = mainRow.entity.regularStaffID;
-
             return $http.post('/regularStaff_Rank', formData.model)
                 .then(function(res) {
-                    return $http.get('/rank/' + res.data.rankID)
-                        .then(function(rank) {
-                            res.data.title = rank.data.title;
-                            return res;
-                        });
+                    return $http.get('/regularStaff/getInfo?type=rank&id=' + formData.model.academicStaffID +
+                                     '&where=' + res.data.regularStaffRankID);
                 });
         },
         delete: function(formData) {

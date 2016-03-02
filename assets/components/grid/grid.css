@@ -1,6 +1,7 @@
 #grid md-toolbar {
   border-top-left-radius: 0.1em;
   border-top-right-radius: 0.1em;
+  height: 64px;
 }
 
 .grid {

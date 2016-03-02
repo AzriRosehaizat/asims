@@ -54,7 +54,7 @@ md-autocomplete > md-autocomplete-wrap > md-progress-linear {
 }
 
 
-/*delete button*/
+/*Delete button*/
 
 .md-icon-button.md-warn.md-hue-2 {
     margin-top: 4px;
@@ -64,3 +64,28 @@ md-autocomplete > md-autocomplete-wrap > md-progress-linear {
     margin: 0 0 6px 0;
 }
 
+
+/*Custom autocomplete*/
+
+.autocomplete-custom-template li {
+    border-bottom: 1px solid #ccc;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    white-space: normal;
+}
+
+.autocomplete-custom-template li:last-child {
+    border-bottom-width: 0;
+}
+
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
+    display: block;
+    line-height: 2;
+}
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    height: 200px !important;
+    max-height: 200px !important;
+}

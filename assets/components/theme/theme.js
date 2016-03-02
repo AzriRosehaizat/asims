@@ -5,16 +5,9 @@ application.config(function($mdThemingProvider) {
         .warnPalette('red', {
             'hue-2': '900'
         })
-        .accentPalette('indigo')
+        .accentPalette('blue-grey')
         .backgroundPalette('grey');
 
     $mdThemingProvider.theme('dark')
         .dark();
-
-    var lightGreyMap = $mdThemingProvider.extendPalette('grey', {
-        '800': '#494949'
-    });
-    $mdThemingProvider.definePalette('lightGrey', lightGreyMap);
-    $mdThemingProvider.theme('light-grey')
-        .primaryPalette('lightGrey');
 });

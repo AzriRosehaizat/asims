@@ -18,9 +18,15 @@ application.service('toaster', function($mdToast) {
         info: function(text) {
             this.open("info_outline", text);
         },
+        warning: function(text) {
+            this.open("warning", text);
+        },
+        loginError: function(err) {
+            var text =(err.error) ? "Username or Password is Invalid" : "Error occurred. Operation cannot be performed at the moment";
+            this.open("error_outline", text);
+        },
         error: function(err) {
-            var text = (err.message) ? (err.message) : "You cannot perform this operation at the moment";
-
+            var text = (err.message) ? (err.message) : "Error occurred. Operation cannot be performed at the moment";
             this.open("error_outline", text);
         }
     };
