@@ -24,7 +24,6 @@ module.exports = {
 		},
 		amount: {
 			type: 'float',
-			size: '10,2',
 			required: false
 		},
 	},

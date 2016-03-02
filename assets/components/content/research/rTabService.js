@@ -15,7 +15,7 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                         }, {
                             name: 'Date Awarded',
                             field: 'dateAwarded',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'Duration',
                             field: 'duration',
@@ -39,10 +39,12 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                             field: 'lastName'
                         }, {
                             name: 'Start Date',
-                            field: 'startDate'
+                            field: 'startDate',
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
-                            field: 'endDate'
+                            field: 'endDate',
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 }

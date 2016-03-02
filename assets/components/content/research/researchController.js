@@ -44,7 +44,7 @@ application.controller('researchController', function($scope, researches, resear
         });
     };
     
-    $scope.tabs.professor.gridOptions.onRegisterApi = function(gridApi) {
+    $scope.tabs.staff.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             rTabService.initEditForm($scope.formData, $scope.tab, row);

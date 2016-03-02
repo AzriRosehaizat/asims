@@ -44,7 +44,7 @@ application.service('rStaff', function($http, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, null, 'rStaff', true);
+            formService.init(formData, gridData, null, 'rStaff', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
