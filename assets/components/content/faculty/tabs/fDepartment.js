@@ -6,13 +6,11 @@ application.service('fDepartment', function($http, $q, _, formService) {
         update: function(formData) {
             //read only
         },
-            
         create: function(formData) {
             //read only
         },
         delete: function(formData) {
             //read only
-            return $q.when(true);
         },
         initAddForm: function(formData, gridData, mRow) {
             //mainRow = mRow;
@@ -24,22 +22,19 @@ application.service('fDepartment', function($http, $q, _, formService) {
                 type: "text",
                 name: "departmentCode",
                 label: "Department Code",
-                disabled: true,
-                required: true
+                readonly: true
             },{
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             },{
                 type: "text",
                 name: "description",
                 label: "Description",
-                disabled: true,
-                required: true
+                readonly: true
             }];
-
+            
             formService.init(formData, gridData, null, 'fDepartment', false);
         },
         initEditForm: function(formData, gridData, row) {
@@ -51,22 +46,19 @@ application.service('fDepartment', function($http, $q, _, formService) {
                 type: "text",
                 name: "departmentCode",
                 label: "Department Code",
-                disabled: true,
-                required: true
+                readonly: true
             },{
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             },{
                 type: "text",
                 name: "description",
                 label: "Description",
-                disabled: true,
-                required: true
+                readonly: true
             }];
-
+            
             formService.init(formData, gridData, row, 'fDepartment', false);
         },
     };

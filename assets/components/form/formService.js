@@ -2,13 +2,15 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     var self = this;
     self.formData = {};
+    self.readOnly = false;
+
     var grid, row, service;
     var mainRow, mainService, isMain;
 
     self.init = function(formData, gridData, rowData, serviceName, main) {
         // Toggle right nav-bar after current form is initialized.
-        if (!_.isEmpty(self.formData)) 
-            navRightBarService.toggle(formData);
+        if (!_.isEmpty(self.formData)) navRightBarService.toggle(formData);
+        self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
 
         self.formData = formData;
         grid = gridData;
@@ -85,7 +87,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     self.cancel = function(formData) {
         navRightBarService.toggle(formData);
-        
+
         if (formData.isEditing) {
             _.merge(formData.model, row.entity);
         }
