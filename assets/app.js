@@ -390,7 +390,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			return gridOptions;
 		});
 	})
-	.run(function($rootScope, $state, loginModalService, Auth, formService, SearchHelper) {
+	.run(function($rootScope, $state, Auth, formService, SearchHelper) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
 			formService.reset();
@@ -403,7 +403,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				if (shouldLogin) {
 					$state.go('index');
 					event.preventDefault();
-					loginModalService.open();
 					return;
 				}
 
