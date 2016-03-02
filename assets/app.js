@@ -242,7 +242,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				},
 				resolve: {
 					researches: function($http) {
-						return $http.get('/research');
+						return $http.get('/research?populate');
 					}
 				},
 				data: {
