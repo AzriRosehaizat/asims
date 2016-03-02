@@ -8,7 +8,8 @@ application
     function(
         $http, 
         _, 
-        formService
+        formService,
+        $q
     ){
         return {
             gridOptions : {
@@ -39,8 +40,10 @@ application
             setForm: function( formData, gridData, row ) {
                 formData
                 .model = (
-                    _.cloneDeep(
-                        row.entity
+                    _
+                    .cloneDeep(
+                        row
+                        .entity
                     )
                 );
                 
@@ -84,6 +87,17 @@ application
                     row, 
                     'leaveService', 
                     true
+                );
+            },
+            getRow: function( row ) {
+                return $q
+                .resolve(
+                    {
+                        data: [
+                            row
+                            .entity
+                        ]
+                    } 
                 );
             }
         };
