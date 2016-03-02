@@ -11,9 +11,9 @@ application
         state: 'application.root',
         type: 'link'
       }];
-
+      
       sections.push({
-        name: 'Application',
+        name: 'Staff Management',
         type: 'toggle',
         pages: [{
           name: 'Regular Staff',
@@ -24,32 +24,45 @@ application
           state: 'application.contractStaff',
           type: 'link'
         }, {
-          name: 'Department',
-          state: 'application.department',
+          name: 'Leave',
+          state: 'application.root',
           type: 'link'
         }, {
-          name: 'Course',
-          state: 'application.course',
+          name: 'Research',
+          state: 'application.root',
+          type: 'link'
+        }, {
+          name: 'Teaching Activities',
+          state: 'application.root',
+          type: 'link'
+        }]
+      });
+      sections.push({
+        name: 'Organization Management',
+        type: 'toggle',
+        pages: [{
+          name: 'Faculty',
+          type: 'link',
+          state: 'application.faculty'
+        }, {
+          name: 'Department',
+          state: 'application.department',
           type: 'link'
         }, {
           name: 'Rank',
           state: 'application.rank',
           type: 'link'
         }, {
-          name: 'Section Offered',
-          state: 'application.sectionOffered',
+          name: 'Course',
+          state: 'application.course',
           type: 'link'
         }, {
           name: 'Section',
           state: 'application.section',
           type: 'link'
         }, {
-          name: 'Research',
-          state: 'application.research',
-          type: 'link'
-        }, {
-          name: 'Faculty',
-          state: 'application.faculty',
+          name: 'Section Offered',
+          state: 'application.sectionOffered',
           type: 'link'
         }]
       });

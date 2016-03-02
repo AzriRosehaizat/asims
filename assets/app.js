@@ -213,16 +213,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.rank': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-					// This Page does not have Related tabs
-					// 'tabset@application.rank': {
-					// 	templateUrl: '/components/tabset/tabset.html',
-					// 	controller: 'tabsetController'
-					// }
+					}
 				},
 				resolve: {
 					ranks: function($http) {
-						return $http.get('/rank');
+						return $http.get('/rank?populate');
 					}
 				},
 				data: {
@@ -285,8 +280,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					'grid@application.section': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController'
-					},
-				
+					}
 				},
 				resolve: {
 					section: function($http) {

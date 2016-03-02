@@ -8,7 +8,7 @@ application.service('loginService', function($state, Auth, toaster) {
                     toaster.done("Welcome!");
                     $state.go("application.root");
                 }, function(err) {
-                    toaster.error(err);
+                    toaster.loginError(err);
                 })
                 .finally(function(notice) {
                     formData.mode = '';
