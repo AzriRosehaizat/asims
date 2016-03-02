@@ -58,12 +58,6 @@ application
             )
             .then( 
                 function( res ) {
-                    console
-                    .log(
-                        res
-                        .data
-                    );
-                    
                     creditsTab
                     .gridOptions
                     .data = (
