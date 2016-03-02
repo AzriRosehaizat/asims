@@ -327,7 +327,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				views: {
 					'': {
 						templateUrl: '/components/content/content.html',
-						controller: 'leavesController'
+						controller: 'leaveController'
 					},
 					'grid@application.leaves': {
 						templateUrl: '/components/grid/grid.html',
