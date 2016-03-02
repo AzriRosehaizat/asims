@@ -33,20 +33,6 @@ application
                             'Rank',
                         field: 
                             'Rank'
-                    }, {
-                        name: 
-                            'Tenure Date',
-                        field: 
-                            'tenureDate',
-                        cellFilter: 
-                            'date:\'yyyy-MM-dd\''
-                    }, {
-                        name: 
-                            'Cont\' appointment date',
-                        field: 
-                            'contAppDate',
-                        cellFilter: 
-                            'date:\'yyyy-MM-dd\''
                     }
                 ]
             },

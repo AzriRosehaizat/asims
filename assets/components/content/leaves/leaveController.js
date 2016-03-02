@@ -33,6 +33,11 @@ application
     $scope
     .gridOptions
     .onRegisterApi = function( gridApi ) {
+        $scope
+        .gridApi = (
+            gridApi
+        );
+        
         gridApi
         .selection
         .on
@@ -64,6 +69,14 @@ application
                 row
             );
         });
+        
+        modifyRows();
+        
+        selectRow( 
+            $scope
+            .gridOptions
+            .data[0]
+        );
     };
     
     SearchHelper
@@ -85,5 +98,24 @@ application
     $scope
     .formData = {
     };
-    
+
+    function modifyRows(){
+        $scope
+        .gridApi
+        .grid
+        .modifyRows( 
+            $scope
+            .gridOptions
+            .data 
+        );
+    }
+
+    function selectRow( row ){
+        $scope  
+        .gridApi
+        .selection
+        .selectRow( 
+            row 
+        );
+    }    
 });
