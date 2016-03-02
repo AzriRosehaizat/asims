@@ -18,6 +18,9 @@ application.service('toaster', function($mdToast) {
         info: function(text) {
             this.open("info_outline", text);
         },
+        warning: function(text) {
+            this.open("warning", text);
+        },
         error: function(err) {
             var text = (err.message) ? (err.message) : "You cannot perform this operation at the moment";
 
