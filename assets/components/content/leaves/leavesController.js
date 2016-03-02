@@ -31,13 +31,51 @@ application
     );
     
     $scope
-    .formData = {
+    .gridOptions
+    .onRegisterApi = function( gridApi ) {
+        gridApi
+        .selection
+        .on
+        .rowSelectionChanged( $scope, function( row ) {
+            $scope
+            .row = (
+                row
+            );
+            
+            $scope
+            .tabRow = (
+                null
+            );
+            
+            leavesTabs
+            .getTabs(
+                $scope
+                .tabs, 
+                row
+            );
+        });
     };
+    
+    SearchHelper
+    .init(
+        $scope
+        .gridOptions, 
+        $scope
+        .gridOptions
+        .data
+    );
     
     $scope
     .tabs = (
         leavesTabs
         .tabs
     );
+    
+    
+    $scope
+    .formData = {
+    };
+    
+    
     
 });
