@@ -41,9 +41,9 @@ application.service('rGrant', function($http, _, formService) {
                 disabled: false,
                 required: false
             }, {
-                type: "text",
+                type: "number",
                 name: "amount",
-                label: "Amount",
+                label: "Amount (CAD)",
                 disabled: false,
                 required: false
             }];
@@ -75,9 +75,9 @@ application.service('rGrant', function($http, _, formService) {
                 disabled: false,
                 required: false
             }, {
-                type: "text",
+                type: "number",
                 name: "amount",
-                label: "Amount",
+                label: "Amount (CAD)",
                 disabled: false,
                 required: false
             }];

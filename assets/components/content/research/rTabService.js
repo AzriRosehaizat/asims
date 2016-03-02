@@ -1,4 +1,4 @@
-application.service('rTabService', function($http, rGrant, rProfessor) {
+application.service('rTabService', function($http, rGrant, rStaff) {
 
     return {
         tabs: function() {
@@ -25,24 +25,24 @@ application.service('rTabService', function($http, rGrant, rProfessor) {
                         }]
                     }
                 },
-                professor: {
-                    title: 'Professor',
+                staff: {
+                    title: 'Staff',
                     gridOptions: {
                         multiSelect: false,
                         enableRowHeaderSelection: false,
                         enableHorizontalScrollbar: 0,
                         columnDefs: [{
-                            name: 'Research ID',
-                            field: 'researchID',
+                            name: 'First Name',
+                            field: 'firstName'
                         }, {
-                            name: 'Staff ID',
-                            field: 'regularStaffID'
+                            name: 'Last Name',
+                            field: 'lastName'
                         }, {
-                            name: 'Load Reduction ID',
-                            field: 'loadReductionID'
-                        },{
                             name: 'Start Date',
                             field: 'startDate'
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate'
                         }]
                     }
                 }
@@ -53,8 +53,8 @@ application.service('rTabService', function($http, rGrant, rProfessor) {
                 case 'Grant':
                     rGrant.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Professor':
-                    rProfessor.initAddForm(formData, tab.gridOptions.data, mainRow);
+                case 'staff':
+                    rStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
         },
@@ -63,14 +63,14 @@ application.service('rTabService', function($http, rGrant, rProfessor) {
                 case 'Grant':
                     rGrant.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Professor':
-                    rProfessor.initEditForm(formData, tab.gridOptions.data, row);
+                case 'staff':
+                    rStaff.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }
         },
         getTabs: function(tabs, row) {
             this.getGrant(tabs.grant, row);
-            this.getProfessor(tabs.professor, row);
+            this.getStaff(tabs.staff, row);
         },
         getGrant: function(grant, row) {
             $http.get('/Research/' + row.entity.researchID)
@@ -78,10 +78,10 @@ application.service('rTabService', function($http, rGrant, rProfessor) {
                     grant.gridOptions.data = res.data.ResearchGrant;
                 });
         },
-        getProfessor: function(professor, row) {
+        getStaff: function(staff, row) {
             $http.get('/Research/' + row.entity.researchID)
                 .then(function(res) {
-                    professor.gridOptions.data = res.data.RegularStaff_Research;
+                    staff.gridOptions.data = res.data.RegularStaff_Research;
                 });
         }
     };
