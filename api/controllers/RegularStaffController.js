@@ -1,3 +1,9 @@
+/*global 
+	AcademicStaff 
+	RegularStaff 
+	RegularStaffService 
+*/
+
 /**
  * RegularStaffController
  *
@@ -136,9 +142,17 @@ module.exports = {
 			case 'employment':
 				RegularStaffService.getEmployment(data.id, data.where, responseFn);
 				break;
-			case 'leave':
-				//code
+			case 'leaveCredit':
+				
+				RegularStaffService
+				.getLeaveCredit( 
+					data.id, 
+					data.where, 
+					responseFn 
+				);
+				
 				break;
+			
 			default:
 				res.serverError();
 				console.log("Incorrect REST url");
