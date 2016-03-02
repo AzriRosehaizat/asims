@@ -24,16 +24,13 @@ application.service('researchService', function($http, $q, _, formService) {
             };
         },
         update: function(formData) {
-            console.log("update");
-            return $q.when(true);
+            return $http.put('/research/' + formData.model.researchID, formData.model);
         },
         create: function(formData) {
-            console.log("create");
-            return $q.when(true);
+            return $http.post('/research/', formData.model);
         },
-        delete: function(formData) {
-            console.log("delete");
-            return $q.when(true);
+        delete: function(formData) { 
+            return $http.delete('/research/' + formData.model.researchID);
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -103,8 +100,7 @@ application.service('researchService', function($http, $q, _, formService) {
             formService.init(formData, gridData, row, 'researchService', true);
         },
         getRow: function(row) {
-            console.log("researchService: getRow");
-            return $q.when(true);
+            return $http.get('/research/' + row.entity.researchID + '?populate');
         }
     };
 });
