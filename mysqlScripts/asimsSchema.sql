@@ -620,7 +620,6 @@ CREATE TABLE IF NOT EXISTS `StaffLeave` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-
 -- -----------------------------------------------------
 -- Table `TeachingActivities`
 -- -----------------------------------------------------
@@ -641,6 +640,24 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   CONSTRAINT `TeachingActivities_ibfk_1`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+-- -----------------------------------------------------
+-- Table `Overload`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Overload` ;
+
+CREATE TABLE IF NOT `Overload` (
+  `overloadID` INT(11) NOT NULL,
+  `teachingActivitiesID` INT(11) NOT NULL,
+  `FCEValue` FLOAT NULL DEFAULT 0.5,
+  `amount` DECIMAL(10,2) NULL DEFAULT 0.00,
+  PRIMARY KEY (`overloadID`),
+  INDEX `overload_ibfk_1_idx` (`teachingActivitiesID` ASC),
+  CONSTRAINT `Overload_ibfk_1`
+    FOREIGN KEY (`teachingActivitiesID`)
+    REFERENCES `TeachingActivities` (`teachingActivitiesID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
