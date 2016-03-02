@@ -4,12 +4,12 @@
 
 application
 .controller(
-    'leavesController', 
+    'leaveController', 
     function( 
         $scope, 
         staff, 
-        leavesService,
-        leavesTabs,
+        leaveService,
+        leaveTabs,
         SearchHelper, 
         toaster
     ){
@@ -19,7 +19,7 @@ application
     
     $scope
     .gridOptions = (
-        leavesService
+        leaveService
         .gridOptions
     );
     
@@ -47,8 +47,8 @@ application
                 null
             );
             
-            leavesTabs
-            .getTabs(
+            leaveTabs
+            .initializeTabs(
                 $scope
                 .tabs, 
                 row
@@ -67,7 +67,7 @@ application
     
     $scope
     .tabs = (
-        leavesTabs
+        leaveTabs
         .tabs
     );
     

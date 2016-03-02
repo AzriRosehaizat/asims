@@ -4,7 +4,7 @@
 
 application
 .service(
-    'leavesService', 
+    'leaveService', 
     function(
         $http, 
         _, 

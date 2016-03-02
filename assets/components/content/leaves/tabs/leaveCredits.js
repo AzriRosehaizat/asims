@@ -4,7 +4,7 @@
 
 application
 .service(
-    'leavesDebits', 
+    'leaveCredits', 
     function(
         $http, 
         _, 
