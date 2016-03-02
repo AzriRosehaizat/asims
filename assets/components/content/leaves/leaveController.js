@@ -47,11 +47,6 @@ application
                 row
             );
             
-            $scope
-            .tabRow = (
-                null
-            );
-            
             leaveService
             .setForm(
                 $scope
@@ -91,7 +86,9 @@ application
     $scope
     .tabs = (
         leaveTabs
-        .tabs
+        .tabs(
+            $scope
+        )
     );
     
     
