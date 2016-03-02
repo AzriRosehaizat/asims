@@ -60,7 +60,7 @@ module.exports = require('waterlock').actions.user({
         return res.negotiate(err);
       }
       if (!users[0]) {
-        return res.badRequest('User does not exist.');
+        return res.badRequest({message: "User does not exist."});
       }
       var user = users[0];
 
@@ -95,10 +95,10 @@ module.exports = require('waterlock').actions.user({
     
     Jwt.findOne({token: token}).exec(function tokenFound(err, jwt) {
       if (err) {
-        return res.badRequest('Token is not valid');
+        res.negotiate(err);
       }
       if (!jwt) {
-        return res.badRequest('Token does not exist.');
+        return res.badRequest({message: "Please log in again."});
       }
       
       User.findOne({id: jwt.owner}).populate('role').exec(function userFound(err, user) {
@@ -106,7 +106,7 @@ module.exports = require('waterlock').actions.user({
           return res.negotiate(err);
         }
         if (!user) {
-          return res.badRequest('User does not exist.');
+          return res.badRequest({message: "User does not exist."});
         }
         
         res.json(user);
