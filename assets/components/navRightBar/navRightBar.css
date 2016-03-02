@@ -1,6 +1,8 @@
 #navbar-right {
     /*z-index of backdrop is 59*/
     z-index: 58;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #rightNavTitle {

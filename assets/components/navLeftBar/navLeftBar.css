@@ -1,34 +1,11 @@
-/* Styles go here */
-
-#navbar-left .nav-header a {
-    text-decoration: none;
-}
-
-#navbar-left .nav-header .logo .logo-image {
-    display: block;
-    background: #3F51B5;
-    width: 40px;
-    min-width: 32px;
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
-    color: #FFF;
-    border-radius: 2px;
-}
-
-#navbar-left .nav-header .logo .logo-text {
-    color: #FFF;
-    margin-left: 16px;
-    font-size: 16px;
-}
-
-
-md-sidenav {
+#navbar-left {
   overflow: visible;
-  
 }
+
+.nav-header .title {
+  margin-left: 16px;
+}
+
 .side-menu, .side-menu ul {
   list-style: none;
   padding: 0;
@@ -96,7 +73,6 @@ md-sidenav {
 }
 
 .menu-toggle-list {
-  background: #fff;
   max-height: 1300px;
   overflow: hidden;
   position: relative;
