@@ -103,6 +103,7 @@ module.exports = {
 		});
 	},
 	
+	
 	/***************************************************************************
 	*	@desc:	Gets related leave credits from the LeaveCredit table
 	*	@param:	string id - regularStaffID to get
@@ -130,10 +131,40 @@ module.exports = {
 			)
 		);
 		
-		console
-		.log(
+		LeaveCredit
+		.query(
 			sql
-			.toString()
+			.toString(),
+			callback
+		);
+	},
+	
+	
+	/***************************************************************************
+	*	@desc:	Gets related leave debits from the LeaveDebit table
+	*	@param:	string id - regularStaffID to get
+	*	@param:	string where - additional where criteria to filter on (optional)
+	*	@param:	function callback - function to call post processing
+	*/
+	
+	getLeaveDebit: function( id, where, callback ) {
+		var sql;
+		
+		sql = mysql
+		.select(
+			'*'
+		)
+		.from(
+			'LeaveDebit'
+		)
+		.where(
+			Object
+			.assign(
+				{
+					regularStaffID : id
+				},
+				where || {}
+			)
 		);
 		
 		LeaveCredit

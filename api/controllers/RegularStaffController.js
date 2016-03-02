@@ -134,6 +134,7 @@ module.exports = {
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
 				break;
 			case 'department':
+				
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
 			case 'rank':
@@ -143,16 +144,21 @@ module.exports = {
 				RegularStaffService.getEmployment(data.id, data.where, responseFn);
 				break;
 			case 'leaveCredit':
-				
 				RegularStaffService
 				.getLeaveCredit( 
 					data.id, 
 					data.where, 
 					responseFn 
 				);
-				
 				break;
-			
+			case 'leaveDebit':
+				RegularStaffService
+				.getLeaveDebit( 
+					data.id, 
+					data.where, 
+					responseFn 
+				);
+				break;
 			default:
 				res.serverError();
 				console.log("Incorrect REST url");
