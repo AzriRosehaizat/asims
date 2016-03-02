@@ -40,6 +40,12 @@ application.service('rGrant', function($http, _, formService) {
                 label: "Duration",
                 disabled: false,
                 required: false
+            }, {
+                type: "text",
+                name: "amount",
+                label: "Amount",
+                disabled: false,
+                required: false
             }];
 
             formService.init(formData, gridData, null, 'rGrant', false);
@@ -66,6 +72,12 @@ application.service('rGrant', function($http, _, formService) {
                 type: "text",
                 name: "duration",
                 label: "Duration",
+                disabled: false,
+                required: false
+            }, {
+                type: "text",
+                name: "amount",
+                label: "Amount",
                 disabled: false,
                 required: false
             }];
