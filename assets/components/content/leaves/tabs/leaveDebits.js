@@ -10,31 +10,36 @@ application
         _, 
         formService
     ){
-        return {
-            gridOptions : {
-                columnDefs: [
-                    {
-                        name: 
-                            'Amount',
-                        field: 
-                            'amount'
-                    }, {
-                        name: 
-                            'Date Issued',
-                        field: 
-                            'dateIssued'
-                    }, {
-                        name: 
-                            'Description',
-                        field: 
-                            'description'
-                    }, {
-                        name: 
-                            'Type',
-                        field: 
-                            'leaveDebitType'
+         return {
+            gridOptions : function ( $scope ){
+                return {
+                    columnDefs: [
+                        {
+                            name: 
+                                'Amount',
+                            field: 
+                                'amount'
+                        }, {
+                            name: 
+                                'Date Issued',
+                            field: 
+                                'dateIssued'
+                        }, {
+                            name: 
+                                'Description',
+                            field: 
+                                'description'
+                        }, {
+                            name: 
+                                'Type',
+                            field: 
+                                'leaveDebitType'
+                        }
+                    ],
+                    onRegisterApi : function( gridApi ){
+                        
                     }
-                ]
+                };
             }
         };
     }

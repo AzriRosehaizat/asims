@@ -11,21 +11,23 @@ application
         leaveDebits
     ){
         return {
-            tabs : {
-                credits : {
-                    title: 
-                        'Credits',
-                    gridOptions: 
-                        leaveCredits
-                        .gridOptions
-                },
-                debits : {
-                    title: 
-                        'Debits',
-                    gridOptions: 
-                        leaveDebits
-                        .gridOptions
-                }
+            tabs : function( $scope ){
+                return {
+                    credits : {
+                        title: 
+                            'Credits',
+                        gridOptions: 
+                            leaveCredits
+                            .gridOptions( $scope )
+                    },
+                    debits : {
+                        title: 
+                            'Debits',
+                        gridOptions: 
+                            leaveDebits
+                            .gridOptions( $scope )
+                    }  
+                };
             },
             initializeTabs : function( tabs, row ){
                 var academicStaffID; 

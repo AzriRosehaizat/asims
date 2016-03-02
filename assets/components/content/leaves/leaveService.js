@@ -77,7 +77,8 @@ application
                     }
                 ];
     
-                formService.init( 
+                formService
+                .init( 
                     formData, 
                     gridData, 
                     row, 
