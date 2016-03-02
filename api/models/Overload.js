@@ -8,32 +8,24 @@
 module.exports = {
 
 	attributes: {
-		teachingActivitiesID: {
+		overloadID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
 			index: true
 		},
-		academicStaffID: {
-			model: 'AcademicStaff',
-			required: true
-		},
-		sectionOfferedID: {
-			model: 'Section_Offered',
+		teachingActivitiesID: {
+			model: 'TeachingActivities',
 			required: true
 		},
 		FCEValue: {
 			type: 'float',
-			required: true
+			required: false
 		},
-		role: {
-			type: 'string',
-			size: 30
-		},
-		Overload: {
-			collection: 'Overload',
-			via: 'teachingActivitiesID'
+		amount: {
+			type: 'float',
+			required: false
 		}
 	},
-	tableName: 'TeachingActivities'
+	tableName: 'Overload'
 };
