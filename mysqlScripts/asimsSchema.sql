@@ -1495,7 +1495,35 @@ CREATE  OR REPLACE VIEW `asims`.`MostRecentRank_Regular` AS
         `RegularStaff_Rank`
         GROUP BY `RegularStaff_Rank`.`regularStaffID`);
 
+-- -----------------------------------------------------
+-- View `asims`.`RegularStaff_NoDept`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`RegularStaff_NoDept`;
 
+CREATE  OR REPLACE VIEW `asims`.`RegularStaff_NoDept` AS 
+  SELECT a.*, r.regularStaffID, r.contAppDate, r.tenureDate, concat_ws(" ", firstName, lastName) As fullName
+  FROM RegularStaff r
+  	INNER JOIN AcademicStaff a ON r.academicStaffID = a.academicStaffID
+  WHERE a.academicStaffID NOT IN 
+								(
+                                SELECT ad.academicStaffID FROM AcademicStaff_Department ad
+                                );
+                                
+-- -----------------------------------------------------
+-- View `asims`.`ContractStaff_NoDept`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`ContractStaff_NoDept`;
+
+CREATE  OR REPLACE VIEW `asims`.`ContractStaff_NoDept` AS 
+  SELECT a.*, c.contractStaffID, concat_ws(" ", firstName, lastName) As fullName
+  FROM ContractStaff c
+  	INNER JOIN AcademicStaff a ON c.academicStaffID = a.academicStaffID
+  WHERE a.academicStaffID NOT IN 
+								(
+                                SELECT ad.academicStaffID FROM AcademicStaff_Department ad
+                                );
+	  	
+  	
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
