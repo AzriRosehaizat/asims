@@ -21,11 +21,11 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'FCE',
                             displayName: 'FCE',
@@ -48,11 +48,11 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -65,11 +65,11 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -79,11 +79,11 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                         columnDefs: [{
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 }

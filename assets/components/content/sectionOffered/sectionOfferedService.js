@@ -19,11 +19,11 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 }, {
                     name: 'Start Date',
                     field: 'startDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
                     name: 'End Date',
                     field: 'endDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    cellFilter: 'date:\'MM-dd-yyyy\''
                 }]
             };
         },
