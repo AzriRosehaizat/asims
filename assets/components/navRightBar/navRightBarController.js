@@ -7,8 +7,8 @@ application.controller('navRightBarController', function($scope, $state, $http, 
         formService.submit($scope.fs.formData);
     };
 
-    $scope.cancel = function() {
-        formService.cancel($scope.fs.formData);
+    $scope.cancel = function(form) {
+        formService.cancel($scope.fs.formData, form);
     };
 
     $scope.delete = function(ev) {

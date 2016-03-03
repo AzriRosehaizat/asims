@@ -50,11 +50,11 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
         service.update(formData)
             .then(function(res) {
-                if (_.isArray(res.data))
-                    res.data = res.data[0];
+                if (_.isArray(res.data)) res.data = res.data[0];
                 _.merge(row.entity, res.data);
                 updateMainRow();
 
+                service.initEditForm(formData, grid, row);
                 toaster.done("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -69,13 +69,12 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
         service.create(formData)
             .then(function(res) {
-                if (_.isArray(res.data))
-                    res.data = res.data[0];
+                if (_.isArray(res.data)) res.data = res.data[0];
                 grid.unshift(res.data);
                 updateMainRow();
 
-                formData.model = {};
-                resetValidation(formData);
+                var mRow = (isMain) ? null : mainRow;
+                service.initAddForm(formData, grid, mRow);
                 toaster.done("Added successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -85,18 +84,12 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             });
     };
 
-    self.cancel = function(formData) {
+    self.cancel = function(formData, form) {
         navRightBarService.toggle(formData);
 
-        if (formData.isEditing) {
-            _.merge(formData.model, row.entity);
-        }
-        else {
-            formData.model = {};
-        }
-        resetValidation(formData);
-        // Do something specific
+        formData.model = (formData.isEditing) ? _.merge(formData.model, row.entity) : {};
         if (service.cancel) service.cancel(formData);
+        resetValidation(form);
     };
 
     self.delete = function(ev, formData) {
@@ -119,7 +112,6 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
-                    resetValidation(formData);
                     toaster.done("Deleted successfully!");
                 }, function(err) {
                     toaster.error(err);
@@ -134,9 +126,9 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         return (datef) ? (new moment(datef).toDate()) : null;
     };
 
-    function resetValidation(formData) {
-        formData.form.$setPristine();
-        formData.form.$setUntouched();
+    function resetValidation(form) {
+        form.$setPristine();
+        form.$setUntouched();
     }
 
     function updateMainRow() {
