@@ -5,7 +5,7 @@ application.config(function($mdThemingProvider) {
         .warnPalette('red', {
             'hue-2': '900'
         })
-        .accentPalette('indigo')
+        .accentPalette('blue-grey')
         .backgroundPalette('grey');
 
     $mdThemingProvider.theme('dark')
