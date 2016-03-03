@@ -100,8 +100,7 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                     dCourse.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Regular Staff':
-
-                    // dRegularStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    dRegularStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Contract Staff':
 
