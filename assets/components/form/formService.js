@@ -1,15 +1,18 @@
-application.service('formService', function($injector, $mdDialog, $mdSidenav, _, toaster, moment) {
+application.service('formService', function($injector, $mdDialog, _, toaster, moment, navRightBarService) {
 
-    this.formData;
+    var self = this;
+    self.formData = {};
+    self.readOnly = false;
+
     var grid, row, service;
     var mainRow, mainService, isMain;
-    var self = this;
 
-    this.init = function(formData, gridData, rowData, serviceName, main) {
+    self.init = function(formData, gridData, rowData, serviceName, main) {
         // Toggle right nav-bar after current form is initialized.
-        if (!_.isEmpty(this.formData)) toggleRight();
+        if (!_.isEmpty(self.formData)) navRightBarService.toggle(formData);
+        self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
 
-        this.formData = formData;
+        self.formData = formData;
         grid = gridData;
         row = rowData;
         service = $injector.get(serviceName);
@@ -21,11 +24,11 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
         }
     };
 
-    this.reset = function() {
-        this.formData = {};
+    self.reset = function() {
+        self.formData = {};
     };
 
-    this.submit = function(formData) {
+    self.submit = function(formData) {
         var startDate = formData.model.startDate;
         var endDate = formData.model.endDate;
 
@@ -34,15 +37,15 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
         }
         else {
             if (formData.isEditing) {
-                this.update(row, formData);
+                self.update(row, formData);
             }
             else {
-                this.create(grid, formData);
+                self.create(grid, formData);
             }
         }
     };
 
-    this.update = function(row, formData) {
+    self.update = function(row, formData) {
         formData.mode = 'indeterminate';
 
         service.update(formData)
@@ -61,7 +64,7 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
             });
     };
 
-    this.create = function(grid, formData) {
+    self.create = function(grid, formData) {
         formData.mode = 'indeterminate';
 
         service.create(formData)
@@ -82,7 +85,9 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
             });
     };
 
-    this.cancel = function(formData) {
+    self.cancel = function(formData) {
+        navRightBarService.toggle(formData);
+
         if (formData.isEditing) {
             _.merge(formData.model, row.entity);
         }
@@ -94,7 +99,7 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
         if (service.cancel) service.cancel(formData);
     };
 
-    this.delete = function(ev, formData) {
+    self.delete = function(ev, formData) {
         var confirm = $mdDialog.confirm()
             .title('You are deleting a row')
             .textContent('Are you sure?')
@@ -125,7 +130,7 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
         });
     };
 
-    this.formatDate = function(datef) {
+    self.formatDate = function(datef) {
         return (datef) ? (new moment(datef).toDate()) : null;
     };
 
@@ -146,19 +151,5 @@ application.service('formService', function($injector, $mdDialog, $mdSidenav, _,
                     toaster.error(err);
                 });
         }
-    }
-
-    /* Toggle navRightBar on smaller screen */
-    function toggleRight() {
-        $mdSidenav('right').then(function(instance) {
-            if (!instance.isLockedOpen()) {
-                // It's used in navRightBarController to change its z-index
-                self.formData.isLockedOpen = false;
-                instance.toggle().then(function() {});
-            }
-            else {
-                self.formData.isLockedOpen = true;
-            }
-        });
     }
 });

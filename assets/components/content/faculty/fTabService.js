@@ -12,17 +12,19 @@ application.service('fTabService', function($http, fDepartment) {
                         }, {
                             name: 'Name',
                             field: 'title'
-                        },{
+                        }, {
                             name: 'Description',
                             field: 'description'
                         }]
-                    }
+                    },
+                    readOnly: true
                 }
             };
         },
         initAddForm: function(formData, tab, mainRow) {
             switch (tab.title) {
                 case 'Department':
+                    tab.gridOptions.data.readOnly = tab.readOnly;
                     fDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
@@ -30,6 +32,7 @@ application.service('fTabService', function($http, fDepartment) {
         initEditForm: function(formData, tab, row) {
             switch (tab.title) {
                 case 'Department':
+                    tab.gridOptions.data.readOnly = tab.readOnly;
                     fDepartment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }

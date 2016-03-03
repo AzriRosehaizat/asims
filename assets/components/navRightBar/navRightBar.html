@@ -11,7 +11,7 @@
 
             <div ng-repeat="input in fs.formData.inputs" ng-include="'components/form/tmpl/' + input.type + '.html'"></div>
 
-            <div layout="row">
+            <div ng-hide="fs.readOnly" layout="row">
                 <md-button type="submit" class="md-raised" ng-disabled="fs.formData.form.$invalid">Submit</md-button>
                 <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
 
