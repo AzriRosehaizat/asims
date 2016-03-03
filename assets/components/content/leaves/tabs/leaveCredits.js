@@ -29,7 +29,9 @@ application
                             name: 
                                 'Date Issued',
                             field: 
-                                'dateIssued'
+                                'dateIssued',
+                            cellFilter: 
+                                'date:\'MM-dd-yyyy\''
                         }, {
                             name: 
                                 'Type',
