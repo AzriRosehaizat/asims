@@ -1,11 +1,8 @@
-application.service('researchService', function($http, $q, _, formService) {
+application.service('researchService', function($http, formService) {
 
     return {
         gridOptions: function() {
             return {
-                multiSelect: false,
-                enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
                 columnDefs: [{
                     name: 'Title',
                     field: 'title'
@@ -15,11 +12,11 @@ application.service('researchService', function($http, $q, _, formService) {
                 }, {
                     name: 'Start Date',
                     field: 'startDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
                     name: 'End Date',
                     field: 'endDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    cellFilter: 'date:\'MM-dd-yyyy\''
                 }]
             };
         },

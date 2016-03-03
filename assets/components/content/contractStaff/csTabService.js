@@ -21,11 +21,11 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'FCE',
                             displayName: 'FCE',
@@ -54,11 +54,11 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }, {
                             name: 'Start Term',
                             field: 'startTerm',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Term',
                             field: 'endTerm',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -74,11 +74,11 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -91,11 +91,11 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -105,11 +105,11 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         columnDefs: [{
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 }
