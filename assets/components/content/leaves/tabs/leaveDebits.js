@@ -45,6 +45,11 @@ application
                             .rowSelectionChanged( 
                                 $scope, 
                                 function( row ){
+                                    $scope
+                                    .tabRow = (
+                                        row    
+                                    );
+                                    
                                     initializeEdit(
                                         $scope
                                         .formData,
@@ -59,18 +64,30 @@ application
                 };
             },
             initAddForm: initializeAdd,
+            initEditForm: initializeEdit, 
             create: create,
             update: update,
             delete: remove
         };
         
         function initializeEdit( formData, gridData, row ){
+            
             formData
             .model = (
-                _
-                .cloneDeep(
-                    row
-                    .entity
+                Object.
+                assign(
+                    _
+                    .cloneDeep(
+                        row
+                        .entity
+                    ),
+                    {
+                        dateIssued : 
+                            formService
+                            .formatDate(
+                                row.entity.dateIssued
+                            )
+                    }   
                 )
             );
             
