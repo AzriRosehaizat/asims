@@ -13,7 +13,7 @@
 }
 
 .side-menu .md-button.active {
-  color: #FF5722; /* deep-orange 500 */
+  color: #B71C1C; /* deep-red 900 to match application */
 }
 
 .side-menu .menu-toggle-list a.md-button {
@@ -48,8 +48,8 @@
   padding-top: 12px;
   width: 15px;
   float: right;
-  transition: transform .3s ease-in-out;
-  -webkit-transition: -webkit-transform .3s ease-in-out;
+  transition: transform .4s ease;
+  -webkit-transition: -webkit-transform .4s ease;
 }
 
 .menu-toggle-list.ng-hide {
@@ -77,11 +77,11 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
-  -webkit-transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+  -webkit-transition: .4s cubic-bezier(.25,.8,.25,1);
   -webkit-transition-property: max-height;
-  -moz-transition: 0.75s cubic-bezier(0.35, 0, 0.25, 1);
+  -moz-transition: .4s cubic-bezier(.25,.8,.25,1);
   -moz-transition-property: max-height;
-  transition: 0.5s cubic-bezier(0.35, 0, 0.25, 1);
+  transition: .4s cubic-bezier(.25,.8,.25,1);
   transition-property: max-height;
 }
 
