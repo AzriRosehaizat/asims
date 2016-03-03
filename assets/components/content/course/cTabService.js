@@ -1,4 +1,4 @@
-application.service('cTabService', function($http) {
+application.service('cTabService', function($http, cSection) {
 
     return {
         tabs: function() {
@@ -6,15 +6,12 @@ application.service('cTabService', function($http) {
                 section: {
                     title: 'Section',
                     gridOptions: {
-                        multiSelect: false,
-                        enableRowHeaderSelection: false,
-                        enableHorizontalScrollbar: 0,
                         columnDefs: [{
-                            name: 'Section Number',
-                            field: 'sectionID'
+                            name: 'Section No.',
+                            field: 'sectionNo'
                         }, {
-                            name: 'Name',
-                            field: 'title'
+                            name: 'Type',
+                            field: 'sectionType'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
@@ -23,21 +20,22 @@ application.service('cTabService', function($http) {
                             name: 'End Date',
                             field: 'endDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
+                        }, {
+                            name: 'FCE',
+                            displayName: 'FCE',
+                            field: 'FCEModifier'
                         }]
-                    }
+                    },
+                    readOnly: true
                 }
             };
         },
         initAddForm: function(formData, tab, mainRow) {
             switch (tab.title) {
-                case 'Course Offered':
+                case 'Section':
                     tab.gridOptions.data.readOnly = tab.readOnly;
                     cSection.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                // case 'Instructors':
-                //     rsDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
-                //     break;
-                
             }
         },
         initEditForm: function(formData, tab, row) {
@@ -50,9 +48,8 @@ application.service('cTabService', function($http) {
         },
         getTabs: function(tabs, row) {
             this.getSection(tabs.section, row);
-            // this.getInstructor(tabs.instructor, row);
         },
-        getSection: function(section,row){
+        getSection: function(section, row){
             $http.get('/course/getInfo?type=section&id=' + row.entity.courseID)
                 .then(function(res) {
                     section.gridOptions.data = res.data;

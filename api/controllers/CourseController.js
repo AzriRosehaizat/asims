@@ -29,7 +29,7 @@ module.exports = {
 		};
 		switch (data.type) {
 			case 'section':
-				CourseService.getSectionOffered(data.id, responseFn)
+				CourseService.getSectionOffered(data.id, data.where, responseFn)
 				break;
 			default:
 				res.serverError();
