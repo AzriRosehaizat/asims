@@ -61,6 +61,9 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                             name: 'Last Name',
                             field: 'lastName'
                         }, {
+                            name: 'Rank',
+                            field: 'Rank'
+                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'yyyy-MM-dd\''
@@ -103,7 +106,7 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                     dRegularStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Contract Staff':
-
+                    dContractStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Chair':
                     dChair.initAddForm(formData, tab.gridOptions.data, mainRow);
