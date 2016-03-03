@@ -29,10 +29,6 @@ application
           type: 'link',
           state: 'application.leaves'
         }, {
-          name: 'Leave',
-          state: 'application.root',
-          type: 'link'
-        }, {
           name: 'Research',
           state: 'application.research',
           type: 'link'
