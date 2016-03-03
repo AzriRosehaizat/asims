@@ -28,7 +28,10 @@ application
                             'Debits',
                         gridOptions: 
                             leaveDebits
-                            .gridOptions( $scope )
+                            .gridOptions( $scope ),
+                        initializeAdd:
+                            leaveDebits
+                            .initAddForm
                     }  
                 };
             },

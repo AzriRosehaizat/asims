@@ -84,7 +84,8 @@ application
                 'Edit Leave Credit'
             );
             
-            formData.inputs = [
+            formData
+            .inputs = [
                 {
                     type: 
                         "number",
