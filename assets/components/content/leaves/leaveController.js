@@ -99,12 +99,32 @@ application
     .selectTab = function( tab ) {
         $scope
         .addTabRow = function(){
+            if(!$scope.row){
+                toaster.info("Select a row first in the main table.");
+                return;
+            }
+            
             tab
             .initializeAdd(
                 $scope.formData,
                 tab.gridOptions.data,
                 $scope.row
             );    
+        };
+        
+        $scope
+        .editTabRow = function(){
+            if(!$scope.tabRow){
+                toaster.info("Select a row first in the tab table.");
+                return;
+            }
+            
+            tab
+            .initializeEdit(
+                $scope.formData,
+                tab.gridOptions.data,
+                $scope.tabRow
+            );
         };
     };
     

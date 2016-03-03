@@ -59,18 +59,32 @@ application
                 };
             },
             initAddForm: initializeAdd,
+            initEditForm: initializeEdit,
             create: create,
             update: update,
             delete: remove
         };
         
         function initializeEdit( formData, gridData, row ){
+
             formData
             .model = (
-                _
-                .cloneDeep(
-                    row
-                    .entity
+                Object.
+                assign(
+                    _
+                    .cloneDeep(
+                        row
+                        .entity
+                    ),
+                    {
+                        dateIssued : 
+                            formService
+                            .formatDate(
+                                row
+                                .entity
+                                .dateIssued
+                            )
+                    }   
                 )
             );
             

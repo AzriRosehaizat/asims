@@ -21,7 +21,10 @@ application
                             .gridOptions( $scope ),
                         initializeAdd:
                             leaveCredits
-                            .initAddForm
+                            .initAddForm,
+                        initializeEdit:
+                            leaveCredits
+                            .initEditForm
                     },
                     debits : {
                         title: 
@@ -31,7 +34,10 @@ application
                             .gridOptions( $scope ),
                         initializeAdd:
                             leaveDebits
-                            .initAddForm
+                            .initAddForm,
+                        initializeEdit:
+                            leaveDebits
+                            .initEditForm
                     }  
                 };
             },
