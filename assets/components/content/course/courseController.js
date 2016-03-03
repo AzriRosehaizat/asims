@@ -1,4 +1,4 @@
-application.controller('courseController', function($scope, courses, courseService, cTabService, SearchHelper) {
+application.controller('courseController', function($scope, courses, courseService, cTabService, SearchHelper, toaster) {
 
     $scope.gridTitle = 'Course';
     $scope.course = courses.data;
@@ -16,9 +16,11 @@ application.controller('courseController', function($scope, courses, courseServi
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
+            $scope.tabRow = null;
+            
             courseService.initEditForm($scope.formData, $scope.gridOptions.data, row);
 
-            // cTabService.getTabs($scope.tabs, row);
+            cTabService.getTabs($scope.tabs, row);
         });
     };
 
@@ -27,6 +29,10 @@ application.controller('courseController', function($scope, courses, courseServi
     };
 
     $scope.editRow = function() {
-        courseService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        if($scope.row)
+            courseService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else 
+            toaster.info("Select a row first.");
     };
+    
 });
