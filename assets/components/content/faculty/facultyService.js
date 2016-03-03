@@ -6,8 +6,8 @@ application.service('facultyService', function($http, _, formService) {
                 columnDefs: [{
                     name: 'Title',
                     field: 'title'
-                }],
-                readOnly: true
+                }]
+                // , readOnly: true
             };
         },
         update: function(formData) {
@@ -38,7 +38,7 @@ application.service('facultyService', function($http, _, formService) {
                 required: true
             }];
 
-            gridData.readOnly = this.gridOptions().readOnly;
+            // gridData.readOnly = this.gridOptions().readOnly;
             formService.init(formData, gridData, null, 'facultyService', true);
         },
         initEditForm: function(formData, gridData, row) {
@@ -53,7 +53,7 @@ application.service('facultyService', function($http, _, formService) {
                 required: true
             }];
             
-            gridData.readOnly = this.gridOptions().readOnly;
+            // gridData.readOnly = this.gridOptions().readOnly;
             formService.init(formData, gridData, row, 'facultyService', true);
         },
         getRow: function(row) {
