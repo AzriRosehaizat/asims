@@ -34,6 +34,22 @@ application
         .data
     );
     
+    leaveService
+    .setForm(
+        $scope
+        .formData,
+        $scope
+        .gridOptions
+        .data,
+        {
+            entity:
+                { 
+                    firstName: '',
+                    lastName: ''
+                }
+        }
+    );
+    
     $scope
     .gridOptions
     .onRegisterApi = function( gridApi ) {
