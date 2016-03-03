@@ -1,3 +1,9 @@
+/*global 
+	AcademicStaff 
+	RegularStaff 
+	RegularStaffService 
+*/
+
 /**
  * RegularStaffController
  *
@@ -128,6 +134,7 @@ module.exports = {
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
 				break;
 			case 'department':
+				
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
 			case 'rank':
@@ -136,8 +143,21 @@ module.exports = {
 			case 'employment':
 				RegularStaffService.getEmployment(data.id, data.where, responseFn);
 				break;
-			case 'leave':
-				//code
+			case 'leaveCredits':
+				RegularStaffService
+				.getLeaveCredits( 
+					data.id, 
+					data.where, 
+					responseFn 
+				);
+				break;
+			case 'leaveDebits':
+				RegularStaffService
+				.getLeaveDebits( 
+					data.id, 
+					data.where, 
+					responseFn 
+				);
 				break;
 			default:
 				res.serverError();
