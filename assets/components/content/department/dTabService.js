@@ -1,4 +1,4 @@
-application.service('dTabService', function($http, dCourse, dChair, dRegularStaff,dContractStaff, $mdDialog) {
+application.service('dTabService', function($http, dCourse, dChair, dRegularStaff, dContractStaff, $mdDialog) {
 
     return {
         tabs: function() {
@@ -15,8 +15,10 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                         }, {
                             name: 'Title',
                             field: 'title'
-                        }]
-                    }
+                        }],
+                    },
+                    readOnly: true
+
                 },
                 regularStaff: {
                     title: 'Regular Staff',
@@ -94,10 +96,11 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
         initAddForm: function(formData, tab, mainRow) {
             switch (tab.title) {
                 case 'Course':
+                    tab.gridOptions.data.readOnly = tab.readOnly;
                     dCourse.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Regular Staff':
- 
+
                     // dRegularStaff.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Contract Staff':
@@ -111,6 +114,7 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
         initEditForm: function(formData, tab, row) {
             switch (tab.title) {
                 case 'Course':
+                    tab.gridOptions.data.readOnly = tab.readOnly;
                     dCourse.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Regular Staff':
