@@ -32,7 +32,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         var startDate = formData.model.startDate;
         var endDate = formData.model.endDate;
 
-        if (endDate != null && endDate < startDate) {
+        if (endDate < startDate && endDate != null) {
             toaster.warning("Start Date has to be greater than End Date");
         }
         else {
