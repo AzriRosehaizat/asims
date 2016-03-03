@@ -23,10 +23,11 @@ application
           name: 'Contract Staff',
           state: 'application.contractStaff',
           type: 'link'
-        }, {
-          name: 'Leave',
-          state: 'application.root',
-          type: 'link'
+        }, 
+        {
+          name: 'Leaves',
+          type: 'link',
+          state: 'application.leaves'
         }, {
           name: 'Research',
           state: 'application.research',
