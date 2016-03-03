@@ -14,7 +14,10 @@
 #gridTabs md-ink-bar {
     top: 62px;
 }
-
+md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
+    color: red !important;
+    background-color:red !important;
+}
 #tabMenu {
     top: 0;
     right: 0;
