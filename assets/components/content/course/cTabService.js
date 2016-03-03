@@ -28,24 +28,26 @@ application.service('cTabService', function($http) {
                 }
             };
         },
-        // initAddForm: function(formData, tab, mainRow) {
-        //     switch (tab.title) {
-        //         case 'Section':
-        //             cSection.initAddForm(formData, tab.gridOptions.data, mainRow);
-        //             break;
-        //         // case 'Instructors':
-        //         //     rsDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
-        //         //     break;
+        initAddForm: function(formData, tab, mainRow) {
+            switch (tab.title) {
+                case 'Course Offered':
+                    tab.gridOptions.data.readOnly = tab.readOnly;
+                    cSection.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    break;
+                // case 'Instructors':
+                //     rsDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
+                //     break;
                 
-        //     }
-        // },
-        // initEditForm: function(formData, tab, row) {
-        //     switch (tab.title) {
-        //         case 'Section':
-        //             cSection.initEditForm(formData, tab.gridOptions.data, row);
-        //             break;
-        //     }
-        // },
+            }
+        },
+        initEditForm: function(formData, tab, row) {
+            switch (tab.title) {
+                case 'Section':
+                    tab.gridOptions.data.readOnly = tab.readOnly;
+                    cSection.initEditForm(formData, tab.gridOptions.data, row);
+                    break;
+            }
+        },
         getTabs: function(tabs, row) {
             this.getSection(tabs.section, row);
             // this.getInstructor(tabs.instructor, row);

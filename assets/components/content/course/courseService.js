@@ -24,10 +24,10 @@ application.service('courseService', function($http, $q, _, formService) {
         },
         update: function(formData) {
             if (_.isObject(formData.model.courseID)) {
-                formData.model.courseID = formData.model.seachText.courseID;
+                formData.model.courseID = formData.model.courseID.obj.courseID;
             }
             //Return a flattned object after update
-            return $http.put('/Course' + formData.model.courseID, formData.model)
+            return $http.put('/Course/' + formData.model.courseID, formData.model)
                 .then(function(res) {
                     return $http.get('/Course/getAllCourse/' + res.data.courseID)
                         .then(function(Sect) {
@@ -38,17 +38,17 @@ application.service('courseService', function($http, $q, _, formService) {
         create: function(formData) {
             console.log(formData.model);
             if (_.isObject(formData.model.departmentID)) {
-                formData.model.departmentID = formData.model.searchText.departmentID;
+                formData.model.departmentID = formData.model.departmentID.obj.departmentID;
             }
-
-            //Return a flattned object after create
-            return $http.post('/Course', formData.model)
-                .then(function(res) {
-                    return $http.get('/Course/getAllCourse/' + res.data.courseID)
-                        .then(function(Sect) {
-                            return Sect;
-                        });
-                });
+            return $http.post('/course/' + formData.model.courseID);
+            // //Return a flattned object after create
+            // return $http.post('/Course', formData.model)
+            //     .then(function(res) {
+            //         return $http.get('/Course/getAllCourse/' + res.data.courseID)
+            //             .then(function(Sect) {
+            //                 return Sect;
+            //             });
+            //     });
         },
         delete: function(formData) {
             return $http.delete('/Course/' + formData.model.courseID);
