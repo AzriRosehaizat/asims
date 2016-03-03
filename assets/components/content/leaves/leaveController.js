@@ -13,7 +13,11 @@ application
         SearchHelper, 
         toaster
     ){
-
+    
+    $scope
+    .formData = {
+    };
+    
     $scope
     .gridTitle = 'Leaves';
     
@@ -115,10 +119,6 @@ application
             )[0]
         ]
     );
-    
-    $scope
-    .formData = {
-    };
     
     
     function modifyRows(){
