@@ -1,74 +1,47 @@
-application.service('csSection', function($http, _, formService) {
-    var mainRow;
+application.service('cSection', function($http, _, formService) {
+    // var mainRow;
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.sectionID = formData.model.title.obj.sectionID;
-            }
-            return $http.put('/Section_Offered/' + formData.model.sectionID, formData.model)
-                .then(function(res) {
-                    return $http.get('/Section_Offered/' + res.data.sectionID.sectionID)
-                        .then(function(section) {
-                            res.data.sectionID = section.data.sectionID;
-                            res.data.startDate = section.data.startDate;
-                            res.data.endDate = section.data.endDate;
-                            return res;
-                        });
-                });
+            // read-only
         },
         create: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.departmentID = formData.model.title.obj.departmentID;
-            }
-            formData.model.academicStaffID = mainRow.entity.academicStaffID;
-
-            return $http.post('/Section_Offered', formData.model)
-                .then(function(res) {
-                    return $http.get('/Section_Offered/' + res.data.sectionID)
-                        .then(function(section) {
-                            res.data.departmentCode = section.data.departmentCode;
-                            res.data.title = department.data.title;
-                            return res;
-                        });
-                });
+            // read-only
         },
         delete: function(formData) {
-            return $http.delete('/Course_Section/' + formData.model.academicStaffDepartmentID);
+            // read-only
         },
         initAddForm: function(formData, gridData, mRow) {
-            mainRow = mRow;
+            // mainRow = mRow;
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Section';
+            formData.title = 'Section';
             formData.inputs = [{
-                type: "autocomplete",
-                name: "title",
-                label: "Name",
-                url: {
-                    start: "/rank?where={",
-                    end: "\"title\":{\"startsWith\":\""
-                },
-                link: "application.rank",
-                output: {
-                    obj: {},
-                    name: "title"
-                },
-                disabled: false,
-                required: true
+                type: "text",
+                name: "sectionNo",
+                label: "Section No.",
+                readonly: true
+            }, {
+                type: "text",
+                name: "sectionType",
+                label: "Type",
+                readonly: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                readonly: true
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                disabled: false,
-                required: false
+                readonly: true
+            }, {
+                type: "number",
+                name: "FCEModifier",
+                label: "FCE",
+                readonly: true
             }];
 
             formService.init(formData, gridData, null, 'cSection', false);
@@ -79,37 +52,35 @@ application.service('csSection', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Rank';
+            formData.title = 'Section';
             formData.inputs = [{
-                type: "autocomplete",
-                name: "title",
-                label: "Name",
-                url: {
-                    start: "/rank?where={",
-                    end: "\"title\":{\"startsWith\":\""
-                },
-                link: "application.rank",
-                output: {
-                    obj: {},
-                    name: "title"
-                },
-                disabled: false,
-                required: true
+                type: "text",
+                name: "sectionNo",
+                label: "Section No.",
+                readonly: true
+            }, {
+                type: "text",
+                name: "sectionType",
+                label: "Type",
+                readonly: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                readonly: true
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                disabled: false,
-                required: false
+                readonly: true
+            }, {
+                type: "number",
+                name: "FCEModifier",
+                label: "FCE",
+                readonly: true
             }];
 
-            formService.init(formData, gridData, row, 'rsRank', false);
+            formService.init(formData, gridData, row, 'cSection', false);
         },
     };
 });
