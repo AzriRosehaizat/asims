@@ -15,11 +15,11 @@ application.service('cTabService', function($http, cSection) {
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'FCE',
                             displayName: 'FCE',

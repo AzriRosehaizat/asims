@@ -35,19 +35,19 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'Tenure Date',
                             field: 'tenureDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'Cont\' appointment date',
                             field: 'contAppDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -66,11 +66,11 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -86,11 +86,11 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
                             name: 'End Date',
                             field: 'endDate',
-                            cellFilter: 'date:\'yyyy-MM-dd\''
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 }
