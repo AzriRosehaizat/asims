@@ -101,16 +101,7 @@ module.exports = {
 				tenureDate: RegularStaff[0].tenureDate
 			});
 		}).catch(function(err) {
-			// if (err.originalError) {
-			// 	console.log(err.originalError.errno);
-			// 	var error = err.originalError.errno;
-			// 	res.serverError({code: error});
-			// }
-			// else {
-				console.log(err);
-				console.log("Unable to delete right now");
 				res.serverError(err);
-			// }
 		});
 	},
 	getAllRegularStaff: function(req, res) {
