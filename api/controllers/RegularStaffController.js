@@ -101,7 +101,16 @@ module.exports = {
 				tenureDate: RegularStaff[0].tenureDate
 			});
 		}).catch(function(err) {
-			res.serverError(err);
+			// if (err.originalError) {
+			// 	console.log(err.originalError.errno);
+			// 	var error = err.originalError.errno;
+			// 	res.serverError({code: error});
+			// }
+			// else {
+				console.log(err);
+				console.log("Unable to delete right now");
+				res.serverError(err);
+			// }
 		});
 	},
 	getAllRegularStaff: function(req, res) {
@@ -126,6 +135,7 @@ module.exports = {
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
 				break;
 			case 'department':
+
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
 			case 'rank':
@@ -149,22 +159,3 @@ module.exports = {
 		}
 	}
 };
-
-// module.exports = {
-// 	test: function(request, response) {
-// 		var data = {
-// 			startID: request.param('startID'),
-// 			limit: request.param('limit')
-// 		};
-
-// 		RegularStaffService.find(data, function(error, regularStaff) {
-// 			response.json(error || regularStaff);
-// 		});
-// 	},
-
-// 	count: function(req, res) {
-// 		RegularStaff.count().exec(function countCB(err, found) {
-// 			res.json(err || found);
-// 		});
-// 	}
-// };
