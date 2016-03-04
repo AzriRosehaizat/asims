@@ -79,7 +79,8 @@ application.service('researchService', function($http, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                required: true
             }];
 
             formService.init(formData, gridData, row, 'researchService', true);
