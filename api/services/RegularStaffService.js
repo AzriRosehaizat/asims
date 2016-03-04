@@ -25,7 +25,6 @@ module.exports = {
 		}
 		else {
 			sSQL = sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
-
 		}
 		// console.log(sSQL);
 		RegularStaff.query(sSQL, function(err, result) {
@@ -102,6 +101,25 @@ module.exports = {
 			callback(err, result);
 		});
 	},
+	getResearchStaff: function(id, where, callback) {
+		var sSQL = mysql.select('rr.*', 'a.*', 'd.departmentCode')
+			.from('RegularStaff_Research AS rr')
+			.innerJoin('RegularStaff AS r', 'rr.regularStaffID', 'r.regularStaffID')
+			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
+			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
+			.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
+			.where('rr.researchID', id);
+
+		if (where) {
+			sSQL = sSQL.where('rr.regularStaffResearchID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
+	},
 
 
 	/***************************************************************************
@@ -120,7 +138,7 @@ module.exports = {
 		// 	}, where || {}));
 
 		// LeaveCredit.query(sql.toString(), callback);
-		
+
 		sql = mysql.select('lc.*')
 			.from('LeaveCredit AS lc')
 			.where('lc.regularStaffID', id);
@@ -144,9 +162,9 @@ module.exports = {
 		// 	.where(Object.assign({
 		// 		regularStaffID: id
 		// 	}, where || {}));
-		
+
 		// LeaveDebit.query(sql.toString(), callback);
-		
+
 		sql = mysql.select('ld.*')
 			.from('LeaveDebit AS ld')
 			.where('ld.regularStaffID', id);

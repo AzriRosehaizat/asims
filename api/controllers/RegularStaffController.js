@@ -140,6 +140,9 @@ module.exports = {
 			case 'leaveDebits':
 				RegularStaffService.getLeaveDebits(data.id, data.where, responseFn);
 				break;
+			case 'research':
+				RegularStaffService.getResearchStaff(data.id, data.where, responseFn);
+				break;
 			default:
 				res.serverError();
 				console.log("Incorrect REST url");

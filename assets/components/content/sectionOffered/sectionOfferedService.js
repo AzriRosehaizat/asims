@@ -40,10 +40,7 @@ application.service('sectionOfferedService', function($http, _, formService) {
             //Update section offered
             return $http.put('/Section_Offered/' + formData.model.sectionOfferedID, formData.model)
                 .then(function(res) {
-                    return $http.get('/Section_Offered/getSectionOffered/' + res.data.sectionOfferedID)
-                        .then(function(SO) {
-                            return SO;
-                        });
+                    return $http.get('/Section_Offered/getSectionOffered/' + res.data.sectionOfferedID);
                 });
         },
         create: function(formData) {
@@ -54,24 +51,18 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 //Define the IDs
                 formData.model.courseID = formData.model.courseNo.obj.courseID;
                 formData.model.sectionID = formData.model.sectionNo.obj.sectionID;
-
             }
-            // console.log(formData.model)
-            //For the sake of simplicity pass everything
-            //Should really pass only whats needed
+            // For the sake of simplicity pass everything
+            // Should really pass only whats needed
             return $http.post('/Section_Offered', formData.model)
                 .then(function(res) {
-                    return $http.get('/Section_Offered/getSectionOffered/' + res.data.sectionOfferedID)
-                        .then(function(SO) {
-                            return SO;
-                        });
+                    return $http.get('/Section_Offered/getSectionOffered/' + res.data.sectionOfferedID);
                 });
         },
         delete: function(formData) {
-            console.log(formData.model.sectionOfferedID)
             return $http.delete('/Section_Offered/' + formData.model.sectionOfferedID);
         },
-        //On add new section to offer
+        // On add new section to offer
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
@@ -99,7 +90,6 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -150,14 +140,12 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 type: "date",
                 name: "startDate",
                 label: "Start Date",
-                required: true,
-                disabled: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End Date",
-                required: true,
-                disabled: false
+                required: true
             }];
 
             formService.init(formData, gridData, null, 'sectionOfferedService', true);
@@ -190,7 +178,6 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -222,8 +209,7 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             }, {
                 type: "autocomplete",
                 name: "sectionNo",
@@ -247,20 +233,17 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 type: "date",
                 name: "startDate",
                 label: "Start Date",
-                required: true,
-                disabled: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End Date",
-                required: true,
-                disabled: false
+                required: true
             }];
 
             formService.init(formData, gridData, row, 'sectionOfferedService', true);
         },
         getRow: function(row) {
-            console.log(row.entity.sectionOfferedID);
             return $http.get('/Section_Offered/getSectionOffered/' + row.entity.sectionOfferedID);
         }
     };

@@ -37,26 +37,20 @@ application.service('researchService', function($http, formService) {
                 type: "text",
                 name: "title",
                 label: "Name",
-                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "abstract",
-                label: "Abstract",
-                disabled: false,
-                required: false
+                label: "Abstract"
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, null, 'researchService', true);
@@ -72,26 +66,20 @@ application.service('researchService', function($http, formService) {
                 type: "text",
                 name: "title",
                 label: "Name",
-                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "abstract",
-                label: "Abstract",
-                disabled: false,
-                required: false
+                label: "Abstract"
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, row, 'researchService', true);

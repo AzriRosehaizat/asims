@@ -49,7 +49,6 @@ application.service('csTA', function($http, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -81,8 +80,7 @@ application.service('csTA', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             }, {
                 type: "acCustom",
                 name: "sectionNo",
@@ -117,14 +115,11 @@ application.service('csTA', function($http, _, formService) {
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "role",
-                label: "Role",
-                disabled: false,
-                required: false
+                label: "Role"
             }];
 
             formService.init(formData, gridData, null, 'csTA', false);
@@ -149,7 +144,6 @@ application.service('csTA', function($http, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -181,8 +175,7 @@ application.service('csTA', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             }, {
                 type: "acCustom",
                 name: "sectionNo",
@@ -217,14 +210,11 @@ application.service('csTA', function($http, _, formService) {
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "role",
-                label: "Role",
-                disabled: false,
-                required: false
+                label: "Role"
             }];
 
             formService.init(formData, gridData, row, 'csTA', false);

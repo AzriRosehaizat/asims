@@ -23,14 +23,11 @@ application.service('rsEmployment', function($http, _, formService) {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
             
             formService.init(formData, gridData, null, 'rsEmployment', false);
@@ -46,14 +43,11 @@ application.service('rsEmployment', function($http, _, formService) {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
             
             formService.init(formData, gridData, row, 'rsEmployment', false);

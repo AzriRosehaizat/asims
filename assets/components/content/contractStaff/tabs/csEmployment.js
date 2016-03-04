@@ -18,19 +18,16 @@ application.service('csEmployment', function($http, _, formService) {
             
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Employement';
+            formData.title = 'Add Employment';
             formData.inputs = [{
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
             
             formService.init(formData, gridData, null, 'csEmployment', false);
@@ -46,14 +43,11 @@ application.service('csEmployment', function($http, _, formService) {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
             
             formService.init(formData, gridData, row, 'csEmployment', false);
