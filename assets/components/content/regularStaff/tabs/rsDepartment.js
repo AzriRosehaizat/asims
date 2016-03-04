@@ -47,20 +47,15 @@ application.service('rsDepartment', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
+                label: "Start date"
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, null, 'rsDepartment', false);
@@ -85,20 +80,15 @@ application.service('rsDepartment', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
-                disabled: false,
-                required: false
+                label: "Start date"
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, row, 'rsDepartment', false);

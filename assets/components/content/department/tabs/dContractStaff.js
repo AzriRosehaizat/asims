@@ -56,8 +56,7 @@ application.service('dContractStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, null, 'dContractStaff', false);
@@ -96,8 +95,7 @@ application.service('dContractStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, row, 'dContractStaff', false);
