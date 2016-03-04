@@ -25,27 +25,20 @@ application.service('rGrant', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "grantingAgency",
-                label: "Name",
-                disabled: false,
+                label: "Granting Agency",
                 required: true
             }, {
                 type: "date",
                 name: "dateAwarded",
-                label: "Date Awarded",
-                disabled: false,
-                required: false
+                label: "Date Awarded"
             }, {
                 type: "text",
                 name: "duration",
-                label: "Duration",
-                disabled: false,
-                required: false
+                label: "Duration"
             }, {
                 type: "number",
                 name: "amount",
-                label: "Amount (CAD)",
-                disabled: false,
-                required: false
+                label: "Amount"
             }];
 
             formService.init(formData, gridData, null, 'rGrant', false);
@@ -60,26 +53,19 @@ application.service('rGrant', function($http, _, formService) {
                 type: "text",
                 name: "grantingAgency",
                 label: "Granting Agency",
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "dateAwarded",
-                label: "Date Awarded",
-                disabled: false,
-                required: false
+                label: "Date Awarded"
             }, {
                 type: "text",
                 name: "duration",
-                label: "Duration",
-                disabled: false,
-                required: false
+                label: "Duration"
             }, {
                 type: "number",
                 name: "amount",
-                label: "Amount (CAD)",
-                disabled: false,
-                required: false
+                label: "Amount"
             }];
 
             formService.init(formData, gridData, row, 'rGrant', false);

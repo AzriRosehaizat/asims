@@ -34,7 +34,6 @@ application.controller('departmentController', function($scope, departments, dep
             toaster.info("Select a row first.");
     };
 
-
     // Begin tab operations
     $scope.selectTab = function(tab) {
         $scope.tab = tab;

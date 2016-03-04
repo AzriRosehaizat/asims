@@ -341,6 +341,31 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.leavesTest', {
+				url: '/leavesTest',
+				views: {
+					'': {
+						templateUrl: '/components/content/leavesTest/content.html',
+						controller: 'leavesController'
+					},
+					'grid@application.leavesTest': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController'
+					},
+					'doubleTabset@application.leavesTest': {
+						templateUrl: '/components/tabset/doubleTabset.html',
+						controller: 'tabsetController'
+					}
+				},
+				resolve: {
+					staff: function($http) {
+						return $http.get('/regularStaff/getAllRegularStaff');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.FLC', {
 				url: '/facultyLoadChart',
 				views: {

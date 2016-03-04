@@ -31,6 +31,7 @@ application.service('dChair', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Add Chair';
             formData.inputs = [{
+<<<<<<< HEAD
                 type: "acCustom",
                 name: "fullName",
                 label: "Full name",
@@ -47,19 +48,26 @@ application.service('dChair', function($http, _, formService) {
                         name: "employeeNo"
                     }]
                 },
+=======
+                type: "text",
+                name: "firstName",
+                label: "First Name",
+                required: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last Name",
+>>>>>>> e8eabc811eebe3edfb30263c9c419368b31c07dd
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, null, 'dChair', false);
@@ -74,21 +82,29 @@ application.service('dChair', function($http, _, formService) {
             formData.title = 'Edit Chair';
             formData.inputs = [{
                 type: "text",
+<<<<<<< HEAD
                 name: "fullName",
                 label: "Full name",
                 readonly: true
+=======
+                name: "firstName",
+                label: "First Name",
+                required: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last Name",
+                required: true
+>>>>>>> e8eabc811eebe3edfb30263c9c419368b31c07dd
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, row, 'dChair', false);
