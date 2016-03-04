@@ -25,7 +25,6 @@ module.exports = {
 		}
 		else {
 			sSQL = sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
-
 		}
 		// console.log(sSQL);
 		RegularStaff.query(sSQL, function(err, result) {
@@ -102,76 +101,75 @@ module.exports = {
 			callback(err, result);
 		});
 	},
-	
-	
-	/***************************************************************************
-	*	@desc:	Gets related leave credits from the LeaveCredit table
-	*	@param:	string id - regularStaffID to get
-	*	@param:	string where - additional where criteria to filter on (optional)
-	*	@param:	function callback - function to call post processing
-	*/
-	
-	getLeaveCredits: function( id, where, callback ) {
-		var sql;
-		
-		sql = mysql
-		.select(
-			'*'
-		)
-		.from(
-			'LeaveCredit'
-		)
-		.where(
-			Object
-			.assign(
-				{
-					regularStaffID : id
-				},
-				where || {}
-			)
-		);
-		
-		LeaveCredit
-		.query(
-			sql
-			.toString(),
-			callback
-		);
+	getResearchStaff: function(id, where, callback) {
+		var sSQL = mysql.select('rr.*', 'a.*', 'd.departmentCode')
+			.from('RegularStaff_Research AS rr')
+			.innerJoin('RegularStaff AS r', 'rr.regularStaffID', 'r.regularStaffID')
+			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
+			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
+			.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
+			.where('rr.researchID', id);
+
+		if (where) {
+			sSQL = sSQL.where('rr.regularStaffResearchID', where).toString();
+		}
+		else {
+			sSQL = sSQL.toString();
+		}
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
 	},
-	
-	
+
+
 	/***************************************************************************
-	*	@desc:	Gets related leave debits from the LeaveDebit table
-	*	@param:	string id - regularStaffID to get
-	*	@param:	string where - additional where criteria to filter on (optional)
-	*	@param:	function callback - function to call post processing
-	*/
-	
-	getLeaveDebits: function( id, where, callback ) {
+	 *	@desc:	Gets related leave credits from the LeaveCredit table
+	 *	@param:	string id - regularStaffID to get
+	 *	@param:	string where - additional where criteria to filter on (optional)
+	 *	@param:	function callback - function to call post processing
+	 */
+
+	getLeaveCredits: function(id, where, callback) {
 		var sql;
-		
-		sql = mysql
-		.select(
-			'*'
-		)
-		.from(
-			'LeaveDebit'
-		)
-		.where(
-			Object
-			.assign(
-				{
-					regularStaffID : id
-				},
-				where || {}
-			)
-		);
-		
-		LeaveCredit
-		.query(
-			sql
-			.toString(),
-			callback
-		);
+
+		// sql = mysql.select('*').from('LeaveCredit')
+		// 	.where(Object.assign({
+		// 		regularStaffID: id
+		// 	}, where || {}));
+
+		// LeaveCredit.query(sql.toString(), callback);
+
+		sql = mysql.select('lc.*')
+			.from('LeaveCredit AS lc')
+			.where('lc.regularStaffID', id);
+
+		sql = (where) ? sql.where('lc.leaveCreditID', where).toString() : sql.toString();
+		LeaveCredit.query(sql, callback);
+	},
+
+
+	/***************************************************************************
+	 *	@desc:	Gets related leave debits from the LeaveDebit table
+	 *	@param:	string id - regularStaffID to get
+	 *	@param:	string where - additional where criteria to filter on (optional)
+	 *	@param:	function callback - function to call post processing
+	 */
+
+	getLeaveDebits: function(id, where, callback) {
+		var sql;
+
+		// sql = mysql.select('*').from('LeaveDebit')
+		// 	.where(Object.assign({
+		// 		regularStaffID: id
+		// 	}, where || {}));
+
+		// LeaveDebit.query(sql.toString(), callback);
+
+		sql = mysql.select('ld.*')
+			.from('LeaveDebit AS ld')
+			.where('ld.regularStaffID', id);
+
+		sql = (where) ? sql.where('ld.leaveDebitID', where).toString() : sql.toString();
+		LeaveDebit.query(sql, callback);
 	}
 };

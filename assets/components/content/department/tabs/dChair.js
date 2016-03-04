@@ -47,19 +47,17 @@ application.service('dChair', function($http, _, formService) {
                         name: "employeeNo"
                     }]
                 },
+
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, null, 'dChair', false);
@@ -77,18 +75,16 @@ application.service('dChair', function($http, _, formService) {
                 name: "fullName",
                 label: "Full name",
                 readonly: true
+
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, row, 'dChair', false);
