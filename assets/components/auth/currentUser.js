@@ -7,6 +7,7 @@ application.service('CurrentUser', function($http, $state, $q, LocalService, toa
                         return res;
                     }, function(err) {
                         toaster.error(err);
+                        console.log(err);
                         LocalService.unset('auth_token');
                         $state.go('index');
                     });
