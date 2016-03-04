@@ -8,7 +8,7 @@ application.service('dContractStaff', function($http, _, formService) {
             }
             return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model)
                 .then(function(res) {
-                    return $http.get('/department/getInfo?type=contractStaff&id=' + res.data.departmentID.departmentID + '&where=' + res.data.academicStaffDepartmentID);
+                    return $http.get('/Department/getInfo?type=contractStaff&id=' + res.data.departmentID.departmentID + '&where=' + res.data.academicStaffDepartmentID);
                 });
         },
         create: function(formData) {
@@ -16,6 +16,7 @@ application.service('dContractStaff', function($http, _, formService) {
                 formData.model.academicStaffID = formData.model.fullName.obj.academicStaffID;
                 formData.model.departmentID = mainRow.entity.departmentID;
             }
+            console.log(formData.model);
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
                     return $http.get('/department/getInfo?type=contractStaff&id=' + res.data.departmentID + '&where=' + res.data.academicStaffDepartmentID);
@@ -43,7 +44,7 @@ application.service('dContractStaff', function($http, _, formService) {
                     obj: {},
                     name: "fullName",
                     meta: [{
-                        tag: "",
+                        tag: "Employee Num:",
                         name: "employeeNo"
                     }]
                 },
@@ -56,8 +57,7 @@ application.service('dContractStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, null, 'dContractStaff', false);
@@ -71,23 +71,10 @@ application.service('dContractStaff', function($http, _, formService) {
             formData.isEditing = true;
             formData.title = 'Edit Contract Staff';
             formData.inputs = [{
-                type: "acCustom",
+                type: "text",
                 name: "fullName",
                 label: "Full name",
-                url: {
-                    start: "/academicStaff/searchFullName?type=ContractStaff&where={",
-                    end: "\"fullName\":{\"startsWith\":\"",
-                },
-                link: "application.contractStaff",
-                output: {
-                    obj: {},
-                    name: "fullName",
-                    meta: [{
-                        tag: "",
-                        name: "employeeNo"
-                    }]
-                },
-                required: true
+                readonly: true
             }, {
                 type: "date",
                 name: "startDate",
@@ -96,8 +83,7 @@ application.service('dContractStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, row, 'dContractStaff', false);

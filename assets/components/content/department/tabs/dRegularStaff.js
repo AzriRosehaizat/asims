@@ -43,7 +43,7 @@ application.service('dRegularStaff', function($http, _, formService) {
                     obj: {},
                     name: "fullName",
                     meta: [{
-                        tag: "",
+                        tag: "Employee Num:",
                         name: "employeeNo"
                     }]
                 },
@@ -56,8 +56,7 @@ application.service('dRegularStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, null, 'dRegularStaff', false);
@@ -71,23 +70,10 @@ application.service('dRegularStaff', function($http, _, formService) {
             formData.isEditing = true;
             formData.title = 'Edit Regular Staff';
             formData.inputs = [{
-                type: "acCustom",
+                type: "text",
                 name: "fullName",
                 label: "Full name",
-                url: {
-                    start: "/academicStaff/searchFullName?type=RegularStaff&where={",
-                    end: "\"fullName\":{\"startsWith\":\"",
-                },
-                link: "application.regularStaff",
-                output: {
-                    obj: {},
-                    name: "fullName",
-                    meta: [{
-                        tag: "",
-                        name: "employeeNo"
-                    }]
-                },
-                required: true
+                readonly: true
             }, {
                 type: "date",
                 name: "startDate",
@@ -96,8 +82,7 @@ application.service('dRegularStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, row, 'dRegularStaff', false);

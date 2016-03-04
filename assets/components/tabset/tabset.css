@@ -14,7 +14,12 @@
 #gridTabs md-ink-bar {
     top: 62px;
 }
+
 #tabMenu {
     top: 0;
     right: 0;
+}
+
+#tabDivider {
+    margin: 1em;
 }

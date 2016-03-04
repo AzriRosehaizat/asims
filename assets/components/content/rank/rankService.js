@@ -29,14 +29,11 @@ application.service('rankService', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "description",
-                label: "Description",
-                disabled: false,
-                required: false
+                label: "Description"
             }];
 
             formService.init(formData, gridData, null, 'rankService', true);
@@ -49,14 +46,11 @@ application.service('rankService', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "description",
-                label: "Description",
-                disabled: false,
-                required: false
+                label: "Description"
             }];
 
             formService.init(formData, gridData, row, 'rankService', true);

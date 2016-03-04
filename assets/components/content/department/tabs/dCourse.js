@@ -22,20 +22,16 @@ application.service('dCourse', function($http, _, formService) {
                 type: "text",
                 name: "courseNo",
                 label: "Course No",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Name",
-                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "description",
-                label: "Description",
-                disabled: false,
-                required: false
+                label: "Description"
             }];
 
             formService.init(formData, gridData, null, 'dCourse', true);
@@ -48,20 +44,16 @@ application.service('dCourse', function($http, _, formService) {
                 type: "text",
                 name: "courseNo",
                 label: "Course No",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Name",
-                disabled: false,
                 required: true
             }, {
                 type: "textarea",
                 name: "description",
-                label: "Description",
-                disabled: false,
-                required: false
+                label: "Description"
             }];
 
             formService.init(formData, gridData, row, 'dCourse', false);
