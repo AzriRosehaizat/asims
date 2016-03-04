@@ -101,12 +101,7 @@ module.exports = {
 				tenureDate: RegularStaff[0].tenureDate
 			});
 		}).catch(function(err) {
-			// if (err.originalError){
-			// 	res.serverError(err.originalError);
-			// 	console.log(err.originalError.errNo);
-			// } else
 				res.serverError(err);
-			
 		});
 	},
 	getAllRegularStaff: function(req, res) {
@@ -131,7 +126,7 @@ module.exports = {
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
 				break;
 			case 'department':
-				
+
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
 			case 'rank':
@@ -142,19 +137,19 @@ module.exports = {
 				break;
 			case 'leaveCredits':
 				RegularStaffService
-				.getLeaveCredits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+					.getLeaveCredits(
+						data.id,
+						data.where,
+						responseFn
+					);
 				break;
 			case 'leaveDebits':
 				RegularStaffService
-				.getLeaveDebits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+					.getLeaveDebits(
+						data.id,
+						data.where,
+						responseFn
+					);
 				break;
 			default:
 				res.serverError();
