@@ -66,7 +66,7 @@ module.exports = {
 			.innerJoin('MostRecentRank_Contract as cv', 'a.academicStaffID', 'cv.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
-			.leftJoin('Rank as rk', 'rv.rankID', 'rk.rankID')
+			.leftJoin('Rank as rk', 'cv.rankID', 'rk.rankID')
 			.groupBy('a.academicStaffID')
 			.where('ad.departmentID', id);
 
