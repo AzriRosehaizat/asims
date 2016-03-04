@@ -18,7 +18,7 @@ application.service('rsEmployment', function($http, _, formService) {
             
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Employement';
+            formData.title = 'Add Employment';
             formData.inputs = [{
                 type: "date",
                 name: "startDate",

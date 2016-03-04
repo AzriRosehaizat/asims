@@ -126,7 +126,6 @@ module.exports = {
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
 				break;
 			case 'department':
-				
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
 			case 'rank':
@@ -136,20 +135,10 @@ module.exports = {
 				RegularStaffService.getEmployment(data.id, data.where, responseFn);
 				break;
 			case 'leaveCredits':
-				RegularStaffService
-				.getLeaveCredits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+				RegularStaffService.getLeaveCredits(data.id, data.where, responseFn);
 				break;
 			case 'leaveDebits':
-				RegularStaffService
-				.getLeaveDebits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+				RegularStaffService.getLeaveDebits(data.id, data.where, responseFn);
 				break;
 			default:
 				res.serverError();
