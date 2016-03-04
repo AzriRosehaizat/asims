@@ -15,7 +15,7 @@ module.exports = {
             query.lastName = {
                 'startsWith': names[1]
             };
-        }
+        } 
 
         AcademicStaff.find(query).populate(type).exec(function(err, staffs) {
             if (err) {
