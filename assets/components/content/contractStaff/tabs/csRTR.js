@@ -49,7 +49,6 @@ application.service('csRTR', function($http, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -81,8 +80,7 @@ application.service('csRTR', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             }, {
                 type: "acCustom",
                 name: "sectionNo",
@@ -117,13 +115,11 @@ application.service('csRTR', function($http, _, formService) {
                 type: "text",
                 name: "startTerm",
                 label: "Start Term",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "endTerm",
                 label: "End Term",
-                disabled: false,
                 required: true
             }];
 
@@ -149,7 +145,6 @@ application.service('csRTR', function($http, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -181,8 +176,7 @@ application.service('csRTR', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             }, {
                 type: "acCustom",
                 name: "sectionNo",
@@ -217,13 +211,11 @@ application.service('csRTR', function($http, _, formService) {
                 type: "text",
                 name: "startTerm",
                 label: "Start Term",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "endTerm",
                 label: "End Term",
-                disabled: false,
                 required: true
             }];
 

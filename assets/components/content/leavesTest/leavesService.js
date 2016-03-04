@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, _, formService) {
+application.service('leavesService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -10,9 +10,6 @@ application.service('regularStaffService', function($http, _, formService) {
                     name: 'Last Name',
                     field: 'lastName'
                 }, {
-                    name: 'Employee No.',
-                    field: 'employeeNo'
-                }, {
                     name: 'Department',
                     field: 'departmentCode'
                 }, {
@@ -23,58 +20,50 @@ application.service('regularStaffService', function($http, _, formService) {
                     field: 'tenureDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
-                    name: 'Cont\' Appointment Date',
+                    name: 'Cont\' appointment date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
-                }]
+                }],
+                readOnly: true
             };
         },
         update: function(formData) {
-            return $http.post('/regularStaff/updateRAS', formData.model);
+            // return $http.post('/regularStaff/updateRAS', formData.model);
         },
         create: function(formData) {
-            return $http.post('/regularStaff/createRAS', formData.model);
+            // return $http.post('/regularStaff/createRAS', formData.model);
         },
         delete: function(formData) {
-            return $http.post('/regularStaff/deleteRAS', formData.model);
+            // return $http.post('/regularStaff/deleteRAS', formData.model);
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
-                required: true
-            }, {
-                type: "text",
-                name: "employeeNo",
-                label: "Employee No.",
-                disabled: false,
-                required: false
+                readonly: true
             }, {
                 type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
-                disabled: false,
-                required: false
+                readonly: true
             }, {
                 type: "date",
                 name: "contAppDate",
                 label: "Cont' appointment date",
-                disabled: false,
-                required: false
+                readonly: true
             }];
 
-            formService.init(formData, gridData, null, 'regularStaffService', true);
+            gridData.readOnly = this.gridOptions().readOnly;
+            formService.init(formData, gridData, null, 'leavesService', true);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.tenureDate = formService.formatDate(row.entity.tenureDate);
@@ -82,40 +71,31 @@ application.service('regularStaffService', function($http, _, formService) {
             
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
-                required: true
+                readonly: true
             }, {
-                type: "text",
-                name: "employeeNo",
-                label: "Employee No.",
-                disabled: false,
-                required: false
-            },  {
                 type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
-                disabled: false,
-                required: false
+                readonly: true
             }, {
                 type: "date",
                 name: "contAppDate",
                 label: "Cont' appointment date",
-                disabled: false,
-                required: false
+                readonly: true
             }];
 
-            formService.init(formData, gridData, row, 'regularStaffService', true);
+            gridData.readOnly = this.gridOptions().readOnly;
+            formService.init(formData, gridData, row, 'leavesService', true);
         },
         getRow: function(row) {
             return $http.get('/regularStaff/getAllRegularStaff/' + row.entity.regularStaffID);
