@@ -5,7 +5,7 @@
             <md-select-label>{{ getSelectLabel(input.name, input.path, input.text) }}</md-select-label>
             <md-option ng-value="item" ng-repeat="item in input.items">{{ item[input.name] }}</md-option>
         </md-select>
-        <div ng-messages="navRightForm[input.name].$error" ng-show="navRightForm[input.name].$touched">
+        <div ng-messages="fs.form[input.name].$error" ng-show="fs.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
         </div>
     </md-input-container>
