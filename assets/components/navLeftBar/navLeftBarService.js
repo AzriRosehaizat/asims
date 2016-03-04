@@ -11,7 +11,7 @@ application
         state: 'application.root',
         type: 'link'
       }];
-      
+
       sections.push({
         name: 'Staff Management',
         type: 'toggle',
@@ -24,19 +24,22 @@ application
           state: 'application.contractStaff',
           type: 'link'
         }, 
+        // {
+        //   name: 'Leaves',
+        //   type: 'link',
+        //   state: 'application.leaves'
+        // }, 
         {
-          name: 'Leaves',
-          type: 'link',
-          state: 'application.leaves'
-        }, {
           name: 'Research',
           state: 'application.research',
           type: 'link'
-        }, {
-          name: 'Teaching Activities',
-          state: 'application.root',
-          type: 'link'
-        }]
+        }, 
+        // {
+        //   name: 'Teaching Activities',
+        //   state: 'application.root',
+        //   type: 'link'
+        // }
+        ]
       });
       sections.push({
         name: 'Organization Management',
@@ -96,6 +99,7 @@ application
         toggleSelectSection: function(section) {
           self.openedSection = (self.openedSection === section ? null : section);
         },
+        
         isSectionSelected: function(section) {
           return self.openedSection === section;
         },
