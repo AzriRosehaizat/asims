@@ -34,11 +34,11 @@ application.service('rGrant', function($http, _, formService) {
             }, {
                 type: "text",
                 name: "duration",
-                label: "Duration"
+                label: "Duration (In Years)"
             }, {
                 type: "number",
                 name: "amount",
-                label: "Amount"
+                label: "Amount (CAD)"
             }];
 
             formService.init(formData, gridData, null, 'rGrant', false);
@@ -61,11 +61,11 @@ application.service('rGrant', function($http, _, formService) {
             }, {
                 type: "text",
                 name: "duration",
-                label: "Duration"
+                label: "Duration (In Years)"
             }, {
                 type: "number",
                 name: "amount",
-                label: "Amount"
+                label: "Amount (CAD)"
             }];
 
             formService.init(formData, gridData, row, 'rGrant', false);
