@@ -33,26 +33,21 @@ application.service('sectionService', function($http, _, formService) {
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Section';
-            //Here you define your form types, to generate the html form
-            //templates are stored in /form/tmpl/*
             formData.inputs = [{
                 type: "text",
                 name: "sectionNo",
                 label: "Section No.",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "sectionType",
                 label: "Section Type",
-                disabled: false,
                 required: true
             }, {
                 type: "number",
                 name: "FCEModifier",
                 label: "FCE Modifier",
-                required: true,
-                disabled: false
+                required: true
             }];
 
             formService.init(formData, gridData, null, 'sectionService', true);
@@ -65,20 +60,17 @@ application.service('sectionService', function($http, _, formService) {
                 type: "text",
                 name: "sectionNo",
                 label: "Section No.",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "sectionType",
                 label: "Section Type",
-                disabled: false,
                 required: true
             }, {
                 type: "number",
                 name: "FCEModifier",
                 label: "FCE Modifier",
-                required: true,
-                disabled: false
+                required: true
             }];
 
             formService.init(formData, gridData, row, 'sectionService', true);

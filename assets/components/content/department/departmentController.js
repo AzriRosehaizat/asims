@@ -34,7 +34,6 @@ application.controller('departmentController', function($scope, departments, dep
             toaster.info("Select a row first.");
     };
 
-
     // Begin tab operations
     $scope.selectTab = function(tab) {
         $scope.tab = tab;
@@ -70,7 +69,9 @@ application.controller('departmentController', function($scope, departments, dep
     $scope.addTabRow = function() {
         if ($scope.row)
             dTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
-         else
+
+        else
+
             toaster.info("Select a row first in the main table.");
     };
 
