@@ -145,20 +145,13 @@ module.exports = {
 				RegularStaffService.getEmployment(data.id, data.where, responseFn);
 				break;
 			case 'leaveCredits':
-				RegularStaffService
-					.getLeaveCredits(
-						data.id,
-						data.where,
-						responseFn
-					);
+				RegularStaffService.getLeaveCredits(data.id, data.where, responseFn);
 				break;
 			case 'leaveDebits':
-				RegularStaffService
-					.getLeaveDebits(
-						data.id,
-						data.where,
-						responseFn
-					);
+				RegularStaffService.getLeaveDebits(data.id, data.where, responseFn);
+				break;
+			case 'research':
+				RegularStaffService.getResearchStaff(data.id, data.where, responseFn);
 				break;
 			default:
 				res.serverError();
@@ -166,22 +159,3 @@ module.exports = {
 		}
 	}
 };
-
-// module.exports = {
-// 	test: function(request, response) {
-// 		var data = {
-// 			startID: request.param('startID'),
-// 			limit: request.param('limit')
-// 		};
-
-// 		RegularStaffService.find(data, function(error, regularStaff) {
-// 			response.json(error || regularStaff);
-// 		});
-// 	},
-
-// 	count: function(req, res) {
-// 		RegularStaff.count().exec(function countCB(err, found) {
-// 			res.json(err || found);
-// 		});
-// 	}
-// };

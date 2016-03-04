@@ -3,14 +3,25 @@ application.service('rStaff', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            return $http.put('/RegularStaff_Research/' + formData.model.researchID, formData.model);
+            return $http.put('/RegularStaff_Research/' + formData.model.regularStaffResearchID, formData.model)
+                .then(function(res) {
+                    return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.researchID.researchID + 
+                                     '&where=' + res.data.regularStaffResearchID);
+                });
         },
         create: function(formData) {
-            formData.model.researchID = mainRow.entity.researchID;
-            return $http.post('/RegularStaff_Research/', formData.model);
+            if (_.isObject(formData.model.fullName)) {
+                formData.model.regularStaffID = formData.model.fullName.obj.RegularStaff[0].regularStaffID;
+                formData.model.researchID = mainRow.entity.researchID;
+            }
+            return $http.post('/RegularStaff_Research/', formData.model)
+                .then(function(res) {
+                    return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.researchID + 
+                                     '&where=' + res.data.regularStaffResearchID);
+                });
         },
         delete: function(formData) {
-            return $http.delete('/RegularStaff_Research/' + formData.model.researchID);
+            return $http.delete('/RegularStaff_Research/' + formData.model.regularStaffResearchID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
@@ -19,29 +30,32 @@ application.service('rStaff', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Add Staff';
             formData.inputs = [{
-                type: "text",
-                name: "firstName",
-                label: "First name",
-                disabled: false,
-                required: true
-            }, {
-                type: "text",
-                name: "lastName",
-                label: "Last name",
-                disabled: false,
+                type: "acCustom",
+                name: "fullName",
+                label: "Full name",
+                url: {
+                    start: "/academicStaff/searchFullName?type=RegularStaff&where={",
+                    end: "\"fullName\":{\"startsWith\":\"",
+                },
+                link: "application.regularStaff",
+                output: {
+                    obj: {},
+                    name: "fullName",
+                    meta: [{
+                        tag: "",
+                        name: "employeeNo"
+                    }]
+                },
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                disabled: false,
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, null, 'rStaff', false);
@@ -49,34 +63,25 @@ application.service('rStaff', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
+            row.entity.fullName = row.entity.firstName + ' ' + row.entity.lastName;
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Staff';
             formData.inputs = [{
                 type: "text",
-                name: "firstName",
-                label: "First name",
-                disabled: true,
-                required: true
-            }, {
-                type: "text",
-                name: "lastName",
-                label: "Last name",
-                disabled: true,
-                required: true
+                name: "fullName",
+                label: "Full name",
+                readonly: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                disabled: false,
-                required: false
+                label: "End Date"
             }];
 
             formService.init(formData, gridData, row, 'rStaff', false);

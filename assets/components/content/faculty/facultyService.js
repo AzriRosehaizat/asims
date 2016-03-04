@@ -7,7 +7,6 @@ application.service('facultyService', function($http, _, formService) {
                     name: 'Title',
                     field: 'title'
                 }]
-                // , readOnly: true
             };
         },
         update: function(formData) {
@@ -28,17 +27,13 @@ application.service('facultyService', function($http, _, formService) {
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Faculty';
-            //Here you define your form types, to generate the html form
-            //templates are stored in /form/tmpl/*
             formData.inputs = [{
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: false,
                 required: true
             }];
-
-            // gridData.readOnly = this.gridOptions().readOnly;
+            
             formService.init(formData, gridData, null, 'facultyService', true);
         },
         initEditForm: function(formData, gridData, row) {
@@ -49,11 +44,9 @@ application.service('facultyService', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: false,
                 required: true
             }];
             
-            // gridData.readOnly = this.gridOptions().readOnly;
             formService.init(formData, gridData, row, 'facultyService', true);
         },
         getRow: function(row) {

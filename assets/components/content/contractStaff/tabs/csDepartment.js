@@ -47,20 +47,16 @@ application.service('csDepartment', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, null, 'csDepartment', false);
@@ -85,20 +81,16 @@ application.service('csDepartment', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, row, 'csDepartment', false);
