@@ -62,13 +62,12 @@ module.exports = {
 		});
 	},
 	getContractStaff: function(id, where, callback) {
-		var sSQL = mysql.select('a.*', 'cs.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
-			.from('ContractStaff AS cs')
-			.innerJoin('AcademicStaff AS a', 'cs.academicStaffID', 'a.academicStaffID')
+		var sSQL = mysql.select('a.*', 'cv.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
+			.from('AcademicStaff AS a')
+			.innerJoin('MostRecentRank_Contract as cv', 'a.academicStaffID', 'cv.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
-			.innerJoin('MostRecentRank_Contract as rv', 'cs.contractStaffID', 'rv.contractStaffID')
-			.innerJoin('Rank as rk', 'rv.rankID', 'rk.rankID')
+			.leftJoin('Rank as rk', 'rv.rankID', 'rk.rankID')
 			.groupBy('a.academicStaffID')
 			.where('ad.departmentID', id);
 
