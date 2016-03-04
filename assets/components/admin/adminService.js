@@ -65,10 +65,10 @@ application.service('adminService', function($http, _, moment, formService) {
                 label: "Email",
                 required: true
             }, {
-                type: "role",
+                type: "select",
                 name: "role",
                 label: "Role",
-                roles: [{
+                items: [{
                     id: 1,
                     role: "Reader"
                 }, {
@@ -78,6 +78,8 @@ application.service('adminService', function($http, _, moment, formService) {
                     id: 3,
                     role: "Admin"
                 }],
+                path: "role.role",
+                text: "Select a role",
                 required: true
             }, {
                 type: "password",
@@ -113,10 +115,10 @@ application.service('adminService', function($http, _, moment, formService) {
                 label: "Email",
                 required: true
             }, {
-                type: "role",
+                type: "select",
                 name: "role",
                 label: "Role",
-                roles: [{
+                items: [{
                     id: 1,
                     role: "Reader"
                 }, {
@@ -126,6 +128,8 @@ application.service('adminService', function($http, _, moment, formService) {
                     id: 3,
                     role: "Admin"
                 }],
+                path: "role.role",
+                text: "Select a role",
                 required: true
             }, {
                 type: "passwordChange"
