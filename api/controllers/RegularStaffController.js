@@ -28,7 +28,6 @@ module.exports = {
 				var createdRAS = RegularStaff.create(rasData).then(function(createdRAS) {
 					return createdRAS;
 				});
-				console.log('Created staff with name: ' + created.firstName + " " + created.lastName + ";" + created.academicStaffID);
 				return [created, createdRAS];
 			}).spread(function(AcademicStaff, RegularStaff) {
 				res.json({
@@ -43,7 +42,6 @@ module.exports = {
 			})
 			.catch(function(err) {
 				res.serverError(err);
-				console.log(err);
 			});
 	},
 	updateRAS: function(req, res) {
@@ -63,7 +61,6 @@ module.exports = {
 				var updatedRAS = RegularStaff.update(rasData.regularStaffID, rasData).then(function(updatedRAS) {
 					return updatedRAS;
 				});
-				console.log("Updated successfully for academicStaffID: " + updated[0].academicStaffID + updated[0].firstName + " " + updated[0].lastName);
 				return [updated, updatedRAS];
 			}).spread(function(AcademicStaff, RegularStaff) {
 				res.json({
@@ -75,10 +72,8 @@ module.exports = {
 					contAppDate: RegularStaff[0].contAppDate,
 					tenureDate: RegularStaff[0].tenureDate
 				});
-
 			}).catch(function(err) {
 				res.serverError(err);
-				console.log(err);
 			});
 	},
 	deleteRAS: function(req, res) {
@@ -105,11 +100,17 @@ module.exports = {
 				contAppDate: RegularStaff[0].contAppDate,
 				tenureDate: RegularStaff[0].tenureDate
 			});
-			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff[0].academicStaffID + " and regularStaffID: " + RegularStaff[0].regularStaffID);
 		}).catch(function(err) {
-			console.log(err);
-			console.log("Unable to delete right now");
-			res.serverError(err);
+			// if (err.originalError) {
+			// 	console.log(err.originalError.errno);
+			// 	var error = err.originalError.errno;
+			// 	res.serverError({code: error});
+			// }
+			// else {
+				console.log(err);
+				console.log("Unable to delete right now");
+				res.serverError(err);
+			// }
 		});
 	},
 	getAllRegularStaff: function(req, res) {
@@ -134,7 +135,7 @@ module.exports = {
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
 				break;
 			case 'department':
-				
+
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
 			case 'rank':
@@ -145,19 +146,19 @@ module.exports = {
 				break;
 			case 'leaveCredits':
 				RegularStaffService
-				.getLeaveCredits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+					.getLeaveCredits(
+						data.id,
+						data.where,
+						responseFn
+					);
 				break;
 			case 'leaveDebits':
 				RegularStaffService
-				.getLeaveDebits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+					.getLeaveDebits(
+						data.id,
+						data.where,
+						responseFn
+					);
 				break;
 			default:
 				res.serverError();
