@@ -1448,11 +1448,11 @@ CREATE  OR REPLACE VIEW `asims`.`MostRecentDepartment` AS
         GROUP BY `AcademicStaff_Department`.`academicStaffID`);
 
 -- -----------------------------------------------------
--- View `asims`.`MostRecentRank_Contract`
+-- View `asims`.`ContractStaffRank`
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS `asims`.`MostRecentRank_Contract`;
+DROP VIEW IF EXISTS `asims`.`ContractStaffRank`;
 
-CREATE VIEW `asims`.`MostRecentRank_Contract` AS 
+CREATE VIEW `asims`.`ContractStaffRank` AS 
   SELECT 
     `ContractStaff_Rank`.`contractStaffRankID` AS `contractStaffRankID`,
     `ContractStaff_Rank`.`rankID` AS `rankID`,
@@ -1470,6 +1470,46 @@ CREATE VIEW `asims`.`MostRecentRank_Contract` AS
         GROUP BY `ContractStaff_Rank`.`contractStaffID`);
 
 -- -----------------------------------------------------
+-- View `asims`.`MostRecentRank_Contract`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`MostRecentRank_Contract`;
+
+CREATE VIEW `asims`.`MostRecentRank_Contract` AS 
+  SELECT 
+        `ContractStaff`.`academicStaffID` AS `academicStaffID`,
+        `ContractStaff`.`contractStaffID` AS `contractStaffID`,
+        `ContractStaffRank`.`contractStaffRankID` AS `contractStaffRankID`,
+        `ContractStaffRank`.`rankID` AS `rankID`,
+        `ContractStaffRank`.`startDate` AS `startDate`,
+        `ContractStaffRank`.`endDate` AS `endDate`
+    FROM
+        (`ContractStaff`
+        LEFT JOIN `ContractStaffRank` 
+          ON ((`ContractStaff`.`contractStaffID` = `ContractStaffRank`.`contractStaffID`)))
+
+-- -----------------------------------------------------
+-- View `asims`.`RegularStaffRank`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`RegularStaffRank`;
+
+CREATE VIEW `asims`.`RegularStaffRank` AS 
+  SELECT 
+    `RegularStaff_Rank`.`regularStaffRankID` AS `regularStaffRankID`,
+    `RegularStaff_Rank`.`rankID` AS `rankID`,
+    `RegularStaff_Rank`.`regularStaffID` AS `regularStaffID`,
+    `RegularStaff_Rank`.`startDate` AS `startDate`,
+    `RegularStaff_Rank`.`endDate` AS `endDate`
+  FROM
+    `RegularStaff_Rank`
+  WHERE
+    (`RegularStaff_Rank`.`regularStaffID` , `RegularStaff_Rank`.`startDate`) IN (SELECT 
+        `RegularStaff_Rank`.`regularStaffID`,
+        MAX(`RegularStaff_Rank`.`startDate`) AS `startDate`
+      FROM
+        `RegularStaff_Rank`
+        GROUP BY `RegularStaff_Rank`.`regularStaffID`);
+
+---------------------------------------------------
 -- View `asims`.`MostRecentRank_Regular`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `asims`.`MostRecentRank_Regular`;
