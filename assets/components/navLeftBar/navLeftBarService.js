@@ -71,19 +71,19 @@ application
         }]
       });
 
-      sections.push({
-        name: 'Report',
-        type: 'toggle',
-        pages: [{
-          name: 'Faculty Load Chart',
-          type: 'link',
-          state: 'application.FLC'
-        }, {
-          name: 'Leave Entitlement Chart',
-          state: 'application.LEC',
-          type: 'link'
-        }]
-      });
+      // sections.push({
+      //   name: 'Report',
+      //   type: 'toggle',
+      //   pages: [{
+      //     name: 'Faculty Load Chart',
+      //     type: 'link',
+      //     state: 'application.FLC'
+      //   }, {
+      //     name: 'Leave Entitlement Chart',
+      //     state: 'application.LEC',
+      //     type: 'link'
+      //   }]
+      // });
 
       sections.push({
         name: 'Admin',
