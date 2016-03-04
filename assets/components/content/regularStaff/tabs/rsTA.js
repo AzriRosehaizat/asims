@@ -49,7 +49,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -81,8 +80,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             }, {
                 type: "acCustom",
                 name: "sectionNo",
@@ -117,14 +115,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "role",
-                label: "Role",
-                disabled: false,
-                required: false
+                label: "Role"
             }];
 
             formService.init(formData, gridData, null, 'rsTA', false);
@@ -152,7 +147,6 @@ application.service('rsTA', function($http, $q, _, formService) {
                 change: {
                     reset: "courseNo"
                 },
-                disabled: false,
                 required: true
             }, {
                 type: "acCustom",
@@ -184,8 +178,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                disabled: true,
-                required: true
+                readonly: true
             }, {
                 type: "acCustom",
                 name: "sectionNo",
@@ -220,14 +213,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "role",
-                label: "Role",
-                disabled: false,
-                required: false
+                label: "Role"
             }];
 
             formService.init(formData, gridData, row, 'rsTA', false);

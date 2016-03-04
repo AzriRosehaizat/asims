@@ -22,29 +22,24 @@ application.service('dChair', function($http, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First Name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last Name",
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
-            formService.init(formData, gridData, null, 'dChair', true);
+            formService.init(formData, gridData, null, 'dChair', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
@@ -57,26 +52,21 @@ application.service('dChair', function($http, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First Name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last Name",
-                disabled: false,
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
-                disabled: false,
-                required: false
+                label: "End date"
             }];
 
             formService.init(formData, gridData, row, 'dChair', false);

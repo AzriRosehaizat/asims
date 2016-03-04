@@ -26,6 +26,9 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                     title: 'Staff',
                     gridOptions: {
                         columnDefs: [{
+                            name: 'Dept. Code',
+                            field: 'departmentCode'
+                        }, {
                             name: 'First Name',
                             field: 'firstName'
                         }, {
@@ -75,9 +78,9 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 });
         },
         getStaff: function(staff, row) {
-            $http.get('/Research/' + row.entity.researchID)
+            $http.get('/regularStaff/getInfo?type=research&id=' + row.entity.researchID)
                 .then(function(res) {
-                    staff.gridOptions.data = res.data.RegularStaff_Research;
+                    staff.gridOptions.data = res.data;
                 });
         }
     };

@@ -18,7 +18,6 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                         }],
                     },
                     readOnly: true
-
                 },
                 regularStaff: {
                     title: 'Regular Staff',
