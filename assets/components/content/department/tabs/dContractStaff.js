@@ -19,10 +19,7 @@ application.service('dContractStaff', function($http, _, formService) {
             console.log(formData.model);
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
-                    return $http.get('/Department/getInfo?type=contractStaff&id=' + res.data.departmentID + '&where=' + res.data.academicStaffDepartmentID)
-                        .then(function(res2){
-                            console.log(res2.data);
-                        });
+                    return $http.get('/department/getInfo?type=contractStaff&id=' + res.data.departmentID + '&where=' + res.data.academicStaffDepartmentID);
                 });
         },
         delete: function(formData) {
