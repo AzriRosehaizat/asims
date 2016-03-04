@@ -102,76 +102,56 @@ module.exports = {
 			callback(err, result);
 		});
 	},
-	
-	
+
+
 	/***************************************************************************
-	*	@desc:	Gets related leave credits from the LeaveCredit table
-	*	@param:	string id - regularStaffID to get
-	*	@param:	string where - additional where criteria to filter on (optional)
-	*	@param:	function callback - function to call post processing
-	*/
-	
-	getLeaveCredits: function( id, where, callback ) {
+	 *	@desc:	Gets related leave credits from the LeaveCredit table
+	 *	@param:	string id - regularStaffID to get
+	 *	@param:	string where - additional where criteria to filter on (optional)
+	 *	@param:	function callback - function to call post processing
+	 */
+
+	getLeaveCredits: function(id, where, callback) {
 		var sql;
+
+		// sql = mysql.select('*').from('LeaveCredit')
+		// 	.where(Object.assign({
+		// 		regularStaffID: id
+		// 	}, where || {}));
+
+		// LeaveCredit.query(sql.toString(), callback);
 		
-		sql = mysql
-		.select(
-			'*'
-		)
-		.from(
-			'LeaveCredit'
-		)
-		.where(
-			Object
-			.assign(
-				{
-					regularStaffID : id
-				},
-				where || {}
-			)
-		);
-		
-		LeaveCredit
-		.query(
-			sql
-			.toString(),
-			callback
-		);
+		sql = mysql.select('lc.*')
+			.from('LeaveCredit AS lc')
+			.where('lc.regularStaffID', id);
+
+		sql = (where) ? sql.where('lc.leaveCreditID', where).toString() : sql.toString();
+		LeaveCredit.query(sql, callback);
 	},
-	
-	
+
+
 	/***************************************************************************
-	*	@desc:	Gets related leave debits from the LeaveDebit table
-	*	@param:	string id - regularStaffID to get
-	*	@param:	string where - additional where criteria to filter on (optional)
-	*	@param:	function callback - function to call post processing
-	*/
-	
-	getLeaveDebits: function( id, where, callback ) {
+	 *	@desc:	Gets related leave debits from the LeaveDebit table
+	 *	@param:	string id - regularStaffID to get
+	 *	@param:	string where - additional where criteria to filter on (optional)
+	 *	@param:	function callback - function to call post processing
+	 */
+
+	getLeaveDebits: function(id, where, callback) {
 		var sql;
+
+		// sql = mysql.select('*').from('LeaveDebit')
+		// 	.where(Object.assign({
+		// 		regularStaffID: id
+		// 	}, where || {}));
 		
-		sql = mysql
-		.select(
-			'*'
-		)
-		.from(
-			'LeaveDebit'
-		)
-		.where(
-			Object
-			.assign(
-				{
-					regularStaffID : id
-				},
-				where || {}
-			)
-		);
+		// LeaveDebit.query(sql.toString(), callback);
 		
-		LeaveCredit
-		.query(
-			sql
-			.toString(),
-			callback
-		);
+		sql = mysql.select('ld.*')
+			.from('LeaveDebit AS ld')
+			.where('ld.regularStaffID', id);
+
+		sql = (where) ? sql.where('ld.leaveDebitID', where).toString() : sql.toString();
+		LeaveDebit.query(sql, callback);
 	}
 };
