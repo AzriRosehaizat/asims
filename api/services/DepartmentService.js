@@ -83,7 +83,7 @@ module.exports = {
 		});
 	},
 	getChair: function(id, where, callback) {
-		var sSQL = mysql.select('a.*', 'ch.startDate', 'ch.endDate')
+		var sSQL = mysql.select('a.*', 'ch.*')
 			.from('Chair AS ch')
 			.innerJoin('RegularStaff AS r', 'ch.RegularStaffID', 'r.regularStaffID')
 			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
