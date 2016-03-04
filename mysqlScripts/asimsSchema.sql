@@ -1272,16 +1272,12 @@ CREATE TABLE IF NOT EXISTS `RegularStaff_Research` (
   `regularStaffResearchID` INT(11) NOT NULL AUTO_INCREMENT,
   `researchID` INT(11) NOT NULL,
   `regularStaffID` INT(11) NOT NULL,
-  `loadReductionID` INT(11) NULL DEFAULT NULL,
   `startDate` DATE NOT NULL,
   `endDate` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`regularStaffResearchID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   INDEX `researchID` (`researchID` ASC) ,
   INDEX `loadReductionID` (`loadReductionID` ASC) ,
-  CONSTRAINT `RegularStaff_Research_ibfk_3`
-    FOREIGN KEY (`loadReductionID`)
-    REFERENCES `LoadReduction` (`loadReductionID`),
   CONSTRAINT `RegularStaff_Research_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`),

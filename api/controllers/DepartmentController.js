@@ -25,16 +25,16 @@ module.exports = {
         };
         switch (data.type) {
             case 'course':
-                DepartmentService.getCourse(data.id, data.where, responseFn)
+                DepartmentService.getCourse(data.id, data.where, responseFn);
                 break;
             case 'regularStaff':
-                DepartmentService.getRegularStaff(data.id, data.where, responseFn)
+                DepartmentService.getRegularStaff(data.id, data.where, responseFn);
                 break;
             case 'contractStaff':
-                DepartmentService.getContractStaff(data.id, data.where, responseFn)
+                DepartmentService.getContractStaff(data.id, data.where, responseFn);
                 break;
             case 'chair':
-                DepartmentService.getChair(data.id, data.where, responseFn)
+                DepartmentService.getChair(data.id, data.where, responseFn);
                 break;    
             default:
                 res.serverError();
