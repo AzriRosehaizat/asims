@@ -70,10 +70,7 @@ application.controller('departmentController', function($scope, departments, dep
     $scope.addTabRow = function() {
         if ($scope.row)
             dTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
-        else if ($scope.tab.title === "Regular Staff" || $scope.tab.title === "Contract Staff")
-            //Temp, should use $mdDialog
-            alert("Adding a staff is not allowed from this view");
-        else
+         else
             toaster.info("Select a row first in the main table.");
     };
 

@@ -101,7 +101,12 @@ module.exports = {
 				tenureDate: RegularStaff[0].tenureDate
 			});
 		}).catch(function(err) {
-			res.serverError(err);
+			// if (err.originalError){
+			// 	res.serverError(err.originalError);
+			// 	console.log(err.originalError.errNo);
+			// } else
+				res.serverError(err);
+			
 		});
 	},
 	getAllRegularStaff: function(req, res) {

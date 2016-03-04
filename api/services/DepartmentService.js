@@ -67,7 +67,7 @@ module.exports = {
 			.innerJoin('AcademicStaff AS a', 'cs.academicStaffID', 'a.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
-			.innerJoin('MostRecentRank_Contract as rv', 'cs.contractStaffID', 'rv.regularStaffID')
+			.innerJoin('MostRecentRank_Contract as rv', 'cs.contractStaffID', 'rv.contractStaffID')
 			.innerJoin('Rank as rk', 'rv.rankID', 'rk.rankID')
 			.groupBy('a.academicStaffID')
 			.where('ad.departmentID', id);
@@ -83,7 +83,7 @@ module.exports = {
 		});
 	},
 	getChair: function(id, where, callback) {
-		var sSQL = mysql.select('a.*', 'ch.startDate', 'ch.endDate')
+		var sSQL = mysql.select('a.*', 'ch.*')
 			.from('Chair AS ch')
 			.innerJoin('RegularStaff AS r', 'ch.RegularStaffID', 'r.regularStaffID')
 			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')

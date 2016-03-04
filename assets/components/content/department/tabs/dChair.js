@@ -3,11 +3,23 @@ application.service('dChair', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            return $http.put('/Chair/' + formData.model.chairID, formData.model);
+            return $http.put('/Chair/' + formData.model.chairID, formData.model)
+                .then(function(res) {
+                    return $http.get('/department/getInfo?type=chair&id=' + res.data.departmentID.departmentID + '&where=' + res.data.chairID);
+                });
         },
         create: function(formData) {
-            formData.model.departmentID = mainRow.entity.departmentID;
-            return $http.post('/Chair/', formData.model);
+            if (_.isObject(formData.model.fullName)) {
+                formData.model.regularStaffID = formData.model.fullName.obj.RegularStaff[0].regularStaffID;
+                formData.model.departmentID = mainRow.entity.departmentID;
+            }
+            return $http.post('/Chair', formData.model)
+                .then(function(res) {
+                    return $http.get('/department/getInfo?type=chair&id=' + res.data.departmentID + '&where=' + res.data.chairID);
+                });
+                
+                
+                
         },
         delete: function(formData) {
             return $http.delete('/Chair/' + formData.model.chairID);
@@ -50,33 +62,21 @@ application.service('dChair', function($http, _, formService) {
                 required: false
             }];
 
-            formService.init(formData, gridData, null, 'dChair', true);
+            formService.init(formData, gridData, null, 'dChair', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
-
+            row.entity.fullName = row.entity.firstName + ' ' + row.entity.lastName;
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Chair';
             formData.inputs = [{
-                type: "acCustom",
+                type: "text",
                 name: "fullName",
                 label: "Full name",
-                url: {
-                    start: "/academicStaff/searchFullName?type=RegularStaff&where={",
-                    end: "\"fullName\":{\"startsWith\":\"",
-                },
-                link: "application.regularStaff",
-                output: {
-                    obj: {},
-                    name: "fullName",
-                    meta: [{
-                        tag: "Employee Num:",
-                        name: "employeeNo"
-                    }]
-                },
-                required: true
+                readonly: true
             }, {
                 type: "date",
                 name: "startDate",
