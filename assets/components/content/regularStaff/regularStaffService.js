@@ -10,6 +10,9 @@ application.service('regularStaffService', function($http, _, formService) {
                     name: 'Last Name',
                     field: 'lastName'
                 }, {
+                    name: 'Employee No.',
+                    field: 'employeeNo'
+                }, {
                     name: 'Department',
                     field: 'departmentCode'
                 }, {
@@ -20,7 +23,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     field: 'tenureDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
-                    name: 'Cont\' appointment date',
+                    name: 'Cont\' Appointment Date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }]
@@ -51,6 +54,12 @@ application.service('regularStaffService', function($http, _, formService) {
                 label: "Last name",
                 disabled: false,
                 required: true
+            }, {
+                type: "text",
+                name: "employeeNo",
+                label: "Employee No.",
+                disabled: false,
+                required: false
             }, {
                 type: "date",
                 name: "tenureDate",
@@ -87,6 +96,12 @@ application.service('regularStaffService', function($http, _, formService) {
                 disabled: false,
                 required: true
             }, {
+                type: "text",
+                name: "employeeNo",
+                label: "Employee No.",
+                disabled: false,
+                required: false
+            },  {
                 type: "date",
                 name: "tenureDate",
                 label: "Tenure date",
