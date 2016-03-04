@@ -6,7 +6,7 @@ application.controller('researchController', function($scope, researches, resear
 
     $scope.gridOptions = researchService.gridOptions();
     $scope.gridOptions.data = $scope.researchData;
-    
+
     $scope.tabs = rTabService.tabs();
     $scope.tab = $scope.tabs.grant;
 
@@ -16,8 +16,9 @@ application.controller('researchController', function($scope, researches, resear
     $scope.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
+            $scope.tabRow = null;
             researchService.initEditForm($scope.formData, $scope.gridOptions.data, row);
-            
+
             rTabService.getTabs($scope.tabs, row);
         });
     };
@@ -27,7 +28,11 @@ application.controller('researchController', function($scope, researches, resear
     };
 
     $scope.editRow = function() {
-        researchService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        if ($scope.row) {
+            researchService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        }
+        else
+            toaster.info("Select a row first.");
     };
 
     $scope.selectTab = function(tab) {
@@ -36,15 +41,14 @@ application.controller('researchController', function($scope, researches, resear
         if ($scope.row) $scope.addTabRow();
     };
     
-    //not sure about this
     $scope.tabs.grant.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             rTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
-    
-    $scope.tabs.professor.gridOptions.onRegisterApi = function(gridApi) {
+
+    $scope.tabs.staff.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             rTabService.initEditForm($scope.formData, $scope.tab, row);

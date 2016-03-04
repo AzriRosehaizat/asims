@@ -29,5 +29,5 @@ module.exports = {
 			required: true
 		}
 	},
-	tableName: 'LoadReductionReg'
+	tableName: 'LoadReduction'
 };

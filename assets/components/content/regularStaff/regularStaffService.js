@@ -21,11 +21,11 @@ application.service('regularStaffService', function($http, _, formService) {
                 }, {
                     name: 'Tenure Date',
                     field: 'tenureDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
                     name: 'Cont\' Appointment Date',
                     field: 'contAppDate',
-                    cellFilter: 'date:\'yyyy-MM-dd\''
+                    cellFilter: 'date:\'MM-dd-yyyy\''
                 }]
             };
         },

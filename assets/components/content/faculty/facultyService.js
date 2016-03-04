@@ -7,11 +7,12 @@ application.service('facultyService', function($http, _, formService) {
                     name: 'Title',
                     field: 'title'
                 }]
+                // , readOnly: true
             };
         },
         update: function(formData) {
-            return $http.put('/faculty/' + formData.model.facultyID, formData.model) 
-            .then(function(res) {
+            return $http.put('/faculty/' + formData.model.facultyID, formData.model)
+                .then(function(res) {
                     // Department causes an error
                     delete(res.data.Department);
                     return res;
@@ -37,6 +38,7 @@ application.service('facultyService', function($http, _, formService) {
                 required: true
             }];
 
+            // gridData.readOnly = this.gridOptions().readOnly;
             formService.init(formData, gridData, null, 'facultyService', true);
         },
         initEditForm: function(formData, gridData, row) {
@@ -50,7 +52,8 @@ application.service('facultyService', function($http, _, formService) {
                 disabled: false,
                 required: true
             }];
-
+            
+            // gridData.readOnly = this.gridOptions().readOnly;
             formService.init(formData, gridData, row, 'facultyService', true);
         },
         getRow: function(row) {
