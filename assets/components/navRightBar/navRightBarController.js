@@ -1,7 +1,8 @@
-application.controller('navRightBarController', function($scope, $state, $http, $mdSidenav, _, formService, acService) {
+application.controller('navRightBarController', function($scope, $state, _, formService, acService, navRightBarService) {
 
     $scope.$state = $state;
     $scope.fs = formService;
+    var service = navRightBarService;
 
     $scope.submit = function() {
         formService.submit($scope.fs.formData);
@@ -9,6 +10,7 @@ application.controller('navRightBarController', function($scope, $state, $http, 
 
     $scope.cancel = function(form) {
         formService.cancel($scope.fs.formData, form);
+        navRightBarService.toggle($scope.fs.formData);
     };
 
     $scope.delete = function(ev) {
@@ -22,17 +24,19 @@ application.controller('navRightBarController', function($scope, $state, $http, 
     $scope.changeValue = function(change) {
         acService.changeValue($scope.fs.formData, change);
     };
-
-    /* Currently not working */
+    
     $scope.changeState = function(link) {
         console.log("change state to " + link);
         $state.go(link);
     };
-
-    /* For ng-disabled */
+    
     $scope.isObject = function(value) {
         var modelAttr = $scope.fs.formData.model[value];
         return _.isObject(modelAttr);
+    };
+    
+    $scope.getSelectLabel = function(name, path, defaultText) {
+        return ($scope.fs.formData.model[name]) ? _.get($scope.fs.formData.model, path) : defaultText;
     };
 
     /* navRightBar related */
@@ -40,7 +44,7 @@ application.controller('navRightBarController', function($scope, $state, $http, 
     $scope.style = changeStyle();
 
     function changeStyle() {
-        if (!$scope.fs.formData.isLockedOpen) {
+        if (!service.isLockedOpen) {
             return {
                 "z-index": "60"
             };

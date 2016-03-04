@@ -14,11 +14,11 @@
                 </md-button>
             </md-fab-trigger>
             <md-fab-actions>
-                <md-button class="md-fab md-raised md-mini" ng-click="addLeftTabRow()" aria-label="Add">
+                <md-button class="md-fab md-raised md-mini" ng-click="addLeftTabRow(); ctrl.toggle()" aria-label="Add">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Add</md-tooltip>
                     <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">add</md-icon>
                 </md-button>
-                <md-button class="md-fab md-raised md-mini" ng-click="editLeftTabRow()" aria-label="Edit">
+                <md-button class="md-fab md-raised md-mini" ng-click="editLeftTabRow(); ctrl.toggle()" aria-label="Edit">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Edit</md-tooltip>
                     <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">create</md-icon>
                 </md-button>
@@ -43,11 +43,11 @@
                 </md-button>
             </md-fab-trigger>
             <md-fab-actions>
-                <md-button class="md-fab md-raised md-mini" ng-click="addRightTabRow()" aria-label="Add">
+                <md-button class="md-fab md-raised md-mini" ng-click="addRightTabRow(); ctrl.toggle()" aria-label="Add">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Add</md-tooltip>
                     <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">add</md-icon>
                 </md-button>
-                <md-button class="md-fab md-raised md-mini" ng-click="editRightTabRow()" aria-label="Edit">
+                <md-button class="md-fab md-raised md-mini" ng-click="editRightTabRow(); ctrl.toggle()" aria-label="Edit">
                     <md-tooltip md-direction="top" md-visible="tooltipVisible">Edit</md-tooltip>
                     <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">create</md-icon>
                 </md-button>

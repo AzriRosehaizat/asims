@@ -98,7 +98,7 @@ module.exports = require('waterlock').actions.user({
         res.negotiate(err);
       }
       if (!jwt) {
-        return res.badRequest({message: "Please log in again."});
+        return res.badRequest({code: "noToken" , message: "Please log in again."});
       }
       
       User.findOne({id: jwt.owner}).populate('role').exec(function userFound(err, user) {
@@ -106,7 +106,7 @@ module.exports = require('waterlock').actions.user({
           return res.negotiate(err);
         }
         if (!user) {
-          return res.badRequest({message: "User does not exist."});
+          return res.badRequest({code: "noUser", message: "Account does not exist."});
         }
         
         res.json(user);

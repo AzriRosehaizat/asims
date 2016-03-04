@@ -1,16 +1,19 @@
 application.service('navRightBarService', function($mdSidenav) {
+    
+    var self = this;
+    self.isLockedOpen;
 
-    this.toggle = function(formData) {
+    self.toggle = function() {
         $mdSidenav('right').then(function(instance) {
             if (!instance.isLockedOpen()) {
                 // It's used in navRightBarController to change its z-index
-                formData.isLockedOpen = false;
+                self.isLockedOpen = false;
                 instance.toggle().then(function() {
                     // Do something
                 });
             }
             else {
-                formData.isLockedOpen = true;
+                self.isLockedOpen = true;
             }
         });
     };
