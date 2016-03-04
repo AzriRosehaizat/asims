@@ -22,9 +22,6 @@ module.exports = {
 			model: 'RegularStaff',
 			required: true
 		},
-		loadReductionID: {
-			model: 'LoadReduction'
-		},
 		startDate: {
 			type: 'date',
 			required: true
