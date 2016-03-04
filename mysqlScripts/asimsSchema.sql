@@ -1448,11 +1448,11 @@ CREATE  OR REPLACE VIEW `asims`.`MostRecentDepartment` AS
         GROUP BY `AcademicStaff_Department`.`academicStaffID`);
 
 -- -----------------------------------------------------
--- View `asims`.`MostRecentRank_Contract`
+-- View `asims`.`ContractStaffRank`
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS `asims`.`MostRecentRank_Contract`;
+DROP VIEW IF EXISTS `asims`.`ContractStaffRank`;
 
-CREATE VIEW `asims`.`MostRecentRank_Contract` AS 
+CREATE VIEW `asims`.`ContractStaffRank` AS 
   SELECT 
     `ContractStaff_Rank`.`contractStaffRankID` AS `contractStaffRankID`,
     `ContractStaff_Rank`.`rankID` AS `rankID`,
@@ -1470,11 +1470,29 @@ CREATE VIEW `asims`.`MostRecentRank_Contract` AS
         GROUP BY `ContractStaff_Rank`.`contractStaffID`);
 
 -- -----------------------------------------------------
--- View `asims`.`MostRecentRank_Regular`
+-- View `asims`.`MostRecentRank_Contract`
 -- -----------------------------------------------------
-DROP VIEW IF EXISTS `asims`.`MostRecentRank_Regular`;
+DROP VIEW IF EXISTS `asims`.`MostRecentRank_Contract`;
 
-CREATE  OR REPLACE VIEW `asims`.`MostRecentRank_Regular` AS 
+CREATE VIEW `asims`.`MostRecentRank_Contract` AS 
+  SELECT 
+        `ContractStaff`.`academicStaffID` AS `academicStaffID`,
+        `ContractStaff`.`contractStaffID` AS `contractStaffID`,
+        `ContractStaffRank`.`contractStaffRankID` AS `contractStaffRankID`,
+        `ContractStaffRank`.`rankID` AS `rankID`,
+        `ContractStaffRank`.`startDate` AS `startDate`,
+        `ContractStaffRank`.`endDate` AS `endDate`
+    FROM
+        (`ContractStaff`
+        LEFT JOIN `ContractStaffRank` 
+          ON ((`ContractStaff`.`contractStaffID` = `ContractStaffRank`.`contractStaffID`)))
+
+-- -----------------------------------------------------
+-- View `asims`.`RegularStaffRank`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`RegularStaffRank`;
+
+CREATE VIEW `asims`.`RegularStaffRank` AS 
   SELECT 
     `RegularStaff_Rank`.`regularStaffRankID` AS `regularStaffRankID`,
     `RegularStaff_Rank`.`rankID` AS `rankID`,
@@ -1490,6 +1508,24 @@ CREATE  OR REPLACE VIEW `asims`.`MostRecentRank_Regular` AS
       FROM
         `RegularStaff_Rank`
         GROUP BY `RegularStaff_Rank`.`regularStaffID`);
+
+---------------------------------------------------
+-- View `asims`.`MostRecentRank_Regular`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `asims`.`MostRecentRank_Regular`;
+
+CREATE  OR REPLACE VIEW `asims`.`MostRecentRank_Regular` AS 
+  SELECT 
+        `RegularStaff`.`academicStaffID` AS `academicStaffID`,
+        `RegularStaff`.`regularStaffID` AS `regularStaffID`,
+        `RegularStaffRank`.`regularStaffRankID` AS `regularStaffRankID`,
+        `RegularStaffRank`.`rankID` AS `rankID`,
+        `RegularStaffRank`.`startDate` AS `startDate`,
+        `RegularStaffRank`.`endDate` AS `endDate`
+    FROM
+        (`RegularStaff`
+        LEFT JOIN `RegularStaffRank` 
+          ON ((`RegularStaff`.`regularStaffID` = `RegularStaffRank`.`regularStaffID`)));
   	
   	
 SET SQL_MODE=@OLD_SQL_MODE;
