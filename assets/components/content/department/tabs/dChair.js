@@ -1,34 +1,40 @@
 application.service('dChair', function($http, _, formService) {
-   var mainRow;
-   
-   return {
-       update: function(formData){
-           return $http.put('/Chair/' + formData.model.chairID, formData.model);
-       },
-       create: function(formData){
-           formData.model.departmentID = mainRow.entity.departmentID;
+    var mainRow;
+
+    return {
+        update: function(formData) {
+            return $http.put('/Chair/' + formData.model.chairID, formData.model);
+        },
+        create: function(formData) {
+            formData.model.departmentID = mainRow.entity.departmentID;
             return $http.post('/Chair/', formData.model);
-       },
-       delete: function(formData){
-           return $http.delete('/Chair/' + formData.model.chairID);
-       },
-       initAddForm: function(formData, gridData, mRow) {
-           mainRow = mRow;
-           
+        },
+        delete: function(formData) {
+            return $http.delete('/Chair/' + formData.model.chairID);
+        },
+        initAddForm: function(formData, gridData, mRow) {
+            mainRow = mRow;
+
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Add Chair';
             formData.inputs = [{
-                type: "text",
-                name: "firstName",
-                label: "First Name",
-                disabled: false,
-                required: true
-            }, {
-                type: "text",
-                name: "lastName",
-                label: "Last Name",
-                disabled: false,
+                type: "acCustom",
+                name: "fullName",
+                label: "Full name",
+                url: {
+                    start: "/academicStaff/searchFullName?type=RegularStaff&where={",
+                    end: "\"fullName\":{\"startsWith\":\"",
+                },
+                link: "application.regularStaff",
+                output: {
+                    obj: {},
+                    name: "fullName",
+                    meta: [{
+                        tag: "Employee Num:",
+                        name: "employeeNo"
+                    }]
+                },
                 required: true
             }, {
                 type: "date",
@@ -49,21 +55,27 @@ application.service('dChair', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
-            
+
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Chair';
             formData.inputs = [{
-                type: "text",
-                name: "firstName",
-                label: "First Name",
-                disabled: false,
-                required: true
-            }, {
-                type: "text",
-                name: "lastName",
-                label: "Last Name",
-                disabled: false,
+                type: "acCustom",
+                name: "fullName",
+                label: "Full name",
+                url: {
+                    start: "/academicStaff/searchFullName?type=RegularStaff&where={",
+                    end: "\"fullName\":{\"startsWith\":\"",
+                },
+                link: "application.regularStaff",
+                output: {
+                    obj: {},
+                    name: "fullName",
+                    meta: [{
+                        tag: "Employee Num:",
+                        name: "employeeNo"
+                    }]
+                },
                 required: true
             }, {
                 type: "date",
@@ -81,5 +93,5 @@ application.service('dChair', function($http, _, formService) {
 
             formService.init(formData, gridData, row, 'dChair', false);
         },
-   };
+    };
 });

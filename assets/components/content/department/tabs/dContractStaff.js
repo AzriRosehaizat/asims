@@ -43,7 +43,7 @@ application.service('dContractStaff', function($http, _, formService) {
                     obj: {},
                     name: "fullName",
                     meta: [{
-                        tag: "",
+                        tag: "Employee Num:",
                         name: "employeeNo"
                     }]
                 },
@@ -83,7 +83,7 @@ application.service('dContractStaff', function($http, _, formService) {
                     obj: {},
                     name: "fullName",
                     meta: [{
-                        tag: "",
+                        tag: "Employee Num:",
                         name: "employeeNo"
                     }]
                 },
