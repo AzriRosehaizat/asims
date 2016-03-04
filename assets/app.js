@@ -1,4 +1,4 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns','ui.grid.exporter',
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 'ui.grid.exporter',
 	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
@@ -94,8 +94,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					}
 				},
 				resolve: {
-					users: function($http) {
-						return $http.get('/user/');
+					users: function($http, _, adminService) {
+						return $http.get('/user/').then(function(res) {
+							res.data = adminService.getLastLogin(res.data);
+							return res;
+						});
 					}
 				},
 				data: {
@@ -248,7 +251,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				data: {
 					dataPage: true
 				}
-			})			
+			})
 			.state('application.sectionOffered', {
 				url: '/sectionOffered',
 				views: {
@@ -395,7 +398,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		});
 	})
 	.config(function($provide) {
-		$provide.decorator('GridOptions', function($delegate ,uiGridConstants) {
+		$provide.decorator('GridOptions', function($delegate, uiGridConstants) {
 			var gridOptions;
 			gridOptions = angular.copy($delegate);
 			gridOptions.initialize = function(options) {
@@ -411,29 +414,26 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				initOptions.enableRowHeaderSelection = false;
 				initOptions.enableHorizontalScrollbar = 0;
 				initOptions.exporterMenuPdf = false;
-	        	initOptions.gridMenuCustomItems = [
-		            {
-		                title: 'Toggle Filters',
-		                action: function ( $event ) {
-		                    initOptions
-		                    .enableFiltering = (
-		                        !initOptions
-		                        .enableFiltering
-		                    );
-		                    
-		                    this
-		                    .grid
-		                    .api
-		                    .core
-		                    .notifyDataChange( 
-		                        uiGridConstants
-		                        .dataChange
-		                        .COLUMN 
-		                    );
-		                },
-		                order: 1
-		            }
-		        ];
+				initOptions.gridMenuCustomItems = [{
+					title: 'Toggle Filters',
+					action: function($event) {
+						initOptions
+							.enableFiltering = (!initOptions
+								.enableFiltering
+							);
+
+						this
+							.grid
+							.api
+							.core
+							.notifyDataChange(
+								uiGridConstants
+								.dataChange
+								.COLUMN
+							);
+					},
+					order: 1
+				}];
 
 				return initOptions;
 			};
