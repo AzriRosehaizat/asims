@@ -28,10 +28,6 @@ module.exports = {
 			size: 50
 
 		},
-		employeeNo: {
-			type: 'string',
-			size: 50
-		},
 		//Join table AcademicStaff_Department 1:M
 		AcademicStaff_Department: {
 			collection: 'AcademicStaff_Department',
