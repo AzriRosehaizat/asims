@@ -1516,20 +1516,16 @@ DROP VIEW IF EXISTS `asims`.`MostRecentRank_Regular`;
 
 CREATE  OR REPLACE VIEW `asims`.`MostRecentRank_Regular` AS 
   SELECT 
-    `RegularStaff_Rank`.`regularStaffRankID` AS `regularStaffRankID`,
-    `RegularStaff_Rank`.`rankID` AS `rankID`,
-    `RegularStaff_Rank`.`regularStaffID` AS `regularStaffID`,
-    `RegularStaff_Rank`.`startDate` AS `startDate`,
-    `RegularStaff_Rank`.`endDate` AS `endDate`
-  FROM
-    `RegularStaff_Rank`
-  WHERE
-    (`RegularStaff_Rank`.`regularStaffID` , `RegularStaff_Rank`.`startDate`) IN (SELECT 
-        `RegularStaff_Rank`.`regularStaffID`,
-        MAX(`RegularStaff_Rank`.`startDate`) AS `startDate`
-      FROM
-        `RegularStaff_Rank`
-        GROUP BY `RegularStaff_Rank`.`regularStaffID`);
+        `RegularStaff`.`academicStaffID` AS `academicStaffID`,
+        `RegularStaff`.`regularStaffID` AS `regularStaffID`,
+        `RegularStaffRank`.`regularStaffRankID` AS `regularStaffRankID`,
+        `RegularStaffRank`.`rankID` AS `rankID`,
+        `RegularStaffRank`.`startDate` AS `startDate`,
+        `RegularStaffRank`.`endDate` AS `endDate`
+    FROM
+        (`RegularStaff`
+        LEFT JOIN `RegularStaffRank` 
+          ON ((`RegularStaff`.`regularStaffID` = `RegularStaffRank`.`regularStaffID`)));
   	
   	
 SET SQL_MODE=@OLD_SQL_MODE;
