@@ -89,3 +89,7 @@ md-autocomplete > md-autocomplete-wrap > md-progress-linear {
     height: 200px !important;
     max-height: 200px !important;
 }
+
+.md-scroll-mask{
+    position: inherit;
+}
