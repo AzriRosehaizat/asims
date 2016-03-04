@@ -107,9 +107,16 @@ module.exports = {
 			});
 			console.log("Delete staff successfully for: academicStaffID: " + AcademicStaff[0].academicStaffID + " and regularStaffID: " + RegularStaff[0].regularStaffID);
 		}).catch(function(err) {
-			console.log(err);
-			console.log("Unable to delete right now");
-			res.serverError(err);
+			// if (err.originalError) {
+			// 	console.log(err.originalError.errno);
+			// 	var error = err.originalError.errno;
+			// 	res.serverError({code: error});
+			// }
+			// else {
+				console.log(err);
+				console.log("Unable to delete right now");
+				res.serverError(err);
+			// }
 		});
 	},
 	getAllRegularStaff: function(req, res) {
@@ -134,7 +141,7 @@ module.exports = {
 				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
 				break;
 			case 'department':
-				
+
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
 				break;
 			case 'rank':
@@ -145,19 +152,19 @@ module.exports = {
 				break;
 			case 'leaveCredits':
 				RegularStaffService
-				.getLeaveCredits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+					.getLeaveCredits(
+						data.id,
+						data.where,
+						responseFn
+					);
 				break;
 			case 'leaveDebits':
 				RegularStaffService
-				.getLeaveDebits( 
-					data.id, 
-					data.where, 
-					responseFn 
-				);
+					.getLeaveDebits(
+						data.id,
+						data.where,
+						responseFn
+					);
 				break;
 			default:
 				res.serverError();
