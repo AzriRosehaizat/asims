@@ -19,11 +19,11 @@ CREATE SCHEMA IF NOT EXISTS `asimsMeta` DEFAULT CHARACTER SET latin1 ;
 USE `asimsMeta` ;
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`Attempt`
+-- Table `Attempt`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`Attempt` ;
+DROP TABLE IF EXISTS `Attempt` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`Attempt` (
+CREATE TABLE IF NOT EXISTS `Attempt` (
   `user` INT(11) NULL DEFAULT NULL,
   `successful` TINYINT(1) NULL DEFAULT NULL,
   `ip` VARCHAR(255) NULL DEFAULT NULL,
@@ -36,11 +36,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`Auth`
+-- Table `Auth`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`Auth` ;
+DROP TABLE IF EXISTS `Auth` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`Auth` (
+CREATE TABLE IF NOT EXISTS `Auth` (
   `user` INT(11) NULL DEFAULT NULL,
   `username` VARCHAR(255) NULL DEFAULT NULL,
   `password` VARCHAR(255) NULL DEFAULT NULL,
@@ -52,11 +52,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`Jwt`
+-- Table `Jwt`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`Jwt` ;
+DROP TABLE IF EXISTS `Jwt` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`Jwt` (
+CREATE TABLE IF NOT EXISTS `Jwt` (
   `token` LONGTEXT NULL DEFAULT NULL,
   `owner` INT(11) NULL DEFAULT NULL,
   `revoked` TINYINT(1) NULL DEFAULT NULL,
@@ -67,11 +67,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`ResetToken`
+-- Table `ResetToken`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`ResetToken` ;
+DROP TABLE IF EXISTS `ResetToken` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`ResetToken` (
+CREATE TABLE IF NOT EXISTS `ResetToken` (
   `token` LONGTEXT NULL DEFAULT NULL,
   `owner` INT(11) NULL DEFAULT NULL,
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -81,11 +81,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`Role`
+-- Table `Role`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`Role` ;
+DROP TABLE IF EXISTS `Role` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`Role` (
+CREATE TABLE IF NOT EXISTS `Role` (
   `role` VARCHAR(255) NULL DEFAULT NULL,
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`))
@@ -94,11 +94,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`ToDoList`
+-- Table `ToDoList`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`ToDoList` ;
+DROP TABLE IF EXISTS `ToDoList` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`ToDoList` (
+CREATE TABLE IF NOT EXISTS `ToDoList` (
   `text` VARCHAR(255) NULL DEFAULT NULL,
   `state` TINYINT(1) NULL DEFAULT NULL,
   `userid` INT(11) NULL DEFAULT NULL,
@@ -109,11 +109,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`Use`
+-- Table `Use`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`Use` ;
+DROP TABLE IF EXISTS `Use` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`Use` (
+CREATE TABLE IF NOT EXISTS `Use` (
   `remoteAddress` VARCHAR(255) NULL DEFAULT NULL,
   `jsonWebToken` INT(11) NULL DEFAULT NULL,
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -123,11 +123,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
--- Table `asimsMeta`.`User`
+-- Table `User`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `asimsMeta`.`User` ;
+DROP TABLE IF EXISTS `User` ;
 
-CREATE TABLE IF NOT EXISTS `asimsMeta`.`User` (
+CREATE TABLE IF NOT EXISTS `User` (
   `auth` INT(11) NULL DEFAULT NULL,
   `username` VARCHAR(255) NULL DEFAULT NULL,
   `firstName` VARCHAR(255) NULL DEFAULT NULL,
@@ -148,7 +148,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- INSERT into ROLE Table
 INSERT INTO Role(role,id) VALUES ('reader',1),('writer',2),('admin',3);
 -- INSERT credentials for test user
-INSERT INTO `asimsMeta`.`Auth`(`user`, `username`,`password`,`id`) 
+INSERT INTO `Auth`(`user`, `username`,`password`,`id`) 
 	VALUES(1, 'testing', '$2a$10$rscHa5MhulEah8J4pfNb6ufujPntqhu6a04NV7wZP3OwsSaFPGdNu', 1);
-INSERT INTO `asimsMeta`.`User`(`auth`,`username`,`firstName`,`lastName`,`email`,`role`,`id`)
+INSERT INTO `User`(`auth`,`username`,`firstName`,`lastName`,`email`,`role`,`id`)
 	VALUES (1,'testing','John','Doe', 'test@test.test', 3, 1);
