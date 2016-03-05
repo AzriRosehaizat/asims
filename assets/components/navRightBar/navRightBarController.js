@@ -3,14 +3,14 @@ application.controller('navRightBarController', function($scope, $state, _, form
     $scope.$state = $state;
     $scope.fs = formService;
     var service = navRightBarService;
-
+    
     $scope.submit = function() {
         formService.submit($scope.fs.formData);
     };
 
-    $scope.cancel = function(form) {
-        formService.cancel($scope.fs.formData, form);
-        navRightBarService.toggle($scope.fs.formData);
+    $scope.cancel = function() {
+        formService.cancel($scope.fs.formData);
+        navRightBarService.toggle();
     };
 
     $scope.delete = function(ev) {

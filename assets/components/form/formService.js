@@ -1,6 +1,7 @@
 application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
 
     var self = this;
+    self.form;
     self.formData = {};
     self.readOnly = false;
 
@@ -49,10 +50,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         service.update(formData)
             .then(function(res) {
                 if (_.isArray(res.data)) res.data = res.data[0];
+                resetValidation(self.form);
                 _.merge(row.entity, res.data);
                 updateMainRow();
-
-                service.initEditForm(formData, grid, row);
+                
                 toaster.done("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -68,11 +69,11 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
         service.create(formData)
             .then(function(res) {
                 if (_.isArray(res.data)) res.data = res.data[0];
+                resetValidation(self.form);
                 grid.unshift(res.data);
+                formData.model = {};
                 updateMainRow();
-
-                var mRow = (isMain) ? null : mainRow;
-                service.initAddForm(formData, grid, mRow);
+                
                 toaster.done("Added successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -82,10 +83,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
             });
     };
 
-    self.cancel = function(formData, form) {
+    self.cancel = function(formData) {
         formData.model = (formData.isEditing) ? _.merge(formData.model, row.entity) : {};
         if (service.cancel) service.cancel(formData);
-        resetValidation(form);
+        resetValidation(self.form);
     };
 
     self.delete = function(ev, formData) {
@@ -103,9 +104,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
             service.delete(formData)
                 .then(function(res) {
+                    resetValidation(self.form);
                     grid.splice(index, 1);
                     updateMainRow();
-
+                    
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
                     toaster.done("Deleted successfully!");
