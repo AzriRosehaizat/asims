@@ -1,0 +1,12 @@
+<div id="selectInput">
+    <md-input-container class="md-block" flex>
+        <label>{{input.label}}</label>
+        <md-select name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-disabled="input.disabled" ng-required="input.required" ng-readonly="input.readonly" ng-model-options="{trackBy: '$value.id'}">
+            <md-select-label>{{ getSelectLabel(input.name, input.path, input.text) }}</md-select-label>
+            <md-option ng-value="item" ng-repeat="item in input.items">{{ item[input.name] }}</md-option>
+        </md-select>
+        <div ng-messages="navRightForm[input.name].$error" ng-show="navRightForm[input.name].$touched">
+            <div ng-messages-include="/components/validate/messages.html"></div>
+        </div>
+    </md-input-container>
+</div>
