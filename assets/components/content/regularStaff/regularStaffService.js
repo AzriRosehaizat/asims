@@ -29,8 +29,8 @@ application.service('regularStaffService', function($http, _, formService) {
                 }]
             };
         },
-        //really we should be checking if its data is dirty, then update appropriately
-        //this seems slower, but negligible
+        //really we should be checking if data is dirty, then update appropriately
+        //this seems slower, but negligible for our efforts
         update: function(formData) {
             return $http.put('/academicStaff/' + formData.model.academicStaffID, formData.model)
                 .then(function(aStaff) {
