@@ -490,7 +490,7 @@ CREATE TABLE IF NOT EXISTS `Research` (
   `title` VARCHAR(50) NOT NULL,
   `abstract` TEXT NULL DEFAULT NULL,
   `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
+  `endDate` DATE NULL,
   PRIMARY KEY (`researchID`) )
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
