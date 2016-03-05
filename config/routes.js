@@ -51,10 +51,6 @@ module.exports.routes = {
   'GET /Course/getAllCourse/:courseID': 'CourseController.getAllCourse',
   'GET /Course/getInfo': 'CourseController.getInfo',
   
-  'POST /RegularStaff/createRAS': 'RegularStaffController.createRAS',
-  'PUT /RegularStaff/updateRAS': 'RegularStaffController.updateRAS',
-  'DELETE /RegularStaff/deleteRAS': 'RegularStaffController.deleteRAS',
-  
   'GET /Department/getAllDepartment/:departmentID': 'DepartmentController.getAllDepartment',
   'GET /Department/getInfo' : 'DepartmentController.getInfo',
   
