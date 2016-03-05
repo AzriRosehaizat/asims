@@ -7,13 +7,13 @@
     <md-progress-linear class="md-hue-2" md-mode="{{fs.formData.mode}}"></md-progress-linear>
 
     <md-content class="formContent md-padding">
-        <form name="navRightForm" class="md-inline-form" ng-submit="submit()" novalidate>
+        <form name="fs.form" class="md-inline-form" ng-submit="submit()" novalidate>
 
             <div ng-repeat="input in fs.formData.inputs" ng-include="'components/form/tmpl/' + input.type + '.html'"></div>
 
             <div ng-hide="fs.readOnly" layout="row">
-                <md-button type="submit" class="md-raised" ng-disabled="navRightForm.$invalid">Submit</md-button>
-                <md-button class="md-raised" ng-click="cancel(navRightForm)">Cancel</md-button>
+                <md-button type="submit" class="md-raised" ng-disabled="fs.form.$invalid">Submit</md-button>
+                <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
 
                 <span flex></span>
 

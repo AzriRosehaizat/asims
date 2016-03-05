@@ -27,7 +27,7 @@
         <md-not-found>
             "{{fs.formData.model.searchText[input.name]}}" not found. <a ng-click="changeState(input.link)">Add New?</a>
         </md-not-found>
-        <div ng-messages="navRightForm[input.name].$error" ng-show="navRightForm[input.name].$touched">
+        <div ng-messages="fs.form[input.name].$error" ng-show="fs.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
         </div>
     </md-autocomplete>
