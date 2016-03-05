@@ -1,4 +1,4 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns','ui.grid.exporter',
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 'ui.grid.exporter',
 	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
@@ -90,12 +90,15 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.admin': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					}
 				},
 				resolve: {
-					users: function($http) {
-						return $http.get('/user/');
+					users: function($http, _, adminService) {
+						return $http.get('/user/').then(function(res) {
+							res.data = adminService.getLastLogin(res.data);
+							return res;
+						});
 					}
 				},
 				data: {
@@ -112,11 +115,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.regularStaff': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'tabset@application.regularStaff': {
 						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -137,11 +140,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.contractStaff': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'tabset@application.contractStaff': {
 						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -162,11 +165,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.department': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'tabset@application.department': {
 						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -187,11 +190,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.course': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'tabset@application.course': {
 						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -212,7 +215,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.rank': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					}
 				},
 				resolve: {
@@ -233,11 +236,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.research': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'tabset@application.research': {
 						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -248,7 +251,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				data: {
 					dataPage: true
 				}
-			})			
+			})
 			.state('application.sectionOffered', {
 				url: '/sectionOffered',
 				views: {
@@ -258,7 +261,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.sectionOffered': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					}
 				},
 				resolve: {
@@ -279,7 +282,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.section': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					}
 				},
 				resolve: {
@@ -300,11 +303,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.faculty': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'tabset@application.faculty': {
 						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -325,11 +328,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.leaves': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'tabset@application.leaves': {
 						templateUrl: '/components/tabset/tabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -350,11 +353,11 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					},
 					'grid@application.leavesTest': {
 						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController'
+						controller: 'gridController as ctrl'
 					},
 					'doubleTabset@application.leavesTest': {
 						templateUrl: '/components/tabset/doubleTabset.html',
-						controller: 'tabsetController'
+						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
@@ -395,7 +398,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 		});
 	})
 	.config(function($provide) {
-		$provide.decorator('GridOptions', function($delegate ,uiGridConstants) {
+		$provide.decorator('GridOptions', function($delegate, uiGridConstants) {
 			var gridOptions;
 			gridOptions = angular.copy($delegate);
 			gridOptions.initialize = function(options) {
@@ -411,30 +414,14 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				initOptions.enableRowHeaderSelection = false;
 				initOptions.enableHorizontalScrollbar = 0;
 				initOptions.exporterMenuPdf = false;
-	        	initOptions.gridMenuCustomItems = [
-		            {
-		                title: 'Toggle Filters',
-		                action: function ( $event ) {
-		                    initOptions
-		                    .enableFiltering = (
-		                        !initOptions
-		                        .enableFiltering
-		                    );
-		                    
-		                    this
-		                    .grid
-		                    .api
-		                    .core
-		                    .notifyDataChange( 
-		                        uiGridConstants
-		                        .dataChange
-		                        .COLUMN 
-		                    );
-		                },
-		                order: 1
-		            }
-		        ];
-
+				initOptions.gridMenuCustomItems = [{
+					title: 'Toggle Filters',
+					action: function($event) {
+						initOptions.enableFiltering = (!initOptions.enableFiltering);
+						this.grid.api.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
+					},
+					order: 1
+				}];
 				return initOptions;
 			};
 			return gridOptions;

@@ -22,7 +22,7 @@ application.service('toaster', function($mdToast) {
             this.open("warning", text);
         },
         loginError: function(err) {
-            var text =(err.error) ? "Username or Password is Invalid" : "Error occurred. Operation cannot be performed at the moment";
+            var text = (err.error) ? "Username or Password is Invalid" : "Error occurred. Operation cannot be performed at the moment";
             this.open("error_outline", text);
         },
         error: function(err) {

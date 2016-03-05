@@ -3,10 +3,6 @@ application.service('adminService', function($http, _, moment, formService) {
     return {
         gridOptions: function() {
             return {
-                noUnselect: true,
-                multiSelect: false,
-                enableRowHeaderSelection: false,
-                enableHorizontalScrollbar: 0,
                 columnDefs: [{
                     name: 'Username',
                     field: 'username'
@@ -24,7 +20,7 @@ application.service('adminService', function($http, _, moment, formService) {
                     field: 'role.role'
                 }, {
                     name: 'Last login',
-                    cellTemplate: '<div class="ui-grid-cell-contents">{{grid.appScope.lastLogin(row)}}</div>'
+                    field: 'lastLogin'
                 }]
             };
         },
@@ -52,31 +48,27 @@ application.service('adminService', function($http, _, moment, formService) {
                 type: "text",
                 name: "username",
                 label: "Username",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
                 required: true
             }, {
                 type: "email",
                 name: "email",
                 label: "Email",
-                disabled: false,
                 required: true
             }, {
-                type: "role",
+                type: "select",
                 name: "role",
                 label: "Role",
-                roles: [{
+                items: [{
                     id: 1,
                     role: "Reader"
                 }, {
@@ -86,20 +78,19 @@ application.service('adminService', function($http, _, moment, formService) {
                     id: 3,
                     role: "Admin"
                 }],
-                disabled: false,
+                path: "role.role",
+                text: "Select a role",
                 required: true
             }, {
                 type: "password",
                 name: "password",
                 label: "Password",
-                disabled: false,
                 minLength: 6
             }, {
                 type: "passwordConfirm",
                 name: "passwordConfirm",
                 label: "Confirm password",
-                match: "password",
-                disabled: false,
+                match: "password"
             }];
 
             formService.init(formData, gridData, null, 'adminService', true);
@@ -112,25 +103,22 @@ application.service('adminService', function($http, _, moment, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
                 required: true
             }, {
                 type: "email",
                 name: "email",
                 label: "Email",
-                disabled: false,
                 required: true
             }, {
-                type: "role",
+                type: "select",
                 name: "role",
                 label: "Role",
-                roles: [{
+                items: [{
                     id: 1,
                     role: "Reader"
                 }, {
@@ -140,7 +128,8 @@ application.service('adminService', function($http, _, moment, formService) {
                     id: 3,
                     role: "Admin"
                 }],
-                disabled: false,
+                path: "role.role",
+                text: "Select a role",
                 required: true
             }, {
                 type: "passwordChange"
@@ -148,26 +137,28 @@ application.service('adminService', function($http, _, moment, formService) {
                 type: "password",
                 name: "password",
                 label: "Password",
-                disabled: false,
                 minLength: 6
             }, {
                 type: "passwordConfirm",
                 name: "passwordConfirm",
                 label: "Confirm password",
-                match: "password",
-                disabled: false,
+                match: "password"
             }];
 
             formService.init(formData, gridData, row, 'adminService', true);
         },
-        lastLogin: function(row) {
-            if (row.entity.attempts) {
-                var lastLogin = _.findLast(row.entity.attempts, function(attempt) {
-                    return attempt.successful === true;
-                });
-                if (lastLogin)
-                    return moment(lastLogin.createdAt).format('YYYY-MM-DD');
-            }
+        getLastLogin: function(users) {
+            _.forEach(users, function(user) {
+                if (user.attempts) {
+                    var lastLogin = _.findLast(user.attempts, function(attempt) {
+                        return attempt.successful === true;
+                    });
+                    if (lastLogin) {
+                        user.lastLogin = moment(lastLogin.createdAt).fromNow();
+                    }
+                }
+            });
+            return users;
         }
     };
 
