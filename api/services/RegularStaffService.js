@@ -85,6 +85,25 @@ module.exports = {
 			callback(err, result);
 		});
 	},
+	getResearch: function(id, where, callback) {
+		var sSQL = mysql.select('r.title',`r.abstract`,`ar.endDate`, 'ar.*', 'ar.regularStaffID')
+			.from('RegularStaff AS a')
+			.innerJoin('RegularStaff_Research AS ar', 'a.regularStaffID', 'ar.regularStaffID')
+			.innerJoin('Research as r', 'ar.researchID', 'r.researchID')
+			.where('a.regularStaffID', id);
+
+		// if (where) {
+		// 	sSQL = sSQL.where('ar.academicStaffResearchID', where).toString();
+		// }
+		// else {
+			sSQL = sSQL.toString();
+		// }
+		
+		console.log(sSQL);
+		RegularStaff.query(sSQL, function(err, result) {
+			callback(err, result);
+		});
+	},
 	getEmployment: function(id, where, callback) {
 		var sSQL = mysql.select('re.*', 'r.academicStaffID')
 			.from('RegularStaff AS r')

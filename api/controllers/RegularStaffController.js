@@ -50,7 +50,7 @@ module.exports = {
 				RegularStaffService.getLeaveDebits(data.id, data.where, responseFn);
 				break;
 			case 'research':
-				RegularStaffService.getResearchStaff(data.id, data.where, responseFn);
+				RegularStaffService.getResearch(data.id, data.where, responseFn);
 				break;
 			default:
 				res.serverError();
