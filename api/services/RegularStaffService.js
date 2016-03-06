@@ -86,19 +86,18 @@ module.exports = {
 		});
 	},
 	getResearch: function(id, where, callback) {
-		var sSQL = mysql.select('r.title',`r.abstract`,`ar.endDate`, 'ar.*', 'ar.regularStaffID')
+		var sSQL = mysql.select('r.title', 'r.abstract', 'ar.*')
 			.from('RegularStaff AS a')
 			.innerJoin('RegularStaff_Research AS ar', 'a.regularStaffID', 'ar.regularStaffID')
 			.innerJoin('Research as r', 'ar.researchID', 'r.researchID')
 			.where('a.regularStaffID', id);
 
-		// if (where) {
-		// 	sSQL = sSQL.where('ar.academicStaffResearchID', where).toString();
-		// }
-		// else {
+		if (where) {
+			sSQL = sSQL.where('ar.regularStaffResearchID', where).toString();
+		}
+		else {
 			sSQL = sSQL.toString();
-		// }
-		
+		}
 		console.log(sSQL);
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
