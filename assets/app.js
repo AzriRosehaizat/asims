@@ -369,6 +369,31 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.teachingActivityCAS', {
+				url: '/teachingActivityCAS',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'taCASController'
+					},
+					'grid@application.teachingActivityCAS': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController as ctrl'
+					},
+					'tabset@application.teachingActivityCAS': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController as ctrl'
+					}
+				},
+				resolve: {
+					staffs: function($http) {
+						return $http.get('/contractStaff/getAllContractStaff');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.FLC', {
 				url: '/facultyLoadChart',
 				views: {
