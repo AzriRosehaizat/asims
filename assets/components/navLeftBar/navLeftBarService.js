@@ -47,6 +47,21 @@ application
         ]
       });
       sections.push({
+        name: 'Teaching Management',
+        type: 'toggle',
+        pages: [{
+          name: 'Teaching Activities - CAS',
+          state: 'application.teachingActivityCAS',
+          type: 'link'
+        },
+        {
+          name: 'Teaching Activities - RAS',
+          state: 'application.root',
+          type: 'link'
+        }
+        ]
+      });
+      sections.push({
         name: 'Organization Management',
         type: 'toggle',
         pages: [{
