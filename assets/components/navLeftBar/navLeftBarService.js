@@ -33,13 +33,11 @@ application
           name: 'Research',
           state: 'application.research',
           type: 'link'
-        }, 
-        // {
-        //   name: 'Teaching Activities',
-        //   state: 'application.root',
-        //   type: 'link'
-        // }
-        ]
+        }, {
+          name: 'Teaching Activity RAS',
+          state: 'application.teachingActivityRAS',
+          type: 'link'
+        }]
       });
       sections.push({
         name: 'Organization Management',
