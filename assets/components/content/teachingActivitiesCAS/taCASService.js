@@ -1,4 +1,4 @@
-application.service('contractStaffService', function($http, $q, _, formService) {
+application.service('taCASService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -18,78 +18,67 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 }, {
                     name: 'Rank',
                     field: 'Rank'
-                }]
+                }],
+                readOnly: true
             };
         },
         update: function(formData) {
-            return $http.put('/academicStaff/' + formData.model.academicStaffID, formData.model);
+            // return $http.post('/regularStaff/updateRAS', formData.model);
         },
         create: function(formData) {
-            return $http.post('/academicStaff', formData.model)
-                .then(function(aStaff) {
-                    return $http.post('/contractStaff', aStaff.data)
-                        .then(function(cStaff) {
-                            return $http.get('/contractStaff/getAllContractStaff/' + cStaff.data.contractStaffID);
-                        });
-                });
+            // return $http.post('/regularStaff/createRAS', formData.model);
         },
         delete: function(formData) {
-            return $http.delete('/contractStaff/' + formData.model.contractStaffID)
-                .then(function(res) {
-                    return $http.delete('/academicStaff/' + formData.model.academicStaffID);    
-                });
+            // return $http.post('/regularStaff/deleteRAS', formData.model);
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Contract Staff';
+            formData.title = 'Contract Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "employeeNo",
                 label: "Employee No.",
-                disabled: false,
-                required: false
+                readonly: true
             }];
 
-            formService.init(formData, gridData, null, 'contractStaffService', true);
+            gridData.readOnly = this.gridOptions().readOnly;
+            formService.init(formData, gridData, null, 'taCASService', true);
         },
         initEditForm: function(formData, gridData, row) {
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Contract Staff';
+            formData.title = 'Contract Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "employeeNo",
                 label: "Employee No.",
-                disabled: false,
-                required: false
+                readonly: true
             }];
 
-            formService.init(formData, gridData, row, 'contractStaffService', true);
+            gridData.readOnly = this.gridOptions().readOnly;
+            formService.init(formData, gridData, row, 'taCASService', true);
         },
         getRow: function(row) {
             return $http.get('/contractStaff/getAllContractStaff/' + row.entity.contractStaffID);

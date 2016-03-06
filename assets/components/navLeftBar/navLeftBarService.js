@@ -33,7 +33,12 @@ application
           name: 'Research',
           state: 'application.research',
           type: 'link'
-        }, 
+        },
+        {
+          name: 'Teaching Activities - CAS',
+          state: 'application.teachingActivityCAS',
+          type: 'link'
+        }
         // {
         //   name: 'Teaching Activities',
         //   state: 'application.root',
