@@ -1,4 +1,4 @@
-application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, rsEmployment) {
+application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, rsEmployment, rsResearch) {
 
     return {
         tabs: function() {
@@ -86,6 +86,26 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
+                },
+                research: {
+                    title: 'Research',
+                    gridOptions: {
+                        columnDefs: [    {
+                            name: 'Title',
+                            field: 'title'
+                        }, {
+                            name: 'Abstract',
+                            field: 'abstract'
+                        }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'MM-dd-yyyy\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'MM-dd-yyyy\''
+                        }]
+                    }
                 }
             };
         },
@@ -103,6 +123,9 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 case 'Employment':
                     rsEmployment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
+                case 'Research':
+                    rsResearch.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    break;
             }
         },
         initEditForm: function(formData, tab, row) {
@@ -119,6 +142,9 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 case 'Employment':
                     rsEmployment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
+                case 'Research':
+                    rsResearch.initEditForm(formData, tab.gridOptions.data, row);
+                    break;
             }
         },
         getTabs: function(tabs, row) {
@@ -126,6 +152,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
             this.getDepartment(tabs.department, row);
             this.getRank(tabs.rank, row);
             this.getEmployment(tabs.employment, row);
+            this.getResearch(tabs.research, row);
         },
         getTeachingActivity: function(teachingActivity, row) {
             $http.get('/regularStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
@@ -149,6 +176,12 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
             $http.get('/regularStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
                 .then(function(res) {
                     employment.gridOptions.data = res.data;
+                });
+        },
+        getResearch: function(research, row) {
+            $http.get('/regularStaff/getInfo?type=research&id=' + row.entity.regularStaffID)
+                .then(function(res) {
+                    research.gridOptions.data = res.data;
                 });
         }
     };
