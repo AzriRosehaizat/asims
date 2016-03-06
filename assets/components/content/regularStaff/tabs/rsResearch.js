@@ -54,7 +54,7 @@ application.service('rsResearch', function($http, $q, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "endDate",
+                label: "End Date",
                 required: false
             }];
 
