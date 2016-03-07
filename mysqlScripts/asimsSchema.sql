@@ -633,6 +633,23 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
 -- -----------------------------------------------------
+-- Table `Load`
+-- -----------------------------------------------------
+CREATE TABLE `Load` (
+  `loadID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `FECValue` FLOAT NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2016-09-01',
+  `endDate` DATE NULL DEFAULT '2016-08-31',
+  PRIMARY KEY (`loadID`),
+  INDEX `regularStaffID` (`regularStaffID` ASC),
+  CONSTRAINT `Load_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+-- -----------------------------------------------------
 -- View `MostRecentChair`
 -- -----------------------------------------------------
 DROP VIEW IF EXISTS `MostRecentChair` ;
