@@ -67,7 +67,11 @@ module.exports = {
 		LeaveDebit: {
 			collection: 'LeaveDebit',
 			via: 'regularStaffID'
-		}
+		},
+		Load:{
+			collection: 'Load',
+			via: 'regularStaffID'
+		},
 	},
 	tableName: 'RegularStaff'
 };
