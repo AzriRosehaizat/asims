@@ -18,7 +18,6 @@ application.service('rsResearch', function($http, $q, _, formService) {
             }
             return $http.post('/RegularStaff_Research', formData.model)
                 .then(function(res) {
-                    console.log(res.data);
                     return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.regularStaffID + '&where=' + res.data.regularStaffResearchID);
                 });
         },
@@ -44,8 +43,14 @@ application.service('rsResearch', function($http, $q, _, formService) {
                     name: "title"
                 },
                 change: {
-                    reset: "startDate"
+                    from: "title.obj.abstract",
+                    to: "abstract"
                 }
+            }, {
+                type: "textarea",
+                name: "abstract",
+                label: "Abstract",
+                disabled: true
             }, {
                 type: "date",
                 name: "startDate",
@@ -72,19 +77,12 @@ application.service('rsResearch', function($http, $q, _, formService) {
                 type: "autocomplete",
                 name: "title",
                 label: "Research Title",
-                url: {
-                    start: "/research?where={",
-                    end: "\"title\":{\"startsWith\":\""
-                },
-                link: "application.research",
-                output: {
-                    obj: {},
-                    name: "title"
-                },
-                change: {
-                    reset: "startDate",
-                    reset: "endDate"
-                }
+                disabled: true
+            }, {
+                type: "textarea",
+                name: "abstract",
+                label: "Abstract",
+                disabled: true
             }, {
                 type: "date",
                 name: "startDate",
@@ -93,7 +91,7 @@ application.service('rsResearch', function($http, $q, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "endDate",
+                label: "End Date",
                 required: false
             }];
             formService.init(formData, gridData, row, 'rsResearch', false);
