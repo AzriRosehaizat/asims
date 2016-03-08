@@ -54,33 +54,33 @@ application.controller('taRASController', function($scope, staffs, taRASService,
         });
     };
 
-    // $scope.tabs.FCECredit.gridOptions.onRegisterApi = function(gridApi) {
-    //     gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-    //         $scope.tabRow = row;
-    //         taRASTabService.initEditForm($scope.formData, $scope.tab, row);
-    //     });
-    // };
+    $scope.tabs.FCECredit.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            taRASTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
 
-    // $scope.tabs.FCEDebit.gridOptions.onRegisterApi = function(gridApi) {
-    //     gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-    //         $scope.tabRow = row;
-    //         taRASTabService.initEditForm($scope.formData, $scope.tab, row);
-    //     });
-    // };
+    $scope.tabs.FCEDebit.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            taRASTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
     
-    // $scope.tabs.loadReduction.gridOptions.onRegisterApi = function(gridApi) {
-    //     gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-    //         $scope.tabRow = row;
-    //         taRASTabService.initEditForm($scope.formData, $scope.tab, row);
-    //     });
-    // };
+    $scope.tabs.loadReduction.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            taRASTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
     
-    // $scope.tabs.loadIncrease.gridOptions.onRegisterApi = function(gridApi) {
-    //     gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-    //         $scope.tabRow = row;
-    //         taRASTabService.initEditForm($scope.formData, $scope.tab, row);
-    //     });
-    // };
+    $scope.tabs.loadIncrease.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            taRASTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
 
     $scope.addTabRow = function() {
         if ($scope.row)

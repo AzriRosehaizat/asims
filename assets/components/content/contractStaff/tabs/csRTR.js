@@ -85,7 +85,7 @@ application.service('csRTR', function($http, _, formService) {
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section/search?where={",
+                    start: "/section?where={",
                     end: "\"sectionNo\":{\"startsWith\":\""
                 },
                 link: "application.section",
@@ -174,7 +174,7 @@ application.service('csRTR', function($http, _, formService) {
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section/search?where={",
+                    start: "/section?where={",
                     end: "\"sectionNo\":{\"startsWith\":\""
                 },
                 link: "application.section",

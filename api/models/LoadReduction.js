@@ -6,7 +6,7 @@
 */
 module.exports = {
 	attributes: {
-		loadReductionId: {
+		loadReductionID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,

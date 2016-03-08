@@ -19,6 +19,12 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                             name: 'Title',
                             field: 'title',
                         }, {
+                            name: 'Term',
+                            field: 'term',
+                        }, {
+                            name: 'Year',
+                            field: 'year',
+                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''

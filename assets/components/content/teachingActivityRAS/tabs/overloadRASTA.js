@@ -1,4 +1,4 @@
-application.service('overloadRASTA', function($http, $q, _, formService) {
+application.service('overloadRASTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -82,6 +82,16 @@ application.service('overloadRASTA', function($http, $q, _, formService) {
                 name: "title",
                 label: "Title",
                 readonly: true
+            }, {
+                type: "text",
+                name: "term",
+                label: "Term",
+                readonly: true,
+            }, {
+                type: "text",
+                name: "year",
+                label: "Year",
+                readonly: true,
             }, {
                 type: "date",
                 name: "startDate",

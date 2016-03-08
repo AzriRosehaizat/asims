@@ -1,6 +1,7 @@
 application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
 
     var self = this;
+    var years = [];
     self.form;
     self.formData = {};
     self.readOnly = false;
@@ -114,6 +115,22 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     self.formatDate = function(datef) {
         return (datef) ? (new moment(datef).toDate()) : null;
+    };
+
+    self.getYears = function() {
+        if (_.isEmpty(years)) {
+            var min = 1970,
+                max = new Date().getFullYear() + 20;
+
+            for (var i = min; i <= max; i++) {
+                years.push(i);
+            }
+        }
+        return years;
+    };
+
+    self.getTerms = function() {
+        return ["Fall", "Winter", "Fall/Winter", "Spring"];
     };
 
     function resetValidation(form) {
