@@ -14,24 +14,26 @@ module.exports = {
 			autoIncrement: true,
 			index: true
 		},
-		sectionOfferedID: {
-			model: 'Section_Offered',
+		teachingActivitiesID: {
+			model: 'TeachingActivities',
 			required: 'true'
 		},
 		contractStaffID: {
 			model: 'ContractStaff',
 			required: 'true'
 		},
-		startTerm: {
+		term: {
 			type: 'string',
-			required: true,
-			size: 10
+			size: 45
 		},
-		endTerm: {
-			type: 'string',
-			required: true,
-			size: 10
-		}
+		year: {
+			type: 'integer',
+			required: false
+		},
+		TeachingActivities: {
+			collection: 'TeachingActivities',
+			via: 'teachingActivitiesID'
+		},
 	},
 	tableName: 'RightToRefusal'
 };
