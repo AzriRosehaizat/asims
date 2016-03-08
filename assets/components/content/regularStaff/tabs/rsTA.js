@@ -44,7 +44,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-                reset: ["departmentID", "courseNo"],
+                reset: ["courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -68,10 +68,13 @@ application.service('rsTA', function($http, $q, _, formService) {
                     }]
                 },
                 assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
-                reset: ["sectionNo", "title"],
+                reset: ["title"],
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -85,7 +88,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section/search?where={",
+                    start: "/section?where={",
                     end: "\"sectionNo\":{\"startsWith\":\""
                 },
                 link: "application.section",
@@ -97,7 +100,35 @@ application.service('rsTA', function($http, $q, _, formService) {
                         name: "sectionType"
                     }]
                 },
+                assign: [{
+                    from: "sectionNo.obj.sectionID",
+                    to: "sectionID"
+                }],
                 required: true
+            }, {
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
+                required: true
+            }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
+                type: "date",
+                name: "startDate",
+                label: "Start date"
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date"
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -135,7 +166,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-                reset: ["departmentID", "courseNo"],
+                reset: ["courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -159,10 +190,13 @@ application.service('rsTA', function($http, $q, _, formService) {
                     }]
                 },
                 assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
-                reset: ["sectionNo", "title"],
+                reset: ["title"],
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -176,7 +210,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section/search?where={",
+                    start: "/section?where={",
                     end: "\"sectionNo\":{\"startsWith\":\""
                 },
                 link: "application.section",
@@ -188,7 +222,35 @@ application.service('rsTA', function($http, $q, _, formService) {
                         name: "sectionType"
                     }]
                 },
+                assign: [{
+                    from: "sectionNo.obj.sectionID",
+                    to: "sectionID"
+                }],
                 required: true
+            }, {
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
+                required: true
+            }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
+                type: "date",
+                name: "startDate",
+                label: "Start date"
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date"
             }, {
                 type: "number",
                 name: "FCEValue",

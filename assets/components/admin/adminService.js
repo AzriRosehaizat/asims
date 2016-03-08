@@ -65,7 +65,7 @@ application.service('adminService', function($http, _, moment, formService) {
                 label: "Email",
                 required: true
             }, {
-                type: "select",
+                type: "role",
                 name: "role",
                 label: "Role",
                 items: [{

@@ -18,7 +18,7 @@ module.exports = {
 								 : sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
 		ContractStaff.query(sSQL, callback);
 	},
-	getTeachingActivity: function(id, where, callback) {
+	getTeachingActivity: function(id, where, search, callback) {
 		var sSQL = mysql.select('t.*', 'd.departmentID', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
