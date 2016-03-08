@@ -38,6 +38,7 @@ application.service('reductionRASTA', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                minDate: "startDate",
                 required: true
             }];
 
@@ -64,6 +65,7 @@ application.service('reductionRASTA', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                minDate: "startDate",
                 required: true
             }];
 

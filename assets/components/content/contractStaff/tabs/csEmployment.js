@@ -27,7 +27,8 @@ application.service('csEmployment', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
             
             formService.init(formData, gridData, null, 'csEmployment', false);
@@ -47,7 +48,8 @@ application.service('csEmployment', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
             
             formService.init(formData, gridData, row, 'csEmployment', false);

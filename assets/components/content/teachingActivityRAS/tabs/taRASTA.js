@@ -128,7 +128,8 @@ application.service('taRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -250,7 +251,8 @@ application.service('taRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",

@@ -36,6 +36,7 @@ application.service('cSection', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                minDate: "startDate",
                 readonly: true
             }, {
                 type: "number",
@@ -72,6 +73,7 @@ application.service('cSection', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                minDate: "startDate",
                 readonly: true
             }, {
                 type: "number",

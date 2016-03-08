@@ -50,7 +50,8 @@ application.service('researchService', function($http, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'researchService', true);
@@ -80,6 +81,7 @@ application.service('researchService', function($http, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                minDate: "startDate",
                 required: true
             }];
 

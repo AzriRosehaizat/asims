@@ -57,7 +57,8 @@ application.service('rsResearch', function($http, $q, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rsResearch', false);
@@ -88,7 +89,8 @@ application.service('rsResearch', function($http, $q, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rsResearch', false);
