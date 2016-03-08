@@ -69,6 +69,12 @@ application.controller('regularStaffController', function($scope, staffs, regula
         });
     };
 
+    $scope.tabs.research.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            rsTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
     $scope.addTabRow = function() {
         if ($scope.row)
             rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);

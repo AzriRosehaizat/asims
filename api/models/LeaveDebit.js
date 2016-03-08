@@ -24,7 +24,11 @@ module.exports = {
 		description: {
 			type: 'text'
 		},
-		dateIssued: {
+		startDate: {
+			type: 'date',
+			required: true
+		},
+		endDate: {
 			type: 'date'
 		},
 		leaveDebitType: {
