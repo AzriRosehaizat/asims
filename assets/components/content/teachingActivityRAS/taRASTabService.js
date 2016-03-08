@@ -1,4 +1,4 @@
-application.service('taRASTabService', function($http, taRASTA, overloadRASTA, creditRASTA, debitRASTA, reductionRASTA, increaseRASTA) {
+application.service('taRASTabService', function($http, taRASTA, overloadRASTA, creditRASTA, debitRASTA, loadRASTA, reductionRASTA, increaseRASTA) {
 
     return {
         tabs: function() {
@@ -120,6 +120,24 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                         }]
                     }
                 },
+                load: {
+                    title: 'Load',
+                    gridOptions: {
+                        columnDefs: [{
+                            name: 'FCE Value',
+                            displayName: 'FCE Value',
+                            field: 'FCEValue'
+                        }, {
+                            name: 'Start Date',
+                            field: 'startDate',
+                            cellFilter: 'date:\'MM-dd-yyyy\''
+                        }, {
+                            name: 'End Date',
+                            field: 'endDate',
+                            cellFilter: 'date:\'MM-dd-yyyy\''
+                        }]
+                    }
+                },
                 loadReduction: {
                     title: 'Load Reduction',
                     gridOptions: {
@@ -172,6 +190,9 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                 case 'FCE Debit':
                     debitRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
+                case 'Load':
+                    loadRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    break;
                 case 'Load Reduction':
                     reductionRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -194,6 +215,9 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                 case 'FCE Debit':
                     debitRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
+                case 'Load':
+                    loadRASTA.initEditForm(formData, tab.gridOptions.data, row);
+                    break;
                 case 'Load Reduction':
                     reductionRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
@@ -207,6 +231,7 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
             this.getOverload(tabs.overload, row);
             this.getFCECredit(tabs.FCECredit, row);
             this.getFCEDebit(tabs.FCEDebit, row);
+            this.getLoad(tabs.load, row);
             this.getLoadReduction(tabs.loadReduction, row);
             this.getLoadIncrease(tabs.loadIncrease, row);
         },
@@ -232,6 +257,12 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
             $http.get('/FCEDebit?regularStaffID=' + row.entity.regularStaffID)
                 .then(function(res) {
                     FCEDebit.gridOptions.data = res.data;
+                });
+        },
+        getLoad: function(load, row) {
+            $http.get('/load?regularStaffID=' + row.entity.regularStaffID)
+                .then(function(res) {
+                    load.gridOptions.data = res.data;
                 });
         },
         getLoadReduction: function(loadReduction, row) {
