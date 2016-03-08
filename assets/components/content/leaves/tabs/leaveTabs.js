@@ -54,6 +54,10 @@ application
                 .entity
                 .balance = 0;
                 
+                row
+                .entity
+                .completed = 0;
+                
                 getCredits( 
                     tabs
                     .credits,
@@ -90,6 +94,9 @@ application
                         return previous + current;
                     },0);
                     
+                    rowEntity
+                    .completed ++;
+                    
                     creditsTab
                     .gridOptions
                     .data = (
@@ -117,6 +124,9 @@ application
                     .reduce(function( previous, current){
                         return previous + current;
                     },0);
+                    
+                    rowEntity
+                    .completed ++;
                     
                     debitsTab
                     .gridOptions
