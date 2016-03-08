@@ -10,10 +10,7 @@ application.service('rStaff', function($http, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.fullName)) {
-                formData.model.regularStaffID = formData.model.fullName.obj.RegularStaff[0].regularStaffID;
-                formData.model.researchID = mainRow.entity.researchID;
-            }
+            formData.model.researchID = mainRow.entity.researchID;
             return $http.post('/RegularStaff_Research/', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.researchID + 
@@ -46,6 +43,10 @@ application.service('rStaff', function($http, _, formService) {
                         name: "employeeNo"
                     }]
                 },
+                assign: [{
+                    from: "fullName.obj.RegularStaff[0].regularStaffID",
+                    to: "regularStaffID"
+                }],
                 required: true
             }, {
                 type: "date",
@@ -55,7 +56,7 @@ application.service('rStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End date"
             }];
 
             formService.init(formData, gridData, null, 'rStaff', false);
@@ -81,7 +82,7 @@ application.service('rStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End date"
             }];
 
             formService.init(formData, gridData, row, 'rStaff', false);

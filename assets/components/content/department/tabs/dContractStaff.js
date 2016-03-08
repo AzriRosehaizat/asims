@@ -3,20 +3,13 @@ application.service('dContractStaff', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.fullName)) {
-                formData.model.academicStaffID = formData.model.fullName.obj.academicStaffID;
-            }
             return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model)
                 .then(function(res) {
                     return $http.get('/Department/getInfo?type=contractStaff&id=' + res.data.departmentID.departmentID + '&where=' + res.data.academicStaffDepartmentID);
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.fullName)) {
-                formData.model.academicStaffID = formData.model.fullName.obj.academicStaffID;
-                formData.model.departmentID = mainRow.entity.departmentID;
-            }
-            console.log(formData.model);
+            formData.model.departmentID = mainRow.entity.departmentID;
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
                     return $http.get('/department/getInfo?type=contractStaff&id=' + res.data.departmentID + '&where=' + res.data.academicStaffDepartmentID);
@@ -48,6 +41,10 @@ application.service('dContractStaff', function($http, _, formService) {
                         name: "employeeNo"
                     }]
                 },
+                assign: [{
+                    from: "fullName.obj.academicStaffID",
+                    to: "academicStaffID"
+                }],
                 required: true
             }, {
                 type: "date",

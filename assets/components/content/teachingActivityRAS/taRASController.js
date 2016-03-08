@@ -28,9 +28,8 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.editRow = function() {
-        if ($scope.row) {
+        if ($scope.row) 
             taRASService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
-        }
         else
             toaster.info("Select a row first.");
     };
