@@ -30,7 +30,7 @@ module.exports = {
             .where('so.courseID', id);
 
         if (where) {
-            sSQL = sSQL.where('so.sectionOfferedID', where).toString();
+            sSQL = sSQL.where('so.teachingActivitiesID', where).toString();
         }
         else {
             sSQL = sSQL.toString();
