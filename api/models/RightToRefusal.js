@@ -27,13 +27,8 @@ module.exports = {
 			size: 45
 		},
 		year: {
-			type: 'integer',
-			required: false
-		},
-		TeachingActivities: {
-			collection: 'TeachingActivities',
-			via: 'teachingActivitiesID'
-		},
+			type: 'integer'
+		}
 	},
 	tableName: 'RightToRefusal'
 };

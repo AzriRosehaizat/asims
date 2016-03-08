@@ -4,23 +4,17 @@ application.service('csRTR', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.teachingActivitiesID = formData.model.sectionNo.obj.teachingActivitiesID;
-            }
             return $http.put('/rightToRefusal/' + formData.model.rightToRefusalID, formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + formData.model.contractStaffID +
+                    return $http.get('/contractStaff/getInfo?type=rightToRefusal&id=' + formData.model.contractStaffID +
                         '&where=' + res.data.rightToRefusalID);
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.teachingActivitiesID = formData.model.sectionNo.obj.teachingActivitiesID;
-                formData.model.contractStaffID = mainRow.entity.contractStaffID;
-            }
+            formData.model.contractStaffID = mainRow.entity.contractStaffID;
             return $http.post('/rightToRefusal', formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + formData.model.contractStaffID +
+                    return $http.get('/contractStaff/getInfo?type=rightToRefusal&id=' + formData.model.contractStaffID +
                         '&where=' + res.data.rightToRefusalID);
                 });
         },
@@ -32,191 +26,74 @@ application.service('csRTR', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Right To Refuse';
+            formData.title = 'Right To Refusal';
             formData.inputs = [{
                 type: "autocomplete",
-                name: "departmentCode",
-                label: "Dept. Code",
+                name: "courseSection",
+                label: "Course Section (ex. ACS-0000-001)",
                 url: {
-                    start: "/department?where={",
-                    end: "\"departmentCode\":{\"startsWith\":\""
+                    start: "/contractStaff/getInfo?type=teaching&id=" + mainRow.entity.academicStaffID + "&search={",
+                    end: "\"courseSection\":{\"startsWith\":\""
                 },
-                link: "application.department",
+                link: "application.teachingActivityCAS",
                 output: {
                     obj: {},
-                    name: "departmentCode"
-                },
-                change: {
-                    reset: "courseNo"
-                },
-                required: true
-            }, {
-                type: "acCustom",
-                name: "courseNo",
-                label: "Course No.",
-                url: {
-                    start: "/course?where={",
-                    end: "\"courseNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
-                    }]
-                },
-                link: "application.course",
-                output: {
-                    obj: {},
-                    name: "courseNo",
+                    name: ["departmentCode", "courseNo", "sectionNo"],
                     meta: [{
                         tag: "",
                         name: "title"
                     }]
                 },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
+                assign: [{
+                    from: "courseSection.obj.teachingActivitiesID",
+                    to: "teachingActivitiesID"
+                }],
                 required: true
             }, {
-                type: "text",
-                name: "title",
-                label: "Title",
-                readonly: true
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term"
             }, {
-                type: "acCustom",
-                name: "sectionNo",
-                label: "Section No.",
-                url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
-                },
-                link: "application.sectionOffered",
-                output: {
-                    obj: {},
-                    name: "sectionNo",
-                    meta: [{
-                        tag: "",
-                        name: "startDate"
-                    }, {
-                        tag: "- ",
-                        name: "endDate"
-                    }]
-                },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
-                required: true
-            }, {
-                type: "text",
-                name: "startTerm",
-                label: "Start Term",
-                required: true
-            }, {
-                type: "text",
-                name: "endTerm",
-                label: "End Term",
-                required: true
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year"
             }];
 
             formService.init(formData, gridData, null, 'csRTR', false);
         },
         initEditForm: function(formData, gridData, row) {
+            row.entity.courseSection = row.entity.departmentCode + "-" +
+                                       row.entity.courseNo + "-" +
+                                       row.entity.sectionNo;
+                                       
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Right To Refuse';
+            formData.title = 'Right To Refusal';
             formData.inputs = [{
-                type: "autocomplete",
-                name: "departmentCode",
-                label: "Dept. Code",
-                url: {
-                    start: "/department?where={",
-                    end: "\"departmentCode\":{\"startsWith\":\""
-                },
-                link: "application.department",
-                output: {
-                    obj: {},
-                    name: "departmentCode"
-                },
-                change: {
-                    reset: "courseNo"
-                },
-                required: true
-            }, {
-                type: "acCustom",
-                name: "courseNo",
-                label: "Course No.",
-                url: {
-                    start: "/course?where={",
-                    end: "\"courseNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
-                    }]
-                },
-                link: "application.course",
-                output: {
-                    obj: {},
-                    name: "courseNo",
-                    meta: [{
-                        tag: "",
-                        name: "title"
-                    }]
-                },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
-                required: true
-            }, {
                 type: "text",
-                name: "title",
-                label: "Title",
+                name: "courseSection",
+                label: "Course Section",
                 readonly: true
             }, {
-                type: "acCustom",
-                name: "sectionNo",
-                label: "Section No.",
-                url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
-                },
-                link: "application.sectionOffered",
-                output: {
-                    obj: {},
-                    name: "sectionNo",
-                    meta: [{
-                        tag: "",
-                        name: "startDate"
-                    }, {
-                        tag: "- ",
-                        name: "endDate"
-                    }]
-                },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
-                required: true
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term"
             }, {
-                type: "text",
-                name: "startTerm",
-                label: "Start Term",
-                required: true
-            }, {
-                type: "text",
-                name: "endTerm",
-                label: "End Term",
-                required: true
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year"
             }];
 
             formService.init(formData, gridData, row, 'csRTR', false);

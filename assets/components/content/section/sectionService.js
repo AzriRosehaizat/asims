@@ -32,7 +32,7 @@ application.service('sectionService', function($http, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Section';
+            formData.title = 'Section';
             formData.inputs = [{
                 type: "text",
                 name: "sectionNo",
@@ -55,7 +55,7 @@ application.service('sectionService', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Section';
+            formData.title = 'Section';
             formData.inputs = [{
                 type: "text",
                 name: "sectionNo",

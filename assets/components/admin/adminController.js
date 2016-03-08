@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, users, adminService, SearchHelper) {
+application.controller('adminController', function($scope, users, adminService, SearchHelper, toaster) {
 
     $scope.gridTitle = 'Admin Page';
     $scope.users = users.data;
@@ -22,7 +22,10 @@ application.controller('adminController', function($scope, users, adminService, 
     };
 
     $scope.editRow = function() {
-        adminService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        if ($scope.row)
+            adminService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else
+            toaster.info("Select a row first.");
     };
 
     $scope.lastLogin = function(row) {

@@ -1,25 +1,34 @@
-application.service('csEmployment', function($http, _, formService) {
+application.service('loadRASTA', function($http, _, formService) {
 
     var mainRow;
 
     return {
         update: function(formData) {
-            return $http.put('/contractStaffEmployment/' + formData.model.contractEmploymentID, formData.model);
+            formData.model.regularStaffID = mainRow.entity.regularStaffID;
+            return $http.put('/load/' + formData.model.loadID, formData.model)
+                .then(function(res) {
+                    res.data.regularStaffID = res.data.regularStaffID.regularStaffID;
+                    return res;
+                });
         },
         create: function(formData) {
-            formData.model.contractStaffID = mainRow.entity.contractStaffID;
-            return $http.post('/contractStaffEmployment/', formData.model);
+            formData.model.regularStaffID = mainRow.entity.regularStaffID;
+            return $http.post('/load', formData.model);
         },
         delete: function(formData) {
-            return $http.delete('/contractStaffEmployment/' + formData.model.contractEmploymentID);
+            return $http.delete('/load/' + formData.model.loadID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
-            
+
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Employment';
+            formData.title = 'Load';
             formData.inputs = [{
+                type: "number",
+                name: "FCEValue",
+                label: "FCE Value"
+            }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
@@ -30,17 +39,21 @@ application.service('csEmployment', function($http, _, formService) {
                 label: "End date",
                 minDate: "startDate"
             }];
-            
-            formService.init(formData, gridData, null, 'csEmployment', false);
+
+            formService.init(formData, gridData, null, 'loadRASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
-            
+
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Employment';
+            formData.title = 'Load';
             formData.inputs = [{
+                type: "number",
+                name: "FCEValue",
+                label: "FCE Value"
+            }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
@@ -51,8 +64,8 @@ application.service('csEmployment', function($http, _, formService) {
                 label: "End date",
                 minDate: "startDate"
             }];
-            
-            formService.init(formData, gridData, row, 'csEmployment', false);
+
+            formService.init(formData, gridData, row, 'loadRASTA', false);
         },
     };
 });

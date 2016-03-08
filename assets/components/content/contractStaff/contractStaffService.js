@@ -42,7 +42,7 @@ application.service('contractStaffService', function($http, $q, _, formService) 
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Contract Staff';
+            formData.title = 'Contract Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
@@ -68,7 +68,7 @@ application.service('contractStaffService', function($http, $q, _, formService) 
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Contract Staff';
+            formData.title = 'Contract Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",

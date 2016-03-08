@@ -1,4 +1,4 @@
-application.service('rsTA', function($http, $q, _, formService) {
+application.service('taRASTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -19,7 +19,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 });
         },
         delete: function(formData) {
-            return $http.delete('/TeachingActivities/' + formData.model.teachingActivitiesID);
+            return $http.delete('/teachingActivities/' + formData.model.teachingActivitiesID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
@@ -141,7 +141,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, null, 'rsTA', false);
+            formService.init(formData, gridData, null, 'taRASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
@@ -264,7 +264,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, row, 'rsTA', false);
+            formService.init(formData, gridData, row, 'taRASTA', false);
         },
     };
 });

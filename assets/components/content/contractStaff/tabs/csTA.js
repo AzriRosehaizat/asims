@@ -26,7 +26,7 @@ application.service('csTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -44,7 +44,7 @@ application.service('csTA', function($http, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-                reset: ["courseNo"],
+                reset: ["departmentID", "courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -68,13 +68,10 @@ application.service('csTA', function($http, _, formService) {
                     }]
                 },
                 assign: [{
-                    from: "courseNo.obj.courseID",
-                    to: "courseID"
-                }, {
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
-                reset: ["title"],
+                reset: ["sectionNo", "title"],
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -146,7 +143,7 @@ application.service('csTA', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -164,7 +161,11 @@ application.service('csTA', function($http, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
+<<<<<<< HEAD
                 reset: ["courseNo"],
+=======
+                reset: ["departmentID", "courseNo"],
+>>>>>>> 36968aab0c48c95f83308fca0dae597aebd2d90a
                 required: true
             }, {
                 type: "autocomplete",
@@ -188,6 +189,7 @@ application.service('csTA', function($http, _, formService) {
                     }]
                 },
                 assign: [{
+<<<<<<< HEAD
                     from: "courseNo.obj.courseID",
                     to: "courseID"
                 }, {
@@ -195,6 +197,12 @@ application.service('csTA', function($http, _, formService) {
                     to: "title"
                 }],
                 reset: ["title"],
+=======
+                    from: "courseNo.obj.title",
+                    to: "title"
+                }],
+                reset: ["sectionNo", "title"],
+>>>>>>> 36968aab0c48c95f83308fca0dae597aebd2d90a
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -220,6 +228,7 @@ application.service('csTA', function($http, _, formService) {
                         name: "sectionType"
                     }]
                 },
+<<<<<<< HEAD
                 assign: [{
                     from: "sectionNo.obj.sectionID",
                     to: "sectionID"
@@ -232,6 +241,8 @@ application.service('csTA', function($http, _, formService) {
                 // items: formService.getTerms(),
                 // path: "term",
                 // text: "Select a term",
+=======
+>>>>>>> 36968aab0c48c95f83308fca0dae597aebd2d90a
                 required: true
             }, {
                 type: "select",
