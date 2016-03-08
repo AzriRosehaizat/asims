@@ -30,6 +30,10 @@ application.service('increaseRASTA', function($http, _, formService) {
                 label: "FCE Value",
                 required: true
             }, {
+                type: "text",
+                name: "description",
+                label: "Description"
+            }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
@@ -56,6 +60,10 @@ application.service('increaseRASTA', function($http, _, formService) {
                 name: "FCEValue",
                 label: "FCE Value",
                 required: true
+            }, {
+                type: "text",
+                name: "description",
+                label: "Description"
             }, {
                 type: "date",
                 name: "startDate",

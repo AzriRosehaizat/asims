@@ -89,9 +89,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             name: 'Amount',
                             field: 'amount'
                         }, {
-                            name: 'Description',
-                            field: 'description'
-                        }, {
                             name: 'Date Issued',
                             field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''
@@ -107,9 +104,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                         columnDefs: [{
                             name: 'Amount',
                             field: 'amount'
-                        }, {
-                            name: 'Description',
-                            field: 'description'
                         }, {
                             name: 'Date Issued',
                             field: 'dateIssued',
