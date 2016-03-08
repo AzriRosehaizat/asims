@@ -26,8 +26,8 @@ module.exports = {
 		FCEModifier: {
 			type: 'float'
 		},
-		Section_Offered: {
-			collection: 'Section_Offered',
+		TeachingActivities: {
+			collection: 'TeachingActivities',
 			via: 'sectionID'
 		}
 	},

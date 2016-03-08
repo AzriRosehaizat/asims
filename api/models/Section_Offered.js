@@ -34,14 +34,6 @@ module.exports = {
 			type: 'date',
 			required: true
 		},
-		TeachingActivities: {
-			collection: 'TeachingActivities',
-			via: 'sectionOfferedID'
-		},
-		RightToRefusal: {
-			collection: 'RightToRefusal',
-			via: 'sectionOfferedID'
-		}
 	},
 	tableName: 'Section_Offered'
 
