@@ -5,7 +5,7 @@ application.service('csRTR', function($http, _, formService) {
     return {
         update: function(formData) {
             if (_.isObject(formData.model.sectionNo)) {
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
+                formData.model.teachingActivitiesID = formData.model.sectionNo.obj.teachingActivitiesID;
             }
             return $http.put('/rightToRefusal/' + formData.model.rightToRefusalID, formData.model)
                 .then(function(res) {
@@ -15,7 +15,7 @@ application.service('csRTR', function($http, _, formService) {
         },
         create: function(formData) {
             if (_.isObject(formData.model.sectionNo)) {
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
+                formData.model.teachingActivitiesID = formData.model.sectionNo.obj.teachingActivitiesID;
                 formData.model.contractStaffID = mainRow.entity.contractStaffID;
             }
             return $http.post('/rightToRefusal', formData.model)
