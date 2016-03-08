@@ -68,10 +68,6 @@ application.factory('menu', ['$location', '$rootScope', function($location) {
           name: 'Section',
           state: 'application.section',
           type: 'link'
-        }, {
-          name: 'Section Offered',
-          state: 'application.sectionOffered',
-          type: 'link'
         }]
       });
 

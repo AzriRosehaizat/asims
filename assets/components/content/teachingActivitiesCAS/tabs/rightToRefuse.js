@@ -6,14 +6,15 @@ application.service('rightToRefuse', function($http, _, formService) {
         update: function(formData) {
             return $http.put('/rightToRefusal/' + formData.model.rightToRefusalID, formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + formData.model.contractStaffID +
+                    return $http.get('/contractStaff/getInfo?type=rightToRefusal&id=' + formData.model.contractStaffID +
                         '&where=' + res.data.rightToRefusalID);
                 });
         },
         create: function(formData) {
+            formData.model.contractStaffID = mainRow.entity.contractStaffID;
             return $http.post('/rightToRefusal', formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + formData.model.contractStaffID +
+                    return $http.get('/contractStaff/getInfo?type=rightToRefusal&id=' + formData.model.contractStaffID +
                         '&where=' + res.data.rightToRefusalID);
                 });
         },
@@ -25,9 +26,9 @@ application.service('rightToRefuse', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Right To Refuse';
+            formData.title = 'Add Right To Refuse Course';
             formData.inputs = [{
-                type: "autocomplete",
+               type: "autocomplete",
                 name: "courseSection",
                 label: "Course Section (ex. ACS-0000-001)",
                 url: {
@@ -37,16 +38,10 @@ application.service('rightToRefuse', function($http, _, formService) {
                 link: "application.teachingActivityRAS",
                 output: {
                     obj: {},
-                    name: "title",
+                    name: ["departmentCode", "courseNo", "sectionNo"],
                     meta: [{
                         tag: "",
-                        name: "departmentCode"
-                    }, {
-                        tag: "-",
-                        name: "courseNo"
-                    }, {
-                        tag: "-",
-                        name: "sectionNo"
+                        name: "title"
                     }]
                 },
                 assign: [{
@@ -58,17 +53,17 @@ application.service('rightToRefuse', function($http, _, formService) {
                 type: "select",
                 name: "term",
                 label: "Term",
-                // items: formService.getTerms(),
-                // path: "term",
-                // text: "Select a term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
                 required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
-                // items: formService.getYears(),
-                // path: "year",
-                // text: "Select a year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }];
 
@@ -81,7 +76,7 @@ application.service('rightToRefuse', function($http, _, formService) {
                                        
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Right To Refuse';
+            formData.title = 'Edit Right To Refuse Course';
             formData.inputs = [{
                 type: "text",
                 name: "courseSection",
@@ -96,17 +91,17 @@ application.service('rightToRefuse', function($http, _, formService) {
                 type: "select",
                 name: "term",
                 label: "Term",
-                // items: formService.getTerms(),
-                // path: "term",
-                // text: "Select a term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
                 required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
-                // items: formService.getYears(),
-                // path: "year",
-                // text: "Select a year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }];
 

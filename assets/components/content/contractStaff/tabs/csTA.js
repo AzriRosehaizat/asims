@@ -161,11 +161,7 @@ application.service('csTA', function($http, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-<<<<<<< HEAD
-                reset: ["courseNo"],
-=======
                 reset: ["departmentID", "courseNo"],
->>>>>>> 36968aab0c48c95f83308fca0dae597aebd2d90a
                 required: true
             }, {
                 type: "autocomplete",
@@ -189,20 +185,10 @@ application.service('csTA', function($http, _, formService) {
                     }]
                 },
                 assign: [{
-<<<<<<< HEAD
-                    from: "courseNo.obj.courseID",
-                    to: "courseID"
-                }, {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                }],
-                reset: ["title"],
-=======
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
                 reset: ["sectionNo", "title"],
->>>>>>> 36968aab0c48c95f83308fca0dae597aebd2d90a
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -228,7 +214,6 @@ application.service('csTA', function($http, _, formService) {
                         name: "sectionType"
                     }]
                 },
-<<<<<<< HEAD
                 assign: [{
                     from: "sectionNo.obj.sectionID",
                     to: "sectionID"
@@ -241,8 +226,7 @@ application.service('csTA', function($http, _, formService) {
                 // items: formService.getTerms(),
                 // path: "term",
                 // text: "Select a term",
-=======
->>>>>>> 36968aab0c48c95f83308fca0dae597aebd2d90a
+
                 required: true
             }, {
                 type: "select",

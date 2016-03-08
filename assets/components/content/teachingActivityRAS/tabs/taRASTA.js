@@ -26,7 +26,7 @@ application.service('taRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Teaching Activity';
+            formData.title = 'Add Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -149,7 +149,7 @@ application.service('taRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Teaching Activity';
+            formData.title = 'Edit Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",

@@ -109,17 +109,17 @@ application.service('teachingActivity', function($http, _, formService) {
                 type: "select",
                 name: "term",
                 label: "Term",
-                // items: formService.getTerms(),
-                // path: "term",
-                // text: "Select a term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
                 required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
-                // items: formService.getYears(),
-                // path: "year",
-                // text: "Select a year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }, {
                 type: "date",
@@ -129,7 +129,7 @@ application.service('teachingActivity', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                //minDate: "startDate"
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -144,6 +144,9 @@ application.service('teachingActivity', function($http, _, formService) {
             formService.init(formData, gridData, null, 'teachingActivity', false);
         },
         initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Teaching Activity';
@@ -229,17 +232,17 @@ application.service('teachingActivity', function($http, _, formService) {
                 type: "select",
                 name: "term",
                 label: "Term",
-                // items: formService.getTerms(),
-                // path: "term",
-                // text: "Select a term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
                 required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
-                // items: formService.getYears(),
-                // path: "year",
-                // text: "Select a year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }, {
                 type: "date",
@@ -249,7 +252,7 @@ application.service('teachingActivity', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                //minDate: "startDate"
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",

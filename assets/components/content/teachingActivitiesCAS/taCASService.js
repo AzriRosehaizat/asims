@@ -23,13 +23,13 @@ application.service('taCASService', function($http, _, formService) {
             };
         },
         update: function(formData) {
-            // return $http.post('/regularStaff/updateRAS', formData.model);
+            // read only
         },
         create: function(formData) {
-            // return $http.post('/regularStaff/createRAS', formData.model);
+            // read only
         },
         delete: function(formData) {
-            // return $http.post('/regularStaff/deleteRAS', formData.model);
+            // read only
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};

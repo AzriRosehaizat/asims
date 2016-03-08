@@ -25,7 +25,7 @@ application.service('overloadRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Overload Course';
+            formData.title = 'Add Overload Course';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "courseSection",
@@ -65,7 +65,7 @@ application.service('overloadRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Overload Course';
+            formData.title = 'Edit Overload Course';
             formData.inputs = [{
                 type: "text",
                 name: "courseSection",
