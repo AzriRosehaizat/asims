@@ -15,7 +15,7 @@ application
                 return {
                     credits : {
                         title: 
-                            'Credits',
+                            'Earned',
                         gridOptions: 
                             leaveCredits
                             .gridOptions( $scope ),
@@ -28,7 +28,7 @@ application
                     },
                     debits : {
                         title: 
-                            'Debits',
+                            'Taken',
                         gridOptions: 
                             leaveDebits
                             .gridOptions( $scope ),
