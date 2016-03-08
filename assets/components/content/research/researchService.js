@@ -7,9 +7,6 @@ application.service('researchService', function($http, formService) {
                     name: 'Title',
                     field: 'title'
                 }, {
-                    name: 'Abstract',
-                    field: 'abstract'
-                }, {
                     name: 'Start Date',
                     field: 'startDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
