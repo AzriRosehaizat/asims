@@ -50,22 +50,30 @@ application
                     .regularStaffID
                 );
                 
+                row
+                .entity
+                .balance = 0;
+                
                 getCredits( 
                     tabs
                     .credits,
-                    regularStaffID
+                    regularStaffID,
+                    row
+                    .entity
                 );
                 
                 getDebits( 
                     tabs
                     .debits,
-                    regularStaffID
+                    regularStaffID,
+                    row
+                    .entity
                 );
                 
             }
         };
         
-        function getCredits( creditsTab, regularStaffID ){
+        function getCredits( creditsTab, regularStaffID, rowEntity ){
             
             $http
             .get(
@@ -73,6 +81,15 @@ application
             )
             .then( 
                 function( res ) {
+                    rowEntity.balance += res
+                    .data
+                    .map(function( value ){
+                        return value.amount;
+                    })
+                    .reduce(function( previous, current){
+                        return previous + current;
+                    },0);
+                    
                     creditsTab
                     .gridOptions
                     .data = (
@@ -84,13 +101,22 @@ application
             
         } 
         
-        function getDebits( debitsTab , regularStaffID ){
+        function getDebits( debitsTab , regularStaffID, rowEntity ){
             $http
             .get(
                 '/regularStaff/getInfo?type=leaveDebits&id=' + regularStaffID
             )
             .then( 
                 function( res ) {
+                    
+                    rowEntity.balance -= res
+                    .data
+                    .map(function( value ){
+                        return value.amount;
+                    })
+                    .reduce(function( previous, current){
+                        return previous + current;
+                    },0);
                     
                     debitsTab
                     .gridOptions

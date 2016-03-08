@@ -49,36 +49,39 @@ application
             .gridOptions
             .onRegisterApi = function(gridApi) {
                 $scope
-                    .gridApi = (
-                        gridApi
-                    );
+                .gridApi = (
+                    gridApi
+                );
 
                 gridApi
-                    .selection
-                    .on
-                    .rowSelectionChanged($scope, function(row) {
+                .selection
+                .on
+                .rowSelectionChanged($scope, function(row) {
+                    $scope
+                    .row = (
+                        row
+                    );
+                    
+                    leaveTabs
+                    .initializeTabs(
                         $scope
-                            .row = (
-                                row
-                            );
-
+                        .tabs,
+                        row
+                    );
+                    
+                    setTimeout(function(){
                         leaveService
-                            .setForm(
-                                $scope
-                                .formData,
-                                $scope
-                                .gridOptions
-                                .data,
-                                row
-                            );
+                        .setForm(
+                            $scope
+                            .formData,
+                            $scope
+                            .gridOptions
+                            .data,
+                            row
+                        );
+                    }, 300);
 
-                        leaveTabs
-                            .initializeTabs(
-                                $scope
-                                .tabs,
-                                row
-                            );
-                    });
+                });
 
                 modifyRows();
 
