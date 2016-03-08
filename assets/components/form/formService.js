@@ -28,19 +28,11 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
     };
 
     self.submit = function(formData) {
-        var startDate = formData.model.startDate;
-        var endDate = formData.model.endDate;
-
-        if (endDate < startDate && endDate != null) {
-            toaster.warning("Start Date has to be greater than End Date");
+        if (formData.isEditing) {
+            self.update(row, formData);
         }
         else {
-            if (formData.isEditing) {
-                self.update(row, formData);
-            }
-            else {
-                self.create(grid, formData);
-            }
+            self.create(grid, formData);
         }
     };
 
@@ -53,7 +45,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                 resetValidation(self.form);
                 _.merge(row.entity, res.data);
                 updateMainRow();
-                
+
                 toaster.done("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -73,7 +65,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                 grid.unshift(res.data);
                 formData.model = {};
                 updateMainRow();
-                
+
                 toaster.done("Added successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -107,7 +99,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                     resetValidation(self.form);
                     grid.splice(index, 1);
                     updateMainRow();
-                    
+
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
                     toaster.done("Deleted successfully!");

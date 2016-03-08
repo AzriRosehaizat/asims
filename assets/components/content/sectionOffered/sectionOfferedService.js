@@ -92,7 +92,7 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 },
                 required: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -180,7 +180,7 @@ application.service('sectionOfferedService', function($http, _, formService) {
                 },
                 required: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
