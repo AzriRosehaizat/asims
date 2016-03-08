@@ -30,8 +30,8 @@ module.exports = {
 	description: {
 		type: 'text'
 	},
-	Section_Offered: {
-		collection: 'Section_Offered',
+	TeachingActivities: {
+		collection: 'TeachingActivities',
 		via: 'courseID'
 	},
 	Crosslisting: {
