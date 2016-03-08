@@ -149,7 +149,8 @@ application
                 }
             ];
 
-            formService.init(
+            formService
+            .init(
                 formData, 
                 gridData, 
                 row, 
@@ -178,7 +179,8 @@ application
                 'Add Leave Credit'
             );
             
-            formData.inputs = [
+            formData
+            .inputs = [
                 {
                     type: 
                         "number",
@@ -226,7 +228,8 @@ application
                 }
             ];
 
-            formService.init(
+            formService
+            .init(
                 formData, 
                 gridData, 
                 null, 
