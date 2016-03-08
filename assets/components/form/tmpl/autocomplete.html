@@ -5,7 +5,7 @@
             md-selected-item="fs.formData.model[input.name]" 
             md-selected-item-change="assignValue(input.assign)"
             md-search-text="fs.formData.model.searchText[input.name]"
-            md-search-text-change="changeValue(input.change)"
+            md-search-text-change="resetValue(input.reset)"
             md-items="item in querySearch(fs.formData.model.searchText[input.name], input.url, input.output)" 
             md-item-text="item.name"
             md-min-length="0"

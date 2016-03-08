@@ -22,20 +22,12 @@ application.service('departmentService', function($http, $q, _, formService) {
             };
         },
         update: function(formData) {
-            if (_.isObject(formData.model.facultyTitle)) {
-                formData.model.facultyID = formData.model.facultyTitle.obj.facultyID;
-            }
-            //Return a flattned object after update
             return $http.put('/Department/' + formData.model.departmentID, formData.model)
                 .then(function(res) {
                     return $http.get('/Department/getAllDepartment/' + res.data.departmentID);
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.facultyTitle)) {
-                formData.model.facultyID = formData.model.facultyTitle.obj.facultyID;
-            }
-            //Return a flattned object after create
             return $http.post('/Department', formData.model)
                 .then(function(res) {
                     return $http.get('/Department/getAllDepartment/' + res.data.departmentID);
@@ -71,6 +63,10 @@ application.service('departmentService', function($http, $q, _, formService) {
                     obj: {},
                     name: "title"
                 },
+                assign: [{
+                    from: "facultyTitle.obj.facultyID",
+                    to: "facultyID"
+                }],
                 required: true
             }, {
                 type: "textarea",
@@ -107,6 +103,10 @@ application.service('departmentService', function($http, $q, _, formService) {
                     obj: {},
                     name: "title"
                 },
+                assign: [{
+                    from: "facultyTitle.obj.facultyID",
+                    to: "facultyID"
+                }],
                 required: true
             }, {
                 type: "textarea",

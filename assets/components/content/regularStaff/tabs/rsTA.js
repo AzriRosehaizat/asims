@@ -4,9 +4,6 @@ application.service('rsTA', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
-            }
             return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID +
@@ -14,10 +11,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.academicStaffID = mainRow.entity.academicStaffID;
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
-            }
+            formData.model.academicStaffID = mainRow.entity.academicStaffID;
             return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID +
@@ -46,9 +40,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "departmentCode"
                 },
-                change: {
-                    reset: "courseNo"
-                },
+                assign: [{
+                    from: "departmentCode.obj.departmentID",
+                    to: "departmentID"
+                }],
+                reset: ["departmentID", "courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -59,7 +55,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     end: "\"courseNo\":{\"startsWith\":\"",
                     where: [{
                         key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
+                        value: "departmentID"
                     }]
                 },
                 link: "application.course",
@@ -71,45 +67,36 @@ application.service('rsTA', function($http, $q, _, formService) {
                         name: "title"
                     }]
                 },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
+                assign: [{
+                    from: "courseNo.obj.title",
+                    to: "title"
+                }],
+                reset: ["sectionNo", "title"],
+                disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Title",
+                required: true,
                 readonly: true
             }, {
                 type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
+                    start: "/section/search?where={",
+                    end: "\"sectionNo\":{\"startsWith\":\""
                 },
-                link: "application.sectionOffered",
+                link: "application.section",
                 output: {
                     obj: {},
                     name: "sectionNo",
                     meta: [{
-                        tag: "",
-                        name: "startDate"
-                    }, {
-                        tag: "- ",
-                        name: "endDate"
+                        tag: "Type: ",
+                        name: "sectionType"
                     }]
                 },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
                 required: true
             }, {
                 type: "number",
@@ -144,9 +131,11 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "departmentCode"
                 },
-                change: {
-                    reset: "courseNo"
-                },
+                assign: [{
+                    from: "departmentCode.obj.departmentID",
+                    to: "departmentID"
+                }],
+                reset: ["departmentID", "courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -157,7 +146,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     end: "\"courseNo\":{\"startsWith\":\"",
                     where: [{
                         key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
+                        value: "departmentID"
                     }]
                 },
                 link: "application.course",
@@ -169,45 +158,36 @@ application.service('rsTA', function($http, $q, _, formService) {
                         name: "title"
                     }]
                 },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
+                assign: [{
+                    from: "courseNo.obj.title",
+                    to: "title"
+                }],
+                reset: ["sectionNo", "title"],
+                disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Title",
+                required: true,
                 readonly: true
             }, {
                 type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
+                    start: "/section/search?where={",
+                    end: "\"sectionNo\":{\"startsWith\":\""
                 },
-                link: "application.sectionOffered",
+                link: "application.section",
                 output: {
                     obj: {},
                     name: "sectionNo",
                     meta: [{
-                        tag: "",
-                        name: "startDate"
-                    }, {
-                        tag: "- ",
-                        name: "endDate"
+                        tag: "Type: ",
+                        name: "sectionType"
                     }]
                 },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
                 required: true
             }, {
                 type: "number",

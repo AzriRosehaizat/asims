@@ -9,17 +9,11 @@ application.service('dChair', function($http, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.fullName)) {
-                formData.model.regularStaffID = formData.model.fullName.obj.RegularStaff[0].regularStaffID;
-                formData.model.departmentID = mainRow.entity.departmentID;
-            }
+            formData.model.departmentID = mainRow.entity.departmentID;
             return $http.post('/Chair', formData.model)
                 .then(function(res) {
                     return $http.get('/department/getInfo?type=chair&id=' + res.data.departmentID + '&where=' + res.data.chairID);
                 });
-                
-                
-                
         },
         delete: function(formData) {
             return $http.delete('/Chair/' + formData.model.chairID);
@@ -43,11 +37,14 @@ application.service('dChair', function($http, _, formService) {
                     obj: {},
                     name: "fullName",
                     meta: [{
-                        tag: "Employee Num:",
+                        tag: "Employee No:",
                         name: "employeeNo"
                     }]
                 },
-
+                assign: [{
+                    from: "fullName.obj.RegularStaff[0].regularStaffID",
+                    to: "regularStaffID"
+                }],
                 required: true
             }, {
                 type: "date",
@@ -66,7 +63,7 @@ application.service('dChair', function($http, _, formService) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
             row.entity.endDate = formService.formatDate(row.entity.endDate);
             row.entity.fullName = row.entity.firstName + ' ' + row.entity.lastName;
-            
+
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Chair';
@@ -75,7 +72,6 @@ application.service('dChair', function($http, _, formService) {
                 name: "fullName",
                 label: "Full name",
                 readonly: true
-
             }, {
                 type: "date",
                 name: "startDate",
