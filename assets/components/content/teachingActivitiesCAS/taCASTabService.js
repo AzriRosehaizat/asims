@@ -19,6 +19,12 @@ application.service('taCASTabService', function($http, teachingActivity, rightTo
                             name: 'Title',
                             field: 'title',
                         }, {
+                            name: 'Term',
+                            field: 'term',
+                        }, {
+                            name: 'Year',
+                            field: 'year',
+                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
@@ -52,13 +58,11 @@ application.service('taCASTabService', function($http, teachingActivity, rightTo
                             name: 'Title',
                             field: 'title',
                         }, {
-                            name: 'Start Term',
-                            field: 'startTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'Term',
+                            field: 'term',
                         }, {
-                            name: 'End Term',
-                            field: 'endTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'Year',
+                            field: 'year',
                         }]
                     }
                 }

@@ -19,6 +19,12 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                             name: 'Title',
                             field: 'title',
                         }, {
+                            name: 'Term',
+                            field: 'term',
+                        }, {
+                            name: 'Year',
+                            field: 'year',
+                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
@@ -52,13 +58,11 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                             name: 'Title',
                             field: 'title',
                         }, {
-                            name: 'Start Term',
-                            field: 'startTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'term',
+                            field: 'Term',
                         }, {
-                            name: 'End Term',
-                            field: 'endTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'year',
+                            field: 'Year',
                         }]
                     }
                 },

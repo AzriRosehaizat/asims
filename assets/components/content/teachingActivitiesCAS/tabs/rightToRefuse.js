@@ -4,9 +4,6 @@ application.service('rightToRefuse', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
-            }
             return $http.put('/rightToRefusal/' + formData.model.rightToRefusalID, formData.model)
                 .then(function(res) {
                     return $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + formData.model.contractStaffID +
@@ -14,10 +11,6 @@ application.service('rightToRefuse', function($http, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
-                formData.model.contractStaffID = mainRow.entity.contractStaffID;
-            }
             return $http.post('/rightToRefusal', formData.model)
                 .then(function(res) {
                     return $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + formData.model.contractStaffID +
@@ -35,187 +28,85 @@ application.service('rightToRefuse', function($http, _, formService) {
             formData.title = 'Add Right To Refuse';
             formData.inputs = [{
                 type: "autocomplete",
-                name: "departmentCode",
-                label: "Dept. Code",
+                name: "courseSection",
+                label: "Course Section (ex. ACS-0000-001)",
                 url: {
-                    start: "/department?where={",
-                    end: "\"departmentCode\":{\"startsWith\":\""
+                    start: "/regularStaff/getInfo?type=teaching&id=" + mainRow.entity.academicStaffID + "&search={",
+                    end: "\"courseSection\":{\"startsWith\":\""
                 },
-                link: "application.department",
+                link: "application.teachingActivityRAS",
                 output: {
                     obj: {},
-                    name: "departmentCode"
-                },
-                change: {
-                    reset: "courseNo"
-                },
-                required: true
-            }, {
-                type: "acCustom",
-                name: "courseNo",
-                label: "Course No.",
-                url: {
-                    start: "/course?where={",
-                    end: "\"courseNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
-                    }]
-                },
-                link: "application.course",
-                output: {
-                    obj: {},
-                    name: "courseNo",
+                    name: "title",
                     meta: [{
                         tag: "",
-                        name: "title"
-                    }]
-                },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
-                required: true
-            }, {
-                type: "text",
-                name: "title",
-                label: "Title",
-                readonly: true
-            }, {
-                type: "acCustom",
-                name: "sectionNo",
-                label: "Section No.",
-                url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
-                },
-                link: "application.sectionOffered",
-                output: {
-                    obj: {},
-                    name: "sectionNo",
-                    meta: [{
-                        tag: "",
-                        name: "startDate"
+                        name: "departmentCode"
                     }, {
-                        tag: "- ",
-                        name: "endDate"
+                        tag: "-",
+                        name: "courseNo"
+                    }, {
+                        tag: "-",
+                        name: "sectionNo"
                     }]
                 },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
+                assign: [{
+                    from: "courseSection.obj.teachingActivitiesID",
+                    to: "teachingActivitiesID"
+                }],
                 required: true
             }, {
-                type: "text",
-                name: "startTerm",
-                label: "Start Term",
+                type: "select",
+                name: "term",
+                label: "Term",
+                // items: formService.getTerms(),
+                // path: "term",
+                // text: "Select a term",
                 required: true
             }, {
-                type: "text",
-                name: "endTerm",
-                label: "End Term",
+                type: "select",
+                name: "year",
+                label: "Year",
+                // items: formService.getYears(),
+                // path: "year",
+                // text: "Select a year",
                 required: true
             }];
 
             formService.init(formData, gridData, null, 'rightToRefuse', false);
         },
         initEditForm: function(formData, gridData, row) {
+            row.entity.courseSection = row.entity.departmentCode + "-" +
+                                       row.entity.courseNo + "-" +
+                                       row.entity.sectionNo;
+                                       
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Edit Right To Refuse';
             formData.inputs = [{
-                type: "autocomplete",
-                name: "departmentCode",
-                label: "Dept. Code",
-                url: {
-                    start: "/department?where={",
-                    end: "\"departmentCode\":{\"startsWith\":\""
-                },
-                link: "application.department",
-                output: {
-                    obj: {},
-                    name: "departmentCode"
-                },
-                change: {
-                    reset: "courseNo"
-                },
-                required: true
-            }, {
-                type: "acCustom",
-                name: "courseNo",
-                label: "Course No.",
-                url: {
-                    start: "/course?where={",
-                    end: "\"courseNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
-                    }]
-                },
-                link: "application.course",
-                output: {
-                    obj: {},
-                    name: "courseNo",
-                    meta: [{
-                        tag: "",
-                        name: "title"
-                    }]
-                },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
-                required: true
+                type: "text",
+                name: "courseSection",
+                label: "Course Section",
+                readonly: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Title",
                 readonly: true
-            }, {
-                type: "acCustom",
-                name: "sectionNo",
-                label: "Section No.",
-                url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
-                },
-                link: "application.sectionOffered",
-                output: {
-                    obj: {},
-                    name: "sectionNo",
-                    meta: [{
-                        tag: "",
-                        name: "startDate"
-                    }, {
-                        tag: "- ",
-                        name: "endDate"
-                    }]
-                },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
+            },  {
+                type: "select",
+                name: "term",
+                label: "Term",
+                // items: formService.getTerms(),
+                // path: "term",
+                // text: "Select a term",
                 required: true
             }, {
-                type: "text",
-                name: "startTerm",
-                label: "Start Term",
-                required: true
-            }, {
-                type: "text",
-                name: "endTerm",
-                label: "End Term",
+                type: "select",
+                name: "year",
+                label: "Year",
+                // items: formService.getYears(),
+                // path: "year",
+                // text: "Select a year",
                 required: true
             }];
 
