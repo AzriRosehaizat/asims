@@ -15,7 +15,7 @@ application
                 return {
                     credits : {
                         title: 
-                            'Credits',
+                            'Earned',
                         gridOptions: 
                             leaveCredits
                             .gridOptions( $scope ),
@@ -28,7 +28,7 @@ application
                     },
                     debits : {
                         title: 
-                            'Debits',
+                            'Taken',
                         gridOptions: 
                             leaveDebits
                             .gridOptions( $scope ),
@@ -42,36 +42,54 @@ application
                 };
             },
             initializeTabs : function( tabs, row ){
-                var academicStaffID; 
+                var regularStaffID; 
                 
-                academicStaffID= (
+                regularStaffID= (
                     row
                     .entity
-                    .academicStaffID
+                    .regularStaffID
                 );
+                
+                row
+                .entity
+                .balance = 0;
                 
                 getCredits( 
                     tabs
                     .credits,
-                    academicStaffID
+                    regularStaffID,
+                    row
+                    .entity
                 );
                 
                 getDebits( 
                     tabs
                     .debits,
-                    academicStaffID
+                    regularStaffID,
+                    row
+                    .entity
                 );
                 
             }
         };
         
-        function getCredits( creditsTab, academicStaffID ){
+        function getCredits( creditsTab, regularStaffID, rowEntity ){
+            
             $http
             .get(
-                '/regularStaff/getInfo?type=leaveCredits&id=' + academicStaffID
+                '/regularStaff/getInfo?type=leaveCredits&id=' + regularStaffID
             )
             .then( 
                 function( res ) {
+                    rowEntity.balance += res
+                    .data
+                    .map(function( value ){
+                        return value.amount;
+                    })
+                    .reduce(function( previous, current){
+                        return previous + current;
+                    },0);
+                    
                     creditsTab
                     .gridOptions
                     .data = (
@@ -83,13 +101,23 @@ application
             
         } 
         
-        function getDebits( debitsTab , academicStaffID ){
+        function getDebits( debitsTab , regularStaffID, rowEntity ){
             $http
             .get(
-                '/regularStaff/getInfo?type=leaveDebits&id=' + academicStaffID
+                '/regularStaff/getInfo?type=leaveDebits&id=' + regularStaffID
             )
             .then( 
                 function( res ) {
+                    
+                    rowEntity.balance -= res
+                    .data
+                    .map(function( value ){
+                        return value.amount;
+                    })
+                    .reduce(function( previous, current){
+                        return previous + current;
+                    },0);
+                    
                     debitsTab
                     .gridOptions
                     .data = (
