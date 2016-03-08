@@ -35,7 +35,8 @@ application
                         field: 
                             'Rank'
                     }
-                ]
+                ],
+                readOnly:true
             },
             setForm: function( formData, gridData, row ) {
                 formData
@@ -75,6 +76,15 @@ application
                             "lastName",
                         label: 
                             "Last name",
+                        disabled: 
+                            true
+                    }, {
+                        type: 
+                            "number",
+                        name: 
+                            "balance",
+                        label: 
+                            "Balance",
                         disabled: 
                             true
                     }
