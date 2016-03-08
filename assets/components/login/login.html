@@ -1,32 +1,42 @@
+<div flex="70" ng-cloak layout="row">
+    <div class="transbox" hide-sm hide-xs layout="row" layout-align="center center" flex="35">
+        <span flex="30">
+            <img src="images/logo.png" alt="University of Winnipeg Logo" />
+        </span>
+        <div flex="50" layout-align="center center">
+            <h1 align="center">A.S.I.M.S</h1>
+            <h4 align="center">Central Hub for Academic Staff Information</h4>
+        </div>
+    </div>
+    <div flex="55">
+        <form name="loginForm" ng-submit="submit()" novalidate>
+            <md-content md-theme="default" class="md-whiteframe-10dp" layout="column" layout-align="center">
+                <md-toolbar class="md-warn md-hue-2">
+                    <div class="md-toolbar-tools">
+                        <h2>Log In</h2>
+                        <span flex></span>
+                    </div>
+                </md-toolbar>
 
-<div style="max-width:45%;" flex="50" ng-cloak>
-    <form name="loginForm" ng-submit="submit()" novalidate>
-        <md-content md-theme="default" class="md-whiteframe-10dp" layout="column" layout-align="center">
-            <md-toolbar class="md-warn md-hue-2">
-                <div class="md-toolbar-tools">
-                    <h2>Log In</h2>
-                    <span flex></span>
+                <md-progress-linear class="md-hue-2" md-mode="{{formData.mode}}"></md-progress-linear>
+
+                <div layout="column" layout-align="center" layout-padding layout-margin>
+                    <md-input-container class="md-block">
+                        <md-icon md-font-set="material-icons">account_circle</md-icon>
+                        <input name="username" ng-model="formData.username" placeholder="Username" md-autofocus>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <md-icon md-font-set="material-icons">lock</md-icon>
+                        <input name="password" ng-model="formData.password" type="password" placeholder="Password">
+                    </md-input-container>
+
+                    <md-button type="submit" class="md-warn md-hue-2 md-raised">
+                        Log In
+                    </md-button>
                 </div>
-            </md-toolbar>
+            </md-content>
+        </form>
+    </div>
 
-            <md-progress-linear class="md-hue-2" md-mode="{{formData.mode}}"></md-progress-linear>
-
-            <div layout="column" layout-align="center" layout-padding layout-margin>
-                <md-input-container class="md-block">
-                    <md-icon md-font-set="material-icons">account_circle</md-icon>
-                    <input name="username" ng-model="formData.username" placeholder="Username" md-autofocus>
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <md-icon md-font-set="material-icons">lock</md-icon>
-                    <input name="password" ng-model="formData.password" type="password" placeholder="Password">
-                </md-input-container>
-
-                <md-button type="submit" class="md-warn md-hue-2 md-raised">
-                    Log In
-                </md-button>
-            </div>
-        </md-content>
-    </form>
     <div>
-    

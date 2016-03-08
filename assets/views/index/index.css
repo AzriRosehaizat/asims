@@ -5,23 +5,23 @@
 }
 
 .indexContent .transbox {
-    background-color: #FFEBEE;
-    border-right: 1px solid black;
-    opacity: 0.75;
-    filter: alpha(opacity=75); /* For IE8 and earlier */
+    background-color: #FFF;
+    border: 1px solid black;
+    opacity: 0.80;
+    filter: alpha(opacity=80);
+    /* For IE8 and earlier */
 }
 
 .transbox h1,
 h4 {
-    margin: 5%;
+    margin: 10%;
     font-weight: bold;
     color: #000000;
 }
 
-.transbox img {
-    height: 40%;
-    width: 40%;
+.transbox span img {
+    margin: 10%;
+    height: 100%;
+    width: 100%;
     display: block;
-    margin-left: auto;
-    margin-right: auto
 }
