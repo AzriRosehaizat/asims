@@ -37,16 +37,10 @@ application.service('overloadRASTA', function($http, _, formService) {
                 link: "application.teachingActivityRAS",
                 output: {
                     obj: {},
-                    name: "title",
+                    name: ["departmentCode", "courseNo", "sectionNo"],
                     meta: [{
                         tag: "",
-                        name: "departmentCode"
-                    }, {
-                        tag: "-",
-                        name: "courseNo"
-                    }, {
-                        tag: "-",
-                        name: "sectionNo"
+                        name: "title"
                     }]
                 },
                 assign: [{

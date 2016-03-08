@@ -27,8 +27,7 @@ module.exports = {
 			size: 45
 		},
 		year: {
-			type: 'integer',
-			required: false
+			type: 'integer'
 		}
 	},
 	tableName: 'RightToRefusal'

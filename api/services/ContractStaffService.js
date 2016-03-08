@@ -45,7 +45,7 @@ module.exports = {
 		sSQL = (where) ? sSQL.where('t.teachingActivitiesID', where).toString() : sSQL.toString();
 		ContractStaff.query(sSQL, callback);
 	},
-	getRightToRefuse: function(id, where, callback) {
+	getRightToRefusal: function(id, where, callback) {
 		var sSQL = mysql.select('r.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('ContractStaff AS cs')
 			.innerJoin('RightToRefusal AS r', 'cs.contractStaffID', 'r.contractStaffID')

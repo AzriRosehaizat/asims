@@ -16,7 +16,7 @@ application.service('acService', function($http, _) {
                 return _.map(res.data, function(item) {
                     var result = {
                         obj: item,
-                        name: item[output.name]
+                        name: setItemName(item, output.name)
                     };
                     // For the custom autocomplete template
                     if (output.meta) {
@@ -49,4 +49,19 @@ application.service('acService', function($http, _) {
             else console.log("assignValue: from or to is missing.");
         });
     };
+    
+    function setItemName(item, name) {
+        if (_.isArray(name)) {
+            var result = "";
+            _.forEach(name, function(aName) {
+                var index = _.indexOf(name, aName);
+                var value = item[aName];
+                result = (name.length === index + 1) ? result + value : result + value + "-";
+            });
+            return result;
+        }
+        else {
+            return item[name];
+        }
+    }
 });
