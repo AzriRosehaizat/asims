@@ -5,7 +5,7 @@ application.service('csTA', function($http, _, formService) {
     return {
         update: function(formData) {
             if (_.isObject(formData.model.sectionNo)) {
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
+                formData.model.teachingActivitiesID = formData.model.sectionNo.obj.teachingActivitiesID;
             }
             return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
@@ -93,7 +93,7 @@ application.service('csTA', function($http, _, formService) {
                         value: "courseNo.obj.courseID"
                     }]
                 },
-                link: "application.sectionOffered",
+                link: "application.tea",
                 output: {
                     obj: {},
                     name: "sectionNo",
