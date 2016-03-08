@@ -12,9 +12,6 @@ application.service('courseService', function($http, $q, _, formService) {
                 }, {
                     name: 'Name',
                     field: 'title'
-                }, {
-                    name: 'Description',
-                    field: 'description'
                 }]
             };
         },
