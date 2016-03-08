@@ -54,7 +54,8 @@ application.service('rsRank', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'rsRank', false);
@@ -92,7 +93,8 @@ application.service('rsRank', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rsRank', false);

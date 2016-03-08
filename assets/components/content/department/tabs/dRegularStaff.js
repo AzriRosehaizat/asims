@@ -54,7 +54,8 @@ application.service('dRegularStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'dRegularStaff', false);
@@ -80,7 +81,8 @@ application.service('dRegularStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'dRegularStaff', false);

@@ -101,6 +101,7 @@ application.service('overloadRASTA', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
+                minDate: "startDate",
                 readonly: true
             }, {
                 type: "number",

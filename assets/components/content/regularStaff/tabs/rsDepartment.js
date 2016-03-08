@@ -53,7 +53,8 @@ application.service('rsDepartment', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'rsDepartment', false);
@@ -91,7 +92,8 @@ application.service('rsDepartment', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rsDepartment', false);
