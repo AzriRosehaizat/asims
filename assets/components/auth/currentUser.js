@@ -1,16 +1,11 @@
 application.service('CurrentUser', function($http, $state, $q, LocalService, toaster) {
 
     var self = this;
-    var user;
 
     self.getUser = function() {
-        if (user) {
-            return $q.when(user);
-        }
-        else if (LocalService.get('auth_token')) {
+        if (LocalService.get('auth_token')) {
             return $http.get('/user/findByToken')
                 .then(function(res) {
-                    user = res;
                     return res;
                 }, function(err) {
                     toaster.error(err);
