@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, _, formService) {
+application.service('taRASService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -26,36 +26,18 @@ application.service('regularStaffService', function($http, _, formService) {
                     name: 'Cont\' Appointment Date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
-                }]
+                }],
+                readOnly: true
             };
         },
-        //really we should be checking if data is dirty, then update appropriately
-        //this seems slower, but negligible for our efforts 
         update: function(formData) {
-            return $http.put('/academicStaff/' + formData.model.academicStaffID, formData.model)
-                .then(function(aStaff) {
-                    return $http.put('/regularStaff/' + formData.model.regularStaffID, formData.model)
-                        .then(function(rStaff) {
-                            return $http.get('/regularStaff/getAllRegularStaff/' + rStaff.data.regularStaffID);
-                        });
-                });
+            // read-only
         },
         create: function(formData) {
-            return $http.post('/academicStaff', formData.model)
-                .then(function(aStaff) {
-                    // retrieve newly created academicStaffID
-                    formData.model.academicStaffID = aStaff.data.academicStaffID;
-                    return $http.post('/regularStaff', formData.model)
-                        .then(function(rStaff) {
-                            return $http.get('/regularStaff/getAllRegularStaff/' + rStaff.data.regularStaffID);
-                        });
-                });
+            // read-only
         },
         delete: function(formData) {
-            return $http.delete('/regularStaff/' + formData.model.regularStaffID)
-                .then(function(res) {
-                    return $http.delete('/academicStaff/' + formData.model.academicStaffID);
-                });
+            // read-only
         },
         initAddForm: function(formData, gridData) {
             formData.model = {};
@@ -65,27 +47,31 @@ application.service('regularStaffService', function($http, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No."
+                label: "Employee No.",
+                readonly: true
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure date",
+                readonly: true
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Cont' appointment date",
+                readonly: true
             }];
 
-            formService.init(formData, gridData, null, 'regularStaffService', true);
+            gridData.readOnly = this.gridOptions().readOnly;
+            formService.init(formData, gridData, null, 'taRASService', true);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.tenureDate = formService.formatDate(row.entity.tenureDate);
@@ -98,27 +84,31 @@ application.service('regularStaffService', function($http, _, formService) {
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                required: true
+                readonly: true
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No."
+                label: "Employee No.",
+                readonly: true
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure date",
+                readonly: true
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Cont' appointment date",
+                readonly: true
             }];
 
-            formService.init(formData, gridData, row, 'regularStaffService', true);
+            gridData.readOnly = this.gridOptions().readOnly;
+            formService.init(formData, gridData, row, 'taRASService', true);
         },
         getRow: function(row) {
             return $http.get('/regularStaff/getAllRegularStaff/' + row.entity.regularStaffID);

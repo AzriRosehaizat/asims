@@ -111,7 +111,7 @@ application
             
             formData
             .title = (
-                'Edit Leave Credit'
+                'Leave Credit'
             );
             
             formData
@@ -144,7 +144,7 @@ application
             
             formData
             .title = (
-                'Add Leave Credit'
+                'Leave Credit'
             );
             
             

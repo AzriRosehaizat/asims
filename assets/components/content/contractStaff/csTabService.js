@@ -19,6 +19,12 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                             name: 'Title',
                             field: 'title',
                         }, {
+                            name: 'Term',
+                            field: 'term',
+                        }, {
+                            name: 'Year',
+                            field: 'year',
+                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
@@ -36,8 +42,8 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }]
                     }
                 },
-                rightToRefuse: {
-                    title: 'Right to Refuse',
+                rightToRefusal: {
+                    title: 'Right to Refusal',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',
@@ -52,13 +58,11 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                             name: 'Title',
                             field: 'title',
                         }, {
-                            name: 'Start Term',
-                            field: 'startTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'Term',
+                            field: 'term',
                         }, {
-                            name: 'End Term',
-                            field: 'endTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'Year',
+                            field: 'year',
                         }]
                     }
                 },
@@ -120,7 +124,7 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Teaching Activity':
                     csTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Right to Refuse':
+                case 'Right to Refusal':
                     csRTR.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Department':
@@ -139,7 +143,7 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Teaching Activity':
                     csTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Right to Refuse':
+                case 'Right to Refusal':
                     csRTR.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Department':
@@ -155,7 +159,7 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
         },
         getTabs: function(tabs, row) {
             this.getTeachingActivity(tabs.teachingActivity, row);
-            this.getRightToRefuse(tabs.rightToRefuse, row);
+            this.getRightToRefusal(tabs.rightToRefusal, row);
             this.getDepartment(tabs.department, row);
             this.getRank(tabs.rank, row);
             this.getEmployment(tabs.employment, row);
@@ -166,10 +170,10 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                     teachingActivity.gridOptions.data = res.data;
                 });
         },
-        getRightToRefuse: function(rightToRefuse, row) {
-            $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + row.entity.contractStaffID)
+        getRightToRefusal: function(rightToRefusal, row) {
+            $http.get('/contractStaff/getInfo?type=rightToRefusal&id=' + row.entity.contractStaffID)
                 .then(function(res) {
-                    rightToRefuse.gridOptions.data = res.data;
+                    rightToRefusal.gridOptions.data = res.data;
                 });
         },
         getDepartment: function(department, row) {

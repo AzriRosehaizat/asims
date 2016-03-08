@@ -1,4 +1,4 @@
-application.service('csTA', function($http, _, formService) {
+application.service('taRASTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -6,7 +6,7 @@ application.service('csTA', function($http, _, formService) {
         update: function(formData) {
             return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID +
+                    return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID +
                         '&where=' + res.data.teachingActivitiesID);
                 });
         },
@@ -14,12 +14,12 @@ application.service('csTA', function($http, _, formService) {
             formData.model.academicStaffID = mainRow.entity.academicStaffID;
             return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
-                    return $http.get('/contractStaff/getInfo?type=teaching&id=' + res.data.academicStaffID +
+                    return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID +
                         '&where=' + res.data.teachingActivitiesID);
                 });
         },
         delete: function(formData) {
-            return $http.delete('/TeachingActivities/' + formData.model.teachingActivitiesID);
+            return $http.delete('/teachingActivities/' + formData.model.teachingActivitiesID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
@@ -44,7 +44,7 @@ application.service('csTA', function($http, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-                reset: ["departmentID", "courseNo"],
+                reset: ["courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -68,10 +68,13 @@ application.service('csTA', function($http, _, formService) {
                     }]
                 },
                 assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
-                reset: ["sectionNo", "title"],
+                reset: ["title"],
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -97,7 +100,36 @@ application.service('csTA', function($http, _, formService) {
                         name: "sectionType"
                     }]
                 },
+                assign: [{
+                    from: "sectionNo.obj.sectionID",
+                    to: "sectionID"
+                }],
                 required: true
+            }, {
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
+                required: true
+            }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
+                type: "date",
+                name: "startDate",
+                label: "Start date"
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date",
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -109,9 +141,12 @@ application.service('csTA', function($http, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, null, 'csTA', false);
+            formService.init(formData, gridData, null, 'taRASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Teaching Activity';
@@ -132,7 +167,7 @@ application.service('csTA', function($http, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-                reset: ["departmentID", "courseNo"],
+                reset: ["courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -156,10 +191,13 @@ application.service('csTA', function($http, _, formService) {
                     }]
                 },
                 assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
-                reset: ["sectionNo", "title"],
+                reset: ["title"],
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -185,7 +223,36 @@ application.service('csTA', function($http, _, formService) {
                         name: "sectionType"
                     }]
                 },
+                assign: [{
+                    from: "sectionNo.obj.sectionID",
+                    to: "sectionID"
+                }],
                 required: true
+            }, {
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
+                required: true
+            }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
+                type: "date",
+                name: "startDate",
+                label: "Start date"
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date",
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -197,7 +264,7 @@ application.service('csTA', function($http, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, row, 'csTA', false);
+            formService.init(formData, gridData, row, 'taRASTA', false);
         },
     };
 });

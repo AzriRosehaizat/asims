@@ -16,18 +16,12 @@ application.service('courseService', function($http, $q, _, formService) {
             };
         },
         update: function(formData) {
-            if (_.isObject(formData.model.departmentCode)) {
-                formData.model.departmentID = formData.model.departmentCode.obj.departmentID;
-            }
             return $http.put('/Course/' + formData.model.courseID, formData.model)
                 .then(function(res) {
                     return $http.get('/Course/getAllCourse/' + res.data.courseID);
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.departmentCode)) {
-                formData.model.departmentID = formData.model.departmentCode.obj.departmentID;
-            }
             return $http.post('/Course', formData.model)
                 .then(function(res) {
                     return $http.get('/Course/getAllCourse/' + res.data.courseID);
@@ -39,7 +33,7 @@ application.service('courseService', function($http, $q, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Course';
+            formData.title = 'Course';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -53,6 +47,10 @@ application.service('courseService', function($http, $q, _, formService) {
                     obj: {},
                     name: "departmentCode"
                 },
+                assign: [{
+                    from: "departmentCode.obj.departmentID",
+                    to: "departmentID"
+                }],
                 required: true
             }, {
                 type: "text",
@@ -76,7 +74,7 @@ application.service('courseService', function($http, $q, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Course';
+            formData.title = 'Course';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -90,6 +88,10 @@ application.service('courseService', function($http, $q, _, formService) {
                     obj: {},
                     name: "departmentCode"
                 },
+                assign: [{
+                    from: "departmentCode.obj.departmentID",
+                    to: "departmentID"
+                }],
                 required: true
             }, {
                 type: "text",

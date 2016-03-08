@@ -28,9 +28,8 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
 
     $scope.editRow = function() {
-        if ($scope.row) {
+        if ($scope.row)
             regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
-        }
         else
             toaster.info("Select a row first.");
     };
