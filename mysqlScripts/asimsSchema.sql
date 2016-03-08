@@ -139,15 +139,7 @@ CREATE TABLE IF NOT EXISTS `Section_Offered` (
   `groupID` INT(11) DEFAULT NULL,
   `startDate` DATE NOT NULL DEFAULT '2016-09-11',
   `endDate` DATE NOT NULL DEFAULT '2016-12-21',
-  PRIMARY KEY (`sectionOfferedID`) ,
-  UNIQUE INDEX `uc_Section` (`courseID` ASC, `sectionID` ASC, `startDate` ASC, `endDate` ASC) ,
-  INDEX `sectionID` (`sectionID` ASC) ,
-  CONSTRAINT `Section_Offered_ibfk_2`
-    FOREIGN KEY (`sectionID`)
-    REFERENCES `Section` (`sectionID`),
-  CONSTRAINT `Section_Offered_ibfk_1`
-    FOREIGN KEY (`courseID`)
-    REFERENCES `Course` (`courseID`))
+  PRIMARY KEY (`sectionOfferedID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -286,31 +278,6 @@ CREATE TABLE IF NOT EXISTS `Rank` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-
--- -----------------------------------------------------
--- Table `DefaultNormalLoad`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `DefaultNormalLoad` ;
-
-CREATE TABLE IF NOT EXISTS `DefaultNormalLoad` (
-  `defaultNormalLoadID` INT(11) NOT NULL AUTO_INCREMENT,
-  `rankID` INT(11) NOT NULL,
-  `departmentID` INT(11) NOT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `FCEValue` FLOAT NOT NULL,
-  PRIMARY KEY (`defaultNormalLoadID`) ,
-  INDEX `rankID` (`rankID` ASC) ,
-  INDEX `departmentID` (`departmentID` ASC) ,
-  CONSTRAINT `DefaultNormalLoad_ibfk_2`
-    FOREIGN KEY (`departmentID`)
-    REFERENCES `Department` (`departmentID`),
-  CONSTRAINT `DefaultNormalLoad_ibfk_1`
-    FOREIGN KEY (`rankID`)
-    REFERENCES `Rank` (`rankID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
 -- -----------------------------------------------------
 -- Table `FCECredit`
 -- -----------------------------------------------------
@@ -363,7 +330,8 @@ CREATE TABLE IF NOT EXISTS `LeaveCredit` (
   `regularStaffID` INT(11) NOT NULL,
   `amount` FLOAT NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  `dateIssued` DATE NULL DEFAULT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NOT NULL,
   `leaveCreditType` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`leaveCreditID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
@@ -384,7 +352,8 @@ CREATE TABLE IF NOT EXISTS `LeaveDebit` (
   `regularStaffID` INT(11) NOT NULL,
   `amount` FLOAT NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  `dateIssued` DATE NULL DEFAULT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NOT NULL,
   `leaveDebitType` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`leaveDebitID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
@@ -548,16 +517,16 @@ DROP TABLE IF EXISTS `RightToRefusal` ;
 
 CREATE TABLE IF NOT EXISTS `RightToRefusal` (
   `rightToRefusalID` INT(11) NOT NULL AUTO_INCREMENT,
-  `sectionOfferedID` INT(11) NOT NULL,
+  `teachingActivitiesID` INT(11) NOT NULL,
   `contractStaffID` INT(11) NOT NULL,
-  `startTerm` VARCHAR(10) NOT NULL,
-  `endTerm` VARCHAR(10) NOT NULL,
+  `term` VARCHAR(45) NULL DEFAULT 'Fall/Winter',
+  `year` INT(4) NULL DEFAULT 2017,
   PRIMARY KEY (`rightToRefusalID`) ,
   INDEX `contractStaffID` (`contractStaffID` ASC) ,
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
+  INDEX `teachingActivitiesID` (`teachingActivitiesID` ASC) ,
   CONSTRAINT `RightToRefusal_ibfk_2`
-    FOREIGN KEY (`sectionOfferedID`)
-    REFERENCES `Section_Offered` (`sectionOfferedID`),
+    FOREIGN KEY (`teachingActivitiesID`)
+    REFERENCES `TeachingActivities` (`teachingActivitiesID`),
   CONSTRAINT `RightToRefusal_ibfk_1`
     FOREIGN KEY (`contractStaffID`)
     REFERENCES `ContractStaff` (`contractStaffID`))
@@ -599,15 +568,24 @@ DROP TABLE IF EXISTS `TeachingActivities` ;
 CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   `teachingActivitiesID` INT(11) NOT NULL AUTO_INCREMENT,
   `academicStaffID` INT(11) NOT NULL,
-  `sectionOfferedID` INT(11) NOT NULL,
+  `courseID` INT(11) NOT NULL,
+  `sectionID` INT(11) NOT NULL,
+  `term` VARCHAR(45) NULL DEFAULT 'Fall/Winter',
+  `year` INT(4) NULL DEFAULT 2016,
+  `startDate` DATE NULL DEFAULT '2015-09-11',
+  `endDate` DATE NULL DEFAULT '2016-05-21',
   `role` VARCHAR(50) NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
   PRIMARY KEY (`teachingActivitiesID`) ,
   INDEX `academicStaffID` (`academicStaffID` ASC) ,
-  INDEX `sectionOfferedID` (`sectionOfferedID` ASC) ,
+  INDEX `courseID` (`courseID` ASC) ,
+  INDEX `sectionID` (`sectionID` ASC) ,
+  CONSTRAINT `TeachingActivities_ibfk_3`
+    FOREIGN KEY (`sectionID`)
+    REFERENCES `Section` (`sectionID`),
   CONSTRAINT `TeachingActivities_ibfk_2`
-    FOREIGN KEY (`sectionOfferedID`)
-    REFERENCES `Section_Offered` (`sectionOfferedID`),
+    FOREIGN KEY (`courseID`)
+    REFERENCES `Course` (`courseID`),
   CONSTRAINT `TeachingActivities_ibfk_1`
     FOREIGN KEY (`academicStaffID`)
     REFERENCES `AcademicStaff` (`academicStaffID`))
@@ -629,6 +607,23 @@ CREATE TABLE IF NOT EXISTS `Overload` (
   CONSTRAINT `Overload_ibfk_1`
     FOREIGN KEY (`teachingActivitiesID`)
     REFERENCES `TeachingActivities` (`teachingActivitiesID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+-- -----------------------------------------------------
+-- Table `Load`
+-- -----------------------------------------------------
+CREATE TABLE `Load` (
+  `loadID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `FECValue` FLOAT NOT NULL,
+  `startDate` DATE NOT NULL DEFAULT '2016-09-01',
+  `endDate` DATE NULL DEFAULT '2016-08-31',
+  PRIMARY KEY (`loadID`),
+  INDEX `regularStaffID` (`regularStaffID` ASC),
+  CONSTRAINT `Load_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `RegularStaff` (`regularStaffID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
