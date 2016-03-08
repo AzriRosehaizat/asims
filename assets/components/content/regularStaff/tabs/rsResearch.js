@@ -46,12 +46,14 @@ application.service('rsResearch', function($http, $q, _, formService) {
                     from: "title.obj.abstract",
                     to: "abstract"
                 }
-            }, {
-                type: "textarea",
-                name: "abstract",
-                label: "Abstract",
-                disabled: true
-            }, {
+            }
+            // , {
+            //     type: "textarea",
+            //     name: "abstract",
+            //     label: "Abstract",
+            //     disabled: true
+            // }
+            , {
                 type: "date",
                 name: "startDate",
                 label: "Start Date",
