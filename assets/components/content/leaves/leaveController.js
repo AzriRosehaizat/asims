@@ -69,7 +69,12 @@ application
                         row
                     );
                     
-                    setTimeout(function(){
+                    (function wait(){
+                        if( row.entity.completed !== 2 ){
+                            setTimeout(wait, 50);
+                            return;
+                        }
+                        
                         leaveService
                         .setForm(
                             $scope
@@ -79,7 +84,8 @@ application
                             .data,
                             row
                         );
-                    }, 300);
+                        
+                    })();
 
                 });
 
