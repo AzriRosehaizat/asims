@@ -39,6 +39,11 @@ application
                 readOnly:true
             },
             setForm: function( formData, gridData, row ) {
+                gridData
+                .readOnly = (
+                    true
+                );
+                
                 formData
                 .model = (
                     _
@@ -89,7 +94,7 @@ application
                             true
                     }
                 ];
-    
+                
                 formService
                 .init( 
                     formData, 
