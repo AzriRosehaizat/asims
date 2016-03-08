@@ -21,8 +21,8 @@ application.service('cTabService', function($http, cSection) {
                             field: 'endDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
-                            name: 'FCE',
-                            displayName: 'FCE',
+                            name: 'FCE Modifier',
+                            displayName: 'FCE Modifier',
                             field: 'FCEModifier'
                         }]
                     },
