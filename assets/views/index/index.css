@@ -1,0 +1,27 @@
+.indexContent {
+    background-size: cover;
+    background-image: url("/images/backgrounds/richardson-college.jpg");
+    color: #fff;
+}
+
+.indexContent .transbox {
+    background-color: #FFEBEE;
+    border-right: 1px solid black;
+    opacity: 0.75;
+    filter: alpha(opacity=75); /* For IE8 and earlier */
+}
+
+.transbox h1,
+h4 {
+    margin: 5%;
+    font-weight: bold;
+    color: #000000;
+}
+
+.transbox img {
+    height: 40%;
+    width: 40%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}

@@ -7,10 +7,7 @@ body {
   overflow: hidden;
 }
 
-.indexBG .indexBGWrapper {
-  width: auto;
-  height: 100%;
-}
+
 
 #content {
   background-color: #F5F5F5;
