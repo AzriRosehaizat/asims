@@ -23,7 +23,7 @@ application.service('debitRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add FCE Debit';
+            formData.title = 'FCE Debit';
             formData.inputs = [{
                 type: "number",
                 name: "amount",
@@ -50,7 +50,7 @@ application.service('debitRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit FCE Debit';
+            formData.title = 'FCE Debit';
             formData.inputs = [{
                 type: "number",
                 name: "amount",

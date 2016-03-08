@@ -27,7 +27,7 @@ application.service('csRank', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Rank';
+            formData.title = 'Rank';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -66,7 +66,7 @@ application.service('csRank', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Rank';
+            formData.title = 'Rank';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",

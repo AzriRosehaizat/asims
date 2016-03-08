@@ -23,7 +23,7 @@ application.service('dRegularStaff', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Regular Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "fullName",
@@ -67,7 +67,7 @@ application.service('dRegularStaff', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Regular Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "fullName",

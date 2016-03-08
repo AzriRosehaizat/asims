@@ -36,7 +36,7 @@ application.service('courseService', function($http, $q, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Course';
+            formData.title = 'Course';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -77,7 +77,7 @@ application.service('courseService', function($http, $q, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Course';
+            formData.title = 'Course';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",

@@ -22,7 +22,7 @@ application.service('rsResearch', function($http, $q, _, formService) {
             mainRow = row;
             formData.isEditing = false;
             formData.model = _.cloneDeep(row.entity);
-            formData.title = 'Add Research Activity';
+            formData.title = 'Research Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -70,7 +70,7 @@ application.service('rsResearch', function($http, $q, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Research Activity';
+            formData.title = 'Research Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",

@@ -23,7 +23,7 @@ application.service('dChair', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Chair';
+            formData.title = 'Chair';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "fullName",
@@ -67,7 +67,7 @@ application.service('dChair', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Chair';
+            formData.title = 'Chair';
             formData.inputs = [{
                 type: "text",
                 name: "fullName",
