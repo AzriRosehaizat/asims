@@ -87,8 +87,7 @@ module.exports = {
 			.innerJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
-			.where('ch.departmentID', id)
-			.groupBy('a.academicStaffID');
+			.where('ch.departmentID', id);
 			
 		if (where) {
 			sSQL = sSQL.where('ch.chairID', where).toString();

@@ -1,6 +1,7 @@
 /*global 
 	RegularStaff 
 	LeaveCredit
+	LeaveDebit
 */
 
 var mysql = require('knex')({
@@ -32,12 +33,11 @@ module.exports = {
 		});
 	},
 	getTeachingActivity: function(id, where, callback) {
-		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 't.startDate', 't.endDate')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
-			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
-			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
-			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
 
@@ -150,19 +150,24 @@ module.exports = {
 	getLeaveCredits: function(id, where, callback) {
 		var sql;
 
-		// sql = mysql.select('*').from('LeaveCredit')
-		// 	.where(Object.assign({
-		// 		regularStaffID: id
-		// 	}, where || {}));
-
-		// LeaveCredit.query(sql.toString(), callback);
-
-		sql = mysql.select('lc.*')
-			.from('LeaveCredit AS lc')
-			.where('lc.regularStaffID', id);
-
-		sql = (where) ? sql.where('lc.leaveCreditID', where).toString() : sql.toString();
-		LeaveCredit.query(sql, callback);
+		sql = (
+			mysql
+			.select('*')
+			.from('LeaveCredit')
+			.where(
+				Object.assign(
+					{
+						regularStaffID: id
+					}, 
+					where || {}
+				)
+			)
+		); 
+		LeaveCredit
+		.query(
+			sql.toString(), 
+			callback
+		);
 	},
 
 
@@ -176,18 +181,23 @@ module.exports = {
 	getLeaveDebits: function(id, where, callback) {
 		var sql;
 
-		// sql = mysql.select('*').from('LeaveDebit')
-		// 	.where(Object.assign({
-		// 		regularStaffID: id
-		// 	}, where || {}));
-
-		// LeaveDebit.query(sql.toString(), callback);
-
-		sql = mysql.select('ld.*')
-			.from('LeaveDebit AS ld')
-			.where('ld.regularStaffID', id);
-
-		sql = (where) ? sql.where('ld.leaveDebitID', where).toString() : sql.toString();
-		LeaveDebit.query(sql, callback);
+		sql = (
+			mysql
+			.select('*')
+			.from('LeaveDebit')
+			.where(
+				Object.assign(
+					{
+						regularStaffID: id
+					}, where || {}
+				)
+			)
+		);
+		
+		LeaveDebit
+		.query(
+			sql.toString(), 
+			callback
+		);
 	}
 };

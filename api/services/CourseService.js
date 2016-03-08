@@ -22,15 +22,14 @@ module.exports = {
         Course.query(sSQL, callback);
     },
 
-    getSectionOffered: function(id, where, callback) {
+    getTeachingActivity: function(id, where, callback) {
         var sSQL = mysql.select('so.*', 's.*')
-            .from('Section_Offered AS so')
+            .from('TeachingActivities AS so')
             .innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
-            .innerJoin('Course AS c', 'so.courseID', 'c.courseID')
             .where('so.courseID', id);
 
         if (where) {
-            sSQL = sSQL.where('so.sectionOfferedID', where).toString();
+            sSQL = sSQL.where('so.teachingActivitiesID', where).toString();
         }
         else {
             sSQL = sSQL.toString();
