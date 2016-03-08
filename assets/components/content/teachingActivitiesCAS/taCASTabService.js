@@ -99,7 +99,7 @@ application.service('taCASTabService', function($http, teachingActivity, rightTo
                 });
         },
         getRightToRefuse: function(rightToRefuse, row) {
-            $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + row.entity.contractStaffID)
+            $http.get('/contractStaff/getInfo?type=rightToRefusal&id=' + row.entity.contractStaffID)
                 .then(function(res) {
                     rightToRefuse.gridOptions.data = res.data;
                 });
