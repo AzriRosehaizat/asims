@@ -26,7 +26,6 @@ module.exports = {
         var sSQL = mysql.select('so.*', 's.*')
             .from('TeachingActivities AS so')
             .innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
-            .innerJoin('Course AS c', 'so.courseID', 'c.courseID')
             .where('so.courseID', id);
 
         if (where) {
