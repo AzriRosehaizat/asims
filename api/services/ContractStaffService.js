@@ -49,6 +49,7 @@ module.exports = {
 		var sSQL = mysql.select('r.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('ContractStaff AS cs')
 			.innerJoin('RightToRefusal AS r', 'cs.contractStaffID', 'r.contractStaffID')
+			.innerJoin('TeachingActivities AS t', 'r.teachingActivitiesID', 't.teachingActivitiesID')
 			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
 			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
