@@ -30,7 +30,7 @@ application.service('rStaff', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Add Staff';
             formData.inputs = [{
-                type: "acCustom",
+                type: "autocomplete",
                 name: "fullName",
                 label: "Full name",
                 url: {

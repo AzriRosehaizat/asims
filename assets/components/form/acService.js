@@ -46,4 +46,17 @@ application.service('acService', function($http, _) {
             }
         }
     };
+
+    this.assignValue = function(formData, assignArr) {
+        if (assignArr) {
+            _.forEach(assignArr, function(assign) {
+                // Update disabled value from another attribute
+                if (assign.from && assign.to) {
+                    var value = _.get(formData.model, assign.from);
+                    _.set(formData.model, assign.to, value);
+                }
+                else console.log("assignValue: from or to is missing.");
+            });
+        }
+    };
 });

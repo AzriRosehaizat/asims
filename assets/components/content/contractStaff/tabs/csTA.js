@@ -51,7 +51,7 @@ application.service('csTA', function($http, _, formService) {
                 },
                 required: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -82,7 +82,7 @@ application.service('csTA', function($http, _, formService) {
                 label: "Title",
                 readonly: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
@@ -146,7 +146,7 @@ application.service('csTA', function($http, _, formService) {
                 },
                 required: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -177,7 +177,7 @@ application.service('csTA', function($http, _, formService) {
                 label: "Title",
                 readonly: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {

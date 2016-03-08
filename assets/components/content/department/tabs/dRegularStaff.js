@@ -31,7 +31,7 @@ application.service('dRegularStaff', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Add Regular Staff';
             formData.inputs = [{
-                type: "acCustom",
+                type: "autocomplete",
                 name: "fullName",
                 label: "Full name",
                 url: {

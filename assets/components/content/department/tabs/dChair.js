@@ -31,7 +31,7 @@ application.service('dChair', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Add Chair';
             formData.inputs = [{
-                type: "acCustom",
+                type: "autocomplete",
                 name: "fullName",
                 label: "Full name",
                 url: {
