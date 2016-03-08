@@ -1,5 +1,5 @@
 application.controller('taRASController', function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster) {
-    
+
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaffData = staffs.data;
     $scope.formData = {};
@@ -28,7 +28,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.editRow = function() {
-        if ($scope.row) 
+        if ($scope.row)
             taRASService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
         else
             toaster.info("Select a row first.");
@@ -67,14 +67,21 @@ application.controller('taRASController', function($scope, staffs, taRASService,
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
-    
+
+    $scope.tabs.load.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            taRASTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
+
     $scope.tabs.loadReduction.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
-    
+
     $scope.tabs.loadIncrease.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
