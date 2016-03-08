@@ -29,11 +29,7 @@ module.exports = {
 		year: {
 			type: 'integer',
 			required: false
-		},
-		TeachingActivities: {
-			collection: 'TeachingActivities',
-			via: 'teachingActivitiesID'
-		},
+		}
 	},
 	tableName: 'RightToRefusal'
 };
