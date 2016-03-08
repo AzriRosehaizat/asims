@@ -35,9 +35,15 @@ application
                         field: 
                             'Rank'
                     }
-                ]
+                ],
+                readOnly:true
             },
             setForm: function( formData, gridData, row ) {
+                gridData
+                .readOnly = (
+                    true
+                );
+                
                 formData
                 .model = (
                     _
@@ -77,9 +83,18 @@ application
                             "Last name",
                         disabled: 
                             true
+                    }, {
+                        type: 
+                            "number",
+                        name: 
+                            "balance",
+                        label: 
+                            "Balance",
+                        disabled: 
+                            true
                     }
                 ];
-    
+                
                 formService
                 .init( 
                     formData, 
