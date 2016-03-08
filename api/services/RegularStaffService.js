@@ -22,12 +22,11 @@ module.exports = {
 		RegularStaff.query(sSQL, callback);
 	},
 	getTeachingActivity: function(id, where, search, callback) {
-		var sSQL = mysql.select('t.*', 'd.departmentID', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+		var sSQL = mysql.select('t.*', 'd.departmentID', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
-			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
-			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
-			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
 		
@@ -50,13 +49,12 @@ module.exports = {
 		RegularStaff.query(sSQL, callback);
 	},
 	getOverload: function(id, where, callback) {
-		var sSQL = mysql.select('o.*', 'a.academicStaffID', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+		var sSQL = mysql.select('o.*', 't.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
 			.innerJoin('Overload AS o', 't.teachingActivitiesID', 'o.teachingActivitiesID')
-			.innerJoin('Section_Offered AS so', 't.sectionOfferedID', 'so.sectionOfferedID')
-			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
-			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
 			
