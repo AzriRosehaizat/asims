@@ -10,7 +10,7 @@ application.service('formService', function($injector, $mdDialog, _, moment, toa
     var mainRow, mainService, isMain;
 
     self.init = function(formData, gridData, rowData, serviceName, main) {
-        // Toggle buttons by user's role
+        // Toggle form buttons by user's role
         if (CurrentUser.getRole() === "reader") self.readOnly = true;
         else {
             self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
