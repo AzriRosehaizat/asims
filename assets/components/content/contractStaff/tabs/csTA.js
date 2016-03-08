@@ -26,7 +26,7 @@ application.service('csTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -114,7 +114,7 @@ application.service('csTA', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",

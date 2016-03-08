@@ -26,7 +26,7 @@ application.service('csRTR', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Right To Refuse';
+            formData.title = 'Right To Refusal';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -115,7 +115,7 @@ application.service('csRTR', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Right To Refuse';
+            formData.title = 'Right To Refusal';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",

@@ -60,7 +60,7 @@ application.service('regularStaffService', function($http, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
@@ -93,7 +93,7 @@ application.service('regularStaffService', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",

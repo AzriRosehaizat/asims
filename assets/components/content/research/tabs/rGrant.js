@@ -21,7 +21,7 @@ application.service('rGrant', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Grant';
+            formData.title = 'Grant';
             formData.inputs = [{
                 type: "text",
                 name: "grantingAgency",
@@ -48,7 +48,7 @@ application.service('rGrant', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Grant';
+            formData.title = 'Grant';
             formData.inputs = [{
                 type: "text",
                 name: "grantingAgency",

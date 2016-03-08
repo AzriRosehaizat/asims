@@ -26,7 +26,7 @@ application.service('csDepartment', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Department';
+            formData.title = 'Department';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -65,7 +65,7 @@ application.service('csDepartment', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Department';
+            formData.title = 'Department';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",

@@ -23,7 +23,7 @@ application.service('creditRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add FCE Credit';
+            formData.title = 'FCE Credit';
             formData.inputs = [{
                 type: "number",
                 name: "amount",
@@ -50,7 +50,7 @@ application.service('creditRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit FCE Credit';
+            formData.title = 'FCE Credit';
             formData.inputs = [{
                 type: "number",
                 name: "amount",

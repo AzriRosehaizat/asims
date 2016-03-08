@@ -7,7 +7,7 @@
     </md-tabs>
 
     <md-fab-speed-dial id="tabMenu" class="md-scale md-fab-top-right" md-direction="left" md-open="tabMenu.isOpen" ng-mouseenter="tabMenu.isOpen=true" ng-mouseleave="tabMenu.isOpen=false">
-        <md-fab-trigger ng-hide="tab.readOnly">
+        <md-fab-trigger ng-hide="tab.readOnly || ctrl.isReader()">
             <md-button id="menuFab" class="md-fab md-warn md-hue-2" aria-label="menu">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Menu</md-tooltip>
                 <md-icon md-font-set="material-icons">more_horiz</md-icon>

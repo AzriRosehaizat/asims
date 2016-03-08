@@ -23,7 +23,7 @@ application.service('loadRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Load';
+            formData.title = 'Load';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
@@ -48,7 +48,7 @@ application.service('loadRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Load';
+            formData.title = 'Load';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",

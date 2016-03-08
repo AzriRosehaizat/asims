@@ -23,7 +23,7 @@ application.service('reductionRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Load Reduction';
+            formData.title = 'Load Reduction';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
@@ -50,7 +50,7 @@ application.service('reductionRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Load Reduction';
+            formData.title = 'Load Reduction';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",

@@ -1,4 +1,4 @@
-application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
+application.service('formService', function($injector, $mdDialog, _, moment, toaster, CurrentUser) {
 
     var self = this;
     var years = [];
@@ -10,7 +10,15 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
     var mainRow, mainService, isMain;
 
     self.init = function(formData, gridData, rowData, serviceName, main) {
-        self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
+        // Toggle buttons by user's role
+        if (CurrentUser.getRole() === "reader") self.readOnly = true;
+        else {
+            self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
+            // Modifiy form title when it's not readonly
+            if (!self.readOnly) {
+                formData.title = (formData.isEditing) ? "Edit " + formData.title : "Add " + formData.title;
+            }
+        }
 
         self.formData = formData;
         grid = gridData;

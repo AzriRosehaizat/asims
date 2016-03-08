@@ -39,7 +39,7 @@ application.service('departmentService', function($http, $q, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Department';
+            formData.title = 'Department';
             formData.inputs = [{
                 type: "text",
                 name: "departmentCode",
@@ -79,7 +79,7 @@ application.service('departmentService', function($http, $q, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Department';
+            formData.title = 'Department';
             formData.inputs = [{
                 type: "text",
                 name: "departmentCode",

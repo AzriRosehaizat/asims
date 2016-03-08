@@ -32,7 +32,7 @@ application.service('researchService', function($http, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Research';
+            formData.title = 'Research';
             formData.inputs = [{
                 type: "text",
                 name: "title",
@@ -62,7 +62,7 @@ application.service('researchService', function($http, formService) {
             
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Research';
+            formData.title = 'Research';
             formData.inputs = [{
                 type: "text",
                 name: "title",
