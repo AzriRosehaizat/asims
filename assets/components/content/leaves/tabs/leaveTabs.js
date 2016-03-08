@@ -42,33 +42,34 @@ application
                 };
             },
             initializeTabs : function( tabs, row ){
-                var academicStaffID; 
+                var regularStaffID; 
                 
-                academicStaffID= (
+                regularStaffID= (
                     row
                     .entity
-                    .academicStaffID
+                    .regularStaffID
                 );
                 
                 getCredits( 
                     tabs
                     .credits,
-                    academicStaffID
+                    regularStaffID
                 );
                 
                 getDebits( 
                     tabs
                     .debits,
-                    academicStaffID
+                    regularStaffID
                 );
                 
             }
         };
         
-        function getCredits( creditsTab, academicStaffID ){
+        function getCredits( creditsTab, regularStaffID ){
+            
             $http
             .get(
-                '/regularStaff/getInfo?type=leaveCredits&id=' + academicStaffID
+                '/regularStaff/getInfo?type=leaveCredits&id=' + regularStaffID
             )
             .then( 
                 function( res ) {
@@ -83,13 +84,14 @@ application
             
         } 
         
-        function getDebits( debitsTab , academicStaffID ){
+        function getDebits( debitsTab , regularStaffID ){
             $http
             .get(
-                '/regularStaff/getInfo?type=leaveDebits&id=' + academicStaffID
+                '/regularStaff/getInfo?type=leaveDebits&id=' + regularStaffID
             )
             .then( 
                 function( res ) {
+                    
                     debitsTab
                     .gridOptions
                     .data = (
