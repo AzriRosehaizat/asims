@@ -278,31 +278,6 @@ CREATE TABLE IF NOT EXISTS `Rank` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-
--- -----------------------------------------------------
--- Table `DefaultNormalLoad`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `DefaultNormalLoad` ;
-
-CREATE TABLE IF NOT EXISTS `DefaultNormalLoad` (
-  `defaultNormalLoadID` INT(11) NOT NULL AUTO_INCREMENT,
-  `rankID` INT(11) NOT NULL,
-  `departmentID` INT(11) NOT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `FCEValue` FLOAT NOT NULL,
-  PRIMARY KEY (`defaultNormalLoadID`) ,
-  INDEX `rankID` (`rankID` ASC) ,
-  INDEX `departmentID` (`departmentID` ASC) ,
-  CONSTRAINT `DefaultNormalLoad_ibfk_2`
-    FOREIGN KEY (`departmentID`)
-    REFERENCES `Department` (`departmentID`),
-  CONSTRAINT `DefaultNormalLoad_ibfk_1`
-    FOREIGN KEY (`rankID`)
-    REFERENCES `Rank` (`rankID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
 -- -----------------------------------------------------
 -- Table `FCECredit`
 -- -----------------------------------------------------
