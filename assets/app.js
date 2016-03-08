@@ -369,6 +369,31 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
+			.state('application.teachingActivityRAS', {
+				url: '/teachingActivityRAS',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'taRASController'
+					},
+					'grid@application.teachingActivityRAS': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController as ctrl'
+					},
+					'tabset@application.teachingActivityRAS': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController as ctrl'
+					}
+				},
+				resolve: {
+					staffs: function($http) {
+						return $http.get('/regularStaff/getAllRegularStaff');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
 			.state('application.teachingActivityCAS', {
 				url: '/teachingActivityCAS',
 				views: {

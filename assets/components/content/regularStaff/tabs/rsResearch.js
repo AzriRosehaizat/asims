@@ -4,18 +4,12 @@ application.service('rsResearch', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.researchID = formData.model.title.obj.researchID;
-            }
             return $http.put('/RegularStaff_Research/' + formData.model.regularStaffResearchID, formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.regularStaffID.regularStaffID);
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.researchID = formData.model.title.obj.researchID;
-            }
             return $http.post('/RegularStaff_Research', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.regularStaffID + '&where=' + res.data.regularStaffResearchID);
@@ -28,7 +22,7 @@ application.service('rsResearch', function($http, $q, _, formService) {
             mainRow = row;
             formData.isEditing = false;
             formData.model = _.cloneDeep(row.entity);
-            formData.title = 'Add Research Activity';
+            formData.title = 'Research Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -42,27 +36,29 @@ application.service('rsResearch', function($http, $q, _, formService) {
                     obj: {},
                     name: "title"
                 },
-                change: {
+                assign: [{
+                    from: "title.obj.researchID",
+                    to: "researchID"
+                }, {
                     from: "title.obj.abstract",
                     to: "abstract"
-                }
-            }
-            // , {
-            //     type: "textarea",
-            //     name: "abstract",
-            //     label: "Abstract",
-            //     disabled: true
-            // }
-            , {
+                }],
+                required: true
+            }, {
+                type: "textarea",
+                name: "abstract",
+                label: "Abstract",
+                readonly: true
+            }, {
                 type: "date",
                 name: "startDate",
-                label: "Start Date",
+                label: "Start date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rsResearch', false);
@@ -74,17 +70,17 @@ application.service('rsResearch', function($http, $q, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Research Activity';
+            formData.title = 'Research Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
                 label: "Research Title",
-                disabled: true
+                readonly: true
             }, {
                 type: "textarea",
                 name: "abstract",
                 label: "Abstract",
-                disabled: true
+                readonly: true
             }, {
                 type: "date",
                 name: "startDate",
@@ -93,9 +89,10 @@ application.service('rsResearch', function($http, $q, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date",
-                required: false
+                label: "End date",
+                minDate: "startDate"
             }];
+
             formService.init(formData, gridData, row, 'rsResearch', false);
         },
     };

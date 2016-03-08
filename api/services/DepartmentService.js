@@ -9,36 +9,19 @@ module.exports = {
 			.from('Department AS d')
 			.innerJoin('Faculty AS f', 'd.facultyID', 'f.facultyID')
 			.leftJoin('MostRecentChair AS cv', 'd.departmentID', 'cv.departmentID');
-
-		//check if criteriea needed
-		if (departmentID) {
-			sSQL = sSQL.where('d.departmentID', departmentID).groupBy('d.departmentID').toString();
-		}
-		else {
-			sSQL = sSQL.orderBy('d.departmentID', 'desc').groupBy('d.departmentID').toString();
-
-		}
-		// console.log(sSQL);
-		Department.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (departmentID) ? sSQL.where('d.departmentID', departmentID).groupBy('d.departmentID').toString()
+							  : sSQL.orderBy('d.departmentID', 'desc').groupBy('d.departmentID').toString();
+		Department.query(sSQL, callback);
 	},
 	getCourse: function(id, where, callback) {
 		var sSQL = mysql.select('c.*', 'd.departmentCode')
 			.from('Course AS c')
 			.innerJoin('Department as d', 'c.departmentID', 'd.departmentID')
 			.where('c.departmentID', id);
-
-		if (where) {
-			sSQL = sSQL.where('c.courseID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		// console.log(sSQL)
-		Department.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (where) ? sSQL.where('c.courseID', where).toString() : sSQL.toString();
+		Department.query(sSQL, callback);
 	},
 	getRegularStaff: function(id, where, callback) {
 		var sSQL = mysql.select('a.*', 'rv.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
@@ -49,16 +32,9 @@ module.exports = {
 			.leftJoin('Rank as rk', 'rv.rankID', 'rk.rankID')
 			.groupBy('a.academicStaffID')
 			.where('ad.departmentID', id);
-
-		if (where) {
-			sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		Department.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (where) ? sSQL.where('ad.academicStaffDepartmentID', where).toString() : sSQL.toString();
+		Department.query(sSQL, callback);
 	},
 	getContractStaff: function(id, where, callback) {
 		var sSQL = mysql.select('a.*', 'cv.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
@@ -69,16 +45,9 @@ module.exports = {
 			.leftJoin('Rank as rk', 'cv.rankID', 'rk.rankID')
 			.groupBy('a.academicStaffID')
 			.where('ad.departmentID', id);
-
-		if (where) {
-			sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		Department.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (where) ? sSQL.where('ad.academicStaffDepartmentID', where).toString() : sSQL.toString();
+		Department.query(sSQL, callback);
 	},
 	getChair: function(id, where, callback) {
 		var sSQL = mysql.select('a.*', 'ch.*')
@@ -89,14 +58,7 @@ module.exports = {
 			.innerJoin('Department as d', 'ad.departmentID', 'd.departmentID')
 			.where('ch.departmentID', id);
 			
-		if (where) {
-			sSQL = sSQL.where('ch.chairID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		Department.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+		sSQL = (where) ? sSQL.where('ch.chairID', where).toString() : sSQL.toString();
+		Department.query(sSQL, callback);
 	},
 };

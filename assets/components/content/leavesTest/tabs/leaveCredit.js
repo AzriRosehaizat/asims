@@ -26,7 +26,7 @@ application.service('leaveCredit', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Leave Debit';
+            formData.title = 'Leave Debit';
             formData.inputs = [{
                 type: "number",
                 name: "amount",
@@ -55,7 +55,7 @@ application.service('leaveCredit', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Leave Debit';
+            formData.title = 'Leave Debit';
             formData.inputs = [{
                 type: "number",
                 name: "amount",

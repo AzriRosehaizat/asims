@@ -4,9 +4,6 @@ application.service('rsRank', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.rankID = formData.model.title.obj.rankID;
-            }
             return $http.put('/regularStaff_Rank/' + formData.model.regularStaffRankID, formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=rank&id=' + formData.model.academicStaffID +
@@ -14,9 +11,6 @@ application.service('rsRank', function($http, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.rankID = formData.model.title.obj.rankID;
-            }
             formData.model.academicStaffID = mainRow.entity.academicStaffID;
             formData.model.regularStaffID = mainRow.entity.regularStaffID;
             return $http.post('/regularStaff_Rank', formData.model)
@@ -33,7 +27,7 @@ application.service('rsRank', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Rank';
+            formData.title = 'Rank';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -47,20 +41,21 @@ application.service('rsRank', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
-                disabled: false,
+                assign: [{
+                    from: "title.obj.rankID",
+                    to: "rankID"
+                }],
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                disabled: false,
-                required: false
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'rsRank', false);
@@ -71,7 +66,7 @@ application.service('rsRank', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Rank';
+            formData.title = 'Rank';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -85,20 +80,21 @@ application.service('rsRank', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
-                disabled: false,
+                assign: [{
+                    from: "title.obj.rankID",
+                    to: "rankID"
+                }],
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
                 label: "Start date",
-                disabled: false,
-                required: false
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                disabled: false,
-                required: false
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rsRank', false);
