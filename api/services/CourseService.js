@@ -21,7 +21,7 @@ module.exports = {
             .innerJoin('Section AS s', 't.sectionID', 's.sectionID')
             .where('t.courseID', id);
 
-        sSQL = (id) ? sSQL.where('t.teachingActivitiesID', where).toString() : sSQL.toString();
+        sSQL = (where) ? sSQL.where('t.teachingActivitiesID', where).toString() : sSQL.toString();
         Course.query(sSQL, callback);
     }
 };
