@@ -47,7 +47,7 @@ application.controller('contractStaffController', function($scope, staffs, contr
         });
     };
     
-    $scope.tabs.rightToRefuse.gridOptions.onRegisterApi = function(gridApi) {
+    $scope.tabs.rightToRefusal.gridOptions.onRegisterApi = function(gridApi) {
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             csTabService.initEditForm($scope.formData, $scope.tab, row);
