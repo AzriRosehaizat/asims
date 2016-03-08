@@ -18,9 +18,29 @@ module.exports = {
 			model: 'AcademicStaff',
 			required: true
 		},
-		sectionOfferedID: {
-			model: 'Section_Offered',
+		courseID: {
+			model: 'Course',
 			required: true
+		},
+		sectionID: {
+			model: 'Section',
+			required: true
+		},
+		term: {
+			type: 'string',
+			size: 45
+		},
+		year: {
+			type: 'integer',
+			required: false
+		},
+		startDate:{
+			type: 'date',
+			required: false 
+		},
+		endDate:{
+			type: 'date',
+			required: false
 		},
 		FCEValue: {
 			type: 'float',
@@ -32,6 +52,10 @@ module.exports = {
 		},
 		Overload: {
 			collection: 'Overload',
+			via: 'teachingActivitiesID'
+		},
+		RightToRefusal: {
+			collection: 'RightToRefusal',
 			via: 'teachingActivitiesID'
 		}
 	},
