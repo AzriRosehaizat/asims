@@ -36,7 +36,7 @@ module.exports = {
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
 			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
-			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
 

@@ -27,11 +27,11 @@ module.exports = {
 		});
 	},
 	getTeachingActivity: function(id, where, callback) {
-		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.startDate', 'so.endDate')
+		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 't.startDate', 't.endDate')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
 			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
-			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
 
@@ -49,9 +49,9 @@ module.exports = {
 		var sSQL = mysql.select('r.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('ContractStaff AS cs')
 			.innerJoin('RightToRefusal AS r', 'cs.contractStaffID', 'r.contractStaffID')
-			.innerJoin('TeachingActivities AS so', 'r.teachingActivitiesID', 'so.teachingActivitiesID')
-			.innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
-			.innerJoin('Course AS c', 'so.courseID', 'c.courseID')
+			.innerJoin('TeachingActivities AS t', 'r.teachingActivitiesID', 't.teachingActivitiesID')
+			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('cs.contractStaffID', id);
 
