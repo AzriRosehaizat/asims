@@ -119,10 +119,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     self.getYears = function() {
         if (_.isEmpty(years)) {
-            var min = 1970,
-                max = new Date().getFullYear() + 20;
+            var min = 2000,
+                max = new Date().getFullYear() + 1;
 
-            for (var i = min; i <= max; i++) {
+            for (var i = max; i >= min; i--) {
                 years.push(i);
             }
         }
