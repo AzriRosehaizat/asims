@@ -116,7 +116,7 @@ application
             
             formData
             .title = (
-                'Edit Leave Debit'
+                'Leave Debit'
             );
             
             formData
@@ -148,7 +148,7 @@ application
             
             formData
             .title = (
-                'Add Leave Debit'
+                'Leave Debit'
             );
             
             formData

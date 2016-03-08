@@ -9,9 +9,7 @@ var mysql = require('knex')({
 });
 
 module.exports = {
-	//Page Regular Staff
 	getAllRegularStaff: function(regularStaffID, callback) {
-		// console.log(regularStaffID);
 		var sSQL = mysql.select('a.*', 'r.*', 'd.departmentCode', 'rk.title AS Rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
@@ -20,36 +18,49 @@ module.exports = {
 			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
 			.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID');
 
-		//check if criteriea needed
-		if (regularStaffID) {
-			sSQL = sSQL.where('r.regularStaffID', regularStaffID).groupBy('a.academicStaffID').toString();
-		}
-		else {
-			sSQL = sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
-		}
-		// console.log(sSQL);
-		RegularStaff.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+		sSQL = (regularStaffID) ? sSQL.where('r.regularStaffID', regularStaffID).groupBy('a.academicStaffID').toString()
+								: sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
+		RegularStaff.query(sSQL, callback);
 	},
-	getTeachingActivity: function(id, where, callback) {
-		var sSQL = mysql.select('t.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 't.startDate', 't.endDate')
+	getTeachingActivity: function(id, where, search, callback) {
+		var sSQL = mysql.select('t.*', 'd.departmentID', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('AcademicStaff AS a')
 			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
 			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
 			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
-
-		if (where) {
-			sSQL = sSQL.where('t.teachingActivitiesID', where).toString();
+		
+		if (search) {
+			var names = JSON.parse(search).courseSection.startsWith.split('-');
+			var deptCode = names[0];
+			sSQL = sSQL.where('d.departmentCode', 'like', deptCode + '%');
+			
+			if (names[1]) {
+				var courseNo = names[1];
+				sSQL = sSQL.where('c.courseNo', 'like', courseNo + '%');
+			}
+			if (names[2]) {
+				var sectionNo = names[2];
+				sSQL = sSQL.where('s.sectionNo', 'like', sectionNo + '%');
+			}
 		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		RegularStaff.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+		
+		sSQL = (where) ? sSQL.where('t.teachingActivitiesID', where).toString() : sSQL.toString();
+		RegularStaff.query(sSQL, callback);
+	},
+	getOverload: function(id, where, callback) {
+		var sSQL = mysql.select('o.*', 't.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
+			.from('AcademicStaff AS a')
+			.innerJoin('TeachingActivities AS t', 'a.academicStaffID', 't.academicStaffID')
+			.innerJoin('Overload AS o', 't.teachingActivitiesID', 'o.teachingActivitiesID')
+			.innerJoin('Section AS s', 't.sectionID', 's.sectionID')
+			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
+			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
+			.where('a.academicStaffID', id);
+			
+		sSQL = (where) ? sSQL.where('o.overloadID', where).toString() : sSQL.toString();
+		RegularStaff.query(sSQL, callback);	
 	},
 	getDepartment: function(id, where, callback) {
 		var sSQL = mysql.select('d.*', 'ad.*', 'ad.academicStaffID')
@@ -57,16 +68,9 @@ module.exports = {
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
-
-		if (where) {
-			sSQL = sSQL.where('ad.academicStaffDepartmentID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		RegularStaff.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (where) ? sSQL.where('ad.academicStaffDepartmentID', where).toString() : sSQL.toString();
+		RegularStaff.query(sSQL, callback);
 	},
 	getRank: function(id, where, callback) {
 		var sSQL = mysql.select('rk.*', 'rs.*', 'r.academicStaffID')
@@ -74,16 +78,9 @@ module.exports = {
 			.innerJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
 			.innerJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
 			.where('r.academicStaffID', id);
-
-		if (where) {
-			sSQL = sSQL.where('rs.regularStaffRankID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		RegularStaff.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (where) ? sSQL.where('rs.regularStaffRankID', where).toString() : sSQL.toString();
+		RegularStaff.query(sSQL, callback);
 	},
 	getResearch: function(id, where, callback) {
 		var sSQL = mysql.select('r.title', 'r.abstract', 'ar.*')
@@ -108,16 +105,9 @@ module.exports = {
 			.from('RegularStaff AS r')
 			.innerJoin('RegularStaffEmployment AS re', 'r.regularStaffID', 're.regularStaffID')
 			.where('r.academicStaffID', id);
-
-		if (where) {
-			sSQL = sSQL.where('re.regularEmploymentID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		RegularStaff.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (where) ? sSQL.where('re.regularEmploymentID', where).toString() : sSQL.toString();
+		RegularStaff.query(sSQL, callback);
 	},
 	getResearchStaff: function(id, where, callback) {
 		var sSQL = mysql.select('rr.*', 'a.*', 'd.departmentCode')
@@ -127,16 +117,9 @@ module.exports = {
 			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
 			.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
 			.where('rr.researchID', id);
-
-		if (where) {
-			sSQL = sSQL.where('rr.regularStaffResearchID', where).toString();
-		}
-		else {
-			sSQL = sSQL.toString();
-		}
-		RegularStaff.query(sSQL, function(err, result) {
-			callback(err, result);
-		});
+			
+		sSQL = (where) ? sSQL.where('rr.regularStaffResearchID', where).toString() : sSQL.toString();
+		RegularStaff.query(sSQL, callback);
 	},
 
 
