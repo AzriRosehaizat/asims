@@ -5,8 +5,7 @@
     filter: alpha(opacity=80); /* For IE8 and earlier */
 }
 
-.transbox h1,
-h4 {
+.boldTitle {
     margin: 10%;
     font-weight: bold;
     color: #000000;
