@@ -95,7 +95,6 @@ module.exports = {
 		else {
 			sSQL = sSQL.toString();
 		}
-		console.log(sSQL);
 		RegularStaff.query(sSQL, function(err, result) {
 			callback(err, result);
 		});

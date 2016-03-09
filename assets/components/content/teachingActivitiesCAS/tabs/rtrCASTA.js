@@ -1,4 +1,4 @@
-application.service('csRTR', function($http, _, formService) {
+application.service('rtrCASTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -26,16 +26,16 @@ application.service('csRTR', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Right To Refusal';
+            formData.title = 'Right To Refuse Course';
             formData.inputs = [{
-                type: "autocomplete",
+               type: "autocomplete",
                 name: "courseSection",
                 label: "Course Section (ex. ACS-0000-001)",
                 url: {
-                    start: "/contractStaff/getInfo?type=teaching&id=" + mainRow.entity.academicStaffID + "&search={",
+                    start: "/regularStaff/getInfo?type=teaching&id=" + mainRow.entity.academicStaffID + "&search={",
                     end: "\"courseSection\":{\"startsWith\":\""
                 },
-                link: "application.teachingActivityCAS",
+                link: "application.teachingActivityRAS",
                 output: {
                     obj: {},
                     name: ["departmentCode", "courseNo", "sectionNo"],
@@ -55,17 +55,19 @@ application.service('csRTR', function($http, _, formService) {
                 label: "Term",
                 items: formService.getTerms(),
                 path: "term",
-                text: "Select a term"
+                text: "Select a term",
+                required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
                 items: formService.getYears(),
                 path: "year",
-                text: "Select a year"
+                text: "Select a year",
+                required: true
             }];
 
-            formService.init(formData, gridData, null, 'csRTR', false);
+            formService.init(formData, gridData, null, 'rtrCASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.courseSection = row.entity.departmentCode + "-" +
@@ -74,29 +76,36 @@ application.service('csRTR', function($http, _, formService) {
                                        
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Right To Refusal';
+            formData.title = 'Right To Refuse Course';
             formData.inputs = [{
                 type: "text",
                 name: "courseSection",
                 label: "Course Section",
                 readonly: true
             }, {
+                type: "text",
+                name: "title",
+                label: "Title",
+                readonly: true
+            },  {
                 type: "select",
                 name: "term",
                 label: "Term",
                 items: formService.getTerms(),
                 path: "term",
-                text: "Select a term"
+                text: "Select a term",
+                required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
                 items: formService.getYears(),
                 path: "year",
-                text: "Select a year"
+                text: "Select a year",
+                required: true
             }];
 
-            formService.init(formData, gridData, row, 'csRTR', false);
+            formService.init(formData, gridData, row, 'rtrCASTA', false);
         }
     };
 });

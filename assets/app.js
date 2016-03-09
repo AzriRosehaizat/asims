@@ -252,27 +252,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
-			.state('application.sectionOffered', {
-				url: '/sectionOffered',
-				views: {
-					'': {
-						templateUrl: '/components/content/content.html',
-						controller: 'sectionOfferedController'
-					},
-					'grid@application.sectionOffered': {
-						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController as ctrl'
-					}
-				},
-				resolve: {
-					sectionOffered: function($http) {
-						return $http.get('Section_Offered/getSectionOffered');
-					}
-				},
-				data: {
-					dataPage: true
-				}
-			})
 			.state('application.section', {
 				url: '/section',
 				views: {
@@ -344,31 +323,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
-			.state('application.leavesTest', {
-				url: '/leavesTest',
-				views: {
-					'': {
-						templateUrl: '/components/content/leavesTest/content.html',
-						controller: 'leavesController'
-					},
-					'grid@application.leavesTest': {
-						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController as ctrl'
-					},
-					'doubleTabset@application.leavesTest': {
-						templateUrl: '/components/tabset/doubleTabset.html',
-						controller: 'tabsetController as ctrl'
-					}
-				},
-				resolve: {
-					staff: function($http) {
-						return $http.get('/regularStaff/getAllRegularStaff');
-					}
-				},
-				data: {
-					dataPage: true
-				}
-			})
 			.state('application.teachingActivityRAS', {
 				url: '/teachingActivityRAS',
 				views: {
@@ -388,6 +342,31 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				resolve: {
 					staffs: function($http) {
 						return $http.get('/regularStaff/getAllRegularStaff');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
+			.state('application.teachingActivityCAS', {
+				url: '/teachingActivityCAS',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'taCASController'
+					},
+					'grid@application.teachingActivityCAS': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController as ctrl'
+					},
+					'tabset@application.teachingActivityCAS': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController as ctrl'
+					}
+				},
+				resolve: {
+					staffs: function($http) {
+						return $http.get('/contractStaff/getAllContractStaff');
 					}
 				},
 				data: {
