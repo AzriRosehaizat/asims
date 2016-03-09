@@ -23,9 +23,6 @@ module.exports = {
 			type: 'string',
 			size: 50
 		},
-		FCEModifier: {
-			type: 'float'
-		},
 		TeachingActivities: {
 			collection: 'TeachingActivities',
 			via: 'sectionID'
