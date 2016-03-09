@@ -26,21 +26,21 @@ application.service('debitRASTA', function($http, _, formService) {
             formData.title = 'FCE Debit';
             formData.inputs = [{
                 type: "number",
-                name: "amount",
-                label: "Amount",
+                name: "FCEValue",
+                label: "FCE Value",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description"
             }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date issued"
+                label: "Date Issued"
             }, {
                 type: "text",
                 name: "FCEDebitType",
-                label: "Type"
+                label: "Debit Type"
             }];
 
             formService.init(formData, gridData, null, 'debitRASTA', false);
@@ -53,24 +53,24 @@ application.service('debitRASTA', function($http, _, formService) {
             formData.title = 'FCE Debit';
             formData.inputs = [{
                 type: "number",
-                name: "amount",
-                label: "Amount",
+                name: "FCEValue",
+                label: "FCE Value",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description"
             }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date issued"
+                label: "Date Issued"
             }, {
                 type: "text",
                 name: "FCEDebitType",
-                label: "Type"
+                label: "Debit Type"
             }];
-
+            
             formService.init(formData, gridData, row, 'debitRASTA', false);
-        },
+        }
     };
 });

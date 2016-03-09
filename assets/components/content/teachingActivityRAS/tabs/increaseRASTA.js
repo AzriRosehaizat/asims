@@ -30,18 +30,18 @@ application.service('increaseRASTA', function($http, _, formService) {
                 label: "FCE Value",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description"
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate",
                 required: true
             }];
@@ -61,18 +61,18 @@ application.service('increaseRASTA', function($http, _, formService) {
                 label: "FCE Value",
                 required: true
             }, {
-                type: "text",
+                type: "textarea",
                 name: "description",
                 label: "Description"
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate",
                 required: true
             }];
