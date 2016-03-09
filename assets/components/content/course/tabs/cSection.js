@@ -30,12 +30,12 @@ application.service('cSection', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 readonly: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate",
                 readonly: true
             }, {
@@ -67,12 +67,12 @@ application.service('cSection', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 readonly: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate",
                 readonly: true
             }, {

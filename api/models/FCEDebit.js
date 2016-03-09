@@ -18,7 +18,7 @@ module.exports = {
 			model: 'RegularStaff',
 			required: true
 		},
-		amount: {
+		FCEValue: {
 			type: 'float',
 			required: true
 		},
