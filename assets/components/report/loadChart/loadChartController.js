@@ -22,15 +22,7 @@ application.controller('loadChartController', function($scope, reportService) {
             table: {
                 body: [
                     ['Year', 'Normal Load', 'Reduced Load', 'Actual Teaching Load', 'Owed FECs', 'Banked FECs'],
-                    ['2015-2016', '3.5', '2.5', 'CHEM-1111-001 (FW)', '', ''],
-                    ['', '', '', 'CHEM-2102-001 (F)', '', ''],
-                    ['', '', '', 'CHEM-2103-050 (W)', '', ''],
-                    ['', '', '', 'BIO-1103-050 (W)', '', ''],
-                    ['', '', '', 'BIO-2001-001 (S)', '', ''],
-                    ['2016-2017', '3.5', '3.5', 'CHEM-1111-001  (FW)', '1.0', ''],
-                    ['', '', '', 'CHEM-2102-001 (F)', '', ''],
-                    ['', '', '', 'CHEM-2103-050 (W)', '', ''],
-                    ['', '', '', 'BIO-1106-002 (F)', '', '']
+
                 ]
             }
         }, {
@@ -81,86 +73,76 @@ application.controller('loadChartController', function($scope, reportService) {
             },
             layout: 'noBorders',
             pageBreak: 'after'
-        },
-        { 
-            text: 'FACULTY LOAD CHART', 
-            style: 'header' 
-        },
-        {
+        }, {
+            text: 'FACULTY LOAD CHART',
+            style: 'header'
+        }, {
             text: 'Name: Macy Davidson',
             style: 'section'
-        },
-        {
+        }, {
             text: 'Department: BioChemistry',
             style: 'section'
-        },
-        {
+        }, {
             text: 'Rank: Associate Professor',
             style: 'section'
-        },
-        {
-            style: 'table',
-            table: {
-                    body: [
-                            ['Year', 'Normal Load', 'Reduced Load','Actual Teaching Load', 'Owed FECs', 'Banked FECs'],
-                            ['2015-2016', '2.5', '1.5', 'CHEM-1111-002 (FW)', '', '0.5'],
-                            ['', '', '', 'CHEM-3404-001 (F)', '', ''],
-                            ['', '', '', 'BIO-1103-001 (S)', '', ''],
-                            ['2016-2017', '2.5', '1.5', 'BIO-1111-001  (W)', '', '0.5'],
-                            ['', '', '', 'CHEM-4104-001 (W)', '', ''],
-                            ['', '', '', 'BIO-3154-002 (W)', '', '']
-                    ]
-            }
-        },
-        {
-            text: "Overload Teaching ",
-            style: "tableHeader"
-        },
-        {
-            style: 'table',
-            table: {
-                    body: [
-                            ['Year', 'Term', 'FCEs','Course Section', 'Amount Paid']
-                    ]
-            }
-        },
-        {
-            text: "Load Reductions ",
-            style: "tableHeader"
-        },
-        {
-            style: 'table',
-            table: {
-                    body: [
-                            ['Year', 'Approved?', 'Date','Reason', 'Reduction In FECs'],
-                            ['2015-2016', 'Yes', 'August 31, 2015', 'NSERC(2015-2020)', '1.0'],
-                            ['2016-2017', 'Yes', 'August 31, 2015', 'NSERC(2015-2020)', '1.0']
-                    ]
-            }
-        },
-        {
+        }, {
             style: 'table',
             table: {
                 body: [
-                        ["Faculty Member's Signature __________________", "Chair's Signature _____________________"],
-                        [
-                            {
-                                table: {
-                                    widths: [200,50],
-                                    body: [
-                                        ['This chart is accurate', ''],
-                                        ['Changes have been indicated', '']
-                                    ]
-                                  }
-                          }, {table: {
-                              widths: [200,50],
-                              body: [
-                                  ['This chart is accurate', ''],
-                                  ['Changes have been indicated', '']
-                              ]
-                          }
-                      }] 
-                    ]
+                    ['Year', 'Normal Load', 'Reduced Load', 'Actual Teaching Load', 'Owed FECs', 'Banked FECs'],
+                    ['2015-2016', '2.5', '1.5', 'CHEM-1111-002 (FW)', '', '0.5'],
+                    ['', '', '', 'CHEM-3404-001 (F)', '', ''],
+                    ['', '', '', 'BIO-1103-001 (S)', '', ''],
+                    ['2016-2017', '2.5', '1.5', 'BIO-1111-001  (W)', '', '0.5'],
+                    ['', '', '', 'CHEM-4104-001 (W)', '', ''],
+                    ['', '', '', 'BIO-3154-002 (W)', '', '']
+                ]
+            }
+        }, {
+            text: "Overload Teaching ",
+            style: "tableHeader"
+        }, {
+            style: 'table',
+            table: {
+                body: [
+                    ['Year', 'Term', 'FCEs', 'Course Section', 'Amount Paid']
+                ]
+            }
+        }, {
+            text: "Load Reductions ",
+            style: "tableHeader"
+        }, {
+            style: 'table',
+            table: {
+                body: [
+                    ['Year', 'Approved?', 'Date', 'Reason', 'Reduction In FECs'],
+                    ['2015-2016', 'Yes', 'August 31, 2015', 'NSERC(2015-2020)', '1.0'],
+                    ['2016-2017', 'Yes', 'August 31, 2015', 'NSERC(2015-2020)', '1.0']
+                ]
+            }
+        }, {
+            style: 'table',
+            table: {
+                body: [
+                    ["Faculty Member's Signature __________________", "Chair's Signature _____________________"],
+                    [{
+                        table: {
+                            widths: [200, 50],
+                            body: [
+                                ['This chart is accurate', ''],
+                                ['Changes have been indicated', '']
+                            ]
+                        }
+                    }, {
+                        table: {
+                            widths: [200, 50],
+                            body: [
+                                ['This chart is accurate', ''],
+                                ['Changes have been indicated', '']
+                            ]
+                        }
+                    }]
+                ]
             },
             layout: 'noBorders'
         }, ],
@@ -186,7 +168,7 @@ application.controller('loadChartController', function($scope, reportService) {
             }
         }
     };
-    
+
     var docStaff = {
         info: {
             title: 'Faculty Load Chart',
@@ -268,7 +250,7 @@ application.controller('loadChartController', function($scope, reportService) {
                 ]
             },
             layout: 'noBorders',
-        },],
+        }, ],
         styles: {
             header: {
                 fontSize: 18,
@@ -291,8 +273,8 @@ application.controller('loadChartController', function($scope, reportService) {
             }
         }
     };
-        
-    
+
+
     //     docDefinition.content.push(
     //         { 
     // 			text: 'FACULTY LOAD CHART', 
@@ -320,8 +302,8 @@ application.controller('loadChartController', function($scope, reportService) {
     $scope.downloadPdf = function() {
         pdfMake.createPdf(docDefinition).download();
     };
-    
-     $scope.openSingle = function() {
+
+    $scope.openSingle = function() {
         pdfMake.createPdf(docStaff).open();
     };
 
