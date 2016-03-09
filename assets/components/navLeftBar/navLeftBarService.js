@@ -34,12 +34,12 @@ application
       name: 'Teaching Management',
       type: 'toggle',
       pages: [{
-        name: 'Teaching Activities - CAS',
-        state: 'application.teachingActivityCAS',
-        type: 'link'
-      }, {
         name: 'Teaching Activities - RAS',
         state: 'application.teachingActivityRAS',
+        type: 'link'
+      }, {
+        name: 'Teaching Activities - CAS',
+        state: 'application.teachingActivityCAS',
         type: 'link'
       }]
     });
