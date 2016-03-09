@@ -124,11 +124,11 @@ application.service('taRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date"
+                label: "Start Date"
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate"
             }, {
                 type: "number",
@@ -247,11 +247,11 @@ application.service('taRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date"
+                label: "Start Date"
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate"
             }, {
                 type: "number",

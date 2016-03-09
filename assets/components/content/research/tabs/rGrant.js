@@ -36,7 +36,7 @@ application.service('rGrant', function($http, _, formService) {
                 name: "duration",
                 label: "Duration (In Years)"
             }, {
-                type: "number",
+                type: "currency",
                 name: "amount",
                 label: "Amount (CAD)"
             }];
@@ -63,7 +63,7 @@ application.service('rGrant', function($http, _, formService) {
                 name: "duration",
                 label: "Duration (In Years)"
             }, {
-                type: "number",
+                type: "currency",
                 name: "amount",
                 label: "Amount (CAD)"
             }];

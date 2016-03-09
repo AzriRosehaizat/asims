@@ -49,12 +49,12 @@ application.service('dChair', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate"
             }];
 
@@ -76,12 +76,12 @@ application.service('dChair', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate"
             }];
 

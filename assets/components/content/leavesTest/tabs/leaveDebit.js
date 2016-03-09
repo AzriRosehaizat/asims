@@ -28,9 +28,9 @@ application.service('leaveDebit', function($http, _, formService) {
             formData.isEditing = false;
             formData.title = 'Leave Debit';
             formData.inputs = [{
-                type: "number",
+                type: "currency",
                 name: "amount",
-                label: "Amount",
+                label: "Amount (CAD)",
                 required: true
             }, {
                 type: "date",
@@ -57,9 +57,9 @@ application.service('leaveDebit', function($http, _, formService) {
             formData.isEditing = true;
             formData.title = 'Leave Debit';
             formData.inputs = [{
-                type: "number",
+                type: "currency",
                 name: "amount",
-                label: "Amount",
+                label: "Amount (CAD)",
                 required: true
             }, {
                 type: "date",
