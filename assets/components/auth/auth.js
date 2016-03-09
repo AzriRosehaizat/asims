@@ -17,7 +17,7 @@ application.service('Auth', function($state, $http, $q, LocalService, CurrentUse
         isAdmin: function() {
             return CurrentUser.getUser()
                 .then(function(res) {
-                    if (!res) return false;
+                    if (!res.data) return false;
                     return (res.data.role.id === AccessLevels.admin);
                 });
         },

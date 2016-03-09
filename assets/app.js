@@ -394,6 +394,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						controller: 'leaveChartController'
 					}
 				},
+			})
+			.state('403', {
+				url: '/403',
+				templateUrl: '/views/error/403.html'
 			});
 
 		$urlRouterProvider.otherwise(function($injector) {
@@ -442,7 +446,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 
 				// NOT authenticated - wants any private stuff
 				if (shouldLogin) {
-					$state.go('index');
+					$state.go('403');
 					event.preventDefault();
 					return;
 				}
