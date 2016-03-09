@@ -395,9 +395,13 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					}
 				},
 			})
-			.state('403', {
-				url: '/403',
+			.state('application.403', {
+				url: '/Forbidden',
 				templateUrl: '/views/error/403.html'
+			})
+			.state('application.404', {
+				url: '/NotFound',
+				templateUrl: '/views/error/404.html'
 			});
 
 		$urlRouterProvider.otherwise(function($injector) {
@@ -446,7 +450,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 
 				// NOT authenticated - wants any private stuff
 				if (shouldLogin) {
-					$state.go('403');
+					$state.go('application.403');
 					event.preventDefault();
 					return;
 				}
@@ -461,6 +465,8 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						return;
 					}
 				}
+
+				
 			});
 		});
 	});
