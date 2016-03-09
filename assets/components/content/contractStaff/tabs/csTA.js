@@ -44,7 +44,7 @@ application.service('csTA', function($http, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-                reset: ["departmentID", "courseNo"],
+                reset: ["courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -68,14 +68,17 @@ application.service('csTA', function($http, _, formService) {
                     }]
                 },
                 assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
-                reset: ["sectionNo", "title"],
+                reset: ["title"],
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
-                 type: "text",
+                type: "text",
                 name: "title",
                 label: "Title",
                 required: true,
@@ -102,21 +105,21 @@ application.service('csTA', function($http, _, formService) {
                     to: "sectionID"
                 }],
                 required: true
-            },  {
+            }, {
                 type: "select",
                 name: "term",
                 label: "Term",
-                // items: formService.getTerms(),
-                // path: "term",
-                // text: "Select a term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
                 required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
-                // items: formService.getYears(),
-                // path: "year",
-                // text: "Select a year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }, {
                 type: "date",
@@ -126,7 +129,7 @@ application.service('csTA', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                //minDate: "startDate"
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -141,6 +144,9 @@ application.service('csTA', function($http, _, formService) {
             formService.init(formData, gridData, null, 'csTA', false);
         },
         initEditForm: function(formData, gridData, row) {
+            row.entity.startDate = formService.formatDate(row.entity.startDate);
+            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
             formData.title = 'Teaching Activity';
@@ -161,7 +167,7 @@ application.service('csTA', function($http, _, formService) {
                     from: "departmentCode.obj.departmentID",
                     to: "departmentID"
                 }],
-                reset: ["departmentID", "courseNo"],
+                reset: ["courseNo"],
                 required: true
             }, {
                 type: "autocomplete",
@@ -185,10 +191,13 @@ application.service('csTA', function($http, _, formService) {
                     }]
                 },
                 assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
                     from: "courseNo.obj.title",
                     to: "title"
                 }],
-                reset: ["sectionNo", "title"],
+                reset: ["title"],
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
@@ -223,18 +232,17 @@ application.service('csTA', function($http, _, formService) {
                 type: "select",
                 name: "term",
                 label: "Term",
-                // items: formService.getTerms(),
-                // path: "term",
-                // text: "Select a term",
-
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
                 required: true
             }, {
                 type: "select",
                 name: "year",
                 label: "Year",
-                // items: formService.getYears(),
-                // path: "year",
-                // text: "Select a year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }, {
                 type: "date",
@@ -244,7 +252,7 @@ application.service('csTA', function($http, _, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End date",
-                //minDate: "startDate"
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",

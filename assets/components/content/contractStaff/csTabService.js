@@ -1,4 +1,4 @@
-application.service('csTabService', function($http, csTA, csRTR, csDepartment, csRank, csEmployment) {
+application.service('csTabService', function($http, csTA, csDepartment, csRank, csEmployment) {
 
     return {
         tabs: function() {
@@ -39,30 +39,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }, {
                             name: 'Role',
                             field: 'role'
-                        }]
-                    }
-                },
-                rightToRefusal: {
-                    title: 'Right to Refusal',
-                    gridOptions: {
-                        columnDefs: [{
-                            name: 'Dept. Code',
-                            field: 'departmentCode'
-                        }, {
-                            name: 'Course No.',
-                            field: 'courseNo',
-                        }, {
-                            name: 'Section No.',
-                            field: 'sectionNo',
-                        }, {
-                            name: 'Title',
-                            field: 'title',
-                        }, {
-                            name: 'Term',
-                            field: 'term',
-                        }, {
-                            name: 'Year',
-                            field: 'year',
                         }]
                     }
                 },
@@ -124,9 +100,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Teaching Activity':
                     csTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Right to Refusal':
-                    csRTR.initAddForm(formData, tab.gridOptions.data, mainRow);
-                    break;
                 case 'Department':
                     csDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -143,9 +116,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Teaching Activity':
                     csTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Right to Refusal':
-                    csRTR.initEditForm(formData, tab.gridOptions.data, row);
-                    break;
                 case 'Department':
                     csDepartment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
@@ -159,7 +129,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
         },
         getTabs: function(tabs, row) {
             this.getTeachingActivity(tabs.teachingActivity, row);
-            this.getRightToRefusal(tabs.rightToRefusal, row);
             this.getDepartment(tabs.department, row);
             this.getRank(tabs.rank, row);
             this.getEmployment(tabs.employment, row);
@@ -168,12 +137,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
             $http.get('/contractStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
                 .then(function(res) {
                     teachingActivity.gridOptions.data = res.data;
-                });
-        },
-        getRightToRefusal: function(rightToRefusal, row) {
-            $http.get('/contractStaff/getInfo?type=rightToRefusal&id=' + row.entity.contractStaffID)
-                .then(function(res) {
-                    rightToRefusal.gridOptions.data = res.data;
                 });
         },
         getDepartment: function(department, row) {

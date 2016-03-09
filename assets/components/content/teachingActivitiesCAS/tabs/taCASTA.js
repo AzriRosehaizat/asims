@@ -1,4 +1,4 @@
-application.service('teachingActivity', function($http, _, formService) {
+application.service('taCASTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -26,7 +26,7 @@ application.service('teachingActivity', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -141,7 +141,7 @@ application.service('teachingActivity', function($http, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, null, 'teachingActivity', false);
+            formService.init(formData, gridData, null, 'taCASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
@@ -149,7 +149,7 @@ application.service('teachingActivity', function($http, _, formService) {
             
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -264,7 +264,7 @@ application.service('teachingActivity', function($http, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, row, 'teachingActivity', false);
+            formService.init(formData, gridData, row, 'taCASTA', false);
         },
     };
 });
