@@ -8,61 +8,68 @@ application.factory('menu', ['$location', '$rootScope', function($location) {
     type: 'link'
   }];
 
-  sections.push({
-    name: 'Staff Management',
-    type: 'toggle',
-    pages: [{
-      name: 'Regular Staff',
-      type: 'link',
-      state: 'application.regularStaff'
-    }, {
-      name: 'Contract Staff',
-      state: 'application.contractStaff',
-      type: 'link'
-    }, {
-      name: 'Leaves',
-      type: 'link',
-      state: 'application.leaves'
-    }, {
-      name: 'Research',
-      state: 'application.research',
-      type: 'link'
-    }, {
-      name: 'Teaching Activity RAS',
-      state: 'application.teachingActivityRAS',
-      type: 'link'
-    }]
-  });
-
-  sections.push({
-    name: 'Organization Management',
-    type: 'toggle',
-    pages: [{
-      name: 'Faculty',
-      type: 'link',
-      state: 'application.faculty'
-    }, {
-      name: 'Department',
-      state: 'application.department',
-      type: 'link'
-    }, {
-      name: 'Rank',
-      state: 'application.rank',
-      type: 'link'
-    }, {
-      name: 'Course',
-      state: 'application.course',
-      type: 'link'
-    }, {
-      name: 'Section',
-      state: 'application.section',
-      type: 'link'
-    }, {
-      name: 'Section Offered',
-      state: 'application.sectionOffered',
-      type: 'link'
-    }]
-  });
+      sections.push({
+        name: 'Staff Management',
+        type: 'toggle',
+        pages: [{
+          name: 'Regular Staff',
+          type: 'link',
+          state: 'application.regularStaff'
+        }, {
+          name: 'Contract Staff',
+          state: 'application.contractStaff',
+          type: 'link'
+        }, 
+        {
+          name: 'Leaves',
+          type: 'link',
+          state: 'application.leaves'
+        }, 
+        {
+          name: 'Research',
+          state: 'application.research',
+          type: 'link'
+        }]
+      });
+      sections.push({
+        name: 'Teaching Management',
+        type: 'toggle',
+        pages: [{
+          name: 'Teaching Activities - CAS',
+          state: 'application.teachingActivityCAS',
+          type: 'link'
+        },
+        {
+          name: 'Teaching Activities - RAS',
+          state: 'application.teachingActivityRAS',
+          type: 'link'
+        }]
+      });
+      sections.push({
+        name: 'Organization Management',
+        type: 'toggle',
+        pages: [{
+          name: 'Faculty',
+          type: 'link',
+          state: 'application.faculty'
+        }, {
+          name: 'Department',
+          state: 'application.department',
+          type: 'link'
+        }, {
+          name: 'Rank',
+          state: 'application.rank',
+          type: 'link'
+        }, {
+          name: 'Course',
+          state: 'application.course',
+          type: 'link'
+        }, {
+          name: 'Section',
+          state: 'application.section',
+          type: 'link'
+        }]
+      });
 
   // sections.push({
   //   name: 'Report',
