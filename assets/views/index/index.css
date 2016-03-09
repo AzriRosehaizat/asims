@@ -1,6 +1,7 @@
 .indexContent {
     background-size: cover;
-    background-image: url("/images/backgrounds/richardson-college.jpg");
+    background-color: grey;
+    background-image: url("/images/backgrounds/richardson-college_2K.jpg");
     color: #fff;
 }
 
