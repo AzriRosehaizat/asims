@@ -28,7 +28,7 @@ module.exports = {
 		},
 		endDate: {
 			type: 'date'
-		},
+		}
 	},
 	tableName: 'Load'
 };

@@ -20,6 +20,9 @@ module.exports = {
 			type: 'float',
 			required: true
 		},
+		description: {
+			type: 'text'
+		},
 		startDate: {
 			type: 'date',
 			required: true

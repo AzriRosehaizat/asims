@@ -4,9 +4,6 @@ application.service('rsTA', function($http, $q, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
-            }
             return $http.put('/teachingActivities/' + formData.model.teachingActivitiesID, formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID.academicStaffID +
@@ -14,10 +11,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.sectionNo)) {
-                formData.model.academicStaffID = mainRow.entity.academicStaffID;
-                formData.model.sectionOfferedID = formData.model.sectionNo.obj.sectionOfferedID;
-            }
+            formData.model.academicStaffID = mainRow.entity.academicStaffID;
             return $http.post('/teachingActivities', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=teaching&id=' + res.data.academicStaffID +
@@ -32,7 +26,7 @@ application.service('rsTA', function($http, $q, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -46,12 +40,14 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "departmentCode"
                 },
-                change: {
-                    reset: "courseNo"
-                },
+                assign: [{
+                    from: "departmentCode.obj.departmentID",
+                    to: "departmentID"
+                }],
+                reset: ["courseNo"],
                 required: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -59,7 +55,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     end: "\"courseNo\":{\"startsWith\":\"",
                     where: [{
                         key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
+                        value: "departmentID"
                     }]
                 },
                 link: "application.course",
@@ -71,46 +67,69 @@ application.service('rsTA', function($http, $q, _, formService) {
                         name: "title"
                     }]
                 },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
+                assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
+                    from: "courseNo.obj.title",
+                    to: "title"
+                }],
+                reset: ["title"],
+                disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Title",
+                required: true,
                 readonly: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
+                    start: "/section?where={",
+                    end: "\"sectionNo\":{\"startsWith\":\""
                 },
-                link: "application.sectionOffered",
+                link: "application.section",
                 output: {
                     obj: {},
                     name: "sectionNo",
                     meta: [{
-                        tag: "",
-                        name: "startDate"
-                    }, {
-                        tag: "- ",
-                        name: "endDate"
+                        tag: "Type: ",
+                        name: "sectionType"
                     }]
                 },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
+                assign: [{
+                    from: "sectionNo.obj.sectionID",
+                    to: "sectionID"
+                }],
                 required: true
+            }, {
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
+                required: true
+            }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
+                type: "date",
+                name: "startDate",
+                label: "Start date"
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date",
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",
@@ -130,7 +149,7 @@ application.service('rsTA', function($http, $q, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Teaching Activity';
+            formData.title = 'Teaching Activity';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "departmentCode",
@@ -144,12 +163,14 @@ application.service('rsTA', function($http, $q, _, formService) {
                     obj: {},
                     name: "departmentCode"
                 },
-                change: {
-                    reset: "courseNo"
-                },
+                assign: [{
+                    from: "departmentCode.obj.departmentID",
+                    to: "departmentID"
+                }],
+                reset: ["courseNo"],
                 required: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "courseNo",
                 label: "Course No.",
                 url: {
@@ -157,7 +178,7 @@ application.service('rsTA', function($http, $q, _, formService) {
                     end: "\"courseNo\":{\"startsWith\":\"",
                     where: [{
                         key: "departmentID",
-                        value: "departmentCode.obj.departmentID"
+                        value: "departmentID"
                     }]
                 },
                 link: "application.course",
@@ -169,46 +190,69 @@ application.service('rsTA', function($http, $q, _, formService) {
                         name: "title"
                     }]
                 },
-                change: {
-                    reset: "sectionNo"
-                },
-                disabled: "!isObject('departmentCode')",
+                assign: [{
+                    from: "courseNo.obj.courseID",
+                    to: "courseID"
+                }, {
+                    from: "courseNo.obj.title",
+                    to: "title"
+                }],
+                reset: ["title"],
+                disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
                 type: "text",
                 name: "title",
                 label: "Title",
+                required: true,
                 readonly: true
             }, {
-                type: "acCustom",
+                type: "autocomplete",
                 name: "sectionNo",
                 label: "Section No.",
                 url: {
-                    start: "/section_offered/search?where={",
-                    end: "\"sectionNo\":{\"startsWith\":\"",
-                    where: [{
-                        key: "courseID",
-                        value: "courseNo.obj.courseID"
-                    }]
+                    start: "/section?where={",
+                    end: "\"sectionNo\":{\"startsWith\":\""
                 },
-                link: "application.sectionOffered",
+                link: "application.section",
                 output: {
                     obj: {},
                     name: "sectionNo",
                     meta: [{
-                        tag: "",
-                        name: "startDate"
-                    }, {
-                        tag: "- ",
-                        name: "endDate"
+                        tag: "Type: ",
+                        name: "sectionType"
                     }]
                 },
-                change: {
-                    from: "courseNo.obj.title",
-                    to: "title"
-                },
-                disabled: "!isObject('courseNo')",
+                assign: [{
+                    from: "sectionNo.obj.sectionID",
+                    to: "sectionID"
+                }],
                 required: true
+            }, {
+                type: "select",
+                name: "term",
+                label: "Term",
+                items: formService.getTerms(),
+                path: "term",
+                text: "Select a term",
+                required: true
+            }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
+                type: "date",
+                name: "startDate",
+                label: "Start date"
+            }, {
+                type: "date",
+                name: "endDate",
+                label: "End date",
+                minDate: "startDate"
             }, {
                 type: "number",
                 name: "FCEValue",

@@ -18,7 +18,7 @@ application.service('csEmployment', function($http, _, formService) {
             
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Employment';
+            formData.title = 'Employment';
             formData.inputs = [{
                 type: "date",
                 name: "startDate",
@@ -27,7 +27,8 @@ application.service('csEmployment', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
             
             formService.init(formData, gridData, null, 'csEmployment', false);
@@ -38,7 +39,7 @@ application.service('csEmployment', function($http, _, formService) {
             
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Employment';
+            formData.title = 'Employment';
             formData.inputs = [{
                 type: "date",
                 name: "startDate",
@@ -47,7 +48,8 @@ application.service('csEmployment', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End date",
+                minDate: "startDate"
             }];
             
             formService.init(formData, gridData, row, 'csEmployment', false);

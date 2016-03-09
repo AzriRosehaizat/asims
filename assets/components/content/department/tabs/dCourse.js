@@ -17,7 +17,7 @@ application.service('dCourse', function($http, _, formService) {
            
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Course';
+            formData.title = 'Course';
             formData.inputs = [{
                 type: "text",
                 name: "courseNo",
@@ -39,7 +39,7 @@ application.service('dCourse', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Course';
+            formData.title = 'Course';
             formData.inputs = [{
                 type: "text",
                 name: "courseNo",
