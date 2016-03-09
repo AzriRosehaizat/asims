@@ -156,21 +156,24 @@ application.service('formService', function($injector, $mdDialog, _, moment, toa
         // Toggle form buttons by user's role
         if (CurrentUser.getRole() === "reader") {
             self.readOnly = true;
-            // Set all inputs as readonly
-            _.forEach(formData.inputs, function(input) {
-                if (input.type === "autocomplete") {
-                    input.type = "text";
-                    input.disabled = false; // autocomplete disabled uses a function, so set to false
-                }
-                input.readonly = true;
-            });
+            setAllInputReadonly(formData);
         }
         else {
             self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
+
+            if (self.readOnly) setAllInputReadonly(formData);
             // Modifiy form title when it's not readonly
-            if (!self.readOnly) {
-                formData.title = (formData.isEditing) ? "Edit " + formData.title : "Add " + formData.title;
-            }
+            else formData.title = (formData.isEditing) ? "Edit " + formData.title : "Add " + formData.title;
         }
+    }
+
+    function setAllInputReadonly(formData) {
+        _.forEach(formData.inputs, function(input) {
+            if (input.type === "autocomplete") {
+                input.type = "text";
+                input.disabled = false; // autocomplete disabled uses a function, so set to false
+            }
+            input.readonly = true;
+        });
     }
 });
