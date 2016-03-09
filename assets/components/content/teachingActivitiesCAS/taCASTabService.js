@@ -1,4 +1,4 @@
-application.service('taCASTabService', function($http, teachingActivity, rightToRefuse) {
+application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
 
     return {
         tabs: function() {
@@ -43,7 +43,7 @@ application.service('taCASTabService', function($http, teachingActivity, rightTo
                     }
                 },
                 rightToRefuse: {
-                    title: 'Right to Refuse',
+                    title: 'Right to Refusal',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',
@@ -71,20 +71,20 @@ application.service('taCASTabService', function($http, teachingActivity, rightTo
         initAddForm: function(formData, tab, mainRow) {
             switch (tab.title) {
                 case 'Teaching Activity':
-                    teachingActivity.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    taCASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Right to Refuse':
-                    rightToRefuse.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    rtrCASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
         },
         initEditForm: function(formData, tab, row) {
             switch (tab.title) {
                 case 'Teaching Activity':
-                    teachingActivity.initEditForm(formData, tab.gridOptions.data, row);
+                    taCASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Right to Refuse':
-                    rightToRefuse.initEditForm(formData, tab.gridOptions.data, row);
+                    rtrCASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }
         },
