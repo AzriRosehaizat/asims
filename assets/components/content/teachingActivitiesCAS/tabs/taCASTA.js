@@ -1,4 +1,4 @@
-application.service('csTA', function($http, _, formService) {
+application.service('taCASTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -78,7 +78,7 @@ application.service('csTA', function($http, _, formService) {
                 disabled: "isEmpty(['departmentID'])",
                 required: true
             }, {
-                type: "text",
+                 type: "text",
                 name: "title",
                 label: "Title",
                 required: true,
@@ -105,7 +105,7 @@ application.service('csTA', function($http, _, formService) {
                     to: "sectionID"
                 }],
                 required: true
-            }, {
+            },  {
                 type: "select",
                 name: "term",
                 label: "Term",
@@ -141,7 +141,7 @@ application.service('csTA', function($http, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, null, 'csTA', false);
+            formService.init(formData, gridData, null, 'taCASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.startDate = formService.formatDate(row.entity.startDate);
@@ -264,7 +264,7 @@ application.service('csTA', function($http, _, formService) {
                 label: "Role"
             }];
 
-            formService.init(formData, gridData, row, 'csTA', false);
+            formService.init(formData, gridData, row, 'taCASTA', false);
         },
     };
 });

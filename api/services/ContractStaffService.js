@@ -46,7 +46,7 @@ module.exports = {
 		ContractStaff.query(sSQL, callback);
 	},
 	getRightToRefusal: function(id, where, callback) {
-		var sSQL = mysql.select('r.*', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
+		var sSQL = mysql.select('r.*', 'cs.contractStaffID', 'd.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title')
 			.from('ContractStaff AS cs')
 			.innerJoin('RightToRefusal AS r', 'cs.contractStaffID', 'r.contractStaffID')
 			.innerJoin('TeachingActivities AS t', 'r.teachingActivitiesID', 't.teachingActivitiesID')
