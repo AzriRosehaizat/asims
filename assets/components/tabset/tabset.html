@@ -1,7 +1,7 @@
 <md-content class="md-whiteframe-1dp" ng-cloak>
     
     <md-tabs id="gridTabs" md-dynamic-height md-border-bottom class="md-warn md-hue-2">
-        <md-tab ng-repeat="tab in tabs" ng-click="selectTab(tab)" label="{{tab.title}}">
+        <md-tab ng-repeat="tab in tabs" ng-dblclick="ctrl.redirect(tab)" ng-click="selectTab(tab)"  label="{{tab.title}}">
             <div ui-grid="tab.gridOptions" ui-grid-selection ui-grid-resize-columns class="grid"></div>
         </md-tab>
     </md-tabs>
