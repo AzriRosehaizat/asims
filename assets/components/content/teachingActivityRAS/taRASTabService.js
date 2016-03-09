@@ -86,14 +86,18 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                     title: 'FCE Credit',
                     gridOptions: {
                         columnDefs: [{
-                            name: 'Amount',
-                            field: 'amount'
+                            name: 'FCE Value',
+                            displayName: 'FCE Value',
+                            field: 'FCEValue'
+                        }, {
+                            name: 'Description',
+                            field: 'description'
                         }, {
                             name: 'Date Issued',
                             field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
-                            name: 'Type',
+                            name: 'Credit Type',
                             field: 'FCECreditType'
                         }]
                     }
@@ -102,14 +106,18 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                     title: 'FCE Debit',
                     gridOptions: {
                         columnDefs: [{
-                            name: 'Amount',
-                            field: 'amount'
+                            name: 'FCE Value',
+                            displayName: 'FCE Value',
+                            field: 'FCEValue'
+                        }, {
+                            name: 'Description',
+                            field: 'description'
                         }, {
                             name: 'Date Issued',
                             field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
-                            name: 'Type',
+                            name: 'Debit Type',
                             field: 'FCEDebitType'
                         }]
                     }
@@ -140,6 +148,9 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             displayName: 'FCE Value',
                             field: 'FCEValue'
                         }, {
+                            name: 'Description',
+                            field: 'description'
+                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
@@ -157,6 +168,9 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             name: 'FCE Value',
                             displayName: 'FCE Value',
                             field: 'FCEValue'
+                        }, {
+                            name: 'Description',
+                            field: 'description'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',

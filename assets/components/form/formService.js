@@ -1,24 +1,16 @@
 application.service('formService', function($injector, $mdDialog, _, moment, toaster, CurrentUser) {
 
     var self = this;
-    var years = [];
     self.form;
     self.formData = {};
     self.readOnly = false;
 
     var grid, row, service;
     var mainRow, mainService, isMain;
+    var years = [];
 
     self.init = function(formData, gridData, rowData, serviceName, main) {
-        // Toggle form buttons by user's role
-        if (CurrentUser.getRole() === "reader") self.readOnly = true;
-        else {
-            self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
-            // Modifiy form title when it's not readonly
-            if (!self.readOnly) {
-                formData.title = (formData.isEditing) ? "Edit " + formData.title : "Add " + formData.title;
-            }
-        }
+        handleRoleControl(formData, gridData);
 
         self.formData = formData;
         grid = gridData;
@@ -157,6 +149,28 @@ application.service('formService', function($injector, $mdDialog, _, moment, toa
                 }, function(err) {
                     toaster.error(err);
                 });
+        }
+    }
+
+    function handleRoleControl(formData, gridData) {
+        // Toggle form buttons by user's role
+        if (CurrentUser.getRole() === "reader") {
+            self.readOnly = true;
+            // Set all inputs as readonly
+            _.forEach(formData.inputs, function(input) {
+                if (input.type === "autocomplete") {
+                    input.type = "text";
+                    input.disabled = false; // autocomplete disabled uses a function, so set to false
+                }
+                input.readonly = true;
+            });
+        }
+        else {
+            self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
+            // Modifiy form title when it's not readonly
+            if (!self.readOnly) {
+                formData.title = (formData.isEditing) ? "Edit " + formData.title : "Add " + formData.title;
+            }
         }
     }
 });

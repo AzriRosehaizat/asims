@@ -22,12 +22,12 @@ application.service('rsEmployment', function($http, _, formService) {
             formData.inputs = [{
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate"
             }];
             
@@ -43,12 +43,12 @@ application.service('rsEmployment', function($http, _, formService) {
             formData.inputs = [{
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
                 minDate: "startDate"
             }];
             

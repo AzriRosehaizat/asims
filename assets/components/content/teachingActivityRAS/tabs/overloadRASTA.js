@@ -49,9 +49,9 @@ application.service('overloadRASTA', function($http, _, formService) {
                 }],
                 required: true
             }, {
-                type: "number",
+                type: "currency",
                 name: "amount",
-                label: "Amount"
+                label: "Amount (CAD)"
             }];
 
             formService.init(formData, gridData, null, 'overloadRASTA', false);
@@ -67,47 +67,34 @@ application.service('overloadRASTA', function($http, _, formService) {
             formData.isEditing = true;
             formData.title = 'Overload Course';
             formData.inputs = [{
-                type: "text",
+                type: "autocomplete",
                 name: "courseSection",
-                label: "Course Section",
-                readonly: true
-            }, {
-                type: "text",
-                name: "title",
-                label: "Title",
-                readonly: true
-            }, {
-                type: "text",
-                name: "term",
-                label: "Term",
-                readonly: true,
-            }, {
-                type: "text",
-                name: "year",
-                label: "Year",
-                readonly: true,
-            }, {
-                type: "date",
-                name: "startDate",
-                label: "Start date",
-                readonly: true
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End date",
-                minDate: "startDate",
-                readonly: true
-            }, {
-                type: "number",
-                name: "FCEValue",
-                label: "FCE Value"
+                label: "Course Section (ex. ACS-0000-001)",
+                url: {
+                    start: "/regularStaff/getInfo?type=teaching&id=" + mainRow.entity.academicStaffID + "&search={",
+                    end: "\"courseSection\":{\"startsWith\":\""
+                },
+                link: "application.teachingActivityRAS",
+                output: {
+                    obj: {},
+                    name: ["departmentCode", "courseNo", "sectionNo"],
+                    meta: [{
+                        tag: "",
+                        name: "title"
+                    }]
+                },
+                assign: [{
+                    from: "courseSection.obj.teachingActivitiesID",
+                    to: "teachingActivitiesID"
+                }],
+                required: true
             }, {
                 type: "currency",
                 name: "amount",
-                label: "Amount"
+                label: "Amount (CAD)"
             }];
 
             formService.init(formData, gridData, row, 'overloadRASTA', false);
-        },
+        }
     };
 });

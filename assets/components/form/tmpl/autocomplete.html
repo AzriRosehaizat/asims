@@ -12,6 +12,7 @@
             md-no-cache="true"
             ng-disabled="{{input.disabled}}" 
             ng-required="{{input.required}}"
+            ng-readonly="input.readonly"
             md-menu-class="autocomplete-custom-template">
         <md-item-template>
             <span class="item-title">
@@ -33,5 +34,4 @@
         </div>
         <md-tooltip md-direction="top" md-visible="tooltipVisible" ng-if="input.readonly">Read only</md-tooltip>
     </md-autocomplete>
-
 </div>
