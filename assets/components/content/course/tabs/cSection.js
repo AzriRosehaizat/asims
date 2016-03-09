@@ -13,7 +13,6 @@ application.service('cSection', function($http, _, formService) {
         },
         initAddForm: function(formData, gridData, mRow) {
             // mainRow = mRow;
-
             formData.model = {};
             formData.isEditing = false;
             formData.title = 'Teaching History';

@@ -40,7 +40,7 @@ application.service('cTabService', function($http, cSection) {
         },
         initAddForm: function(formData, tab, mainRow) {
             switch (tab.title) {
-                case 'Section':
+                case 'Teaching History':
                     tab.gridOptions.data.readOnly = tab.readOnly;
                     cSection.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -48,7 +48,7 @@ application.service('cTabService', function($http, cSection) {
         },
         initEditForm: function(formData, tab, row) {
             switch (tab.title) {
-                case 'Section':
+                case 'Teaching History':
                     tab.gridOptions.data.readOnly = tab.readOnly;
                     cSection.initEditForm(formData, tab.gridOptions.data, row);
                     break;
