@@ -27,9 +27,16 @@ application
                                 .sum
                         }, {
                             name: 
-                                'Date Issued',
+                                'Start Date',
                             field: 
-                                'dateIssued',
+                                'startDate',
+                            cellFilter: 
+                                'date:\'MM-dd-yyyy\''
+                        }, {
+                            name: 
+                                'End Date',
+                            field: 
+                                'endDate',
                             cellFilter: 
                                 'date:\'MM-dd-yyyy\''
                         }, {
@@ -79,12 +86,19 @@ application
                         .entity
                     ),
                     {
-                        dateIssued : 
+                        startDate : 
                             formService
                             .formatDate(
                                 row
                                 .entity
-                                .dateIssued
+                                .startDate
+                            ),
+                        endDate : 
+                            formService
+                            .formatDate(
+                                row
+                                .entity
+                                .endDate
                             )
                     }   
                 )
@@ -97,59 +111,14 @@ application
             
             formData
             .title = (
-                'Edit Leave Credit'
+                'Leave Credit'
             );
             
             formData
-            .inputs = [
-                {
-                    type: 
-                        "number",
-                    name: 
-                        "amount",
-                    label: 
-                        "Amount",
-                    disabled: 
-                        false,
-                    required: 
-                        true
-                }, {
-                    type: 
-                        "date",
-                    name: 
-                        "dateIssued",
-                    label: 
-                        "Date Issued",
-                    disabled: 
-                        false,
-                    required: 
-                        true
-                }, {
-                    type: 
-                        "text",
-                    name: 
-                        "leaveCreditType",
-                    label: 
-                        "Type",
-                    disabled: 
-                        false,
-                    required: 
-                        true
-                }, {
-                    type: 
-                        "textarea",
-                    name: 
-                        "description",
-                    label: 
-                        "Description",
-                    disabled: 
-                        false,
-                    required: 
-                        false
-                }
-            ];
+            .inputs = getInputs();
 
-            formService.init(
+            formService
+            .init(
                 formData, 
                 gridData, 
                 row, 
@@ -175,58 +144,15 @@ application
             
             formData
             .title = (
-                'Add Leave Credit'
+                'Leave Credit'
             );
             
-            formData.inputs = [
-                {
-                    type: 
-                        "number",
-                    name: 
-                        "amount",
-                    label: 
-                        "Amount",
-                    disabled: 
-                        false,
-                    required: 
-                        true
-                }, {
-                    type: 
-                        "date",
-                    name: 
-                        "dateIssued",
-                    label: 
-                        "Date Issued",
-                    disabled: 
-                        false,
-                    required: 
-                        true
-                }, {
-                    type: 
-                        "text",
-                    name: 
-                        "leaveCreditType",
-                    label: 
-                        "Type",
-                    disabled: 
-                        false,
-                    required: 
-                        true
-                }, {
-                    type: 
-                        "textarea",
-                    name: 
-                        "description",
-                    label: 
-                        "Description",
-                    disabled: 
-                        false,
-                    required: 
-                        false
-                }
-            ];
+            
+            formData
+            .inputs = getInputs();
 
-            formService.init(
+            formService
+            .init(
                 formData, 
                 gridData, 
                 null, 
@@ -266,5 +192,65 @@ application
             );   
         }
         
+        function getInputs(){
+            return [
+                {
+                    type: 
+                        "number",
+                    name: 
+                        "amount",
+                    label: 
+                        "Amount",
+                    disabled: 
+                        false,
+                    required: 
+                        true
+                }, {
+                    type: 
+                        "date",
+                    name: 
+                        "startDate",
+                    label: 
+                        "Start Date",
+                    disabled: 
+                        false,
+                    required: 
+                        true
+                }, {
+                    type: 
+                        "date",
+                    name: 
+                        "endDate",
+                    label: 
+                        "End Date",
+                    disabled: 
+                        false,
+                    required: 
+                        true
+                }, {
+                    type: 
+                        "text",
+                    name: 
+                        "leaveCreditType",
+                    label: 
+                        "Type",
+                    disabled: 
+                        false,
+                    required: 
+                        true
+                }, {
+                    type: 
+                        "textarea",
+                    name: 
+                        "description",
+                    label: 
+                        "Description",
+                    disabled: 
+                        false,
+                    required: 
+                        false
+                }
+            ];
+        }
     }
 );

@@ -17,7 +17,7 @@ application.service('fDepartment', function($http, $q, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Department';
+            formData.title = 'Department';
             formData.inputs = [{
                 type: "text",
                 name: "departmentCode",

@@ -24,7 +24,7 @@ application.service('rankService', function($http, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Rank';
+            formData.title = 'Rank';
             formData.inputs = [{
                 type: "text",
                 name: "title",
@@ -41,7 +41,7 @@ application.service('rankService', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Rank';
+            formData.title = 'Rank';
             formData.inputs = [{
                 type: "text",
                 name: "title",

@@ -12,9 +12,6 @@ application.service('fTabService', function($http, fDepartment) {
                         }, {
                             name: 'Name',
                             field: 'title'
-                        }, {
-                            name: 'Description',
-                            field: 'description'
                         }]
                     },
                     readOnly: true

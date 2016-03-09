@@ -1,13 +1,14 @@
-application.controller('tabsetController', function(navRightBarService, $state) {
+application.controller('tabsetController', function(navRightBarService, CurrentUser) {
     
     var self = this;
+    var userRole;
     
     self.toggle = function() {
         navRightBarService.toggle();
     };
     
-    self.redirect = function(tab) {
-        $state.go(tab.link);
-        console.log(tab.link);
+    self.isReader = function() {
+        if (!userRole) userRole = CurrentUser.getRole();
+        return (userRole === "reader");    
     };
 });

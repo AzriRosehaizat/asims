@@ -3,22 +3,22 @@ var mysql = require('knex')({
 });
 module.exports = {
     //Page Regular Staff
-    getSectionOffered: function(sectionOfferedID, callback) {
+    getTeachingActivity: function(teachingActivitiesID, callback) {
         var sSQL = mysql.select('d.departmentCode', 'c.courseNo', 's.sectionNo', 'c.title', 'so.*')
-            .from('Section_Offered AS so')
+            .from('teachingActivities AS so')
             .innerJoin('Section AS s', 'so.sectionID', 's.sectionID')
             .innerJoin('Course As c', 'so.courseID', 'c.courseID')
             .innerJoin('Department AS d', 'c.departmentID', 'd.departmentID');
         //check if criteria needed
-        if (sectionOfferedID) {
-            sSQL = sSQL.where('so.sectionOfferedID', sectionOfferedID);
+        if (teachingActivitiesID) {
+            sSQL = sSQL.where('so.teachingActivitiesID', teachingActivitiesID);
         }
         
         // Stringify
         sSQL = sSQL.toString();
 
         // console.log(sSQL);
-        Section_Offered.query(sSQL, function(err, result) {
+        TeachingActivities.query(sSQL, function(err, result) {
             callback(err, result);
         });
     }

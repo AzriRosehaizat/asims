@@ -6,7 +6,7 @@
 */
 module.exports = {
 	attributes: {
-		loadReductionId: {
+		loadReductionID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
@@ -19,6 +19,9 @@ module.exports = {
 		FCEValue: {
 			type: 'float',
 			required: true
+		},
+		description: {
+			type: 'text'
 		},
 		startDate: {
 			type: 'date',
