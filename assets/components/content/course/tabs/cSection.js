@@ -1,5 +1,5 @@
 application.service('cSection', function($http, _, formService) {
-    var mainRow;
+    // var mainRow;
 
     return {
         update: function(formData) {
@@ -12,11 +12,11 @@ application.service('cSection', function($http, _, formService) {
             // read-only
         },
         initAddForm: function(formData, gridData, mRow) {
-            mainRow = mRow;
+            // mainRow = mRow;
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Section';
+            formData.title = 'Teaching History';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
@@ -60,7 +60,6 @@ application.service('cSection', function($http, _, formService) {
                 readonly: true
             }];
 
-            gridData.readOnly = this.gridOptions().readOnly;
             formService.init(formData, gridData, null, 'cSection', false);
         },
         initEditForm: function(formData, gridData, row) {
@@ -69,7 +68,7 @@ application.service('cSection', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Section';
+            formData.title = 'Teaching History';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
@@ -113,7 +112,6 @@ application.service('cSection', function($http, _, formService) {
                 readonly: true
             }];
             
-            gridData.readOnly = this.gridOptions().readOnly;
             formService.init(formData, gridData, row, 'cSection', false);
         },
     };
