@@ -735,7 +735,108 @@ CREATE  OR REPLACE VIEW `MostRecentRank_Regular` AS
         (`RegularStaff`
         LEFT JOIN `RegularStaffRank` 
           ON ((`RegularStaff`.`regularStaffID` = `RegularStaffRank`.`regularStaffID`)));
-  	
+
+
+-- -----------------------------------------------------
+-- View `MostRecentEmployment_Regular`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `MostRecentEmployment_Regular`;
+
+CREATE  OR REPLACE VIEW `MostRecentEmployment_Regular` AS 
+  SELECT 
+        `RegularStaffEmployment`.`regularStaffID` AS `regularStaffID`,
+        `RegularStaffEmployment`.`regularEmploymentID` AS `regularEmploymentID`,
+        `RegularStaffEmployment`.`startDate` AS `startDate`,
+        `RegularStaffEmployment`.`endDate` AS `endDate`
+    FROM
+        `RegularStaffEmployment`
+    WHERE
+        (`RegularStaffEmployment`.`regularStaffID` , `RegularStaffEmployment`.`startDate`) IN (SELECT 
+                `RegularStaffEmployment`.`regularStaffID`,
+                    MAX(`RegularStaffEmployment`.`startDate`)
+            FROM
+                `RegularStaffEmployment`
+            GROUP BY `RegularStaffEmployment`.`regularStaffID`);
+
+
+-- -----------------------------------------------------
+-- View `CountEmployment_Regular``
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `CountEmployment_Regular`;
+
+CREATE  OR REPLACE VIEW `CountEmployment_Regular` AS 
+  SELECT 
+          COUNT(`MostRecentEmployment_Regular`.`regularStaffID`) AS `NoOfRegularStaff`
+      FROM
+          `MostRecentEmployment_Regular`
+      WHERE
+          ((`MostRecentEmployment_Regular`.`endDate` > CURDATE())
+              OR (`MostRecentEmployment_Regular`.`endDate` IS  NULL));
+
+-- -----------------------------------------------------
+-- View `MostRecentEmployment_Contract`
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `MostRecentEmployment_Contract`;
+
+CREATE  OR REPLACE VIEW `MostRecentEmployment_Contract` AS 
+  SELECT 
+        `ContractStaffEmployment`.`contractStaffID` AS `contractStaffID`,
+        `ContractStaffEmployment`.`contractEmploymentID` AS `contractEmploymentID`,
+        `ContractStaffEmployment`.`startDate` AS `startDate`,
+        `ContractStaffEmployment`.`endDate` AS `endDate`
+    FROM
+        `ContractStaffEmployment`
+    WHERE
+        (`ContractStaffEmployment`.`contractStaffID` , `ContractStaffEmployment`.`startDate`) IN (SELECT 
+                `ContractStaffEmployment`.`contractStaffID`,
+                    MAX(`ContractStaffEmployment`.`startDate`)
+            FROM
+                `ContractStaffEmployment`
+            GROUP BY `ContractStaffEmployment`.`contractStaffID`);
+
+
+-- -----------------------------------------------------
+-- View `CountEmployment_Contract``
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `CountEmployment_Contract`;
+
+CREATE  OR REPLACE VIEW `CountEmployment_Contract` AS 
+  SELECT 
+        COUNT(`MostRecentEmployment_Contract`.`contractStaffID`) AS `NoOfContractStaff`
+    FROM
+        `MostRecentEmployment_Contract`
+    WHERE
+        ((`MostRecentEmployment_Contract`.`endDate` > CURDATE())
+            OR (`MostRecentEmployment_Contract`.`endDate` IS NULL));
+
+-- -----------------------------------------------------
+-- View `CountLeave``
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `CountLeave`;
+
+CREATE  OR REPLACE VIEW `CountLeave` AS
+  SELECT 
+        COUNT(`StaffLeave`.`leaveID`) AS `NoOfLeave`
+    FROM
+        `StaffLeave`
+    WHERE
+        ((`StaffLeave`.`endDate` > CURDATE())
+            OR ISNULL(`StaffLeave`.`endDate`));
+
+-- -----------------------------------------------------
+-- View `CountResearch``
+-- -----------------------------------------------------
+DROP VIEW IF EXISTS `CountResearch`;
+
+CREATE  OR REPLACE VIEW `CountResearch` AS
+  SELECT 
+        COUNT(`Research`.`researchID`) AS `NoOfResearch`
+    FROM
+        `Research`
+    WHERE
+        ((`Research`.`endDate` > CURDATE())
+            OR ISNULL(`Research`.`endDate`));
+
   	
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
