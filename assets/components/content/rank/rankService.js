@@ -9,7 +9,8 @@ application.service('rankService', function($http, _, formService) {
                 }, {
                     name: 'Description',
                     field: 'description'
-                }]
+                }],
+                minRowsToShow: 20
             };
         },
         update: function(formData) {
