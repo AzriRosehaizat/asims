@@ -233,7 +233,7 @@ application
                     type: 
                         "select",
                     name: 
-                        "leaveCreditType",
+                        "leaveDebitType",
                     label: 
                         "Type",
                     items: 
@@ -242,9 +242,9 @@ application
                             "Administrative"
                         ],
                     path: 
-                        "leaveCreditType",
+                        "leaveDebitType",
                     text:
-                        "Select a Credit Type",
+                        "Select a Debit Type",
                     disabled: 
                         false,
                     required: 
