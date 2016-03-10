@@ -1,7 +1,6 @@
 application.controller('taRASController', function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster, loadChartService) {
 
     $scope.gridTitle = 'Regular Staff';
-    $scope.enableChart = true;
     $scope.rStaffData = staffs.data;
     $scope.formData = {};
 
@@ -35,6 +34,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
             toaster.info("Select a row first.");
     };
     
+    $scope.enableChart = true;
     $scope.openChart = function(ev) {
         if ($scope.row)
             loadChartService.openLoadDialog(ev, $scope.row.entity, $scope.tabs);

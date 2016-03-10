@@ -20,7 +20,7 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
                 clickOutsideToClose: true
             })
             .then(function(range) {
-                console.log(tabs);
+                // console.log(tabs);
                 docDefinition.content = [];
 
                 var data = formatData(entity, tabs, range);
