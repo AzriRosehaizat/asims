@@ -410,36 +410,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			$state.go('index');
 		});
 	})
-	.config(function($provide) {
-		$provide.decorator('GridOptions', function($delegate, uiGridConstants) {
-			var gridOptions;
-			gridOptions = angular.copy($delegate);
-			gridOptions.initialize = function(options) {
-				var initOptions;
-				initOptions = $delegate.initialize(options);
-				//set global options
-				//don't need header menus if we are using the speed dial
-				initOptions.enableColumnMenus = false;
-				initOptions.enableGridMenu = true;
-				initOptions.enableColumnResizing = true;
-				initOptions.noUnselect = true;
-				initOptions.multiSelect = false;
-				initOptions.enableRowHeaderSelection = false;
-				initOptions.enableHorizontalScrollbar = 0;
-				initOptions.exporterMenuPdf = false;
-				initOptions.gridMenuCustomItems = [{
-					title: 'Toggle Filters',
-					action: function($event) {
-						initOptions.enableFiltering = (!initOptions.enableFiltering);
-						this.grid.api.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-					},
-					order: 1
-				}];
-				return initOptions;
-			};
-			return gridOptions;
-		});
-	})
 	.run(function($rootScope, $state, Auth, formService, SearchHelper) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
 
@@ -458,9 +428,9 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 
 				// authenticated (previously) comming to index
 				if (Auth.isAuthenticated()) {
-					var shouldGoToApp = (fromState.name === '') && (toState.name === 'index');
 
-					if (shouldGoToApp) {
+					//if user is authenticated and redirected to login page, go to main page
+					if (toState.name === 'index') {
 						$state.go('application.root');
 						event.preventDefault();
 						return;
