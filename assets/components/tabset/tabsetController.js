@@ -17,6 +17,7 @@ application.controller('tabsetController', function(navRightBarService, CurrentU
     };
     
     self.pageExist = function(tab) {
+        if (tab)
         return (tab.link) ? true : false;
     };
 });
