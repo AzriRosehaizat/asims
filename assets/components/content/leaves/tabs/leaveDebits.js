@@ -231,11 +231,20 @@ application
                         true
                 }, {
                     type: 
-                        "text",
+                        "select",
                     name: 
                         "leaveDebitType",
                     label: 
                         "Type",
+                    items: 
+                        [
+                            "Research",
+                            "Administrative"
+                        ],
+                    path: 
+                        "leaveDebitType",
+                    text:
+                        "Select a Debit Type",
                     disabled: 
                         false,
                     required: 
