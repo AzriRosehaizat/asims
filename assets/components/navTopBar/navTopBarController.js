@@ -15,7 +15,8 @@ application.controller('navTopBarController', function($scope, $state, $mdSidena
   $scope.update = function(searchData) {
     SearchHelper.setInput(searchData);
   };
-
+  
+ 
   /* Toggle left navigation bar */
   $scope.toggleLeft = buildToggler('left');
 
