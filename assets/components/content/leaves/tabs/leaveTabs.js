@@ -52,7 +52,11 @@ application
                 
                 row
                 .entity
-                .balance = 0;
+                .administrativeBalance = 0;
+                
+                row
+                .entity
+                .researchBalance = 0;
                 
                 row
                 .entity
@@ -85,8 +89,23 @@ application
             )
             .then( 
                 function( res ) {
-                    rowEntity.balance += res
+                    rowEntity.administrativeBalance += res
                     .data
+                    .filter(function( value ){
+                        return value.leaveCreditType === 'Administrative';
+                    })
+                    .map(function( value ){
+                        return value.amount;
+                    })
+                    .reduce(function( previous, current){
+                        return previous + current;
+                    },0);
+                    
+                    rowEntity.researchBalance += res
+                    .data
+                    .filter(function( value ){
+                        return value.leaveCreditType === 'Research';
+                    })
                     .map(function( value ){
                         return value.amount;
                     })
@@ -116,8 +135,23 @@ application
             .then( 
                 function( res ) {
                     
-                    rowEntity.balance -= res
+                    rowEntity.administrativeBalance -= res
                     .data
+                    .filter(function( value ){
+                        return value.leaveCreditType === 'Administrative';
+                    })
+                    .map(function( value ){
+                        return value.amount;
+                    })
+                    .reduce(function( previous, current){
+                        return previous + current;
+                    },0);
+                    
+                    rowEntity.researchBalance -= res
+                    .data
+                    .filter(function( value ){
+                        return value.leaveCreditType === 'Research';
+                    })
                     .map(function( value ){
                         return value.amount;
                     })
@@ -136,7 +170,7 @@ application
                     );
                 }
             );
-            
         }
     }
 );
+
