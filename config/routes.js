@@ -47,17 +47,17 @@ module.exports.routes = {
    ***************************************************************************/
   'GET /RegularStaff/getAllRegularStaff/:regularStaffID': 'RegularStaffController.getAllRegularStaff',
   'GET /RegularStaff/getInfo': 'RegularStaffController.getInfo',
-  
+
   'GET /Course/getAllCourse/:courseID': 'CourseController.getAllCourse',
   'GET /Course/getInfo': 'CourseController.getInfo',
-  
+
   'GET /Department/getAllDepartment/:departmentID': 'DepartmentController.getAllDepartment',
-  'GET /Department/getInfo' : 'DepartmentController.getInfo',
-  
+  'GET /Department/getInfo': 'DepartmentController.getInfo',
+
   'GET /ContractStaff/getAllContractStaff/:contractStaffID': 'ContractStaffController.getAllContractStaff',
   'GET /ContractStaff/getInfo': 'ContractStaffController.getInfo',
 
-  'GET /Section_Offered/getSectionOffered/:sectionOfferedID': 'Section_OfferedController.getSectionOffered'
+  'GET /Section_Offered/getSectionOffered/:sectionOfferedID': 'Section_OfferedController.getSectionOffered',
 
-
+  'GET /Home/getInfo': 'HomeController.getInfo'
 };
