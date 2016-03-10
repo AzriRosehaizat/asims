@@ -1,28 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Forbidden Page</title>
-    <style>
-      html,body{text-align:left;margin:0;padding:0;font-size:1em}
-      body {background-color: #F5F5F5;}
-      .error .main{display:block; position: fixed; top:52.7%; left:15%;}
-      .error .top{color: #B71C1C; font-size:2.5em;}
-      .error h1{font-family:"Open Sans","Myriad Pro",Arial,sans-serif;font-weight:bold;font-size:2.2em;color:#001c20;}
-      .error h2{font-family:"Open Sans","Myriad Pro",Arial,sans-serif;font-weight:300;font-size:1.25em;color:#001c20;}
-      .error a{color:#B71C1C;  text-decoration:none;font-weight:normal;font-family:inherit}
-      .error a:hover{color:#D50000;}
-    </style>
-  </head>
-  <body>
-    <div class="error">
-      <div class="main">
-        <h1><span class="top">Oh No... </span>This Page is Forbidden.</h1>
-        <h2>
-          You don't have permission to see the page you're trying to reach.
-          You shouldn't be here without permission.<br>
-          <a ui-sref="index">Log in</a> with another account. Or please head to <a ui-sref="application.root">Home</a></a> page.
+<div class="error">
+  <div class="main">
+    <h1>Page is Forbidden.</h1>
+    <h2>
+          You don't have permission to see the page you're trying to reach...<br>
+          <a ui-sref="index">Log in</a> with an account with access.<br>
+          Or please head to <a ui-sref="application.root">Home</a></a> page.
         </h2>
-      </div>
-    </div>
-  </body>
-</html>
+  </div>
+</div>

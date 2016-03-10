@@ -21,7 +21,8 @@ application.service('adminService', function($http, _, moment, formService) {
                 }, {
                     name: 'Last login',
                     field: 'lastLogin'
-                }]
+                }],
+                minRowsToShow: 20
             };
         },
         update: function(formData) {

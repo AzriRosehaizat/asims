@@ -5,6 +5,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
             return {
                 teachingActivity: {
                     title: 'Teaching Activity',
+                    link: 'application.teachingRAS',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',
@@ -44,6 +45,8 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 },
                 department: {
                     title: 'Department',
+                    link: 'application.department',
+
                     gridOptions: {
                         columnDefs: [{
                             name: 'Code',

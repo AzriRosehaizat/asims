@@ -7,11 +7,6 @@ body {
   overflow: hidden;
 }
 
-.indexBG .indexBGWrapper {
-  width: auto;
-  height: 100%;
-}
-
 #content {
   background-color: #F5F5F5;
   overflow-y: scroll;
@@ -20,6 +15,46 @@ body {
 #rightNavDiv {
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+
+/* Error Pages */
+
+.error .main {
+  display: block;
+  position: fixed;
+  top: 52.7%;
+  left: 15%;
+}
+
+.error .top {
+  color: #B71C1C;
+  font-size: 2.5em;
+}
+
+.error h1 {
+  font-family: "Open Sans", "Myriad Pro", Arial, sans-serif;
+  font-weight: bold;
+  font-size: 2.2em;
+  color: #001c20;
+}
+
+.error h2 {
+  font-family: "Open Sans", "Myriad Pro", Arial, sans-serif;
+  font-weight: 300;
+  font-size: 1.25em;
+  color: #001c20;
+}
+
+.error a {
+  color: #B71C1C;
+  text-decoration: none;
+  font-weight: normal;
+  font-family: inherit
+}
+
+.error a:hover {
+  color: #D50000;
 }
 
 
