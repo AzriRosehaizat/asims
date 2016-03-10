@@ -3,24 +3,26 @@ application.service('counterService', function($http) {
     var self = this;
 
     self.rows = [];
-    
+
     self.rows.push([{
         title: "On Leave",
-        data: 24,
+        data: '',
         footer: "Staff"
     }, {
         title: "Researches",
-        data: 50,
+        data: '',
         footer: "in Progress"
     }]);
-    
+
     self.rows.push([{
         title: "Regular Staff",
-        data: 3,
+        data: '',
         footer: "not retired"
     }, {
         title: "Contract Staff",
-        data: 200,
+        data: '',
         footer: "not retired"
     }]);
+
+
 });
