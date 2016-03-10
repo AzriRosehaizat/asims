@@ -5,22 +5,22 @@ application.service('counterService', function($http) {
     self.rows = [];
     
     self.rows.push([{
-        title: "Number of Staff on Leave",
+        title: "On Leave",
         data: 24,
-        footer: "testing..."
+        footer: "Staff"
     }, {
-        title: "Tenure approaching for",
+        title: "Researches",
         data: 50,
-        footer: "staff."
+        footer: "in Progress"
     }]);
     
     self.rows.push([{
-        title: "Number of Researches in Progress",
+        title: "Regular Staff",
         data: 3,
-        footer: "testing..."
+        footer: "not retired"
     }, {
-        title: "Number of Academic Staff",
+        title: "Contract Staff",
         data: 200,
-        footer: "testing..."
+        footer: "not retired"
     }]);
 });
