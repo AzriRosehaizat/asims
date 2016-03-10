@@ -15,22 +15,21 @@ module.exports = {
 			if (err) return res.serverError(err);
 			return res.ok(result);
 		};
-		var date = new Date();
 		var data = {
 			type: req.param('type')
 		};
 		switch (data.type) {
 			case 'leave':
-				HomeService.getLeave(date, responseFn);
+				HomeService.getLeave(responseFn);
 				break;
 			case 'research':
-				HomeService.getResearch(data.id, responseFn);
+				HomeService.getResearch(responseFn);
 				break;
 			case 'regularStaff':
-				HomeService.getRegularStaff(data.id, responseFn);
+				HomeService.getRegularStaff(responseFn);
 				break;
 			case 'contractStaff':
-				HomeService.getContractStaff(data.id, responseFn);
+				HomeService.getContractStaff(responseFn);
 				break;
 			default:
 				res.serverError();
