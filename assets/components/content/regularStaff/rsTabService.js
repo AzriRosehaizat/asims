@@ -5,7 +5,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
             return {
                 teachingActivity: {
                     title: 'Teaching Activity',
-                    link: 'application.teachingActivityRAS',
+                    link: 'application.teachingRAS',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',
@@ -67,7 +67,6 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 },
                 rank: {
                     title: 'Rank',
-                    link: 'application.rank',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Name',
@@ -99,7 +98,6 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                 },
                 research: {
                     title: 'Research',
-                    link: 'application.research',
                     gridOptions: {
                         columnDefs: [    {
                             name: 'Title',
