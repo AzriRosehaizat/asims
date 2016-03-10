@@ -5,7 +5,6 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
             return {
                 course: {
                     title: 'Course',
-                    link: 'application.course',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Department',
@@ -22,7 +21,6 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                 },
                 regularStaff: {
                     title: 'Regular Staff',
-                    link: 'application.regularStaff',
                     gridOptions: {
                         columnDefs: [{
                             name: 'First Name',
@@ -54,7 +52,6 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                 },
                 contractStaff: {
                     title: 'Contract Staff',
-                    link: 'application.contractStaff',
                     gridOptions: {
                         columnDefs: [{
                             name: 'First Name',
