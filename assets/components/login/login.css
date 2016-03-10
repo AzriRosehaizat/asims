@@ -1,23 +1,24 @@
 .transbox {
     background-color: #FFF;
-    /*border: 1px solid black;*/
     opacity: 0.80;
-    filter: alpha(opacity=80); /* For IE8 and earlier */
-}
-
-.boldTitle {
-    margin: 10%;
-    font-weight: bold;
-    color: #000000;
-}
-
-.transbox span img {
-    margin: 10%;
-    height: 100%;
-    width: 100%;
-    display: block;
+    filter: alpha(opacity=80);    /* For IE8 and earlier */
 }
 
 .loginDiv {
     min-width: 350px
 }
+
+.loginLogo {
+    margin: 10%;
+    height: 100%;
+    width: 100%;
+    display: block;
+
+}
+
+.loginTitle {
+    margin: 10%;
+    font-weight: bold;
+    color: #000000;
+}
+
