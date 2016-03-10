@@ -9,7 +9,8 @@ application.service('sectionService', function($http, _, formService) {
                 }, {
                     name: 'Section Type',
                     field: 'sectionType'
-                }]
+                }],
+                minRowsToShow: 20
             };
         },
         update: function(formData) {

@@ -1,5 +1,6 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 'ui.grid.exporter',
-	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
+var application = angular.module('application', 
+['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
+	'ui.grid.resizeColumns', 'ui.grid.exporter', 'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
@@ -395,44 +396,18 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					}
 				},
 			})
-			.state('403', {
-				url: '/403',
+			.state('application.403', {
+				url: '/Forbidden',
 				templateUrl: '/views/error/403.html'
+			})
+			.state('application.404', {
+				url: '/NotFound',
+				templateUrl: '/views/error/404.html'
 			});
 
 		$urlRouterProvider.otherwise(function($injector) {
 			var $state = $injector.get('$state');
 			$state.go('index');
-		});
-	})
-	.config(function($provide) {
-		$provide.decorator('GridOptions', function($delegate, uiGridConstants) {
-			var gridOptions;
-			gridOptions = angular.copy($delegate);
-			gridOptions.initialize = function(options) {
-				var initOptions;
-				initOptions = $delegate.initialize(options);
-				//set global options
-				//don't need header menus if we are using the speed dial
-				initOptions.enableColumnMenus = false;
-				initOptions.enableGridMenu = true;
-				initOptions.enableColumnResizing = true;
-				initOptions.noUnselect = true;
-				initOptions.multiSelect = false;
-				initOptions.enableRowHeaderSelection = false;
-				initOptions.enableHorizontalScrollbar = 0;
-				initOptions.exporterMenuPdf = false;
-				initOptions.gridMenuCustomItems = [{
-					title: 'Toggle Filters',
-					action: function($event) {
-						initOptions.enableFiltering = (!initOptions.enableFiltering);
-						this.grid.api.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
-					},
-					order: 1
-				}];
-				return initOptions;
-			};
-			return gridOptions;
 		});
 	})
 	.run(function($rootScope, $state, Auth, formService, SearchHelper) {
@@ -446,21 +421,24 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 
 				// NOT authenticated - wants any private stuff
 				if (shouldLogin) {
-					$state.go('403');
+					$state.go('application.403');
 					event.preventDefault();
 					return;
 				}
 
 				// authenticated (previously) comming to index
 				if (Auth.isAuthenticated()) {
-					var shouldGoToApp = (fromState.name === '') && (toState.name === 'index');
 
-					if (shouldGoToApp) {
+					//if user is authenticated and redirected to login page, go to main page
+					if (toState.name === 'index') {
 						$state.go('application.root');
 						event.preventDefault();
 						return;
 					}
+
 				}
+
+				
 			});
 		});
 	});
