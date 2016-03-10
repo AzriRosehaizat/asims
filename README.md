@@ -33,11 +33,6 @@ Development Workflow
 8. Create a pull request on GitHub detailing the merge
 9. Code will be reviewed by me and I will merge it
 
-
-Agile testing
------------------
-Suggestions??
-
 Docs:
 
 [Sails Docs](http://sailsjs.org/documentation/concepts/) |
