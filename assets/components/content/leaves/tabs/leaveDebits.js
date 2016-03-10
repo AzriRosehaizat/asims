@@ -231,11 +231,20 @@ application
                         true
                 }, {
                     type: 
-                        "text",
+                        "select",
                     name: 
-                        "leaveDebitType",
+                        "leaveCreditType",
                     label: 
                         "Type",
+                    items: 
+                        [
+                            "Research",
+                            "Administrative"
+                        ],
+                    path: 
+                        "leaveCreditType",
+                    text:
+                        "Select a Credit Type",
                     disabled: 
                         false,
                     required: 
