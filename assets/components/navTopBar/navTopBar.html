@@ -14,12 +14,12 @@
         <md-menu-bar>
             <md-menu>
                 <md-menu-content>
-                    <md-button ng-click="$mdOpenMenu($event)" aria-label="My Profile">
+                    <md-button class="userBtn md-body-2" ng-click="$mdOpenMenu($event)" aria-label="My Profile">
                         <md-content>
-                            <span id="username">
-                            <md-icon md-font-set="material-icons">account_circle</md-icon>
-                            {{user.firstName}} {{user.lastName}}
-                        </span>
+                            <span id="username" >
+                                <md-icon md-font-set="material-icons">account_circle</md-icon>
+                                {{user.firstName}} {{user.lastName}}
+                            </span>
                         </md-content>
                     </md-button>
                 </md-menu-content>
