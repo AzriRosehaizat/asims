@@ -87,9 +87,18 @@ application
                         type: 
                             "number",
                         name: 
-                            "balance",
+                            "researchBalance",
                         label: 
-                            "Balance",
+                            "Research Balance",
+                        disabled: 
+                            true
+                    }, {
+                        type: 
+                            "number",
+                        name: 
+                            "administrativeBalance",
+                        label: 
+                            "Administrative Balance",
                         disabled: 
                             true
                     }
