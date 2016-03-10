@@ -1,6 +1,7 @@
-application.controller('taRASController', function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster) {
+application.controller('taRASController', function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster, loadChartService) {
 
     $scope.gridTitle = 'Regular Staff';
+    $scope.enableChart = true;
     $scope.rStaffData = staffs.data;
     $scope.formData = {};
 
@@ -30,6 +31,13 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     $scope.editRow = function() {
         if ($scope.row)
             taRASService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else
+            toaster.info("Select a row first.");
+    };
+    
+    $scope.openChart = function(ev) {
+        if ($scope.row)
+            loadChartService.openLoadDialog(ev, $scope.row.entity, $scope.tabs);
         else
             toaster.info("Select a row first.");
     };

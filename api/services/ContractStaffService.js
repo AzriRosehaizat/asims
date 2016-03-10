@@ -5,7 +5,7 @@ var mysql = require('knex')({
 module.exports = {
 	//Page Contract Staff
 	getAllContractStaff: function(contractStaffID, callback) {
-		var sSQL = mysql.select('a.*', 'c.*', 'd.departmentCode', 'rk.title AS Rank')
+		var sSQL = mysql.select('a.*', 'c.*', 'd.departmentCode', 'rk.title AS rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('ContractStaff AS c', 'a.academicStaffID', 'c.academicStaffID')
 			.leftJoin('MostRecentRank_Contract AS cv', 'c.contractStaffID', 'cv.contractStaffID')

@@ -17,7 +17,7 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                     field: 'departmentCode'
                 }, {
                     name: 'Rank',
-                    field: 'Rank'
+                    field: 'rank'
                 }]
             };
         },

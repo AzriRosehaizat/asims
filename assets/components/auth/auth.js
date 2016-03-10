@@ -55,7 +55,6 @@ application.service('AuthInterceptor', function($q, $injector, _, LocalService) 
                     $injector.get('$state').go('index');
                 }
                 else if (!_.isObject(res.data)) {
-                    console.log(res);
                     return $q.reject("An unknown error occurred.");
                 }
                 return $q.reject(res.data);
