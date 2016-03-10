@@ -1,9 +1,6 @@
 application.controller('counterController', function(counterService, $http) {
 
     var self = this;
-    
-    
-    
     $http.get('/Home/getInfo?type=leave').then(function(res){
         self.rows[0][0].data = res.data[0].NoOfLeave;
     });
@@ -21,5 +18,4 @@ application.controller('counterController', function(counterService, $http) {
     });
     
     self.rows = counterService.rows;
-    //self.rows[1].data = 51;
 });
