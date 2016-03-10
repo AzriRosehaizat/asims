@@ -17,7 +17,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     field: 'departmentCode'
                 }, {
                     name: 'Rank',
-                    field: 'Rank'
+                    field: 'rank'
                 }, {
                     name: 'Tenure Date',
                     field: 'tenureDate',
