@@ -5,6 +5,7 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
             return {
                 teachingActivity: {
                     title: 'Teaching Activity',
+                    link: 'application.teachingActivityCAS',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',
