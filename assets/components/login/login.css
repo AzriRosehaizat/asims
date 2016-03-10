@@ -2,22 +2,103 @@
     background-color: #FFF;
     /*border: 1px solid black;*/
     opacity: 0.80;
-    filter: alpha(opacity=80); /* For IE8 and earlier */
+    filter: alpha(opacity=80);
+    /* For IE8 and earlier */
 }
 
-.boldTitle {
-    margin: 10%;
-    font-weight: bold;
-    color: #000000;
+.fade-in {
+    opacity: 0;
+    opacity: 1 \9;
+    /*just in case ie*/
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 2s;
+    -moz-animation-duration: 2s;
+    animation-duration: 2s;
+}
+.fade-in {
+    opacity: 0;
+    opacity: 1 \9;
+    /*just in case ie*/
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 2s;
+    -moz-animation-duration: 2s;
+    animation-duration: 2s;
 }
 
-.transbox span img {
+
+.loginDiv {
+    min-width: 350px
+}
+
+.fade-in {
+    opacity: 0;
+    opacity: 1 \9; /*just in case ie*/
+    -webkit-animation: fadeIn ease-in 1;
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 1s;
+    -moz-animation-duration: 1s;
+    animation-duration: 1s;
+}
+
+.fade-in.logo {
     margin: 10%;
     height: 100%;
     width: 100%;
     display: block;
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+    animation-delay: 0.1s;
 }
 
-.loginDiv {
-    min-width: 350px
+.fade-in.title {
+    margin: 10%;
+    font-weight: bold;
+    color: #000000;
+    -webkit-animation-delay: 1s;
+    -moz-animation-delay: 1s;
+    animation-delay: 1s;
+}
+
+
+/* Keyframes for the fade-in */
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
