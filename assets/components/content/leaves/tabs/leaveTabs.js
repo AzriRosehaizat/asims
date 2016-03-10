@@ -138,7 +138,7 @@ application
                     rowEntity.administrativeBalance -= res
                     .data
                     .filter(function( value ){
-                        return value.leaveCreditType === 'Administrative';
+                        return value.leaveDebitType === 'Administrative';
                     })
                     .map(function( value ){
                         return value.amount;
@@ -150,7 +150,7 @@ application
                     rowEntity.researchBalance -= res
                     .data
                     .filter(function( value ){
-                        return value.leaveCreditType === 'Research';
+                        return value.leaveDebitType === 'Research';
                     })
                     .map(function( value ){
                         return value.amount;
