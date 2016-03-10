@@ -2,41 +2,52 @@ application.service('reportService', function() {
 
     this.getStaffInfo = function(info) {
         return {
-            text: 'Name: ' + info.name + '\nDepartment: ' + info.department + '\nRank: ' + info.rank,
-            style: 'section'
+            columns: [{
+                width: 'auto',
+                text: 'NAME \nDEPARTMENT \nRANK',
+                style: 'sectionHeader'
+            }, {
+                width: 'auto',
+                text: info.name + '\n' + info.department + '\n' + info.rank,
+                style: 'section'
+            }],
+            columnGap: 10
+        };
+    };
+
+    this.setTable = function(data) {
+        var columns = Object.keys(data[0]);
+
+        return {
+            table: {
+                headerRows: 1,
+                style: 'table',
+                body: setTableBody(data, columns)
+            }
         };
     };
 
     function setTableBody(data, columns) {
         var body = [];
-        body.push(columns);
+
         data.forEach(function(row) {
             var dataRow = [];
             columns.forEach(function(column) {
+                if (row[column] === 0) row[column] = '';
                 dataRow.push(row[column].toString());
             });
             body.push(dataRow);
         });
+
         return body;
     }
 
-    this.setTableHead = function(table) {
-        var column = Object.keys(table);
-        return {
-            table: {
-                headerRows: 1,
-                style: table,
-                body: setTableBody(table, column)
-            }
-        };
-    };
-
     this.setFooter = function() {
         return {
-            style: 'table',
+            style: 'footer',
             table: {
                 body: [
-                    ["Faculty Member's Signature _________________", "Chair's Signature _____________________"],
+                    ["Faculty Member's Signature _________________", "Chair's Signature ____________________________"],
                     [{
                         table: {
                             widths: [180, 50],
@@ -56,31 +67,39 @@ application.service('reportService', function() {
                     }]
                 ]
             },
-            layout: 'noBorders',
-            pageBreak: 'after'
+            layout: 'noBorders'
         };
     };
-    
+
     this.setStyle = function() {
         return {
             header: {
-                fontSize: 18,
                 bold: true,
+                fontSize: 18,
                 alignment: "center"
             },
-            section: {
-                fontSize: 15,
+            sectionHeader: {
                 bold: true,
-                margin: [0, 5, 0, 5]
+                fontSize: 12,
+                margin: [0, 10, 0, 10]
             },
-            table: {
-                alignment: "center",
-                margin: [0, 5, 0, 15]
+            section: {
+                fontSize: 12,
+                margin: [0, 10, 0, 10]
             },
             tableHeader: {
                 bold: true,
                 fontSize: 13,
+                margin: [0, 20, 0, 10],
                 color: 'black'
+            },
+            table: {
+                alignment: "center",
+                margin: [0, 10, 0, 10]
+            },
+            footer: {
+                alignment: "center",
+                margin: [0, 40, 0, 10]
             }
         };
     };

@@ -1,4 +1,4 @@
-application.service('loadChartService', function($mdDialog, reportService) {
+application.service('loadChartService', function($mdDialog, _, moment, reportService) {
 
     var self = this;
     var docDefinition = {
@@ -22,37 +22,145 @@ application.service('loadChartService', function($mdDialog, reportService) {
             .then(function(range) {
                 console.log(tabs);
                 docDefinition.content = [];
-                
+
                 var data = formatData(entity, tabs, range);
                 generateReport(data);
                 openPdf();
             });
     };
-    
+
     function formatData(entity, tabs, range) {
         var data = {};
-        
-        // Regular staff information
+
+        /******************** Regular staff information ***********************/
         entity.name = entity.firstName + ' ' + entity.lastName;
         data.info = entity;
-        
-        var tActivity = tabs.teachingActivity.gridOptions.data;
-        var overload  = tabs.overload.gridOptions.data;
-        var FCECredit = tabs.FCECredit.gridOptions.data;
-        var FCEDebit  = tabs.FCEDebit.gridOptions.data;
-        var load      = tabs.load.gridOptions.data;
-        var reduction = tabs.loadReduction.gridOptions.data;
-        
-        // Main table
-        data.main = {};
-        
-        // Overload course table
-        data.overload = {};
-        
-        // Load reduction table
-        data.reduction = {};
-        
+
+        /*************************** Data objects *****************************/
+        var loadData = tabs.load.gridOptions.data;
+        var reductionData = tabs.loadReduction.gridOptions.data;
+        var tActivityData = tabs.teachingActivity.gridOptions.data;
+        var overloadData = tabs.overload.gridOptions.data;
+        var creditData = tabs.FCECredit.gridOptions.data;
+        var debitData = tabs.FCEDebit.gridOptions.data;
+
+        /**************************** Main table ******************************/
+        data.main = [];
+        data.main.push(buildMainRow('Year', 'Normal Load', 'Reduced Load', 'Actual Teaching Load', 'Owed FCEs', 'Banked FCEs'));
+
+        for (var year = range[0]; year <= range[1]; year++) {
+
+            // Get normal load
+            var load = _.findLast(loadData, function(load) {
+                return validateDate(load, year);
+            });
+            var normal = (load) ? load.FCEValue : 0;
+
+            // Get reduced load
+            var reduced = normal;
+            _.forEach(reductionData, function(reduction) {
+                if (validateDate(reduction, year)) {
+                    reduced -= reduction.FCEValue;
+                }
+            });
+
+            // Get owed FCEs
+            var owed = 0;
+            _.forEach(creditData, function(credit) {
+                if (moment(credit.dateIssued).year() === year) {
+                    owed += credit.FCEValue;
+                }
+            });
+
+            // Get banked FCEs
+            var banked = 0;
+            _.forEach(debitData, function(debit) {
+                if (moment(debit.dateIssued).year() === year) {
+                    banked += debit.FCEValue;
+                }
+            });
+
+            // Get teaching activity load
+            // Get an array of teaching activities for the year
+            var TAs = _.filter(tActivityData, function(TA) {
+                return TA.year === year;
+            });
+
+            // Push first row in the year with all information
+            var teaching = (TAs[0]) ? TAs[0].departmentCode + '-' + TAs[0].courseNo + '-' + TAs[0].sectionNo + '(' + TAs[0].term + ')' : '';
+            data.main.push(buildMainRow(year, normal, reduced, teaching, owed, banked));
+            // remove the first element
+            TAs.shift();
+
+            // Push other rows with only teaching information
+            _.forEach(TAs, function(TA) {
+                teaching = TA.departmentCode + '-' + TA.courseNo + '-' + TA.sectionNo + '(' + TA.term + ')';
+                data.main.push(buildMainRow('', '', '', teaching, '', ''));
+            });
+        }
+
+        /*********************** Overload course table ************************/
+        data.overload = [];
+        data.overload.push(buildOverloadRow('Year', 'Term', 'FCEs', 'Course number/section', 'Amount paid'));
+
+        for (var year = range[0]; year <= range[1]; year++) {
+            _.forEach(overloadData, function(o) {
+                if (o.year === year) {
+                    var courseSection = o.departmentCode + '-' + o.courseNo + '-' + o.sectionNo;
+                    data.overload.push(buildOverloadRow(year, o.term, o.FCEValue, courseSection, '$' + o.amount));
+                }
+            });
+        }
+
+        /*********************** Load reduction table *************************/
+        data.reduction = [];
+        data.reduction.push(buildReductionRow('Year', 'Date', 'Reason', 'Reduction in FCEs'));
+
+        for (var year = range[0]; year <= range[1]; year++) {
+            _.forEach(reductionData, function(r) {
+                if (validateDate(r, year)) {
+                    data.reduction.push(buildReductionRow(year, r.startDate, r.description, r.FCEValue));
+                }
+            });
+        }
+
         return data;
+    }
+
+    function buildMainRow(year, normal, reduced, teaching, owed, banked) {
+        return {
+            year: year,
+            normal: normal,
+            reduced: reduced,
+            teaching: teaching,
+            owed: owed,
+            banked: banked
+        };
+    }
+
+    function buildOverloadRow(year, term, FCEs, courseSection, amount) {
+        return {
+            year: year,
+            term: term,
+            FCEs: FCEs,
+            courseSection: courseSection,
+            amount: amount
+        };
+    }
+
+    function buildReductionRow(year, date, reason, reduction) {
+        return {
+            year: year,
+            date: date,
+            reason: reason,
+            reduction: reduction
+        };
+    }
+
+    function validateDate(data, academicYear) {
+        var sDateValid = (moment(data.startDate).year() <= academicYear);
+        var eDateValid = (data.endDate === null || academicYear <= moment(data.endDate).year());
+        return sDateValid && eDateValid;
     }
 
     function generateReport(data) {
@@ -61,17 +169,15 @@ application.service('loadChartService', function($mdDialog, reportService) {
                 style: 'header'
             },
             reportService.getStaffInfo(data.info),
-            // reportService.setTableHead(data.main),
-            {
-                text: "Overload Teaching ",
+            reportService.setTable(data.main), {
+                text: "Overload Teaching",
                 style: "tableHeader"
             },
-            //reportService.setTableHead(data.overload),
-            {
-                text: "Load Reductions ",
+            reportService.setTable(data.overload), {
+                text: "Load Reduction",
                 style: "tableHeader"
             },
-            //reportService.setTableHead(data.reduction),
+            reportService.setTable(data.reduction),
             reportService.setFooter()
         );
     }
