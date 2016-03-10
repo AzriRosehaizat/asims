@@ -1,19 +1,19 @@
-application.controller('gridController', function(navRightBarService, CurrentUser) {
+application
+    .controller('gridController', function(navRightBarService, CurrentUser) {
     
-    var self = this;
-    var userRole;
+        var self = this;
+        var userRole;
+        
+        self.toggle = function() {
+            navRightBarService.toggle();
+        };
+        
+        self.isReader = function() {
+            if (!userRole) userRole = CurrentUser.getRole();
+            return (userRole === "reader");    
+        };
     
-    self.toggle = function() {
-        navRightBarService.toggle();
-    };
-    
-    self.isReader = function() {
-        if (!userRole) userRole = CurrentUser.getRole();
-        return (userRole === "reader");    
-    };
-    
-})
-
+    })
 	.config(function($provide) {
 		$provide.decorator('GridOptions', function($delegate, uiGridConstants) {
 			var gridOptions;
@@ -33,6 +33,7 @@ application.controller('gridController', function(navRightBarService, CurrentUse
 				initOptions.exporterMenuPdf = false;
 				initOptions.gridMenuCustomItems = [{
 					title: 'Toggle Filters',
+                    icon: 'ui-grid-icon-filter',
 					action: function($event) {
 						initOptions.enableFiltering = (!initOptions.enableFiltering);
 						this.grid.api.core.notifyDataChange(uiGridConstants.dataChange.COLUMN);
