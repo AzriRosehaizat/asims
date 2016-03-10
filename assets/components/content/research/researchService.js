@@ -7,9 +7,6 @@ application.service('researchService', function($http, formService) {
                     name: 'Title',
                     field: 'title'
                 }, {
-                    name: 'Abstract',
-                    field: 'abstract'
-                }, {
                     name: 'Start Date',
                     field: 'startDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
@@ -32,7 +29,7 @@ application.service('researchService', function($http, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Research';
+            formData.title = 'Research';
             formData.inputs = [{
                 type: "text",
                 name: "title",
@@ -45,12 +42,13 @@ application.service('researchService', function($http, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End Date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'researchService', true);
@@ -61,7 +59,7 @@ application.service('researchService', function($http, formService) {
             
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Research';
+            formData.title = 'Research';
             formData.inputs = [{
                 type: "text",
                 name: "title",
@@ -74,12 +72,13 @@ application.service('researchService', function($http, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
+                minDate: "startDate",
                 required: true
             }];
 

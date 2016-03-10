@@ -1,4 +1,4 @@
-application.service('formService', function($injector, $mdDialog, _, toaster, moment) {
+application.service('formService', function($injector, $mdDialog, _, moment, toaster, CurrentUser) {
 
     var self = this;
     self.form;
@@ -7,9 +7,10 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     var grid, row, service;
     var mainRow, mainService, isMain;
+    var years = [];
 
     self.init = function(formData, gridData, rowData, serviceName, main) {
-        self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
+        handleRoleControl(formData, gridData);
 
         self.formData = formData;
         grid = gridData;
@@ -28,19 +29,11 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
     };
 
     self.submit = function(formData) {
-        var startDate = formData.model.startDate;
-        var endDate = formData.model.endDate;
-
-        if (endDate < startDate && endDate != null) {
-            toaster.warning("Start Date has to be greater than End Date");
+        if (formData.isEditing) {
+            self.update(row, formData);
         }
         else {
-            if (formData.isEditing) {
-                self.update(row, formData);
-            }
-            else {
-                self.create(grid, formData);
-            }
+            self.create(grid, formData);
         }
     };
 
@@ -53,7 +46,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                 resetValidation(self.form);
                 _.merge(row.entity, res.data);
                 updateMainRow();
-                
+
                 toaster.done("Updated successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -73,7 +66,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                 grid.unshift(res.data);
                 formData.model = {};
                 updateMainRow();
-                
+
                 toaster.done("Added successfully!");
             }, function(err) {
                 toaster.error(err);
@@ -107,7 +100,7 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                     resetValidation(self.form);
                     grid.splice(index, 1);
                     updateMainRow();
-                    
+
                     var mRow = (isMain) ? null : mainRow;
                     service.initAddForm(formData, grid, mRow);
                     toaster.done("Deleted successfully!");
@@ -122,6 +115,22 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
 
     self.formatDate = function(datef) {
         return (datef) ? (new moment(datef).toDate()) : null;
+    };
+
+    self.getYears = function() {
+        if (_.isEmpty(years)) {
+            var min = 2000,
+                max = new Date().getFullYear() + 1;
+
+            for (var i = max; i >= min; i--) {
+                years.push(i);
+            }
+        }
+        return years;
+    };
+
+    self.getTerms = function() {
+        return ["Fall", "Winter", "Fall/Winter", "Spring"];
     };
 
     function resetValidation(form) {
@@ -140,6 +149,28 @@ application.service('formService', function($injector, $mdDialog, _, toaster, mo
                 }, function(err) {
                     toaster.error(err);
                 });
+        }
+    }
+
+    function handleRoleControl(formData, gridData) {
+        // Toggle form buttons by user's role
+        if (CurrentUser.getRole() === "reader") {
+            self.readOnly = true;
+            // Set all inputs as readonly
+            _.forEach(formData.inputs, function(input) {
+                if (input.type === "autocomplete") {
+                    input.type = "text";
+                    input.disabled = false; // autocomplete disabled uses a function, so set to false
+                }
+                input.readonly = true;
+            });
+        }
+        else {
+            self.readOnly = (gridData.readOnly) ? gridData.readOnly : false;
+            // Modifiy form title when it's not readonly
+            if (!self.readOnly) {
+                formData.title = (formData.isEditing) ? "Edit " + formData.title : "Add " + formData.title;
+            }
         }
     }
 });

@@ -78,7 +78,7 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 });
         },
         getStaff: function(staff, row) {
-            $http.get('/regularStaff/getInfo?type=research&id=' + row.entity.researchID)
+            $http.get('/regularStaff/getInfo?type=researchStaff&id=' + row.entity.researchID)
                 .then(function(res) {
                     staff.gridOptions.data = res.data;
                 });

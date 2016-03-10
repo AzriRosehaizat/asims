@@ -28,11 +28,15 @@ module.exports = {
 		var data = {
 			id: req.param('id'),
 			type: req.param('type'),
-			where: req.param('where')
+			where: req.param('where'),
+			search: req.param('search')
 		};
 		switch (data.type) {
 			case 'teaching':
-				RegularStaffService.getTeachingActivity(data.id, data.where, responseFn);
+				RegularStaffService.getTeachingActivity(data.id, data.where, data.search, responseFn);
+				break;
+			case 'overload':
+				RegularStaffService.getOverload(data.id, data.where, responseFn);
 				break;
 			case 'department':
 				RegularStaffService.getDepartment(data.id, data.where, responseFn);
@@ -50,8 +54,12 @@ module.exports = {
 				RegularStaffService.getLeaveDebits(data.id, data.where, responseFn);
 				break;
 			case 'research':
+				RegularStaffService.getResearch(data.id, data.where, responseFn);
+				break;
+			case 'researchStaff':
 				RegularStaffService.getResearchStaff(data.id, data.where, responseFn);
 				break;
+			
 			default:
 				res.serverError();
 				console.log("Incorrect REST url");

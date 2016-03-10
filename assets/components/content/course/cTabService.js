@@ -4,14 +4,23 @@ application.service('cTabService', function($http, cSection) {
         tabs: function() {
             return {
                 section: {
-                    title: 'Section',
+                    title: 'Teaching History',
                     gridOptions: {
                         columnDefs: [{
+                            name: 'First Name',
+                            field: 'firstName'
+                        }, {
+                            name: 'Last Name',
+                            field: 'lastName'
+                        }, {
                             name: 'Section No.',
                             field: 'sectionNo'
                         }, {
-                            name: 'Type',
-                            field: 'sectionType'
+                            name: 'Term',
+                            field: 'term',
+                        }, {
+                            name: 'Year',
+                            field: 'year',
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
@@ -21,9 +30,8 @@ application.service('cTabService', function($http, cSection) {
                             field: 'endDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
-                            name: 'FCE',
-                            displayName: 'FCE',
-                            field: 'FCEModifier'
+                            name: 'Role',
+                            field: 'role'
                         }]
                     },
                     readOnly: true
@@ -32,7 +40,7 @@ application.service('cTabService', function($http, cSection) {
         },
         initAddForm: function(formData, tab, mainRow) {
             switch (tab.title) {
-                case 'Section':
+                case 'Teaching History':
                     tab.gridOptions.data.readOnly = tab.readOnly;
                     cSection.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -40,7 +48,7 @@ application.service('cTabService', function($http, cSection) {
         },
         initEditForm: function(formData, tab, row) {
             switch (tab.title) {
-                case 'Section':
+                case 'Teaching History':
                     tab.gridOptions.data.readOnly = tab.readOnly;
                     cSection.initEditForm(formData, tab.gridOptions.data, row);
                     break;
@@ -49,11 +57,11 @@ application.service('cTabService', function($http, cSection) {
         getTabs: function(tabs, row) {
             this.getSection(tabs.section, row);
         },
-        getSection: function(section, row){
+        getSection: function(section, row) {
             $http.get('/course/getInfo?type=section&id=' + row.entity.courseID)
                 .then(function(res) {
                     section.gridOptions.data = res.data;
                 });
-        } 
+        }
     };
 });

@@ -26,6 +26,7 @@ application.service('toaster', function($mdToast) {
             this.open("error_outline", text);
         },
         error: function(err) {
+            console.log(err);
             var text = (err.message) ? (err.message) : "Error occurred. Operation cannot be performed at the moment";
             this.open("error_outline", text);
         }

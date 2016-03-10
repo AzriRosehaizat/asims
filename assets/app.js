@@ -1,5 +1,6 @@
-var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.resizeColumns', 'ui.grid.exporter',
-	'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
+var application = angular.module('application', 
+['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
+	'ui.grid.resizeColumns', 'ui.grid.exporter', 'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
 application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
@@ -252,27 +253,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
-			.state('application.sectionOffered', {
-				url: '/sectionOffered',
-				views: {
-					'': {
-						templateUrl: '/components/content/content.html',
-						controller: 'sectionOfferedController'
-					},
-					'grid@application.sectionOffered': {
-						templateUrl: '/components/grid/grid.html',
-						controller: 'gridController as ctrl'
-					}
-				},
-				resolve: {
-					sectionOffered: function($http) {
-						return $http.get('Section_Offered/getSectionOffered');
-					}
-				},
-				data: {
-					dataPage: true
-				}
-			})
 			.state('application.section', {
 				url: '/section',
 				views: {
@@ -344,25 +324,50 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
-			.state('application.leavesTest', {
-				url: '/leavesTest',
+			.state('application.teachingActivityRAS', {
+				url: '/teachingActivityRAS',
 				views: {
 					'': {
-						templateUrl: '/components/content/leavesTest/content.html',
-						controller: 'leavesController'
+						templateUrl: '/components/content/content.html',
+						controller: 'taRASController'
 					},
-					'grid@application.leavesTest': {
+					'grid@application.teachingActivityRAS': {
 						templateUrl: '/components/grid/grid.html',
 						controller: 'gridController as ctrl'
 					},
-					'doubleTabset@application.leavesTest': {
-						templateUrl: '/components/tabset/doubleTabset.html',
+					'tabset@application.teachingActivityRAS': {
+						templateUrl: '/components/tabset/tabset.html',
 						controller: 'tabsetController as ctrl'
 					}
 				},
 				resolve: {
-					staff: function($http) {
+					staffs: function($http) {
 						return $http.get('/regularStaff/getAllRegularStaff');
+					}
+				},
+				data: {
+					dataPage: true
+				}
+			})
+			.state('application.teachingActivityCAS', {
+				url: '/teachingActivityCAS',
+				views: {
+					'': {
+						templateUrl: '/components/content/content.html',
+						controller: 'taCASController'
+					},
+					'grid@application.teachingActivityCAS': {
+						templateUrl: '/components/grid/grid.html',
+						controller: 'gridController as ctrl'
+					},
+					'tabset@application.teachingActivityCAS': {
+						templateUrl: '/components/tabset/tabset.html',
+						controller: 'tabsetController as ctrl'
+					}
+				},
+				resolve: {
+					staffs: function($http) {
+						return $http.get('/contractStaff/getAllContractStaff');
 					}
 				},
 				data: {
@@ -390,6 +395,14 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						controller: 'leaveChartController'
 					}
 				},
+			})
+			.state('application.403', {
+				url: '/Forbidden',
+				templateUrl: '/views/error/403.html'
+			})
+			.state('application.404', {
+				url: '/NotFound',
+				templateUrl: '/views/error/404.html'
 			});
 
 		$urlRouterProvider.otherwise(function($injector) {
@@ -438,7 +451,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 
 				// NOT authenticated - wants any private stuff
 				if (shouldLogin) {
-					$state.go('index');
+					$state.go('application.403');
 					event.preventDefault();
 					return;
 				}
@@ -452,7 +465,10 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						event.preventDefault();
 						return;
 					}
+
 				}
+
+				
 			});
 		});
 	});

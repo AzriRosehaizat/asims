@@ -23,11 +23,8 @@ module.exports = {
 			type: 'string',
 			size: 50
 		},
-		FCEModifier: {
-			type: 'float'
-		},
-		Section_Offered: {
-			collection: 'Section_Offered',
+		TeachingActivities: {
+			collection: 'TeachingActivities',
 			via: 'sectionID'
 		}
 	},

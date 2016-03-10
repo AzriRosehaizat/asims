@@ -1,13 +1,12 @@
-<md-content ng-cloak>
-    
+<md-content class="md-whiteframe-1dp" ng-cloak>
     <md-tabs id="gridTabs" md-dynamic-height md-border-bottom class="md-warn md-hue-2">
-        <md-tab ng-repeat="tab in tabs" ng-click="selectTab(tab)" label="{{tab.title}}">
+        <md-tab ng-repeat="tab in tabs" ng-dblclick="ctrl.redirect(tab)" ng-click="selectTab(tab)"  label="{{tab.title}}">
             <div ui-grid="tab.gridOptions" ui-grid-selection ui-grid-resize-columns class="grid"></div>
         </md-tab>
     </md-tabs>
 
     <md-fab-speed-dial id="tabMenu" class="md-scale md-fab-top-right" md-direction="left" md-open="tabMenu.isOpen" ng-mouseenter="tabMenu.isOpen=true" ng-mouseleave="tabMenu.isOpen=false">
-        <md-fab-trigger ng-hide="tab.readOnly">
+        <md-fab-trigger ng-hide="tab.readOnly || ctrl.isReader()">
             <md-button id="menuFab" class="md-fab md-warn md-hue-2" aria-label="menu">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Menu</md-tooltip>
                 <md-icon md-font-set="material-icons">more_horiz</md-icon>

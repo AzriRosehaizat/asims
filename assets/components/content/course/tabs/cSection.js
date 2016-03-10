@@ -13,34 +13,49 @@ application.service('cSection', function($http, _, formService) {
         },
         initAddForm: function(formData, gridData, mRow) {
             // mainRow = mRow;
-
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Section';
+            formData.title = 'Teaching History';
             formData.inputs = [{
+                type: "text",
+                name: "firstName",
+                label: "First name",
+                readonly: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last name",
+                readonly: true
+            }, {
                 type: "text",
                 name: "sectionNo",
                 label: "Section No.",
                 readonly: true
             }, {
                 type: "text",
-                name: "sectionType",
-                label: "Type",
+                name: "term",
+                label: "Term",
+                readonly: true
+            }, {
+                type: "number",
+                name: "year",
+                label: "Year",
                 readonly: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 readonly: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
+                minDate: "startDate",
                 readonly: true
             }, {
-                type: "number",
-                name: "FCEModifier",
-                label: "FCE",
+                type: "text",
+                name: "role",
+                label: "Role",
                 readonly: true
             }];
 
@@ -52,34 +67,50 @@ application.service('cSection', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Section';
+            formData.title = 'Teaching History';
             formData.inputs = [{
+                type: "text",
+                name: "firstName",
+                label: "First name",
+                readonly: true
+            }, {
+                type: "text",
+                name: "lastName",
+                label: "Last name",
+                readonly: true
+            }, {
                 type: "text",
                 name: "sectionNo",
                 label: "Section No.",
                 readonly: true
             }, {
                 type: "text",
-                name: "sectionType",
-                label: "Type",
+                name: "term",
+                label: "Term",
+                readonly: true
+            }, {
+                type: "number",
+                name: "year",
+                label: "Year",
                 readonly: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 readonly: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date",
+                label: "End Date",
+                minDate: "startDate",
                 readonly: true
             }, {
-                type: "number",
-                name: "FCEModifier",
-                label: "FCE",
+                type: "text",
+                name: "role",
+                label: "Role",
                 readonly: true
             }];
-
+            
             formService.init(formData, gridData, row, 'cSection', false);
         },
     };
