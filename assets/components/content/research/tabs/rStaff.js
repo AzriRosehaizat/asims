@@ -10,10 +10,7 @@ application.service('rStaff', function($http, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.fullName)) {
-                formData.model.regularStaffID = formData.model.fullName.obj.RegularStaff[0].regularStaffID;
-                formData.model.researchID = mainRow.entity.researchID;
-            }
+            formData.model.researchID = mainRow.entity.researchID;
             return $http.post('/RegularStaff_Research/', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.researchID + 
@@ -28,9 +25,9 @@ application.service('rStaff', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
-                type: "acCustom",
+                type: "autocomplete",
                 name: "fullName",
                 label: "Full name",
                 url: {
@@ -46,16 +43,21 @@ application.service('rStaff', function($http, _, formService) {
                         name: "employeeNo"
                     }]
                 },
+                assign: [{
+                    from: "fullName.obj.RegularStaff[0].regularStaffID",
+                    to: "regularStaffID"
+                }],
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End Date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'rStaff', false);
@@ -67,7 +69,7 @@ application.service('rStaff', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "fullName",
@@ -76,12 +78,13 @@ application.service('rStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End Date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rStaff', false);

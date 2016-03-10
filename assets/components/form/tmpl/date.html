@@ -1,10 +1,11 @@
 <div id="dateInput" layout="row" layout-align="start center">
     <md-input-container class="md-block" flex>
         <label>{{input.label}}</label>
-        <input type="date" class="noBrowserPicker"  name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-disabled="input.disabled" ng-required="input.required" ng-readonly="input.readonly">
+        <input type="date" class="noBrowserPicker" name="{{input.name}}" ng-model="fs.formData.model[input.name]" ng-min="fs.formData.model[input.minDate]" ng-disabled="input.disabled" ng-required="input.required" ng-readonly="input.readonly">
         <div ng-messages="fs.form[input.name].$error" ng-show="fs.form[input.name].$touched">
             <div ng-messages-include="/components/validate/messages.html"></div>
         </div>
+        <md-tooltip md-direction="top" md-visible="tooltipVisible" ng-if="input.readonly">Read only</md-tooltip>
     </md-input-container>
-    <md-datepicker ng-model="fs.formData.model[input.name]"></md-datepicker>
+    <md-datepicker ng-model="fs.formData.model[input.name]" ng-if="!input.readonly" md-min-date="fs.formData.model[input.minDate]"></md-datepicker>
 </div>

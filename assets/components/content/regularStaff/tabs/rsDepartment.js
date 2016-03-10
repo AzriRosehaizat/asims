@@ -4,9 +4,6 @@ application.service('rsDepartment', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.departmentID = formData.model.title.obj.departmentID;
-            }
             return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=department&id=' + formData.model.academicStaffID +
@@ -14,11 +11,7 @@ application.service('rsDepartment', function($http, _, formService) {
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.title)) {
-                formData.model.departmentID = formData.model.title.obj.departmentID;
-            }
             formData.model.academicStaffID = mainRow.entity.academicStaffID;
-
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
                     return $http.get('/regularStaff/getInfo?type=department&id=' + formData.model.academicStaffID +
@@ -33,7 +26,7 @@ application.service('rsDepartment', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Department';
+            formData.title = 'Department';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -47,15 +40,21 @@ application.service('rsDepartment', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
+                assign: [{
+                    from: "title.obj.departmentID",
+                    to: "departmentID"
+                }],
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date"
+                label: "Start Date",
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End Date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'rsDepartment', false);
@@ -66,7 +65,7 @@ application.service('rsDepartment', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Department';
+            formData.title = 'Department';
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
@@ -80,15 +79,21 @@ application.service('rsDepartment', function($http, _, formService) {
                     obj: {},
                     name: "title"
                 },
+                assign: [{
+                    from: "title.obj.departmentID",
+                    to: "departmentID"
+                }],
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date"
+                label: "Start Date",
+                required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End date"
+                label: "End Date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'rsDepartment', false);

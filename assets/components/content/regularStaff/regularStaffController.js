@@ -28,9 +28,8 @@ application.controller('regularStaffController', function($scope, staffs, regula
     };
 
     $scope.editRow = function() {
-        if ($scope.row) {
+        if ($scope.row)
             regularStaffService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
-        }
         else
             toaster.info("Select a row first.");
     };
@@ -69,6 +68,12 @@ application.controller('regularStaffController', function($scope, staffs, regula
         });
     };
 
+    $scope.tabs.research.gridOptions.onRegisterApi = function(gridApi) {
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            rsTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
     $scope.addTabRow = function() {
         if ($scope.row)
             rsTabService.initAddForm($scope.formData, $scope.tab, $scope.row);

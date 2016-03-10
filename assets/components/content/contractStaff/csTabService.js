@@ -1,4 +1,4 @@
-application.service('csTabService', function($http, csTA, csRTR, csDepartment, csRank, csEmployment) {
+application.service('csTabService', function($http, csTA, csDepartment, csRank, csEmployment) {
 
     return {
         tabs: function() {
@@ -19,6 +19,12 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                             name: 'Title',
                             field: 'title',
                         }, {
+                            name: 'Term',
+                            field: 'term',
+                        }, {
+                            name: 'Year',
+                            field: 'year',
+                        }, {
                             name: 'Start Date',
                             field: 'startDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
@@ -33,32 +39,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                         }, {
                             name: 'Role',
                             field: 'role'
-                        }]
-                    }
-                },
-                rightToRefuse: {
-                    title: 'Right to Refuse',
-                    gridOptions: {
-                        columnDefs: [{
-                            name: 'Dept. Code',
-                            field: 'departmentCode'
-                        }, {
-                            name: 'Course No.',
-                            field: 'courseNo',
-                        }, {
-                            name: 'Section No.',
-                            field: 'sectionNo',
-                        }, {
-                            name: 'Title',
-                            field: 'title',
-                        }, {
-                            name: 'Start Term',
-                            field: 'startTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
-                        }, {
-                            name: 'End Term',
-                            field: 'endTerm',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -120,9 +100,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Teaching Activity':
                     csTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Right to Refuse':
-                    csRTR.initAddForm(formData, tab.gridOptions.data, mainRow);
-                    break;
                 case 'Department':
                     csDepartment.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -139,9 +116,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
                 case 'Teaching Activity':
                     csTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Right to Refuse':
-                    csRTR.initEditForm(formData, tab.gridOptions.data, row);
-                    break;
                 case 'Department':
                     csDepartment.initEditForm(formData, tab.gridOptions.data, row);
                     break;
@@ -155,7 +129,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
         },
         getTabs: function(tabs, row) {
             this.getTeachingActivity(tabs.teachingActivity, row);
-            this.getRightToRefuse(tabs.rightToRefuse, row);
             this.getDepartment(tabs.department, row);
             this.getRank(tabs.rank, row);
             this.getEmployment(tabs.employment, row);
@@ -164,12 +137,6 @@ application.service('csTabService', function($http, csTA, csRTR, csDepartment, c
             $http.get('/contractStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
                 .then(function(res) {
                     teachingActivity.gridOptions.data = res.data;
-                });
-        },
-        getRightToRefuse: function(rightToRefuse, row) {
-            $http.get('/contractStaff/getInfo?type=rightToRefuse&id=' + row.entity.contractStaffID)
-                .then(function(res) {
-                    rightToRefuse.gridOptions.data = res.data;
                 });
         },
         getDepartment: function(department, row) {

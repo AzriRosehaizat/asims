@@ -26,11 +26,11 @@ application.service('leaveDebit', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Leave Debit';
+            formData.title = 'Leave Debit';
             formData.inputs = [{
-                type: "number",
+                type: "currency",
                 name: "amount",
-                label: "Amount",
+                label: "Amount (CAD)",
                 required: true
             }, {
                 type: "date",
@@ -55,11 +55,11 @@ application.service('leaveDebit', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Leave Debit';
+            formData.title = 'Leave Debit';
             formData.inputs = [{
-                type: "number",
+                type: "currency",
                 name: "amount",
-                label: "Amount",
+                label: "Amount (CAD)",
                 required: true
             }, {
                 type: "date",

@@ -60,37 +60,29 @@ application.service('regularStaffService', function($http, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No.",
-                disabled: false,
-                required: false
+                label: "Employee No."
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date",
-                disabled: false,
-                required: false
+                label: "Tenure date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date",
-                disabled: false,
-                required: false
+                label: "Cont' appointment date"
             }];
 
             formService.init(formData, gridData, null, 'regularStaffService', true);
@@ -101,37 +93,29 @@ application.service('regularStaffService', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
                 label: "First name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
                 label: "Last name",
-                disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No.",
-                disabled: false,
-                required: false
+                label: "Employee No."
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date",
-                disabled: false,
-                required: false
+                label: "Tenure date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date",
-                disabled: false,
-                required: false
+                label: "Cont' appointment date"
             }];
 
             formService.init(formData, gridData, row, 'regularStaffService', true);

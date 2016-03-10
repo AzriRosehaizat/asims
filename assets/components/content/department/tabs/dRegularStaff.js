@@ -3,19 +3,13 @@ application.service('dRegularStaff', function($http, _, formService) {
 
     return {
         update: function(formData) {
-            if (_.isObject(formData.model.fullName)) {
-                formData.model.academicStaffID = formData.model.fullName.obj.academicStaffID;
-            }
             return $http.put('/AcademicStaff_Department/' + formData.model.academicStaffDepartmentID, formData.model)
                 .then(function(res) {
                     return $http.get('/department/getInfo?type=regularStaff&id=' + res.data.departmentID.departmentID + '&where=' + res.data.academicStaffDepartmentID);
                 });
         },
         create: function(formData) {
-            if (_.isObject(formData.model.fullName)) {
-                formData.model.academicStaffID = formData.model.fullName.obj.academicStaffID;
-                formData.model.departmentID = mainRow.entity.departmentID;
-            }
+            formData.model.departmentID = mainRow.entity.departmentID;
             return $http.post('/AcademicStaff_Department', formData.model)
                 .then(function(res) {
                     return $http.get('/department/getInfo?type=regularStaff&id=' + res.data.departmentID + '&where=' + res.data.academicStaffDepartmentID);
@@ -29,9 +23,9 @@ application.service('dRegularStaff', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Regular Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
-                type: "acCustom",
+                type: "autocomplete",
                 name: "fullName",
                 label: "Full name",
                 url: {
@@ -47,16 +41,21 @@ application.service('dRegularStaff', function($http, _, formService) {
                         name: "employeeNo"
                     }]
                 },
+                assign: [{
+                    from: "fullName.obj.academicStaffID",
+                    to: "academicStaffID"
+                }],
                 required: true
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End Date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'dRegularStaff', false);
@@ -68,7 +67,7 @@ application.service('dRegularStaff', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Regular Staff';
+            formData.title = 'Regular Staff';
             formData.inputs = [{
                 type: "text",
                 name: "fullName",
@@ -77,12 +76,13 @@ application.service('dRegularStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start date",
+                label: "Start Date",
                 required: true
             }, {
                 type: "date",
                 name: "endDate",
-                label: "End Date"
+                label: "End Date",
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'dRegularStaff', false);

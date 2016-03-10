@@ -3,7 +3,8 @@ var cssFilesToInject = [
   'bower_components/angular-material/angular-material.min.css',
   'bower_components/angular-ui-grid/ui-grid.min.css',
   'components/**/*.css',
-  'custom.css'
+  'custom.css',
+  'views/**/*.css'
 ];
 
 var jsFilesToInject = [

@@ -22,14 +22,15 @@ module.exports = {
 		var data = {
 			id: req.param('id'),
 			type: req.param('type'),
-			where: req.param('where')
+			where: req.param('where'),
+			search: req.param('search')
 		};
 		switch (data.type) {
 			case 'teaching':
-				ContractStaffService.getTeachingActivity(data.id, data.where, responseFn);
+				ContractStaffService.getTeachingActivity(data.id, data.where, data.search, responseFn);
 				break;
-			case 'rightToRefuse':
-				ContractStaffService.getRightToRefuse(data.id, data.where, responseFn);
+			case 'rightToRefusal':
+				ContractStaffService.getRightToRefusal(data.id, data.where, responseFn);
 				break;
 			case 'department':
 				ContractStaffService.getDepartment(data.id, data.where, responseFn);

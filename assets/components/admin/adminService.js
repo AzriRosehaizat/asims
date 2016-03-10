@@ -43,7 +43,7 @@ application.service('adminService', function($http, _, moment, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add User';
+            formData.title = 'User';
             formData.inputs = [{
                 type: "text",
                 name: "username",
@@ -65,7 +65,7 @@ application.service('adminService', function($http, _, moment, formService) {
                 label: "Email",
                 required: true
             }, {
-                type: "select",
+                type: "role",
                 name: "role",
                 label: "Role",
                 items: [{
@@ -98,7 +98,7 @@ application.service('adminService', function($http, _, moment, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit User';
+            formData.title = 'User';
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
@@ -115,7 +115,7 @@ application.service('adminService', function($http, _, moment, formService) {
                 label: "Email",
                 required: true
             }, {
-                type: "select",
+                type: "role",
                 name: "role",
                 label: "Role",
                 items: [{

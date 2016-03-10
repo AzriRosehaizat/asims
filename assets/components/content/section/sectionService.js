@@ -9,19 +9,11 @@ application.service('sectionService', function($http, _, formService) {
                 }, {
                     name: 'Section Type',
                     field: 'sectionType'
-                }, {
-                    name: 'FCE Modifier',
-                    field: 'FCEModifier'
                 }]
             };
         },
         update: function(formData) {
-            return $http.put('/Section/' + formData.model.sectionID, formData.model)
-                .then(function(res) {
-                    // Section_Offered causes an error
-                    delete(res.data.Section_Offered);
-                    return res;
-                });
+            return $http.put('/Section/' + formData.model.sectionID, formData.model);
         },
         create: function(formData) {
             return $http.post('/Section/', formData.model);
@@ -32,7 +24,7 @@ application.service('sectionService', function($http, _, formService) {
         initAddForm: function(formData, gridData) {
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Add Section';
+            formData.title = 'Section';
             formData.inputs = [{
                 type: "text",
                 name: "sectionNo",
@@ -42,11 +34,6 @@ application.service('sectionService', function($http, _, formService) {
                 type: "text",
                 name: "sectionType",
                 label: "Section Type",
-                required: true
-            }, {
-                type: "number",
-                name: "FCEModifier",
-                label: "FCE Modifier",
                 required: true
             }];
 
@@ -55,7 +42,7 @@ application.service('sectionService', function($http, _, formService) {
         initEditForm: function(formData, gridData, row) {
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Edit Section';
+            formData.title = 'Section';
             formData.inputs = [{
                 type: "text",
                 name: "sectionNo",
@@ -65,11 +52,6 @@ application.service('sectionService', function($http, _, formService) {
                 type: "text",
                 name: "sectionType",
                 label: "Section Type",
-                required: true
-            }, {
-                type: "number",
-                name: "FCEModifier",
-                label: "FCE Modifier",
                 required: true
             }];
 
