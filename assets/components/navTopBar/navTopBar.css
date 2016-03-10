@@ -19,3 +19,8 @@
 .smallMargin {
     margin-right: 8px !important;
 }
+
+.userBtn {
+    text-transform: none;
+    
+}
