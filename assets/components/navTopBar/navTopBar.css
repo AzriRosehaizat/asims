@@ -15,3 +15,7 @@
 #navbar-top #username {
     margin-left: 4px;
 }
+
+.smallMargin {
+    margin-right: 8px !important;
+}
