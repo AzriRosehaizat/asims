@@ -11,17 +11,17 @@ application.service('counterService', function($http) {
     }, {
         title: "Researches",
         data: '',
-        footer: "in Progress"
+        footer: "In Progress"
     }]);
 
     self.rows.push([{
         title: "Regular Staff",
         data: '',
-        footer: "currently employed"
+        footer: "Currently Employed"
     }, {
         title: "Contract Staff",
         data: '',
-        footer: "currently employed"
+        footer: "Currently Employed"
     }]);
 
 
