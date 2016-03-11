@@ -8,22 +8,23 @@ application.controller('loadChartController', function($scope, reportService) {
         content: [],
         styles: {
             header: {
-                fontSize: 18,
+                fontSize: 11,
                 bold: true,
                 alignment: "center"
             },
             section: {
-                fontSize: 15,
+                fontSize: 11,
                 bold: true,
                 margin: [0, 5, 0, 5]
             },
             table: {
                 alignment: "center",
+                fontSize: 11,
                 margin: [0, 5, 0, 15]
             },
             tableHeader: {
                 bold: true,
-                fontSize: 13,
+                fontSize: 11,
                 color: 'black'
             }
         }
@@ -38,22 +39,23 @@ application.controller('loadChartController', function($scope, reportService) {
         content: [],
         styles: {
             header: {
-                fontSize: 18,
+                fontSize: 11,
                 bold: true,
                 alignment: "center"
             },
             section: {
-                fontSize: 15,
+                fontSize: 11,
                 bold: true,
                 margin: [0, 5, 0, 5]
             },
             table: {
                 alignment: "center",
+                fontSize: 11,
                 margin: [0, 5, 0, 15]
             },
             tableHeader: {
                 bold: true,
-                fontSize: 13,
+                fontSize: 11,
                 color: 'black'
             }
         }
