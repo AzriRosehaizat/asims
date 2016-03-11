@@ -24,6 +24,7 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 },
                 staff: {
                     title: 'Staff',
+                    link: 'application.regularStaff',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',

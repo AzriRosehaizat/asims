@@ -5,6 +5,7 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
             return {
                 teachingActivity: {
                     title: 'Teaching Activity',
+                    link: 'application.teachingActivityCAS',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',
@@ -44,6 +45,7 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
                 },
                 department: {
                     title: 'Department',
+                    link: 'application.department',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Code',
@@ -64,6 +66,7 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
                 },
                 rank: {
                     title: 'Rank',
+                    link: 'application.rank',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Name',

@@ -5,6 +5,7 @@ application.service('fTabService', function($http, fDepartment) {
             return {
                 department: {
                     title: 'Department',
+                    link: 'application.department',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Code',
