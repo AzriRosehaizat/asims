@@ -1,7 +1,9 @@
 <div class="custom-header" layout="column" layout-align="space-between">
     <div layout="row" layout-align="space-between">
         <div>
-            <span class="md-display-1 font-weight-300">Welcome back, {{user.firstName}}!</span>
+            <span hide-xs class="md-display-1 font-weight-300">Welcome back, {{user.firstName}}!</span>
+            <!-- Show when width < 600px-->
+            <span show-xs hide-gt-xs class="md-headline font-weight-300">Welcome back, {{user.firstName}}!</span>
             <p>Last Logged in: {{lastLogin}}</p>
         </div>
     </div>
