@@ -17,11 +17,11 @@ application.service('counterService', function($http) {
     self.rows.push([{
         title: "Regular Staff",
         data: '',
-        footer: "not retired"
+        footer: "currently employed"
     }, {
         title: "Contract Staff",
         data: '',
-        footer: "not retired"
+        footer: "currently employed"
     }]);
 
 
