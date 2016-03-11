@@ -24,7 +24,7 @@ application
                         field: 'departmentCode'
                     }, {
                         name: 'Rank',
-                        field: 'Rank'
+                        field: 'rank'
                     }],
                     readOnly: true
                 },
