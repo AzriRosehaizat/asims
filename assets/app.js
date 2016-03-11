@@ -398,11 +398,17 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			})
 			.state('application.403', {
 				url: '/Forbidden',
-				templateUrl: '/views/error/403.html'
+				templateUrl: '/views/error/403.html',
+				data: {
+					access: AccessLevels.guest
+				}
 			})
 			.state('application.404', {
 				url: '/NotFound',
-				templateUrl: '/views/error/404.html'
+				templateUrl: '/views/error/404.html',
+				data: {
+					access: AccessLevels.guest
+				}
 			});
 
 		$urlRouterProvider.otherwise(function($injector) {
@@ -435,10 +441,7 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 						event.preventDefault();
 						return;
 					}
-
 				}
-
-				
 			});
 		});
 	});
