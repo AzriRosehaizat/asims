@@ -17,7 +17,7 @@ application.service('taCASService', function($http, _, formService) {
                     field: 'departmentCode'
                 }, {
                     name: 'Rank',
-                    field: 'Rank'
+                    field: 'rank'
                 }],
                 readOnly: true
             };

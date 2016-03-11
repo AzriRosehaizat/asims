@@ -24,7 +24,7 @@ module.exports = {
 		Department.query(sSQL, callback);
 	},
 	getRegularStaff: function(id, where, callback) {
-		var sSQL = mysql.select('a.*', 'rv.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
+		var sSQL = mysql.select('a.*', 'rv.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('MostRecentRank_Regular as rv', 'a.academicStaffID', 'rv.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
@@ -37,7 +37,7 @@ module.exports = {
 		Department.query(sSQL, callback);
 	},
 	getContractStaff: function(id, where, callback) {
-		var sSQL = mysql.select('a.*', 'cv.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as Rank')
+		var sSQL = mysql.select('a.*', 'cv.*', 'ad.academicStaffDepartmentID', 'ad.startDate', 'ad.endDate', 'rk.title as rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('MostRecentRank_Contract as cv', 'a.academicStaffID', 'cv.academicStaffID')
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')

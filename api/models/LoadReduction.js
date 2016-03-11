@@ -23,13 +23,12 @@ module.exports = {
 		description: {
 			type: 'text'
 		},
-		startDate: {
-			type: 'date',
+		year: {
+			type: 'integer',
 			required: true
 		},
-		endDate: {
-			type: 'date',
-			required: true
+		dateIssued: {
+			type: 'date'
 		}
 	},
 	tableName: 'LoadReduction'
