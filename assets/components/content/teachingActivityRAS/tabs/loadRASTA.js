@@ -41,8 +41,6 @@ application.service('loadRASTA', function($http, _, formService) {
             formService.init(formData, gridData, null, 'loadRASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;

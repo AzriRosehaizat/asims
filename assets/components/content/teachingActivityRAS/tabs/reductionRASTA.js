@@ -50,8 +50,7 @@ application.service('reductionRASTA', function($http, _, formService) {
             formService.init(formData, gridData, null, 'reductionRASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
+            row.entity.dateIssued = formService.formatDate(row.entity.dateIssued);
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
