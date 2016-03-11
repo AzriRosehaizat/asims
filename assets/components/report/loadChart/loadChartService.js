@@ -51,15 +51,17 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         for (var year = range[0]; year <= range[1]; year++) {
 
             // Get normal load
-            var load = _.findLast(loadData, function(load) {
-                return validateDate(load, year);
+            var normal = 0;
+            _.forEach(loadData, function(load) {
+                if (load.year === year) {
+                    normal += load.FCEValue;
+                }
             });
-            var normal = (load) ? load.FCEValue : 0;
 
             // Get reduced load
             var reduced = normal;
             _.forEach(reductionData, function(reduction) {
-                if (validateDate(reduction, year)) {
+                if (reduction.year === year) {
                     reduced -= reduction.FCEValue;
                 }
             });
@@ -104,6 +106,7 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         data.overload.push(buildOverloadRow('Year', 'Term', 'FCEs', 'Course number/section', 'Amount paid'));
 
         for (var year = range[0]; year <= range[1]; year++) {
+            
             _.forEach(overloadData, function(o) {
                 if (o.year === year) {
                     var courseSection = o.departmentCode + '-' + o.courseNo + '-' + o.sectionNo;
@@ -117,9 +120,10 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         data.reduction.push(buildReductionRow('Year', 'Date', 'Reason', 'Reduction in FCEs'));
 
         for (var year = range[0]; year <= range[1]; year++) {
+            
             _.forEach(reductionData, function(r) {
-                if (validateDate(r, year)) {
-                    data.reduction.push(buildReductionRow(year, r.startDate, r.description, r.FCEValue));
+                if (r.year === year) {
+                    data.reduction.push(buildReductionRow(year, r.dateIssued, r.description, r.FCEValue));
                 }
             });
         }
@@ -155,12 +159,6 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
             reason: reason,
             reduction: reduction
         };
-    }
-
-    function validateDate(data, academicYear) {
-        var sDateValid = (moment(data.startDate).year() <= academicYear);
-        var eDateValid = (data.endDate === null || academicYear <= moment(data.endDate).year());
-        return sDateValid && eDateValid;
     }
 
     function generateReport(data) {

@@ -34,16 +34,17 @@ application.service('reductionRASTA', function($http, _, formService) {
                 name: "description",
                 label: "Description"
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start Date",
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }, {
                 type: "date",
-                name: "endDate",
-                label: "End Date",
-                minDate: "startDate",
-                required: true
+                name: "dateIssued",
+                label: "Date Issued"
             }];
 
             formService.init(formData, gridData, null, 'reductionRASTA', false);
@@ -65,16 +66,17 @@ application.service('reductionRASTA', function($http, _, formService) {
                 name: "description",
                 label: "Description"
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start Date",
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
             }, {
                 type: "date",
-                name: "endDate",
-                label: "End Date",
-                minDate: "startDate",
-                required: true
+                name: "dateIssued",
+                label: "Date Issued"
             }];
 
             formService.init(formData, gridData, row, 'reductionRASTA', false);
