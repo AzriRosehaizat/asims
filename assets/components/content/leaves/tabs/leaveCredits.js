@@ -201,8 +201,6 @@ application
                         "amount",
                     label: 
                         "Amount",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -212,8 +210,6 @@ application
                         "startDate",
                     label: 
                         "Start Date",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -223,8 +219,6 @@ application
                         "endDate",
                     label: 
                         "End Date",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -243,8 +237,6 @@ application
                         "leaveCreditType",
                     text:
                         "Select a Credit Type",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -253,11 +245,7 @@ application
                     name: 
                         "description",
                     label: 
-                        "Description",
-                    disabled: 
-                        false,
-                    required: 
-                        false
+                        "Description"
                 }
             ];
         }
