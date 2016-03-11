@@ -157,7 +157,7 @@ application.service('adminService', function($http, _, moment, formService) {
                     if (lastLogin) {
                         user.lastLogin = moment(lastLogin.createdAt).fromNow();
                     } else {
-                        user.lastLogin = "Never Logged In";
+                        user.lastLogin = "Never logged in";
                     }
                 }
             });
