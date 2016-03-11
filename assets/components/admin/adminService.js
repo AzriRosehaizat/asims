@@ -19,7 +19,7 @@ application.service('adminService', function($http, _, moment, formService) {
                     name: 'Role',
                     field: 'role.role'
                 }, {
-                    name: 'Last login',
+                    name: 'Last Seen',
                     field: 'lastLogin'
                 }],
                 minRowsToShow: 20
