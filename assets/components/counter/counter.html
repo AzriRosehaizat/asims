@@ -1,6 +1,6 @@
 <div ng-repeat="row in ctrl.rows" flex layout-gt-sm="row" layout-margin>
-    <md-content ng-repeat="counter in row" class="md-whiteframe-1dp" flex-gt-sm="50" layout="column">
-        <div class="md-toolbar-tools">
+    <md-content ng-repeat="counter in row" class="md-whiteframe-1dp" flex-gt-sm="50" layout="column" layout-padding>
+        <div class="md-toolbar-tools" layout-padding>
             <h3>{{ counter.title }}</h3>
         </div>
         <div layout="column" layout-align="center center" >
