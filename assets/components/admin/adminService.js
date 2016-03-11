@@ -19,7 +19,7 @@ application.service('adminService', function($http, _, moment, formService) {
                     name: 'Role',
                     field: 'role.role'
                 }, {
-                    name: 'Last login',
+                    name: 'Last Seen',
                     field: 'lastLogin'
                 }],
                 minRowsToShow: 20
@@ -156,6 +156,8 @@ application.service('adminService', function($http, _, moment, formService) {
                     });
                     if (lastLogin) {
                         user.lastLogin = moment(lastLogin.createdAt).fromNow();
+                    } else {
+                        user.lastLogin = "Never logged in";
                     }
                 }
             });

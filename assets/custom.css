@@ -17,6 +17,10 @@ body {
   overflow-y: auto;
 }
 
+/* Counters Text Color */
+.textColor {
+  color: #B71C1C;
+}
 
 /* Error Pages */
 
