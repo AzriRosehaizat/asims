@@ -57,6 +57,27 @@ application
                 .selection
                 .on
                 .rowSelectionChanged($scope, function(row) {
+                    var index = (
+                        $scope
+                        .gridApi
+                        .selection
+                        .getSelectedRows()
+                        .indexOf(
+                            row
+                            .entity
+                        )
+                    );
+                    
+                    if(index === -1){
+                        $scope  
+                        .gridApi
+                        .selection
+                        .selectRow( 
+                            row.entity 
+                        );  
+                        return;
+                    }
+                    
                     $scope
                     .row = (
                         row
