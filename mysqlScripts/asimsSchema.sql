@@ -355,8 +355,8 @@ CREATE TABLE IF NOT EXISTS `LoadIncrease` (
   `loadIncreaseID` INT(11) NOT NULL AUTO_INCREMENT,
   `regularStaffID` INT(11) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
+  `year` INT(4) NOT NULL,
+  `dateIssued` DATE NULL DEFAULT NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
   PRIMARY KEY (`loadIncreaseID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
@@ -376,8 +376,8 @@ CREATE TABLE IF NOT EXISTS `LoadReduction` (
   `loadReductionID` INT(11) NOT NULL AUTO_INCREMENT,
   `regularStaffID` INT(11) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
+  `year` INT(4) NOT NULL,
+  `dateIssued` DATE NULL DEFAULT NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
   PRIMARY KEY (`loadReductionID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
@@ -552,8 +552,8 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   `academicStaffID` INT(11) NOT NULL,
   `courseID` INT(11) NOT NULL,
   `sectionID` INT(11) NOT NULL,
-  `term` VARCHAR(45) NULL DEFAULT 'Fall/Winter',
-  `year` INT(4) NULL DEFAULT 2016,
+  `term` VARCHAR(45) NOT NULL DEFAULT 'Fall/Winter',
+  `year` INT(4) NOT NULL,
   `startDate` DATE NULL DEFAULT '2015-09-11',
   `endDate` DATE NULL DEFAULT '2016-05-21',
   `role` VARCHAR(50) NULL,
@@ -595,12 +595,13 @@ DEFAULT CHARACTER SET = latin1;
 -- -----------------------------------------------------
 -- Table `Load`
 -- -----------------------------------------------------
+DROP TABLE IF EXISTS `Load`;
+
 CREATE TABLE `Load` (
   `loadID` INT(11) NOT NULL AUTO_INCREMENT,
   `regularStaffID` INT(11) NOT NULL,
   `FCEValue` FLOAT NOT NULL,
-  `startDate` DATE NOT NULL DEFAULT '2016-09-01',
-  `endDate` DATE NULL DEFAULT '2016-08-31',
+  `year` INT(4) NOT NULL,
   PRIMARY KEY (`loadID`),
   INDEX `regularStaffID` (`regularStaffID` ASC),
   CONSTRAINT `Load_ibfk_1`

@@ -20,14 +20,11 @@ module.exports = {
 		},
 		FCEValue: {
 			type: 'float',
-			required: false
-		},
-		startDate: {
-			type: 'date',
 			required: true
 		},
-		endDate: {
-			type: 'date'
+		year: {
+			type: 'integer',
+			required: true
 		}
 	},
 	tableName: 'Load'

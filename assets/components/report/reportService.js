@@ -76,6 +76,7 @@ application.service('reportService', function() {
             header: {
                 bold: true,
                 fontSize: 18,
+                margin: [0, 0, 0, 20],
                 alignment: "center"
             },
             sectionHeader: {
@@ -90,8 +91,7 @@ application.service('reportService', function() {
             tableHeader: {
                 bold: true,
                 fontSize: 13,
-                margin: [0, 20, 0, 10],
-                color: 'black'
+                margin: [0, 20, 0, 10]
             },
             table: {
                 alignment: "center",

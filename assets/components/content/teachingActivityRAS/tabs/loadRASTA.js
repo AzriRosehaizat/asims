@@ -29,15 +29,13 @@ application.service('loadRASTA', function($http, _, formService) {
                 name: "FCEValue",
                 label: "FCE Value"
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start Date",
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End Date",
-                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'loadRASTA', false);
@@ -54,15 +52,13 @@ application.service('loadRASTA', function($http, _, formService) {
                 name: "FCEValue",
                 label: "FCE Value"
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start Date",
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End Date",
-                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'loadRASTA', false);
