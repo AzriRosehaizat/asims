@@ -26,7 +26,6 @@ application
 				initOptions.enableColumnMenus = false;
 				initOptions.enableGridMenu = true;
 				initOptions.enableColumnResizing = true;
-				initOptions.noUnselect = true;
 				initOptions.multiSelect = false;
 				initOptions.enableRowHeaderSelection = false;
 				initOptions.enableHorizontalScrollbar = 0;
