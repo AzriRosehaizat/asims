@@ -130,13 +130,8 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             displayName: 'FCE Value',
                             field: 'FCEValue'
                         }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'Year',
+                            field: 'year',
                         }]
                     }
                 },
@@ -151,12 +146,11 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             name: 'Description',
                             field: 'description'
                         }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'Year',
+                            field: 'year',
                         }, {
-                            name: 'End Date',
-                            field: 'endDate',
+                            name: 'Date Issued',
+                            field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
@@ -172,12 +166,11 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             name: 'Description',
                             field: 'description'
                         }, {
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
+                            name: 'Year',
+                            field: 'year',
                         }, {
-                            name: 'End Date',
-                            field: 'endDate',
+                            name: 'Date Issued',
+                            field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }

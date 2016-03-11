@@ -10,7 +10,7 @@ var mysql = require('knex')({
 
 module.exports = {
 	getAllRegularStaff: function(regularStaffID, callback) {
-		var sSQL = mysql.select('a.*', 'r.*', 'd.departmentCode', 'rk.title AS Rank')
+		var sSQL = mysql.select('a.*', 'r.*', 'd.departmentCode', 'd.title AS department', 'rk.title AS rank')
 			.from('AcademicStaff AS a')
 			.innerJoin('RegularStaff AS r', 'a.academicStaffID', 'r.academicStaffID')
 			.leftJoin('MostRecentRank_Regular AS rv', 'r.regularStaffID', 'rv.regularStaffID')

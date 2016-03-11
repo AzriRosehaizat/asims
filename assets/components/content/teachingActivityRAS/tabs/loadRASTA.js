@@ -29,22 +29,18 @@ application.service('loadRASTA', function($http, _, formService) {
                 name: "FCEValue",
                 label: "FCE Value"
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start Date",
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End Date",
-                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, null, 'loadRASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
-            row.entity.startDate = formService.formatDate(row.entity.startDate);
-            row.entity.endDate = formService.formatDate(row.entity.endDate);
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
@@ -54,15 +50,13 @@ application.service('loadRASTA', function($http, _, formService) {
                 name: "FCEValue",
                 label: "FCE Value"
             }, {
-                type: "date",
-                name: "startDate",
-                label: "Start Date",
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
                 required: true
-            }, {
-                type: "date",
-                name: "endDate",
-                label: "End Date",
-                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'loadRASTA', false);

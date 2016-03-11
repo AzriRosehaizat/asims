@@ -27,7 +27,15 @@ application.service('toaster', function($mdToast) {
         },
         error: function(err) {
             console.log(err);
-            var text = (err.message) ? (err.message) : "Error occurred. Operation cannot be performed at the moment";
+            var text;
+            
+            if (err.originalError && err.originalError.errno === 1451)
+                text = "Row is referenced. Please delete related infomation first.";
+            else if (err.reason)
+                text = err.reason;
+            else 
+                text = "Error occurred. Operation cannot be performed at the moment.";
+                
             this.open("error_outline", text);
         }
     };

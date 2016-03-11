@@ -203,8 +203,6 @@ application
                         "amount",
                     label: 
                         "Amount",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -214,8 +212,6 @@ application
                         "startDate",
                     label: 
                         "Start Date",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -225,8 +221,6 @@ application
                         "endDate",
                     label: 
                         "End Date",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -245,8 +239,6 @@ application
                         "leaveDebitType",
                     text:
                         "Select a Debit Type",
-                    disabled: 
-                        false,
                     required: 
                         true
                 }, {
@@ -256,10 +248,6 @@ application
                         "description",
                     label: 
                         "Description",
-                    disabled: 
-                        false,
-                    required: 
-                        false
                 }
             ];
         }

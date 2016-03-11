@@ -32,7 +32,7 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                             field: 'lastName'
                         }, {
                             name: 'Rank',
-                            field: 'Rank'
+                            field: 'rank'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
@@ -64,7 +64,7 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                             field: 'lastName'
                         }, {
                             name: 'Rank',
-                            field: 'Rank'
+                            field: 'rank'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',

@@ -28,11 +28,12 @@ module.exports = {
 		},
 		term: {
 			type: 'string',
-			size: 45
+			size: 45,
+			required: true
 		},
 		year: {
 			type: 'integer',
-			required: false
+			required: true
 		},
 		startDate:{
 			type: 'date',
