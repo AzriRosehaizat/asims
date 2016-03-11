@@ -44,30 +44,51 @@ application.service('reportService', function() {
 
     this.setFooter = function() {
         return {
-            style: 'footer',
+            style: 'footerTable',
             table: {
                 body: [
-                    ["Faculty Member's Signature _________________", "Chair's Signature ____________________________"],
                     [{
+                        text: "Faculty Member's Signature __________________",
+                        style: 'footerSign',
+                        margin: [0, 0, 45, 0]
+                    }, {
+                        text: "Chair's Signature __________________",
+                        style: 'footerSign'
+                    }],
+                    ["", ""],
+                    [{
+                        style: 'footerNoteTable',
                         table: {
-                            widths: [180, 50],
+                            widths: [125, 25],
                             body: [
-                                ['This chart is accurate', ''],
-                                ['Changes have been indicated', '']
+                                [{
+                                    text: 'This chart is accurate',
+                                    style: 'footNote'
+                                }, ''],
+                                [{
+                                    text: 'Changes have been indicated',
+                                    style: 'footNote'
+                                }, '']
                             ]
                         }
                     }, {
                         table: {
-                            widths: [180, 50],
+                            widths: [125, 25],
                             body: [
-                                ['This chart is accurate', ''],
-                                ['Changes have been indicated', '']
+                                [{
+                                    text: 'This chart is accurate',
+                                    style: 'footNote'
+                                }, ''],
+                                [{
+                                    text: 'Changes have been indicated',
+                                    style: 'footNote'
+                                }, '']
                             ]
                         }
                     }]
                 ]
             },
-            layout: 'noBorders'
+            layout: 'noBorders',
         };
     };
 
@@ -75,31 +96,44 @@ application.service('reportService', function() {
         return {
             header: {
                 bold: true,
-                fontSize: 18,
-                margin: [0, 0, 0, 20],
-                alignment: "center"
+                fontSize: 12,
+                margin: [0, 0, 0, 10],
+                alignment: "left",
+                decoration: 'underline'
             },
             sectionHeader: {
                 bold: true,
-                fontSize: 12,
+                fontSize: 11,
                 margin: [0, 10, 0, 10]
             },
             section: {
-                fontSize: 12,
+                fontSize: 11,
                 margin: [0, 10, 0, 10]
             },
             tableHeader: {
                 bold: true,
-                fontSize: 13,
+                fontSize: 11,
                 margin: [0, 20, 0, 10]
             },
             table: {
-                alignment: "center",
+                alignment: "left",
+                fontSize: 11,
                 margin: [0, 10, 0, 10]
             },
+            footerTable: {
+                alignment: "left",
+                fontSize: 11,
+                margin: [0, 50, 0, 10]
+            },
             footer: {
-                alignment: "center",
-                margin: [0, 40, 0, 10]
+                alignment: "left"
+            },
+            footerSign: {
+                fontSize: 11
+            },
+            footNote: {
+                italics: true,
+                fontSize: 8
             }
         };
     };
