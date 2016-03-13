@@ -30,6 +30,7 @@ application
         type: 'link'
       }]
     });
+
     sections.push({
       name: 'Teaching Management',
       type: 'toggle',
@@ -43,6 +44,7 @@ application
         type: 'link'
       }]
     });
+
     sections.push({
       name: 'Organization Management',
       type: 'toggle',
@@ -110,8 +112,10 @@ application
       },
 
       showAdmin: function() {
-        isAdmin = true;
-        sections.push(adminSection);
+        if (!isAdmin) {
+          isAdmin = true;
+          sections.push(adminSection);
+        }
       },
 
       hideAdmin: function() {
