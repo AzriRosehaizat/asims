@@ -92,7 +92,8 @@ application.service('regularStaffService', function($http, _, formService) {
                 type: "date",
                 name: "deptStartDate",
                 label: "Dept. Start Date",
-                hide: "fs.form.department.$pristine"
+                hide: "fs.form.department.$pristine",
+                required: "fs.form.department.$dirty"
             }, {
                 type: "date",
                 name: "deptEndDate",
@@ -121,7 +122,8 @@ application.service('regularStaffService', function($http, _, formService) {
                 type: "date",
                 name: "rankStartDate",
                 label: "Rank Start Date",
-                hide: "fs.form.rank.$pristine"
+                hide: "fs.form.rank.$pristine",
+                required: "fs.form.rank.$dirty"
             }, {
                 type: "date",
                 name: "rankEndDate",

@@ -45,5 +45,53 @@ module.exports = {
 				res.serverError();
 				console.log("Incorrect REST url");
 		}
+	},
+	createCAS: function(req, res) {
+		var aStaffData = {
+			firstName: req.param('firstName'),
+			lastName: req.param('lastName'),
+			employeeNo: req.param('employeeNo')
+		};
+
+		AcademicStaff.create(aStaffData).exec(function(err, aStaff) {
+			if (err) return res.negotiate(err);
+
+			var cStaffData = {
+				academicStaffID: aStaff.academicStaffID
+			};
+
+			ContractStaff.create(cStaffData).exec(function(err, cStaff) {
+				if (err) return res.negotiate(err);
+				if (req.param('deptID')) {
+
+					var deptData = {
+						academicStaffID: aStaff.academicStaffID,
+						departmentID: req.param('deptID'),
+						startDate: req.param('deptStartDate'),
+						endDate: req.param('deptEndDate')
+					};
+
+					AcademicStaff_Department.create(deptData).exec(function(err, dept) {
+						if (err) return res.negotiate(err);
+						if (req.param('rankID')) {
+
+							var rankData = {
+								contractStaffID: cStaff.contractStaffID,
+								rankID: req.param('rankID'),
+								startDate: req.param('rankStartDate'),
+								endDate: req.param('rankEndDate')
+							};
+
+							ContractStaff_Rank.create(rankData).exec(function(err, rank) {
+								if (err) return res.negotiate(err);
+								res.json(cStaff);
+							});
+						}
+						else res.json(cStaff);
+					});
+				}
+				else res.json(cStaff);
+			});
+		});
 	}
 };
