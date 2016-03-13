@@ -516,33 +516,6 @@ CREATE TABLE IF NOT EXISTS `RightToRefusal` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-
--- -----------------------------------------------------
--- Table `StaffLeave`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `StaffLeave` ;
-
-CREATE TABLE IF NOT EXISTS `StaffLeave` (
-  `leaveID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `leaveDebitID` INT(11) NOT NULL,
-  `description` TEXT NOT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
-  `leavePercentage` FLOAT NOT NULL,
-  `wagePercentage` FLOAT NOT NULL,
-  PRIMARY KEY (`leaveID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  INDEX `leaveDebitID` (`leaveDebitID` ASC) ,
-  CONSTRAINT `StaffLeave_ibfk_2`
-    FOREIGN KEY (`leaveDebitID`)
-    REFERENCES `LeaveDebit` (`leaveDebitID`),
-  CONSTRAINT `StaffLeave_ibfk_1`
-    FOREIGN KEY (`regularStaffID`)
-    REFERENCES `RegularStaff` (`regularStaffID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
 -- -----------------------------------------------------
 -- Table `TeachingActivities`
 -- -----------------------------------------------------
@@ -818,12 +791,12 @@ DROP VIEW IF EXISTS `CountLeave`;
 
 CREATE  OR REPLACE VIEW `CountLeave` AS
   SELECT 
-        COUNT(`StaffLeave`.`leaveID`) AS `NoOfLeave`
+        COUNT(`LeaveDebit`.`leaveDebitID`) AS `NoOfLeave`
     FROM
-        `StaffLeave`
+        `LeaveDebit`
     WHERE
-        ((`StaffLeave`.`endDate` > CURDATE())
-            OR ISNULL(`StaffLeave`.`endDate`));
+        ((`LeaveDebit`.`endDate` > CURDATE())
+            OR ISNULL(`LeaveDebit`.`endDate`));
 
 -- -----------------------------------------------------
 -- View `CountResearch``
