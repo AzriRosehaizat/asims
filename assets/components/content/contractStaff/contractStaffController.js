@@ -60,13 +60,6 @@ application.controller('contractStaffController', function($scope, staffs, contr
             csTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
-
-    $scope.tabs.employment.gridOptions.onRegisterApi = function(gridApi) {
-        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
-            $scope.tabRow = row;
-            csTabService.initEditForm($scope.formData, $scope.tab, row);
-        });
-    };
     
     $scope.addTabRow = function() {
         if ($scope.row)

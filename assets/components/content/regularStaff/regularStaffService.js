@@ -64,12 +64,12 @@ application.service('regularStaffService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "text",
@@ -78,7 +78,7 @@ application.service('regularStaffService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",
@@ -97,12 +97,12 @@ application.service('regularStaffService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "text",
@@ -111,7 +111,7 @@ application.service('regularStaffService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",

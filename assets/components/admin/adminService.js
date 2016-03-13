@@ -53,12 +53,12 @@ application.service('adminService', function($http, _, moment, formService) {
             }, {
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "email",
@@ -103,12 +103,12 @@ application.service('adminService', function($http, _, moment, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "email",

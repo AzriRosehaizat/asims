@@ -46,13 +46,13 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 disabled: false,
                 required: true
             }, {
@@ -72,13 +72,13 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 disabled: false,
                 required: true
             }, {

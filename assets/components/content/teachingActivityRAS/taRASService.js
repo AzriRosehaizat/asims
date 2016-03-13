@@ -46,12 +46,12 @@ application.service('taRASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 readonly: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 readonly: true
             }, {
                 type: "text",
@@ -61,7 +61,7 @@ application.service('taRASService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date",
+                label: "Tenure Date",
                 readonly: true
             }, {
                 type: "date",
@@ -83,12 +83,12 @@ application.service('taRASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 readonly: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 readonly: true
             }, {
                 type: "text",
@@ -98,7 +98,7 @@ application.service('taRASService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date",
+                label: "Tenure Date",
                 readonly: true
             }, {
                 type: "date",
