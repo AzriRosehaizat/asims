@@ -44,6 +44,16 @@ application
                                 'Type',
                             field: 
                                 'leaveDebitType'
+                        },{
+                            name: 
+                                'Leave %',
+                            field: 
+                                'leavePercentage'
+                        }, {
+                            name: 
+                                'Wage %',
+                            field: 
+                                'wagePercentage'
                         }
                     ],
                     onRegisterApi : function( gridApi ){

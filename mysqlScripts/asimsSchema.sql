@@ -337,6 +337,8 @@ CREATE TABLE IF NOT EXISTS `LeaveDebit` (
   `startDate` DATE NOT NULL,
   `endDate` DATE NOT NULL,
   `leaveDebitType` VARCHAR(50) NOT NULL,
+  `leavePercentage` FLOAT NOT NULL,
+  `wagePercentage` FLOAT NOT NULL,
   PRIMARY KEY (`leaveDebitID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `LeaveDebit_ibfk_1`
