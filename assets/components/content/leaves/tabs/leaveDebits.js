@@ -258,6 +258,20 @@ application
                         "description",
                     label: 
                         "Description",
+                }, {
+                    type: 
+                        "number",
+                    name: 
+                        "leavePercentage",
+                    label: 
+                        "Leave %"
+                }, {
+                    type: 
+                        "number",
+                    name: 
+                        "wagePercentage",
+                    label: 
+                        "Wage %"
                 }
             ];
         }
