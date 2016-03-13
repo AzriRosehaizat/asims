@@ -56,10 +56,6 @@ module.exports = {
 			collection: 'RegularStaff_Research',
 			via: 'regularStaffID'
 		},
-		StaffLeave: {
-			collection: 'StaffLeave',
-			via: 'regularStaffID'
-		},
 		LeaveCredit: {
 			collection: 'LeaveCredit',
 			via: 'regularStaffID'

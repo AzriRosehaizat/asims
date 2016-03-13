@@ -40,11 +40,6 @@ module.exports = {
 		},
 		wagePercentage: {
 			type: 'float'
-		},
-		//Identifies leaves 1:M
-		StaffLeave: {
-			collection: 'StaffLeave',
-			via: 'leaveDebitID'
 		}
 	},
 	tableName: 'LeaveDebit'
