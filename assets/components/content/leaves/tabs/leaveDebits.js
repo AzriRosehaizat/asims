@@ -212,7 +212,7 @@ application
                     name: 
                         "amount",
                     label: 
-                        "Amount",
+                        "Credit",
                     required: 
                         true
                 }, {
@@ -257,7 +257,7 @@ application
                     name: 
                         "description",
                     label: 
-                        "Description",
+                        "Eligibility",
                 }, {
                     type: 
                         "number",
