@@ -45,12 +45,12 @@ application
                                 'leaveDebitType'
                         },{
                             name: 
-                                'Leave %',
+                                'Leave Percentage (%)',
                             field: 
                                 'leavePercentage'
                         }, {
                             name: 
-                                'Wage %',
+                                'Wage Percentage (%)',
                             field: 
                                 'wagePercentage'
                         }
@@ -263,14 +263,14 @@ application
                     name: 
                         "leavePercentage",
                     label: 
-                        "Leave %"
+                        "Leave Percentage (%)"
                 }, {
                     type: 
                         "number",
                     name: 
                         "wagePercentage",
                     label: 
-                        "Wage %"
+                        "Wage Percentage (%)"
                 }
             ];
         }
