@@ -271,7 +271,6 @@ CREATE TABLE IF NOT EXISTS `FCECredit` (
   `FCEValue` FLOAT NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
-  `FCECreditType` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`FCECreditID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `FCECredit_ibfk_1`
@@ -292,7 +291,6 @@ CREATE TABLE IF NOT EXISTS `FCEDebit` (
   `FCEValue` FLOAT NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
-  `FCEDebitType` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`FCEDebitID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `FCEDebit_ibfk_1`
