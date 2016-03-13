@@ -1,7 +1,6 @@
 /* global
     application
 */
-
 application
 .service(
     'leaveDebits', 
