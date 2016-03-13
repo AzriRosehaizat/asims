@@ -31,6 +31,10 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
 
     function formatData(entity, tabs, range) {
         var data = {};
+        // Convert academic year to interger year
+        var startYear = getYear(range[0]);
+        var endYear = getYear(range[1]);
+        console.log("Start year: " + startYear);
 
         /******************** Regular staff information ***********************/
         entity.name = entity.firstName + ' ' + entity.lastName;
@@ -48,12 +52,12 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         data.main = [];
         data.main.push(buildMainRow('Year', 'Normal Load', 'Reduced Load', 'Actual Teaching Load', 'Owed FCEs', 'Banked FCEs'));
 
-        for (var year = range[0]; year <= range[1]; year++) {
+        for (var year = startYear; year <= endYear; year++) {
 
             // Get normal load
             var normal = 0;
             _.forEach(loadData, function(load) {
-                if (load.year === year) {
+                if (getYear(load.year) === year) {
                     normal += load.FCEValue;
                 }
             });
@@ -61,7 +65,7 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
             // Get reduced load
             var reduced = normal;
             _.forEach(reductionData, function(reduction) {
-                if (reduction.year === year) {
+                if (getYear(reduction.year) === year) {
                     reduced -= reduction.FCEValue;
                 }
             });
@@ -85,12 +89,12 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
             // Get teaching activity load
             // Get an array of teaching activities for the year
             var TAs = _.filter(tActivityData, function(TA) {
-                return TA.year === year;
+                return getYear(TA.year) === year;
             });
 
             // Push first row in the year with all information
             var teaching = (TAs[0]) ? TAs[0].departmentCode + '-' + TAs[0].courseNo + '-' + TAs[0].sectionNo + '(' + TAs[0].term + ')' : '';
-            data.main.push(buildMainRow(year, normal, reduced, teaching, owed, banked));
+            data.main.push(buildMainRow(getAcademicYear(year), normal, reduced, teaching, owed, banked));
             // remove the first element
             TAs.shift();
 
@@ -105,12 +109,12 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         data.overload = [];
         data.overload.push(buildOverloadRow('Year', 'Term', 'FCEs', 'Course number/section', 'Amount paid'));
 
-        for (var year = range[0]; year <= range[1]; year++) {
+        for (var year = startYear; year <= endYear; year++) {
             
             _.forEach(overloadData, function(o) {
-                if (o.year === year) {
+                if (getYear(o.year) === year) {
                     var courseSection = o.departmentCode + '-' + o.courseNo + '-' + o.sectionNo;
-                    data.overload.push(buildOverloadRow(year, o.term, o.FCEValue, courseSection, '$' + o.amount));
+                    data.overload.push(buildOverloadRow(o.year, o.term, o.FCEValue, courseSection, '$' + o.amount));
                 }
             });
         }
@@ -119,16 +123,25 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         data.reduction = [];
         data.reduction.push(buildReductionRow('Year', 'Date', 'Reason', 'Reduction in FCEs'));
 
-        for (var year = range[0]; year <= range[1]; year++) {
+        for (var year = startYear; year <= endYear; year++) {
             
             _.forEach(reductionData, function(r) {
-                if (r.year === year) {
-                    data.reduction.push(buildReductionRow(year, r.dateIssued, r.description, r.FCEValue));
+                if (getYear(r.year) === year) {
+                    data.reduction.push(buildReductionRow(r.year, r.dateIssued, r.description, r.FCEValue));
                 }
             });
         }
 
         return data;
+    }
+    
+    function getYear(academicYear) {
+        return parseInt(academicYear.slice(0, 4), 10);
+    }
+    
+    function getAcademicYear(year) {
+        var nextYear = (year + 1).toString().slice(2);
+        return year.toString() + '-' + nextYear;
     }
 
     function buildMainRow(year, normal, reduced, teaching, owed, banked) {
