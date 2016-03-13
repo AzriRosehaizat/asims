@@ -33,7 +33,7 @@ application.service('researchService', function($http, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Title",
                 required: true
             }, {
                 type: "textarea",
@@ -63,7 +63,7 @@ application.service('researchService', function($http, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Title",
                 required: true
             }, {
                 type: "textarea",
@@ -78,8 +78,7 @@ application.service('researchService', function($http, formService) {
                 type: "date",
                 name: "endDate",
                 label: "End Date",
-                minDate: "startDate",
-                required: true
+                minDate: "startDate"
             }];
 
             formService.init(formData, gridData, row, 'researchService', true);
