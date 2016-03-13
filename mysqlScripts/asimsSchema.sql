@@ -457,6 +457,7 @@ CREATE TABLE IF NOT EXISTS `RegularStaff_Research` (
   `startDate` DATE NOT NULL,
   `endDate` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`regularStaffResearchID`) ,
+  UNIQUE INDEX `urr` (`regularStaffID`, `researchID`, `startDate`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   INDEX `researchID` (`researchID` ASC) ,
   CONSTRAINT `RegularStaff_Research_ibfk_1`
