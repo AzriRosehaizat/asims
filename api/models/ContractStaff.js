@@ -18,7 +18,6 @@ module.exports = {
 			model: 'AcademicStaff',
 			required: true
 		},
-
 		ContractStaffEmployment: {
 			collection: 'ContractStaffEmployment',
 			via: 'contractStaffID'

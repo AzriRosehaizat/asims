@@ -57,7 +57,5 @@ module.exports.routes = {
   'GET /ContractStaff/getAllContractStaff/:contractStaffID': 'ContractStaffController.getAllContractStaff',
   'GET /ContractStaff/getInfo': 'ContractStaffController.getInfo',
 
-  'GET /Section_Offered/getSectionOffered/:sectionOfferedID': 'Section_OfferedController.getSectionOffered',
-
   'GET /Home/getInfo': 'HomeController.getInfo'
 };

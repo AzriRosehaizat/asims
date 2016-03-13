@@ -18,8 +18,7 @@ module.exports = {
 			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
 			.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID');
 
-		sSQL = (regularStaffID) ? sSQL.where('r.regularStaffID', regularStaffID).groupBy('a.academicStaffID').toString()
-								: sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
+		sSQL = (regularStaffID) ? sSQL.where('r.regularStaffID', regularStaffID).groupBy('a.academicStaffID').toString() : sSQL.orderBy('a.academicStaffID', 'desc').groupBy('a.academicStaffID').toString();
 		RegularStaff.query(sSQL, callback);
 	},
 	getTeachingActivity: function(id, where, search, callback) {
@@ -30,12 +29,12 @@ module.exports = {
 			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
-		
+
 		if (search) {
 			var names = JSON.parse(search).courseSection.startsWith.split('-');
 			var deptCode = names[0];
 			sSQL = sSQL.where('d.departmentCode', 'like', deptCode + '%');
-			
+
 			if (names[1]) {
 				var courseNo = names[1];
 				sSQL = sSQL.where('c.courseNo', 'like', courseNo + '%');
@@ -45,7 +44,7 @@ module.exports = {
 				sSQL = sSQL.where('s.sectionNo', 'like', sectionNo + '%');
 			}
 		}
-		
+
 		sSQL = (where) ? sSQL.where('t.teachingActivitiesID', where).toString() : sSQL.toString();
 		RegularStaff.query(sSQL, callback);
 	},
@@ -58,9 +57,9 @@ module.exports = {
 			.innerJoin('Course AS c', 't.courseID', 'c.courseID')
 			.innerJoin('Department AS d', 'c.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
-			
+
 		sSQL = (where) ? sSQL.where('o.overloadID', where).toString() : sSQL.toString();
-		RegularStaff.query(sSQL, callback);	
+		RegularStaff.query(sSQL, callback);
 	},
 	getDepartment: function(id, where, callback) {
 		var sSQL = mysql.select('d.*', 'ad.*', 'ad.academicStaffID')
@@ -68,7 +67,7 @@ module.exports = {
 			.innerJoin('AcademicStaff_Department AS ad', 'a.academicStaffID', 'ad.academicStaffID')
 			.innerJoin('Department AS d', 'ad.departmentID', 'd.departmentID')
 			.where('a.academicStaffID', id);
-			
+
 		sSQL = (where) ? sSQL.where('ad.academicStaffDepartmentID', where).toString() : sSQL.toString();
 		RegularStaff.query(sSQL, callback);
 	},
@@ -78,7 +77,7 @@ module.exports = {
 			.innerJoin('RegularStaff_Rank AS rs', 'r.regularStaffID', 'rs.regularStaffID')
 			.innerJoin('Rank AS rk', 'rs.rankID', 'rk.rankID')
 			.where('r.academicStaffID', id);
-			
+
 		sSQL = (where) ? sSQL.where('rs.regularStaffRankID', where).toString() : sSQL.toString();
 		RegularStaff.query(sSQL, callback);
 	},
@@ -88,7 +87,7 @@ module.exports = {
 			.innerJoin('RegularStaff_Research AS ar', 'a.regularStaffID', 'ar.regularStaffID')
 			.innerJoin('Research as r', 'ar.researchID', 'r.researchID')
 			.where('a.regularStaffID', id);
-			
+
 		sSQL = (where) ? sSQL.where('ar.regularStaffResearchID', where).toString() : sSQL.toString();
 		RegularStaff.query(sSQL, callback);
 	},
@@ -97,7 +96,7 @@ module.exports = {
 			.from('RegularStaff AS r')
 			.innerJoin('RegularStaffEmployment AS re', 'r.regularStaffID', 're.regularStaffID')
 			.where('r.academicStaffID', id);
-			
+
 		sSQL = (where) ? sSQL.where('re.regularEmploymentID', where).toString() : sSQL.toString();
 		RegularStaff.query(sSQL, callback);
 	},
@@ -109,7 +108,7 @@ module.exports = {
 			.leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
 			.leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
 			.where('rr.researchID', id);
-			
+
 		sSQL = (where) ? sSQL.where('rr.regularStaffResearchID', where).toString() : sSQL.toString();
 		RegularStaff.query(sSQL, callback);
 	},
@@ -130,19 +129,18 @@ module.exports = {
 			.select('*')
 			.from('LeaveCredit')
 			.where(
-				Object.assign(
-					{
+				Object.assign({
 						regularStaffID: id
-					}, 
+					},
 					where || {}
 				)
 			)
-		); 
-		LeaveCredit
-		.query(
-			sql.toString(), 
-			callback
 		);
+		LeaveCredit
+			.query(
+				sql.toString(),
+				callback
+			);
 	},
 
 
@@ -161,18 +159,16 @@ module.exports = {
 			.select('*')
 			.from('LeaveDebit')
 			.where(
-				Object.assign(
-					{
-						regularStaffID: id
-					}, where || {}
-				)
+				Object.assign({
+					regularStaffID: id
+				}, where || {})
 			)
 		);
-		
+
 		LeaveDebit
-		.query(
-			sql.toString(), 
-			callback
-		);
+			.query(
+				sql.toString(),
+				callback
+			);
 	}
 };
