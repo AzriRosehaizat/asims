@@ -18,7 +18,7 @@ application
                     columnDefs: [
                         {
                             name: 
-                                'Amount',
+                                'Credit',
                             field: 
                                 'amount',
                             aggregationType: 
@@ -200,7 +200,7 @@ application
                     name: 
                         "amount",
                     label: 
-                        "Amount",
+                        "Credit",
                     required: 
                         true
                 }, {
@@ -245,7 +245,7 @@ application
                     name: 
                         "description",
                     label: 
-                        "Description"
+                        "Eligibility"
                 }
             ];
         }
