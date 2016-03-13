@@ -27,10 +27,6 @@ module.exports = {
 		},
 		dateIssued: {
 			type: 'date'
-		},
-		FCECreditType: {
-			type: 'String',
-			size: 50
 		}
 	},
 	tableName: 'FCECredit'

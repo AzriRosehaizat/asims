@@ -23,7 +23,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     field: 'tenureDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
-                    name: 'Cont\' Appointment Date',
+                    name: 'Continuing Appt. Date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }]
@@ -64,12 +64,12 @@ application.service('regularStaffService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "text",
@@ -78,11 +78,11 @@ application.service('regularStaffService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Continuing Appt. Date"
             }];
 
             formService.init(formData, gridData, null, 'regularStaffService', true);
@@ -97,12 +97,12 @@ application.service('regularStaffService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "text",
@@ -111,11 +111,11 @@ application.service('regularStaffService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Continuing Appt. Date"
             }];
 
             formService.init(formData, gridData, row, 'regularStaffService', true);

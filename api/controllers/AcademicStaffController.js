@@ -5,23 +5,37 @@ module.exports = {
         var type = req.param('type');
         var where = JSON.parse(req.param('where'));
         var names = where.fullName.startsWith.split(' ');
+        var query;
 
-        var query = {
-            firstName: {
-                'startsWith': names[0]
-            }
-        };
         if (names[1]) {
-            query.lastName = {
-                'startsWith': names[1]
+            query = {
+                firstName: {
+                    'startsWith': names[0]
+                },
+                lastName: {
+                    'startsWith': names[1]
+                }
             };
-        } 
+        }
+        else {
+            query = {
+                or: [{
+                    firstName: {
+                        'startsWith': names[0]
+                    }
+                }, {
+                    lastName: {
+                        'startsWith': names[0]
+                    }
+                }]
+            };
+        }
 
         AcademicStaff.find(query).populate(type).exec(function(err, staffs) {
             if (err) {
                 return res.negotiate(err);
             }
-            
+
             if (type === 'RegularStaff') {
                 staffs = _.filter(staffs, function(staff) {
                     staff.fullName = staff.firstName + ' ' + staff.lastName;

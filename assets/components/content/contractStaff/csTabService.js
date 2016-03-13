@@ -1,4 +1,4 @@
-application.service('csTabService', function($http, csTA, csDepartment, csRank, csEmployment) {
+application.service('csTabService', function($http, csTA, csDepartment, csRank) {
 
     return {
         tabs: function() {
@@ -81,20 +81,6 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
-                },
-                employment: {
-                    title: 'Employment',
-                    gridOptions: {
-                        columnDefs: [{
-                            name: 'Start Date',
-                            field: 'startDate',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
-                        }, {
-                            name: 'End Date',
-                            field: 'endDate',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
-                        }]
-                    }
                 }
             };
         },
@@ -109,9 +95,6 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
                 case 'Rank':
                     csRank.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Employment':
-                    csEmployment.initAddForm(formData, tab.gridOptions.data, mainRow);
-                    break;
             }
         },
         initEditForm: function(formData, tab, row) {
@@ -125,16 +108,12 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
                 case 'Rank':
                     csRank.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Employment':
-                    csEmployment.initEditForm(formData, tab.gridOptions.data, row);
-                    break;
             }
         },
         getTabs: function(tabs, row) {
             this.getTeachingActivity(tabs.teachingActivity, row);
             this.getDepartment(tabs.department, row);
             this.getRank(tabs.rank, row);
-            this.getEmployment(tabs.employment, row);
         },
         getTeachingActivity: function(teachingActivity, row) {
             $http.get('/contractStaff/getInfo?type=teaching&id=' + row.entity.academicStaffID)
@@ -152,12 +131,6 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank, 
             $http.get('/contractStaff/getInfo?type=rank&id=' + row.entity.academicStaffID)
                 .then(function(res) {
                     rank.gridOptions.data = res.data;
-                });
-        },
-        getEmployment: function(employment, row) {
-            $http.get('/contractStaff/getInfo?type=employment&id=' + row.entity.academicStaffID)
-                .then(function(res) {
-                    employment.gridOptions.data = res.data;
                 });
         }
     };

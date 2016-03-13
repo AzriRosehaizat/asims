@@ -83,7 +83,7 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                     }
                 },
                 FCECredit: {
-                    title: 'FCE Credit',
+                    title: 'Banked',
                     gridOptions: {
                         columnDefs: [{
                             name: 'FCE Value',
@@ -96,14 +96,11 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             name: 'Date Issued',
                             field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''
-                        }, {
-                            name: 'Credit Type',
-                            field: 'FCECreditType'
                         }]
                     }
                 },
                 FCEDebit: {
-                    title: 'FCE Debit',
+                    title: 'Owed',
                     gridOptions: {
                         columnDefs: [{
                             name: 'FCE Value',
@@ -116,9 +113,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             name: 'Date Issued',
                             field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''
-                        }, {
-                            name: 'Debit Type',
-                            field: 'FCEDebitType'
                         }]
                     }
                 },
@@ -185,10 +179,10 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                 case 'Overload':
                     overloadRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'FCE Credit':
+                case 'Banked':
                     creditRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'FCE Debit':
+                case 'Owed':
                     debitRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
                 case 'Load':
@@ -210,10 +204,10 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                 case 'Overload':
                     overloadRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'FCE Credit':
+                case 'Banked':
                     creditRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'FCE Debit':
+                case 'Owed':
                     debitRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
                 case 'Load':

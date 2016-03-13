@@ -23,7 +23,7 @@ application.service('creditRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'FCE Credit';
+            formData.title = 'Banked';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
@@ -36,11 +36,8 @@ application.service('creditRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued"
-            }, {
-                type: "text",
-                name: "FCECreditType",
-                label: "Credit Type"
+                label: "Date Issued",
+                required: true
             }];
 
             formService.init(formData, gridData, null, 'creditRASTA', false);
@@ -50,7 +47,7 @@ application.service('creditRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'FCE Credit';
+            formData.title = 'Banked';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
@@ -63,11 +60,8 @@ application.service('creditRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued"
-            }, {
-                type: "text",
-                name: "FCECreditType",
-                label: "Credit Type"
+                label: "Date Issued",
+                required: true
             }];
 
             formService.init(formData, gridData, row, 'creditRASTA', false);

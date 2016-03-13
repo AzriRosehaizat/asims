@@ -24,7 +24,7 @@ module.exports = {
 			type: 'text'
 		},
 		year: {
-			type: 'integer',
+			type: 'string',
 			required: true
 		},
 		dateIssued: {

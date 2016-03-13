@@ -1,4 +1,4 @@
-application.controller('taRASController', function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster, loadChartService) {
+application.controller('taRASController', function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster, gridService, loadChartService) {
 
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaffData = staffs.data;
@@ -14,6 +14,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     SearchHelper.init($scope.gridOptions, $scope.rStaffData);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'taRAS');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             $scope.tabRow = null;
@@ -49,6 +50,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'taRASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -56,6 +58,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.tabs.overload.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'overloadRASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -63,6 +66,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.tabs.FCECredit.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'creditRASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -70,6 +74,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.tabs.FCEDebit.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'debitRASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -77,6 +82,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.tabs.load.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'loadRASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -84,6 +90,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.tabs.loadReduction.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'reductionRASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -91,6 +98,7 @@ application.controller('taRASController', function($scope, staffs, taRASService,
     };
 
     $scope.tabs.loadIncrease.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'increaseRASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);

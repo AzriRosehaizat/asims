@@ -38,12 +38,12 @@ application.service('taCASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 readonly: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 readonly: true
             }, {
                 type: "text",
@@ -63,12 +63,12 @@ application.service('taCASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 readonly: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 readonly: true
             }, {
                 type: "text",
