@@ -1,4 +1,4 @@
-application.controller('researchController', function($scope, researches, researchService, rTabService, SearchHelper, toaster) {
+application.controller('researchController', function($scope, researches, researchService, rTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Research';
     $scope.researchData = researches.data;
@@ -14,6 +14,7 @@ application.controller('researchController', function($scope, researches, resear
     SearchHelper.init($scope.gridOptions, $scope.researchData);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'research');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             $scope.tabRow = null;
@@ -42,6 +43,7 @@ application.controller('researchController', function($scope, researches, resear
     };
     
     $scope.tabs.grant.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'rGrant');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             rTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -49,6 +51,7 @@ application.controller('researchController', function($scope, researches, resear
     };
 
     $scope.tabs.staff.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'rStaff');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             rTabService.initEditForm($scope.formData, $scope.tab, row);

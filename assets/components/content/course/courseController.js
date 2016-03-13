@@ -1,4 +1,4 @@
-application.controller('courseController', function($scope, courses, courseService, cTabService, SearchHelper, toaster) {
+application.controller('courseController', function($scope, courses, courseService, cTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Course';
     $scope.courseData = courses.data;
@@ -14,6 +14,7 @@ application.controller('courseController', function($scope, courses, courseServi
     SearchHelper.init($scope.gridOptions, $scope.courseData);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'course');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             $scope.tabRow = null;
@@ -43,6 +44,7 @@ application.controller('courseController', function($scope, courses, courseServi
     };
     
     $scope.tabs.section.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'cSection');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             cTabService.initEditForm($scope.formData, $scope.tab, row);

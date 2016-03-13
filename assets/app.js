@@ -1,5 +1,5 @@
 var application = angular.module('application', 
-['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection',
+['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.saveState',
 	'ui.grid.resizeColumns', 'ui.grid.exporter', 'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
@@ -416,11 +416,12 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			$state.go('index');
 		});
 	})
-	.run(function($rootScope, $state, Auth, formService, SearchHelper) {
+	.run(function($rootScope, $state, Auth, formService, SearchHelper, gridService) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
-
+			
 			formService.reset();
 			SearchHelper.reset();
+			gridService.saveAndReset();
 
 			Auth.authorize(toState.data.access).then(function(access) {
 				var shouldLogin = (toState.data) && (!access);

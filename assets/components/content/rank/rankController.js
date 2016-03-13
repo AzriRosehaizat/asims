@@ -1,9 +1,9 @@
-application.controller('rankController', function($scope, ranks, rankService, SearchHelper, toaster) {
-    
+application.controller('rankController', function($scope, ranks, rankService, SearchHelper, toaster, gridService) {
+
     $scope.gridTitle = 'Rank';
     $scope.rankData = ranks.data;
     $scope.formData = {};
-    
+
     $scope.gridOptions = rankService.gridOptions();
     $scope.gridOptions.data = $scope.rankData;
 
@@ -15,6 +15,7 @@ application.controller('rankController', function($scope, ranks, rankService, Se
     SearchHelper.init($scope.gridOptions, $scope.rankData);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'rank');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             rankService.initEditForm($scope.formData, $scope.gridOptions.data, row);
@@ -29,8 +30,11 @@ application.controller('rankController', function($scope, ranks, rankService, Se
     };
 
     $scope.editRow = function() {
-        rankService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        if ($scope.row)
+            rankService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else
+            toaster.info("Select a row first.");
     };
-    
+
     // Add functionality for tabs if they exist
 });

@@ -1,4 +1,4 @@
-application.controller('adminController', function($scope, users, adminService, SearchHelper, toaster) {
+application.controller('adminController', function($scope, users, adminService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Admin Page';
     $scope.users = users.data;
@@ -11,6 +11,7 @@ application.controller('adminController', function($scope, users, adminService, 
     SearchHelper.init($scope.gridOptions, $scope.users);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'admin');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             adminService.initEditForm($scope.formData, $scope.gridOptions.data, row);

@@ -1,4 +1,4 @@
-application.controller('contractStaffController', function($scope, staffs, contractStaffService, csTabService, SearchHelper, toaster) {
+application.controller('contractStaffController', function($scope, staffs, contractStaffService, csTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Contract Staff';
     $scope.cStaff = staffs.data;
@@ -14,6 +14,7 @@ application.controller('contractStaffController', function($scope, staffs, contr
     SearchHelper.init($scope.gridOptions, $scope.cStaff);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'contractStaff');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             $scope.tabRow = null;
@@ -41,6 +42,7 @@ application.controller('contractStaffController', function($scope, staffs, contr
     };
     
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'csTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             csTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -48,6 +50,7 @@ application.controller('contractStaffController', function($scope, staffs, contr
     };
     
     $scope.tabs.department.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'csDepartment');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             csTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -55,6 +58,7 @@ application.controller('contractStaffController', function($scope, staffs, contr
     };
 
     $scope.tabs.rank.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'csRank');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             csTabService.initEditForm($scope.formData, $scope.tab, row);

@@ -9,7 +9,8 @@ application
             leaveService,
             leaveTabs,
             SearchHelper,
-            toaster
+            toaster,
+            gridService
         ) {
 
             $scope
@@ -48,6 +49,9 @@ application
             $scope
             .gridOptions
             .onRegisterApi = function(gridApi) {
+                gridService
+                .setMain($scope, gridApi, 'leave');
+                
                 $scope
                 .gridApi = (
                     gridApi

@@ -1,4 +1,4 @@
-application.controller('facultyController', function($scope, faculty, facultyService, fTabService, SearchHelper, toaster) {
+application.controller('facultyController', function($scope, faculty, facultyService, fTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Faculty';
     $scope.facultyData = faculty.data;
@@ -6,7 +6,7 @@ application.controller('facultyController', function($scope, faculty, facultySer
 
     $scope.gridOptions = facultyService.gridOptions();
     $scope.gridOptions.data = $scope.facultyData;
-    
+
     $scope.tabs = fTabService.tabs();
     $scope.tab = $scope.tabs.department;
 
@@ -14,10 +14,11 @@ application.controller('facultyController', function($scope, faculty, facultySer
     SearchHelper.init($scope.gridOptions, $scope.facultyData);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'faculty');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             facultyService.initEditForm($scope.formData, $scope.gridOptions.data, row);
-            
+
             fTabService.getTabs($scope.tabs, row);
         });
     };
@@ -27,7 +28,10 @@ application.controller('facultyController', function($scope, faculty, facultySer
     };
 
     $scope.editRow = function() {
-        facultyService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        if ($scope.row)
+            facultyService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else
+            toaster.info("Select a row first.");
     };
 
     $scope.selectTab = function(tab) {
@@ -36,21 +40,22 @@ application.controller('facultyController', function($scope, faculty, facultySer
         // Read only
         // if ($scope.row) $scope.addTabRow();
     };
-    
+
     $scope.tabs.department.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'fDepartment');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             fTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
-    
+
     $scope.addTabRow = function() {
         if ($scope.row)
             fTabService.initAddForm($scope.formData, $scope.tab, $scope.row);
         else
             toaster.info("Select a row first in the main table.");
     };
-    
+
     $scope.editTabRow = function() {
         if ($scope.tabRow)
             fTabService.initEditForm($scope.formData, $scope.tab, $scope.tabRow);
