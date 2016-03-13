@@ -20,8 +20,7 @@ application.service('gridService', function($timeout, _, LocalService) {
 
     // Save current gridApi states in local storage
     self.saveAndReset = function() {
-        if (_.isEmpty(self.gridApi))
-            return;
+        if (_.isEmpty(self.gridApi)) return;
         else {
             states = {};
 
