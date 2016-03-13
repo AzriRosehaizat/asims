@@ -18,4 +18,5 @@ application.controller('counterController', function(counterService, $http) {
     });
     
     self.rows = counterService.rows;
+
 });
