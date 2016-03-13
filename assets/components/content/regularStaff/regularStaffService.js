@@ -23,7 +23,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     field: 'tenureDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
-                    name: 'Cont\' Appointment Date',
+                    name: 'Continuing Appt. Date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }]
@@ -82,7 +82,7 @@ application.service('regularStaffService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Continuing Appt. Date"
             }];
 
             formService.init(formData, gridData, null, 'regularStaffService', true);
@@ -115,7 +115,7 @@ application.service('regularStaffService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Continuing Appt. Date"
             }];
 
             formService.init(formData, gridData, row, 'regularStaffService', true);
