@@ -61,8 +61,6 @@ application
             .selection
             .on
             .rowSelectionChanged($scope, function(row) {
-                console.log(row);
-                
                 $scope
                 .row = (
                     row
@@ -80,8 +78,6 @@ application
                         setTimeout(wait, 20);
                         return;
                     }
-                    
-                    
                     
                     leaveService
                     .setForm(
