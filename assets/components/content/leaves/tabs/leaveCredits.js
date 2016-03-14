@@ -9,7 +9,8 @@ application
         $http, 
         _, 
         uiGridConstants,
-        formService
+        formService,
+        gridService
     ){
         return {
             gridOptions : function ( $scope ){
@@ -47,6 +48,11 @@ application
                         }
                     ],
                     onRegisterApi : function( gridApi ){
+                        gridService.set(
+                            gridApi, 
+                            'leaveCredit'
+                        );
+                        
                         (function( gridOptions ){
                             gridApi
                             .selection
@@ -220,7 +226,9 @@ application
                     label: 
                         "End Date",
                     required: 
-                        true
+                        true,
+                    minDate: 
+                        "startDate"
                 }, {
                     type: 
                         "select",
