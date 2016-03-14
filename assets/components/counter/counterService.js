@@ -9,13 +9,13 @@ application.service('counterService', function($http) {
         data: '',
         footer: "Staff",
         link: "application.leaves",
-        data: ""
+        rest: "Home/getInfo?type=regularStaff"
     }, {
         title: "Researches",
         data: '',
         footer: "In Progress",
         link: "application.research",
-        data: ""
+        rest: "Home/getInfo?type=regularStaff"
     }]);
 
     self.rows.push([{
@@ -23,13 +23,13 @@ application.service('counterService', function($http) {
         data: '',
         footer: "Currently Employed",
         link: "application.regularStaff",
-        data: ""
+        rest: "Home/getInfo?type=regularStaff"
     }, {
         title: "Contract Staff",
         data: '',
         footer: "Currently Employed",
         link: "application.contractStaff",
-        data: ""
+        rest: "Home/getInfo?type=contractStaff"
     }]);
 
 
