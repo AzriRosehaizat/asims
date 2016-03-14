@@ -61,7 +61,30 @@ module.exports = {
             .toString();
         Home.query(sSQL, callback);
     },
+    getLeave: function(callback) {
+        var sSQL = mysql.select('a.firstName AS First Name', 'a.lastName AS Last Name', 'd.departmentCode AS Department', 'rk.title AS Rank', 'ld.startDate AS Leave Start Date', 'ld.endDate AS Leave End Date')
+            .from('LeaveDebit AS ld')
+            .innerJoin('RegularStaff AS r', 'ld.regularStaffID', 'r.regularStaffID')
+            .leftJoin('AcademicStaff AS a', 'r.academicStaffID', 'a.academicStaffID')
+            .leftJoin('MostRecentRank_Regular AS rv', 'r.regularStaffID', 'rv.regularStaffID')
+            .leftJoin('Rank AS rk', 'rv.rankID', 'rk.rankID')
+            .leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
+            .leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
+            .where(`ld.endDate`, '>', new Date())
+            .orWhereNull(`ld.endDate`)
+            .toString();
+        Home.query(sSQL, callback);
+
+    },
     getResearch: function(callback) {
-        
+        var sSQL = mysql.select('r.title AS Title', 'r.startDate As Start Date', 'r.endDate As End Date', 'rg.grantingAgency AS Granting Agency', 'rg.dateAwarded AS Date Awarded', 'rg.duration AS Duration', 'rg.amount AS Amount $')
+            .from('Research AS r')
+            .leftJoin('ResearchGrant AS rg', 'r.researchID', 'rg.researchID')
+            .where(`r.endDate`, '>', new Date())
+            .orWhereNull(`r.endDate`)
+            // limit to show only one research grant
+            .groupBy('r.researchID') 
+        sSQL = sSQL.toString();
+        Home.query(sSQL, callback);
     },
 };

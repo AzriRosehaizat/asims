@@ -9,13 +9,13 @@ application.service('counterService', function($http) {
         data: '',
         footer: "Staff",
         link: "application.leaves",
-        rest: "Home/getInfo?type=regularStaff"
+        rest: "Home/getInfo?type=leave"
     }, {
         title: "Researches",
         data: '',
         footer: "In Progress",
         link: "application.research",
-        rest: "Home/getInfo?type=regularStaff"
+        rest: "Home/getInfo?type=research"
     }]);
 
     self.rows.push([{
