@@ -1,5 +1,5 @@
 var application = angular.module('application', 
-['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.saveState',
+['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.saveState', 'ui.grid.autoResize',
 	'ui.grid.resizeColumns', 'ui.grid.exporter', 'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 

@@ -1,7 +1,7 @@
 <div style="position:relative;" class="md-whiteframe-1dp" ng-cloak>
     <md-tabs id="gridTabs" md-dynamic-height md-border-bottom class="md-warn md-hue-2">
         <md-tab ng-repeat="tab in tabs" ng-click="selectTab(tab)" label="{{tab.title}}">
-            <div ui-grid="tab.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-save-state class="grid"></div>
+            <div ui-grid="tab.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-save-state ui-grid-auto-resize class="grid"></div>
         </md-tab>
     </md-tabs>
 
@@ -22,7 +22,7 @@
                 <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">create</md-icon>
             </md-button>
             <md-button ng-show="ctrl.pageExist(tab)" class="md-fab md-raised md-mini" ng-click="ctrl.redirect(tab); ctrl.toggle()" aria-label="Edit">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">GoTo Page</md-tooltip>
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Go To Page</md-tooltip>
                 <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">open_in_browser</md-icon>
             </md-button>
         </md-fab-actions>
