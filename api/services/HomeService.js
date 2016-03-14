@@ -8,14 +8,14 @@ module.exports = {
             .from('CountLeave as l');
 
         sSQL = sSQL.toString();
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
     },
     getResearchCount: function(callback) {
         var sSQL = mysql.select('re.*')
             .from('CountResearch as re');
 
         sSQL = sSQL.toString();
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
     },
 
     getRegularStaffCount: function(callback) {
@@ -25,14 +25,14 @@ module.exports = {
             .orWhereNull(`r.endDate`)
             .toString();
 
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
     },
     getContractStaffCount: function(callback) {
         var sSQL = mysql.select('c.*')
             .from('CountEmployment_Contract as c');
 
         sSQL = sSQL.toString();
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
     },
     // Get information current employed regular staff
     getRegularStaff: function(callback) {
@@ -46,7 +46,7 @@ module.exports = {
             .where(`rv.endDate`, '>', new Date())
             .orWhereNull(`rv.endDate`)
             .toString();
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
     },
     getContractStaff: function(callback) {
         var sSQL = mysql.select('a.firstName AS First Name', 'a.lastName AS Last Name', 'a.employeeNo AS Employee No', 'd.departmentCode AS Department', 'rk.title AS Rank', 'cv.startDate AS Start Date', 'cv.endDate AS End Date')
@@ -59,7 +59,7 @@ module.exports = {
             .where(`cv.endDate`, '>', new Date())
             .orWhereNull(`cv.endDate`)
             .toString();
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
     },
     getLeave: function(callback) {
         var sSQL = mysql.select('a.firstName AS First Name', 'a.lastName AS Last Name', 'd.departmentCode AS Department', 'rk.title AS Rank', 'ld.startDate AS Leave Start Date', 'ld.endDate AS Leave End Date')
@@ -73,7 +73,7 @@ module.exports = {
             .where(`ld.endDate`, '>', new Date())
             .orWhereNull(`ld.endDate`)
             .toString();
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
 
     },
     getResearch: function(callback) {
@@ -83,8 +83,8 @@ module.exports = {
             .where(`r.endDate`, '>', new Date())
             .orWhereNull(`r.endDate`)
             // limit to show only one research grant
-            .groupBy('r.researchID') 
+            .groupBy('r.researchID');  
         sSQL = sSQL.toString();
-        Home.query(sSQL, callback);
+        RegularStaff.query(sSQL, callback);
     },
 };

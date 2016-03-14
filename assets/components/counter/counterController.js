@@ -1,4 +1,4 @@
-application.controller('counterController', function(counterService, $http, modalService, $rootScope, $interval) {
+application.controller('counterController', function(counterService, $http, modalService, $rootScope, $interval, $scope, $timeout) {
 
     var self = this;
     $http.get('/Home/getCountInfo?type=leave').then(function(res) {
@@ -19,39 +19,42 @@ application.controller('counterController', function(counterService, $http, moda
 
     self.rows = counterService.rows;
 
-    var myModal = new modalService();
-    $rootScope.hideGrid = true;
-
-    $rootScope.gridOptions = {
-        onRegisterApi: function(gridApi) {
-            $rootScope.gridApi = gridApi;
-
-            // call resize every 500 ms for 5 s after modal finishes opening - usually only necessary on a bootstrap modal
-            $interval(function() {
-                $rootScope.gridApi.core.handleWindowResize();
-            }, 500, 10);
-        }
-    };
 
 
-    $rootScope.showModal = function(data) {
-        // asyncc
+    $scope.showModal = function(data) {
+        var myModal = new modalService();
+        $rootScope.hideGrid = true;
+        $rootScope.gridOptions = ""
+        $rootScope.gridOptions = {
+            onRegisterApi: function(gridApi) {
+                $rootScope.gridApi = gridApi;
+
+                // call resize every 500 ms for 5 s after modal finishes opening - usually only necessary on a bootstrap modal
+                $interval(function() {
+                    $rootScope.gridApi.core.handleWindowResize();
+                }, 500, 10);
+            }
+        };
+
         $http.get(data)
             .success(function(data) {
                 $rootScope.gridOptions.data = data;
-            }).then(function(go) {
-                myModal.open();
             });
+
+        myModal.open();
+
     };
+
+
 });
 
-application.service('modalService', ['$compile', '$rootScope', function($compile, $rootScope) {
+application.service('modalService', ['$compile', '$rootScope', '$timeout', function($compile, $rootScope, $timeout) {
     return function() {
         var elm;
         var modal = {
             open: function() {
 
-                var html = '<div class="modal" ng-style="modalStyle"><div id="modalReport" class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"><div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-save-state class="grid"></div></div><div class="modal-footer"><md-button class="md-raised md-primary md-hue-1" ng-click="close()">Close</md-button></div></div></div></div>';
+                var html = '<div class="modal" ng-style="modalStyle"><div id="modalReport" class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"><div ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div></div><div class="modal-footer"><md-button class="md-raised md-primary md-hue-1" ng-click="close()">Close</md-button></div></div></div></div>';
                 elm = angular.element(html);
                 angular.element(document.body).prepend(elm);
 
@@ -69,9 +72,23 @@ application.service('modalService', ['$compile', '$rootScope', function($compile
                 if (elm) {
                     elm.remove();
                 }
-            }
+                refresh();
+
+            },
+
         };
+        refresh: function refresh() {
+            $rootScope.refresh = true;
+            $timeout(function() {
+                $rootScope.refresh = false;
+            }, 0);
+        }
+
 
         return modal;
+
+
     };
+
+
 }]);
