@@ -184,26 +184,6 @@ CREATE TABLE IF NOT EXISTS `ContractStaff` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-
--- -----------------------------------------------------
--- Table `ContractStaffEmployment`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ContractStaffEmployment` ;
-
-CREATE TABLE IF NOT EXISTS `ContractStaffEmployment` (
-  `contractStaffID` INT(11) NOT NULL,
-  `contractEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`contractEmploymentID`) ,
-  INDEX `contractStaffID` (`contractStaffID` ASC) ,
-  CONSTRAINT `ContractStaffEmployment_ibfk_1`
-    FOREIGN KEY (`contractStaffID`)
-    REFERENCES `ContractStaff` (`contractStaffID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
 -- -----------------------------------------------------
 -- Table `ContractStaff_Rank`
 -- -----------------------------------------------------
@@ -386,26 +366,6 @@ CREATE TABLE IF NOT EXISTS `LoadReduction` (
     REFERENCES `RegularStaff` (`regularStaffID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `RegularStaffEmployment`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `RegularStaffEmployment` ;
-
-CREATE TABLE IF NOT EXISTS `RegularStaffEmployment` (
-  `regularStaffID` INT(11) NOT NULL,
-  `regularEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`regularEmploymentID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  CONSTRAINT `RegularStaffEmployment_ibfk_1`
-    FOREIGN KEY (`regularStaffID`)
-    REFERENCES `RegularStaff` (`regularStaffID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
 
 -- -----------------------------------------------------
 -- Table `RegularStaff_Rank`
@@ -711,29 +671,6 @@ CREATE  OR REPLACE VIEW `MostRecentRank_Regular` AS
         LEFT JOIN `RegularStaffRank` 
           ON ((`RegularStaff`.`regularStaffID` = `RegularStaffRank`.`regularStaffID`)));
 
-
--- -----------------------------------------------------
--- View `MostRecentEmployment_Regular`
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `MostRecentEmployment_Regular`;
-
-CREATE  OR REPLACE VIEW `MostRecentEmployment_Regular` AS 
-  SELECT 
-        `RegularStaffEmployment`.`regularStaffID` AS `regularStaffID`,
-        `RegularStaffEmployment`.`regularEmploymentID` AS `regularEmploymentID`,
-        `RegularStaffEmployment`.`startDate` AS `startDate`,
-        `RegularStaffEmployment`.`endDate` AS `endDate`
-    FROM
-        `RegularStaffEmployment`
-    WHERE
-        (`RegularStaffEmployment`.`regularStaffID` , `RegularStaffEmployment`.`startDate`) IN (SELECT 
-                `RegularStaffEmployment`.`regularStaffID`,
-                    MAX(`RegularStaffEmployment`.`startDate`)
-            FROM
-                `RegularStaffEmployment`
-            GROUP BY `RegularStaffEmployment`.`regularStaffID`);
-
-
 -- -----------------------------------------------------
 -- View `CountEmployment_Regular``
 -- -----------------------------------------------------
@@ -741,34 +678,12 @@ DROP VIEW IF EXISTS `CountEmployment_Regular`;
 
 CREATE  OR REPLACE VIEW `CountEmployment_Regular` AS 
   SELECT 
-          COUNT(`MostRecentEmployment_Regular`.`regularStaffID`) AS `NoOfRegularStaff`
-      FROM
-          `MostRecentEmployment_Regular`
-      WHERE
-          ((`MostRecentEmployment_Regular`.`endDate` > CURDATE())
-              OR (`MostRecentEmployment_Regular`.`endDate` IS  NULL));
-
--- -----------------------------------------------------
--- View `MostRecentEmployment_Contract`
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `MostRecentEmployment_Contract`;
-
-CREATE  OR REPLACE VIEW `MostRecentEmployment_Contract` AS 
-  SELECT 
-        `ContractStaffEmployment`.`contractStaffID` AS `contractStaffID`,
-        `ContractStaffEmployment`.`contractEmploymentID` AS `contractEmploymentID`,
-        `ContractStaffEmployment`.`startDate` AS `startDate`,
-        `ContractStaffEmployment`.`endDate` AS `endDate`
+        COUNT(`RegularStaffRank`.`regularStaffID`) AS `NoOfRegularStaff`
     FROM
-        `ContractStaffEmployment`
+        `RegularStaffRank`
     WHERE
-        (`ContractStaffEmployment`.`contractStaffID` , `ContractStaffEmployment`.`startDate`) IN (SELECT 
-                `ContractStaffEmployment`.`contractStaffID`,
-                    MAX(`ContractStaffEmployment`.`startDate`)
-            FROM
-                `ContractStaffEmployment`
-            GROUP BY `ContractStaffEmployment`.`contractStaffID`);
-
+        ((`RegularStaffRank`.`endDate` > CURDATE())
+            OR ISNULL(`RegularStaffRank`.`endDate`));
 
 -- -----------------------------------------------------
 -- View `CountEmployment_Contract``
@@ -777,12 +692,12 @@ DROP VIEW IF EXISTS `CountEmployment_Contract`;
 
 CREATE  OR REPLACE VIEW `CountEmployment_Contract` AS 
   SELECT 
-        COUNT(`MostRecentEmployment_Contract`.`contractStaffID`) AS `NoOfContractStaff`
+        COUNT(`ContractStaffRank`.`contractStaffID`) AS `NoOfContractStaff`
     FROM
-        `MostRecentEmployment_Contract`
+        `ContractStaffRank`
     WHERE
-        ((`MostRecentEmployment_Contract`.`endDate` > CURDATE())
-            OR (`MostRecentEmployment_Contract`.`endDate` IS NULL));
+        ((`ContractStaffRank`.`endDate` > CURDATE())
+            OR ISNULL(`ContractStaffRank`.`endDate`));
 
 -- -----------------------------------------------------
 -- View `CountLeave``
@@ -837,10 +752,6 @@ INSERT INTO RegularStaff (regularStaffID,academicStaffID) VALUES (101,101),(102,
 INSERT INTO ContractStaff (contractStaffID,academicStaffID) VALUES (1,151),(2,152),(3,153),(4,154),(5,155),(6,156),(7,157),(8,158),(9,159),(10,160),(11,161),(12,162),(13,163),(14,164),(15,165),(16,166),(17,167),(18,168),(19,169),(20,170),(21,171),(22,172),(23,173),(24,174),(25,175),(26,176),(27,177),(28,178),(29,179),(30,180),(31,181),(32,182),(33,183),(34,184),(35,185),(36,186),(37,187),(38,188),(39,189),(40,190),(41,191),(42,192),(43,193),(44,194),(45,195),(46,196),(47,197),(48,198),(49,199),(50,200);
 
 #Start dates set to 2010-01-01.
-INSERT INTO RegularStaffEmployment (regularEmploymentID, regularStaffID) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
-INSERT INTO RegularStaffEmployment (regularEmploymentID,regularStaffID) VALUES (51,51),(52,52),(53,53),(54,54),(55,55),(56,56),(57,57),(58,58),(59,59),(60,60),(61,61),(62,62),(63,63),(64,64),(65,65),(66,66),(67,67),(68,68),(69,69),(70,70),(71,71),(72,72),(73,73),(74,74),(75,75),(76,76),(77,77),(78,78),(79,79),(80,80),(81,81),(82,82),(83,83),(84,84),(85,85),(86,86),(87,87),(88,88),(89,89),(90,90),(91,91),(92,92),(93,93),(94,94),(95,95),(96,96),(97,97),(98,98),(99,99),(100,100);
-INSERT INTO RegularStaffEmployment (regularEmploymentID,regularStaffID) VALUES (101,101),(102,102),(103,103),(104,104),(105,105),(106,106),(107,107),(108,108),(109,109),(110,110),(111,111),(112,112),(113,113),(114,114),(115,115),(116,116),(117,117),(118,118),(119,119),(120,120),(121,121),(122,122),(123,123),(124,124),(125,125),(126,126),(127,127),(128,128),(129,129),(130,130),(131,131),(132,132),(133,133),(134,134),(135,135),(136,136),(137,137),(138,138),(139,139),(140,140),(141,141),(142,142),(143,143),(144,144),(145,145),(146,146),(147,147),(148,148),(149,149),(150,150);
-INSERT INTO ContractStaffEmployment (contractEmploymentID,contractStaffID) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (1,2,1),(2,5,2),(3,7,3),(4,5,4),(5,4,5),(6,3,6),(7,3,7),(8,6,8),(9,5,9),(10,5,10),(11,2,11),(12,6,12),(13,1,13),(14,1,14),(15,7,15),(16,6,16),(17,3,17),(18,6,18),(19,6,19),(20,4,20),(21,7,21),(22,6,22),(23,5,23),(24,4,24),(25,2,25),(26,7,26),(27,3,27),(28,4,28),(29,2,29),(30,1,30),(31,4,31),(32,7,32),(33,5,33),(34,5,34),(35,2,35),(36,5,36),(37,1,37),(38,6,38),(39,3,39),(40,2,40),(41,5,41),(42,7,42),(43,2,43),(44,7,44),(45,2,45),(46,1,46),(47,7,47),(48,2,48),(49,7,49),(50,7,50);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (51,2,51),(52,4,52),(53,5,53),(54,6,54),(55,6,55),(56,5,56),(57,3,57),(58,4,58),(59,2,59),(60,5,60),(61,5,61),(62,3,62),(63,4,63),(64,5,64),(65,3,65),(66,4,66),(67,3,67),(68,1,68),(69,5,69),(70,7,70),(71,1,71),(72,6,72),(73,4,73),(74,1,74),(75,3,75),(76,2,76),(77,4,77),(78,1,78),(79,7,79),(80,1,80),(81,2,81),(82,2,82),(83,7,83),(84,6,84),(85,5,85),(86,4,86),(87,1,87),(88,6,88),(89,6,89),(90,6,90),(91,3,91),(92,4,92),(93,7,93),(94,3,94),(95,2,95),(96,6,96),(97,3,97),(98,5,98),(99,2,99),(100,4,100);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (101,6,101),(102,1,102),(103,4,103),(104,6,104),(105,2,105),(106,7,106),(107,2,107),(108,3,108),(109,3,109),(110,1,110),(111,7,111),(112,3,112),(113,6,113),(114,2,114),(115,4,115),(116,1,116),(117,6,117),(118,4,118),(119,2,119),(120,2,120),(121,2,121),(122,3,122),(123,4,123),(124,3,124),(125,4,125),(126,2,126),(127,1,127),(128,2,128),(129,3,129),(130,3,130),(131,4,131),(132,4,132),(133,4,133),(134,7,134),(135,3,135),(136,4,136),(137,2,137),(138,7,138),(139,3,139),(140,1,140),(141,5,141),(142,5,142),(143,4,143),(144,2,144),(145,3,145),(146,3,146),(147,6,147),(148,2,148),(149,4,149),(150,1,150);

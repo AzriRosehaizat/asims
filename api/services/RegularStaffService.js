@@ -91,15 +91,6 @@ module.exports = {
 		sSQL = (where) ? sSQL.where('ar.regularStaffResearchID', where).toString() : sSQL.toString();
 		RegularStaff.query(sSQL, callback);
 	},
-	getEmployment: function(id, where, callback) {
-		var sSQL = mysql.select('re.*', 'r.academicStaffID')
-			.from('RegularStaff AS r')
-			.innerJoin('RegularStaffEmployment AS re', 'r.regularStaffID', 're.regularStaffID')
-			.where('r.academicStaffID', id);
-
-		sSQL = (where) ? sSQL.where('re.regularEmploymentID', where).toString() : sSQL.toString();
-		RegularStaff.query(sSQL, callback);
-	},
 	getResearchStaff: function(id, where, callback) {
 		var sSQL = mysql.select('rr.*', 'a.*', 'd.departmentCode')
 			.from('RegularStaff_Research AS rr')
