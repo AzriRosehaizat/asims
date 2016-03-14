@@ -1,5 +1,4 @@
-var application = angular.module('application', 
-['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.saveState',
+var application = angular.module('application', ['lodash', 'ui.router', 'ui.bootstrap', 'ui.grid', 'ui.grid.selection', 'ui.grid.saveState',
 	'ui.grid.resizeColumns', 'ui.grid.exporter', 'ngAnimate', 'ngMaterial', 'ngMessages', 'angularMoment', 'ngAria'
 ]);
 
@@ -416,9 +415,9 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 			$state.go('index');
 		});
 	})
-	.run(function($rootScope, $state, Auth, formService, SearchHelper, gridService) {
+	.run(function($rootScope, $state, $window, Auth, formService, SearchHelper, gridService) {
 		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
-			
+
 			formService.reset();
 			SearchHelper.reset();
 			gridService.saveAndReset();
@@ -445,4 +444,8 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				}
 			});
 		});
+		// Handle the exit event
+		$window.onbeforeunload = function() {
+			gridService.saveAndReset();
+		};
 	});
