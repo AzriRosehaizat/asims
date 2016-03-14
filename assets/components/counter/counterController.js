@@ -54,7 +54,7 @@ application.service('modalService', ['$compile', '$rootScope', '$timeout', funct
         var modal = {
             open: function() {
 
-                var html = '<div class="modal" ng-style="modalStyle"><div id="modalReport" class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"><div ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div></div><div class="modal-footer"><md-button class="md-raised md-primary md-hue-1" ng-click="close()">Close</md-button></div></div></div></div>';
+                var html = '<div class="modal" ng-style="modalStyle"><div id="modalReport" class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"><div ng-if="!refresh" ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div></div><div class="modal-footer"><md-button class="md-raised md-primary md-hue-1" ng-click="close()">Close</md-button></div></div></div></div>';
                 elm = angular.element(html);
                 angular.element(document.body).prepend(elm);
 
@@ -73,7 +73,6 @@ application.service('modalService', ['$compile', '$rootScope', '$timeout', funct
                     elm.remove();
                 }
                 refresh();
-
             },
 
         };
