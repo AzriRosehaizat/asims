@@ -77,14 +77,5 @@ module.exports = {
 			
 		sSQL = (where) ? sSQL.where('cs.contractStaffRankID', where).toString() : sSQL.toString();
 		ContractStaff.query(sSQL, callback);
-	},
-	getEmployment: function(id, where, callback) {
-		var sSQL = mysql.select('ce.*', 'c.academicStaffID')
-			.from('ContractStaff AS c')
-			.innerJoin('ContractStaffEmployment AS ce', 'c.contractStaffID', 'ce.contractStaffID')
-			.where('c.academicStaffID', id);
-			
-		sSQL = (where) ? sSQL.where('ce.contractEmploymentID', where).toString() : sSQL.toString();
-		ContractStaff.query(sSQL, callback);
-	},
+	}
 };

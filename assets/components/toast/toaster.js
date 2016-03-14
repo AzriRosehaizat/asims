@@ -28,14 +28,23 @@ application.service('toaster', function($mdToast) {
         error: function(err) {
             console.log(err);
             var text;
-            
-            if (err.originalError && err.originalError.errno === 1451)
-                text = "Row is referenced. Please delete related infomation first.";
-            else if (err.reason)
+
+            if (err.originalError && err.originalError.errno === 1451) {
+                text = "Row is referenced. Please delete all related infomation to this row first.";
+            }
+            // Return a truthy value if the substring is found, and a falsy value(0) if it isn't
+            else if (err.message && ~err.message.indexOf("already exists")) {
+                text = "This record already exists.";
+            } else if (err.message && ~err.message.indexOf(("Cannot delete or update a parent row"))){
+                text = "Row is referenced. Please delete all related infomation to this row first.";
+            }
+            else if (err.reason) {
                 text = err.reason;
-            else 
+            }
+            else {
                 text = "Error occurred. Operation cannot be performed at the moment.";
-                
+            }
+
             this.open("error_outline", text);
         }
     };
