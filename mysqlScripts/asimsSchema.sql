@@ -671,62 +671,6 @@ CREATE  OR REPLACE VIEW `MostRecentRank_Regular` AS
         LEFT JOIN `RegularStaffRank` 
           ON ((`RegularStaff`.`regularStaffID` = `RegularStaffRank`.`regularStaffID`)));
 
--- -----------------------------------------------------
--- View `CountEmployment_Regular``
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `CountEmployment_Regular`;
-
-CREATE  OR REPLACE VIEW `CountEmployment_Regular` AS 
-  SELECT 
-        COUNT(`RegularStaffRank`.`regularStaffID`) AS `NoOfRegularStaff`
-    FROM
-        `RegularStaffRank`
-    WHERE
-        ((`RegularStaffRank`.`endDate` > CURDATE())
-            OR ISNULL(`RegularStaffRank`.`endDate`));
-
--- -----------------------------------------------------
--- View `CountEmployment_Contract``
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `CountEmployment_Contract`;
-
-CREATE  OR REPLACE VIEW `CountEmployment_Contract` AS 
-  SELECT 
-        COUNT(`ContractStaffRank`.`contractStaffID`) AS `NoOfContractStaff`
-    FROM
-        `ContractStaffRank`
-    WHERE
-        ((`ContractStaffRank`.`endDate` > CURDATE())
-            OR ISNULL(`ContractStaffRank`.`endDate`));
-
--- -----------------------------------------------------
--- View `CountLeave``
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `CountLeave`;
-
-CREATE  OR REPLACE VIEW `CountLeave` AS
-  SELECT 
-        COUNT(`LeaveDebit`.`leaveDebitID`) AS `NoOfLeave`
-    FROM
-        `LeaveDebit`
-    WHERE
-        ((`LeaveDebit`.`endDate` > CURDATE())
-            OR ISNULL(`LeaveDebit`.`endDate`));
-
--- -----------------------------------------------------
--- View `CountResearch``
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `CountResearch`;
-
-CREATE  OR REPLACE VIEW `CountResearch` AS
-  SELECT 
-        COUNT(`Research`.`researchID`) AS `NoOfResearch`
-    FROM
-        `Research`
-    WHERE
-        ((`Research`.`endDate` > CURDATE())
-            OR ISNULL(`Research`.`endDate`));
-
   	
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

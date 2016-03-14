@@ -10,6 +10,33 @@
  */
 
 module.exports = {
+	getCountInfo: function(req, res) {
+		var responseFn = function(err, result) {
+			if (err) return res.serverError(err);
+			return res.ok(result);
+		};
+		var data = {
+			type: req.param('type')
+
+		};
+		switch (data.type) {
+			case 'leave':
+				HomeService.getLeaveCount(responseFn);
+				break;
+			case 'research':
+				HomeService.getResearchCount(responseFn);
+				break;
+			case 'regularStaff':
+				HomeService.getRegularStaffCount(responseFn);
+				break;
+			case 'contractStaff':
+				HomeService.getContractStaffCount(responseFn);
+				break;
+			default:
+				res.serverError();
+				console.log("Incorrect REST url");
+		}
+	},
 	getInfo: function(req, res) {
 		var responseFn = function(err, result) {
 			if (err) return res.serverError(err);
@@ -17,6 +44,7 @@ module.exports = {
 		};
 		var data = {
 			type: req.param('type')
+
 		};
 		switch (data.type) {
 			case 'leave':
