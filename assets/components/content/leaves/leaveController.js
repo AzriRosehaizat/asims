@@ -48,7 +48,8 @@ application
 
             $scope
             .gridOptions
-            .onRegisterApi = function(gridApi) {gridService
+            .onRegisterApi = function(gridApi) {
+                gridService
                 .setMain($scope, gridApi, 'leave');
                 
                 $scope
@@ -128,11 +129,11 @@ application
                         }
 
                         tab
-                            .initializeAdd(
-                                $scope.formData,
-                                tab.gridOptions.data,
-                                $scope.row
-                            );
+                        .initializeAdd(
+                            $scope.formData,
+                            tab.gridOptions.data,
+                            $scope.row
+                        );
                     };
 
                 $scope
@@ -143,11 +144,11 @@ application
                         }
 
                         tab
-                            .initializeEdit(
-                                $scope.formData,
-                                tab.gridOptions.data,
-                                $scope.tabRow
-                            );
+                        .initializeEdit(
+                            $scope.formData,
+                            tab.gridOptions.data,
+                            $scope.tabRow
+                        );
                     };
             };
 
