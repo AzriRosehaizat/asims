@@ -1,7 +1,6 @@
 /* global
     application
 */
-
 application
 .service(
     'leaveDebits', 
@@ -44,6 +43,16 @@ application
                                 'Type',
                             field: 
                                 'leaveDebitType'
+                        },{
+                            name: 
+                                'Leave Percentage (%)',
+                            field: 
+                                'leavePercentage'
+                        }, {
+                            name: 
+                                'Wage Percentage (%)',
+                            field: 
+                                'wagePercentage'
                         }
                     ],
                     onRegisterApi : function( gridApi ){
@@ -202,7 +211,7 @@ application
                     name: 
                         "amount",
                     label: 
-                        "Amount",
+                        "Credit",
                     required: 
                         true
                 }, {
@@ -247,7 +256,21 @@ application
                     name: 
                         "description",
                     label: 
-                        "Description",
+                        "Eligibility",
+                }, {
+                    type: 
+                        "number",
+                    name: 
+                        "leavePercentage",
+                    label: 
+                        "Leave Percentage (%)"
+                }, {
+                    type: 
+                        "number",
+                    name: 
+                        "wagePercentage",
+                    label: 
+                        "Wage Percentage (%)"
                 }
             ];
         }

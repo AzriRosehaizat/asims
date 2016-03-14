@@ -25,12 +25,9 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             return $http.put('/academicStaff/' + formData.model.academicStaffID, formData.model);
         },
         create: function(formData) {
-            return $http.post('/academicStaff', formData.model)
-                .then(function(aStaff) {
-                    return $http.post('/contractStaff', aStaff.data)
-                        .then(function(cStaff) {
-                            return $http.get('/contractStaff/getAllContractStaff/' + cStaff.data.contractStaffID);
-                        });
+            return $http.post('/contractStaff/createCAS', formData.model)
+                .then(function(res) {
+                    return $http.get('/contractStaff/getAllContractStaff/' + res.data.contractStaffID);
                 });
         },
         delete: function(formData) {
@@ -46,21 +43,77 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
-                disabled: false,
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
-                disabled: false,
+                label: "Last Name",
                 required: true
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No.",
-                disabled: false,
-                required: false
+                label: "Employee No."
+            }, {
+                type: "autocomplete",
+                name: "department",
+                label: "Department",
+                url: {
+                    start: "/department?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.department",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
+                assign: [{
+                    from: "department.obj.departmentID",
+                    to: "deptID"
+                }],
+                reset: ["rank", "rankID"]
+            }, {
+                type: "date",
+                name: "deptStartDate",
+                label: "Dept. Start Date",
+                hide: "fs.form.department.$pristine",
+                required: "fs.form.department.$dirty"
+            }, {
+                type: "date",
+                name: "deptEndDate",
+                label: "Dept. End Date",
+                minDate: "deptStartDate",
+                hide: "fs.form.department.$pristine"
+            }, {
+                type: "autocomplete",
+                name: "rank",
+                label: "Rank",
+                url: {
+                    start: "/rank?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.rank",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
+                assign: [{
+                    from: "rank.obj.rankID",
+                    to: "rankID"
+                }],
+                disabled: "!fs.formData.model.deptID"
+            }, {
+                type: "date",
+                name: "rankStartDate",
+                label: "Rank Start Date",
+                hide: "fs.form.rank.$pristine",
+                required: "fs.form.rank.$dirty"
+            }, {
+                type: "date",
+                name: "rankEndDate",
+                label: "Rank End Date",
+                minDate: "rankStartDate",
+                hide: "fs.form.rank.$pristine"
             }];
 
             formService.init(formData, gridData, null, 'contractStaffService', true);
@@ -72,13 +125,13 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 disabled: false,
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 disabled: false,
                 required: true
             }, {

@@ -27,10 +27,6 @@ module.exports = {
 		},
 		dateIssued: {
 			type: 'date'
-		},
-		FCEDebitType: {
-			type: 'String',
-			size: 50
 		}
 	},
 	tableName: 'FCEDebit'

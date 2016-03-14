@@ -23,7 +23,7 @@ module.exports = {
 			required: true
 		},
 		year: {
-			type: 'integer',
+			type: 'string',
 			required: true
 		}
 	},

@@ -1,4 +1,4 @@
-application.controller('departmentController', function($scope, departments, departmentService, dTabService, SearchHelper, toaster) {
+application.controller('departmentController', function($scope, departments, departmentService, dTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Department';
     $scope.department = departments.data;
@@ -14,6 +14,7 @@ application.controller('departmentController', function($scope, departments, dep
     SearchHelper.init($scope.gridOptions, $scope.department);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'department');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             //resets related tab selection
@@ -42,24 +43,28 @@ application.controller('departmentController', function($scope, departments, dep
     };
 
     $scope.tabs.course.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'dCourse');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             dTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
     $scope.tabs.regularStaff.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'dRegularStaff');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             dTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
     $scope.tabs.contractStaff.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'dContractStaff');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             dTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
     $scope.tabs.chair.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'dChair');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             dTabService.initEditForm($scope.formData, $scope.tab, row);

@@ -22,16 +22,20 @@ application.controller('dialogController', function($mdDialog, formService) {
         self.years = [];
         
         if (isFromSelected) {
-            min = self.range[0];
+            var minStr = self.range[0].slice(0, 4);
+            min = parseInt(minStr, 10);
             max = new Date().getFullYear() + 1;
         }
         else {
-            min = 1970;
-            max = self.range[1];
+            var maxStr = self.range[1].slice(0, 4);
+            min = 2000;
+            max = parseInt(maxStr, 10);
         }
         
         for (var i = max; i >= min; i--) {
-                self.years.push(i);
+                var nextYear = (i + 1).toString().slice(2);
+                var academicYear = i.toString() + '-' + nextYear;
+                self.years.push(academicYear);
             }
     };
 });

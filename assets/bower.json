@@ -1,7 +1,8 @@
 {
   "name": "assets",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "authors": [
+    "Azri Ahmad <azriahmad94@gmail.com>",
     "jamesmackayuwpc <james.mackay.uwpc@gmail.com>"
   ],
   "description": "",
@@ -20,16 +21,16 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "",
-    "angular-bootstrap": "",
-    "angular-animate": "",
-    "angular-material": "",
-    "angular-route": "",
-    "angular-ui-router": "",
-    "angular-ui-grid": "",
-    "angular-moment": "",
-    "angular-mocks": "",
-    "bootstrap": "",
+    "angular": "1.5.0",
+    "angular-bootstrap": "1.2.4",
+    "angular-animate": "1.5.0",
+    "angular-material": "1.0.6",
+    "angular-route": "1.5.0",
+    "angular-ui-router": "0.2.18",
+    "angular-ui-grid": "3.1.1",
+    "angular-moment": "0.10.3",
+    "angular-mocks": "1.5.0",
+    "bootstrap": "3.3.6",
     "pdfmake": "~0.1.20",
     "angular-lodash-module": "~1.2.0",
     "moment": "^2.11.2"

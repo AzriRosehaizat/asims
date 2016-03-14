@@ -26,7 +26,7 @@ application.service('rsResearch', function($http, $q, _, formService) {
             formData.inputs = [{
                 type: "autocomplete",
                 name: "title",
-                label: "Research Title",
+                label: "Title",
                 url: {
                     start: "/research?where={",
                     end: "\"title\":{\"startsWith\":\""
@@ -72,9 +72,9 @@ application.service('rsResearch', function($http, $q, _, formService) {
             formData.isEditing = true;
             formData.title = 'Research Activity';
             formData.inputs = [{
-                type: "autocomplete",
+                type: "text",
                 name: "title",
-                label: "Research Title",
+                label: "Title",
                 readonly: true
             }, {
                 type: "textarea",

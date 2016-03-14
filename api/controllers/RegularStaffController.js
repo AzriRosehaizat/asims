@@ -59,10 +59,60 @@ module.exports = {
 			case 'researchStaff':
 				RegularStaffService.getResearchStaff(data.id, data.where, responseFn);
 				break;
-			
+
 			default:
 				res.serverError();
 				console.log("Incorrect REST url");
 		}
+	},
+	createRAS: function(req, res) {
+		var aStaffData = {
+			firstName: req.param('firstName'),
+			lastName: req.param('lastName'),
+			employeeNo: req.param('employeeNo')
+		};
+
+		AcademicStaff.create(aStaffData).exec(function(err, aStaff) {
+			if (err) return res.negotiate(err);
+
+			var rStaffData = {
+				academicStaffID: aStaff.academicStaffID,
+				contAppDate: req.param('contAppDate'),
+				tenureDate: req.param('tenureDate')
+			};
+
+			RegularStaff.create(rStaffData).exec(function(err, rStaff) {
+				if (err) return res.negotiate(err);
+				if (req.param('deptID')) {
+
+					var deptData = {
+						academicStaffID: aStaff.academicStaffID,
+						departmentID: req.param('deptID'),
+						startDate: req.param('deptStartDate'),
+						endDate: req.param('deptEndDate')
+					};
+
+					AcademicStaff_Department.create(deptData).exec(function(err, dept) {
+						if (err) return res.negotiate(err);
+						if (req.param('rankID')) {
+
+							var rankData = {
+								regularStaffID: rStaff.regularStaffID,
+								rankID: req.param('rankID'),
+								startDate: req.param('rankStartDate'),
+								endDate: req.param('rankEndDate')
+							};
+
+							RegularStaff_Rank.create(rankData).exec(function(err, rank) {
+								if (err) return res.negotiate(err);
+								res.json(rStaff);
+							});
+						}
+						else res.json(rStaff);
+					});
+				}
+				else res.json(rStaff);
+			});
+		});
 	}
 };

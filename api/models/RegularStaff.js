@@ -24,10 +24,6 @@ module.exports = {
 		contAppDate: {
 			type: 'date'
 		},
-		RegularStaffEmployment: {
-			collection: 'RegularStaffEmployment',
-			via: 'regularStaffID'
-		},
 		Chair:{
 			collection: 'Chair',
 			via: 'regularStaffID'
@@ -54,10 +50,6 @@ module.exports = {
 		},
 		RegularStaff_Research: {
 			collection: 'RegularStaff_Research',
-			via: 'regularStaffID'
-		},
-		StaffLeave: {
-			collection: 'StaffLeave',
 			via: 'regularStaffID'
 		},
 		LeaveCredit: {

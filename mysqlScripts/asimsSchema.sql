@@ -184,26 +184,6 @@ CREATE TABLE IF NOT EXISTS `ContractStaff` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
-
--- -----------------------------------------------------
--- Table `ContractStaffEmployment`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `ContractStaffEmployment` ;
-
-CREATE TABLE IF NOT EXISTS `ContractStaffEmployment` (
-  `contractStaffID` INT(11) NOT NULL,
-  `contractEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`contractEmploymentID`) ,
-  INDEX `contractStaffID` (`contractStaffID` ASC) ,
-  CONSTRAINT `ContractStaffEmployment_ibfk_1`
-    FOREIGN KEY (`contractStaffID`)
-    REFERENCES `ContractStaff` (`contractStaffID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
 -- -----------------------------------------------------
 -- Table `ContractStaff_Rank`
 -- -----------------------------------------------------
@@ -271,7 +251,6 @@ CREATE TABLE IF NOT EXISTS `FCECredit` (
   `FCEValue` FLOAT NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
-  `FCECreditType` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`FCECreditID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `FCECredit_ibfk_1`
@@ -292,7 +271,6 @@ CREATE TABLE IF NOT EXISTS `FCEDebit` (
   `FCEValue` FLOAT NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
-  `FCEDebitType` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`FCEDebitID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `FCEDebit_ibfk_1`
@@ -337,6 +315,8 @@ CREATE TABLE IF NOT EXISTS `LeaveDebit` (
   `startDate` DATE NOT NULL,
   `endDate` DATE NOT NULL,
   `leaveDebitType` VARCHAR(50) NOT NULL,
+  `leavePercentage` FLOAT NOT NULL,
+  `wagePercentage` FLOAT NOT NULL,
   PRIMARY KEY (`leaveDebitID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   CONSTRAINT `LeaveDebit_ibfk_1`
@@ -355,7 +335,7 @@ CREATE TABLE IF NOT EXISTS `LoadIncrease` (
   `loadIncreaseID` INT(11) NOT NULL AUTO_INCREMENT,
   `regularStaffID` INT(11) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  `year` INT(4) NOT NULL,
+  `year` VARCHAR(10) NOT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
   PRIMARY KEY (`loadIncreaseID`) ,
@@ -376,7 +356,7 @@ CREATE TABLE IF NOT EXISTS `LoadReduction` (
   `loadReductionID` INT(11) NOT NULL AUTO_INCREMENT,
   `regularStaffID` INT(11) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
-  `year` INT(4) NOT NULL,
+  `year` VARCHAR(10) NOT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
   PRIMARY KEY (`loadReductionID`) ,
@@ -386,26 +366,6 @@ CREATE TABLE IF NOT EXISTS `LoadReduction` (
     REFERENCES `RegularStaff` (`regularStaffID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `RegularStaffEmployment`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `RegularStaffEmployment` ;
-
-CREATE TABLE IF NOT EXISTS `RegularStaffEmployment` (
-  `regularStaffID` INT(11) NOT NULL,
-  `regularEmploymentID` INT(11) NOT NULL AUTO_INCREMENT,
-  `startDate` DATE NOT NULL DEFAULT '2010-01-01',
-  `endDate` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`regularEmploymentID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  CONSTRAINT `RegularStaffEmployment_ibfk_1`
-    FOREIGN KEY (`regularStaffID`)
-    REFERENCES `RegularStaff` (`regularStaffID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
 
 -- -----------------------------------------------------
 -- Table `RegularStaff_Rank`
@@ -459,6 +419,7 @@ CREATE TABLE IF NOT EXISTS `RegularStaff_Research` (
   `startDate` DATE NOT NULL,
   `endDate` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`regularStaffResearchID`) ,
+  UNIQUE INDEX `urr` (`regularStaffID`, `researchID`, `startDate`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
   INDEX `researchID` (`researchID` ASC) ,
   CONSTRAINT `RegularStaff_Research_ibfk_1`
@@ -501,8 +462,8 @@ CREATE TABLE IF NOT EXISTS `RightToRefusal` (
   `rightToRefusalID` INT(11) NOT NULL AUTO_INCREMENT,
   `teachingActivitiesID` INT(11) NOT NULL,
   `contractStaffID` INT(11) NOT NULL,
-  `term` VARCHAR(45) NULL DEFAULT 'Fall/Winter',
-  `year` INT(4) NULL DEFAULT 2017,
+  `term` VARCHAR(45) NULL,
+  `year` VARCHAR(10) NULL,
   PRIMARY KEY (`rightToRefusalID`) ,
   INDEX `contractStaffID` (`contractStaffID` ASC) ,
   INDEX `teachingActivitiesID` (`teachingActivitiesID` ASC) ,
@@ -512,33 +473,6 @@ CREATE TABLE IF NOT EXISTS `RightToRefusal` (
   CONSTRAINT `RightToRefusal_ibfk_1`
     FOREIGN KEY (`contractStaffID`)
     REFERENCES `ContractStaff` (`contractStaffID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `StaffLeave`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `StaffLeave` ;
-
-CREATE TABLE IF NOT EXISTS `StaffLeave` (
-  `leaveID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `leaveDebitID` INT(11) NOT NULL,
-  `description` TEXT NOT NULL,
-  `startDate` DATE NOT NULL,
-  `endDate` DATE NOT NULL,
-  `leavePercentage` FLOAT NOT NULL,
-  `wagePercentage` FLOAT NOT NULL,
-  PRIMARY KEY (`leaveID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  INDEX `leaveDebitID` (`leaveDebitID` ASC) ,
-  CONSTRAINT `StaffLeave_ibfk_2`
-    FOREIGN KEY (`leaveDebitID`)
-    REFERENCES `LeaveDebit` (`leaveDebitID`),
-  CONSTRAINT `StaffLeave_ibfk_1`
-    FOREIGN KEY (`regularStaffID`)
-    REFERENCES `RegularStaff` (`regularStaffID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -552,10 +486,10 @@ CREATE TABLE IF NOT EXISTS `TeachingActivities` (
   `academicStaffID` INT(11) NOT NULL,
   `courseID` INT(11) NOT NULL,
   `sectionID` INT(11) NOT NULL,
-  `term` VARCHAR(45) NOT NULL DEFAULT 'Fall/Winter',
-  `year` INT(4) NOT NULL,
-  `startDate` DATE NULL DEFAULT '2015-09-11',
-  `endDate` DATE NULL DEFAULT '2016-05-21',
+  `term` VARCHAR(45) NOT NULL,
+  `year` VARCHAR(10) NOT NULL,
+  `startDate` DATE NULL,
+  `endDate` DATE NULL,
   `role` VARCHAR(50) NULL,
   `FCEValue` FLOAT NOT NULL DEFAULT '0.5',
   PRIMARY KEY (`teachingActivitiesID`) ,
@@ -601,7 +535,7 @@ CREATE TABLE `Load` (
   `loadID` INT(11) NOT NULL AUTO_INCREMENT,
   `regularStaffID` INT(11) NOT NULL,
   `FCEValue` FLOAT NOT NULL,
-  `year` INT(4) NOT NULL,
+  `year` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`loadID`),
   INDEX `regularStaffID` (`regularStaffID` ASC),
   CONSTRAINT `Load_ibfk_1`
@@ -737,29 +671,6 @@ CREATE  OR REPLACE VIEW `MostRecentRank_Regular` AS
         LEFT JOIN `RegularStaffRank` 
           ON ((`RegularStaff`.`regularStaffID` = `RegularStaffRank`.`regularStaffID`)));
 
-
--- -----------------------------------------------------
--- View `MostRecentEmployment_Regular`
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `MostRecentEmployment_Regular`;
-
-CREATE  OR REPLACE VIEW `MostRecentEmployment_Regular` AS 
-  SELECT 
-        `RegularStaffEmployment`.`regularStaffID` AS `regularStaffID`,
-        `RegularStaffEmployment`.`regularEmploymentID` AS `regularEmploymentID`,
-        `RegularStaffEmployment`.`startDate` AS `startDate`,
-        `RegularStaffEmployment`.`endDate` AS `endDate`
-    FROM
-        `RegularStaffEmployment`
-    WHERE
-        (`RegularStaffEmployment`.`regularStaffID` , `RegularStaffEmployment`.`startDate`) IN (SELECT 
-                `RegularStaffEmployment`.`regularStaffID`,
-                    MAX(`RegularStaffEmployment`.`startDate`)
-            FROM
-                `RegularStaffEmployment`
-            GROUP BY `RegularStaffEmployment`.`regularStaffID`);
-
-
 -- -----------------------------------------------------
 -- View `CountEmployment_Regular``
 -- -----------------------------------------------------
@@ -767,34 +678,12 @@ DROP VIEW IF EXISTS `CountEmployment_Regular`;
 
 CREATE  OR REPLACE VIEW `CountEmployment_Regular` AS 
   SELECT 
-          COUNT(`MostRecentEmployment_Regular`.`regularStaffID`) AS `NoOfRegularStaff`
-      FROM
-          `MostRecentEmployment_Regular`
-      WHERE
-          ((`MostRecentEmployment_Regular`.`endDate` > CURDATE())
-              OR (`MostRecentEmployment_Regular`.`endDate` IS  NULL));
-
--- -----------------------------------------------------
--- View `MostRecentEmployment_Contract`
--- -----------------------------------------------------
-DROP VIEW IF EXISTS `MostRecentEmployment_Contract`;
-
-CREATE  OR REPLACE VIEW `MostRecentEmployment_Contract` AS 
-  SELECT 
-        `ContractStaffEmployment`.`contractStaffID` AS `contractStaffID`,
-        `ContractStaffEmployment`.`contractEmploymentID` AS `contractEmploymentID`,
-        `ContractStaffEmployment`.`startDate` AS `startDate`,
-        `ContractStaffEmployment`.`endDate` AS `endDate`
+        COUNT(`RegularStaffRank`.`regularStaffID`) AS `NoOfRegularStaff`
     FROM
-        `ContractStaffEmployment`
+        `RegularStaffRank`
     WHERE
-        (`ContractStaffEmployment`.`contractStaffID` , `ContractStaffEmployment`.`startDate`) IN (SELECT 
-                `ContractStaffEmployment`.`contractStaffID`,
-                    MAX(`ContractStaffEmployment`.`startDate`)
-            FROM
-                `ContractStaffEmployment`
-            GROUP BY `ContractStaffEmployment`.`contractStaffID`);
-
+        ((`RegularStaffRank`.`endDate` > CURDATE())
+            OR ISNULL(`RegularStaffRank`.`endDate`));
 
 -- -----------------------------------------------------
 -- View `CountEmployment_Contract``
@@ -803,12 +692,12 @@ DROP VIEW IF EXISTS `CountEmployment_Contract`;
 
 CREATE  OR REPLACE VIEW `CountEmployment_Contract` AS 
   SELECT 
-        COUNT(`MostRecentEmployment_Contract`.`contractStaffID`) AS `NoOfContractStaff`
+        COUNT(`ContractStaffRank`.`contractStaffID`) AS `NoOfContractStaff`
     FROM
-        `MostRecentEmployment_Contract`
+        `ContractStaffRank`
     WHERE
-        ((`MostRecentEmployment_Contract`.`endDate` > CURDATE())
-            OR (`MostRecentEmployment_Contract`.`endDate` IS NULL));
+        ((`ContractStaffRank`.`endDate` > CURDATE())
+            OR ISNULL(`ContractStaffRank`.`endDate`));
 
 -- -----------------------------------------------------
 -- View `CountLeave``
@@ -817,12 +706,12 @@ DROP VIEW IF EXISTS `CountLeave`;
 
 CREATE  OR REPLACE VIEW `CountLeave` AS
   SELECT 
-        COUNT(`StaffLeave`.`leaveID`) AS `NoOfLeave`
+        COUNT(`LeaveDebit`.`leaveDebitID`) AS `NoOfLeave`
     FROM
-        `StaffLeave`
+        `LeaveDebit`
     WHERE
-        ((`StaffLeave`.`endDate` > CURDATE())
-            OR ISNULL(`StaffLeave`.`endDate`));
+        ((`LeaveDebit`.`endDate` > CURDATE())
+            OR ISNULL(`LeaveDebit`.`endDate`));
 
 -- -----------------------------------------------------
 -- View `CountResearch``
@@ -863,10 +752,6 @@ INSERT INTO RegularStaff (regularStaffID,academicStaffID) VALUES (101,101),(102,
 INSERT INTO ContractStaff (contractStaffID,academicStaffID) VALUES (1,151),(2,152),(3,153),(4,154),(5,155),(6,156),(7,157),(8,158),(9,159),(10,160),(11,161),(12,162),(13,163),(14,164),(15,165),(16,166),(17,167),(18,168),(19,169),(20,170),(21,171),(22,172),(23,173),(24,174),(25,175),(26,176),(27,177),(28,178),(29,179),(30,180),(31,181),(32,182),(33,183),(34,184),(35,185),(36,186),(37,187),(38,188),(39,189),(40,190),(41,191),(42,192),(43,193),(44,194),(45,195),(46,196),(47,197),(48,198),(49,199),(50,200);
 
 #Start dates set to 2010-01-01.
-INSERT INTO RegularStaffEmployment (regularEmploymentID, regularStaffID) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
-INSERT INTO RegularStaffEmployment (regularEmploymentID,regularStaffID) VALUES (51,51),(52,52),(53,53),(54,54),(55,55),(56,56),(57,57),(58,58),(59,59),(60,60),(61,61),(62,62),(63,63),(64,64),(65,65),(66,66),(67,67),(68,68),(69,69),(70,70),(71,71),(72,72),(73,73),(74,74),(75,75),(76,76),(77,77),(78,78),(79,79),(80,80),(81,81),(82,82),(83,83),(84,84),(85,85),(86,86),(87,87),(88,88),(89,89),(90,90),(91,91),(92,92),(93,93),(94,94),(95,95),(96,96),(97,97),(98,98),(99,99),(100,100);
-INSERT INTO RegularStaffEmployment (regularEmploymentID,regularStaffID) VALUES (101,101),(102,102),(103,103),(104,104),(105,105),(106,106),(107,107),(108,108),(109,109),(110,110),(111,111),(112,112),(113,113),(114,114),(115,115),(116,116),(117,117),(118,118),(119,119),(120,120),(121,121),(122,122),(123,123),(124,124),(125,125),(126,126),(127,127),(128,128),(129,129),(130,130),(131,131),(132,132),(133,133),(134,134),(135,135),(136,136),(137,137),(138,138),(139,139),(140,140),(141,141),(142,142),(143,143),(144,144),(145,145),(146,146),(147,147),(148,148),(149,149),(150,150);
-INSERT INTO ContractStaffEmployment (contractEmploymentID,contractStaffID) VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10),(11,11),(12,12),(13,13),(14,14),(15,15),(16,16),(17,17),(18,18),(19,19),(20,20),(21,21),(22,22),(23,23),(24,24),(25,25),(26,26),(27,27),(28,28),(29,29),(30,30),(31,31),(32,32),(33,33),(34,34),(35,35),(36,36),(37,37),(38,38),(39,39),(40,40),(41,41),(42,42),(43,43),(44,44),(45,45),(46,46),(47,47),(48,48),(49,49),(50,50);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (1,2,1),(2,5,2),(3,7,3),(4,5,4),(5,4,5),(6,3,6),(7,3,7),(8,6,8),(9,5,9),(10,5,10),(11,2,11),(12,6,12),(13,1,13),(14,1,14),(15,7,15),(16,6,16),(17,3,17),(18,6,18),(19,6,19),(20,4,20),(21,7,21),(22,6,22),(23,5,23),(24,4,24),(25,2,25),(26,7,26),(27,3,27),(28,4,28),(29,2,29),(30,1,30),(31,4,31),(32,7,32),(33,5,33),(34,5,34),(35,2,35),(36,5,36),(37,1,37),(38,6,38),(39,3,39),(40,2,40),(41,5,41),(42,7,42),(43,2,43),(44,7,44),(45,2,45),(46,1,46),(47,7,47),(48,2,48),(49,7,49),(50,7,50);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (51,2,51),(52,4,52),(53,5,53),(54,6,54),(55,6,55),(56,5,56),(57,3,57),(58,4,58),(59,2,59),(60,5,60),(61,5,61),(62,3,62),(63,4,63),(64,5,64),(65,3,65),(66,4,66),(67,3,67),(68,1,68),(69,5,69),(70,7,70),(71,1,71),(72,6,72),(73,4,73),(74,1,74),(75,3,75),(76,2,76),(77,4,77),(78,1,78),(79,7,79),(80,1,80),(81,2,81),(82,2,82),(83,7,83),(84,6,84),(85,5,85),(86,4,86),(87,1,87),(88,6,88),(89,6,89),(90,6,90),(91,3,91),(92,4,92),(93,7,93),(94,3,94),(95,2,95),(96,6,96),(97,3,97),(98,5,98),(99,2,99),(100,4,100);
 INSERT INTO RegularStaff_Rank (regularStaffRankID,rankID,regularStaffID) VALUES (101,6,101),(102,1,102),(103,4,103),(104,6,104),(105,2,105),(106,7,106),(107,2,107),(108,3,108),(109,3,109),(110,1,110),(111,7,111),(112,3,112),(113,6,113),(114,2,114),(115,4,115),(116,1,116),(117,6,117),(118,4,118),(119,2,119),(120,2,120),(121,2,121),(122,3,122),(123,4,123),(124,3,124),(125,4,125),(126,2,126),(127,1,127),(128,2,128),(129,3,129),(130,3,130),(131,4,131),(132,4,132),(133,4,133),(134,7,134),(135,3,135),(136,4,136),(137,2,137),(138,7,138),(139,3,139),(140,1,140),(141,5,141),(142,5,142),(143,4,143),(144,2,144),(145,3,145),(146,3,146),(147,6,147),(148,2,148),(149,4,149),(150,1,150);
@@ -880,7 +765,7 @@ INSERT INTO Chair (chairID,regularStaffID,departmentID) VALUES (1,37,23),(2,85,2
 INSERT INTO ContractStaff_Rank (contractStaffRankID,rankID,contractStaffID,startDate) VALUES (4,1,4,"2013-11-23"),(5,4,5,"2013-04-16"),(6,2,6,"2013-06-17"),(7,3,7,"2014-06-20"),(8,3,8,"2014-07-01"),(9,1,9,"2013-09-22"),(10,1,10,"2014-11-18"),(11,1,11,"2013-07-05"),(12,4,12,"2014-11-15"),(13,4,13,"2014-10-03"),(14,2,14,"2014-01-02"),(15,1,15,"2014-07-15"),(16,3,16,"2014-08-07"),(17,4,17,"2015-01-30"),(18,1,18,"2014-12-28"),(19,1,19,"2013-06-23"),(20,4,20,"2014-01-17"),(21,1,21,"2014-02-04"),(22,3,22,"2013-10-03"),(23,2,23,"2015-01-01"),(24,1,24,"2013-07-25"),(25,3,25,"2013-09-19"),(26,3,26,"2014-01-16"),(27,4,27,"2013-10-04"),(28,1,28,"2014-10-16"),(29,3,29,"2013-08-13"),(30,2,30,"2014-08-21"),(31,3,31,"2014-01-31"),(32,2,32,"2013-07-24"),(33,3,33,"2014-10-05"),(34,3,34,"2014-07-30"),(35,2,35,"2014-12-02"),(36,3,36,"2013-09-19"),(37,2,37,"2014-09-10"),(38,4,38,"2014-11-19"),(39,3,39,"2014-10-19"),(40,4,40,"2014-10-23"),(41,3,41,"2015-01-27"),(42,2,42,"2014-11-04"),(43,1,43,"2014-02-05"),(44,1,44,"2014-02-11"),(45,1,45,"2015-01-31"),(46,4,46,"2014-11-08"),(47,3,47,"2014-02-27"),(48,1,48,"2014-03-04"),(49,1,49,"2014-10-11"),(50,3,50,"2013-07-17");
 INSERT INTO Research (title,abstract,startDate) VALUES ("amet, consectetuer","lectus convallis est, vitae sodales nisi magna sed dui. Fusce aliquam, enim nec tempus scelerisque, lorem ipsum sodales purus, in","2015-11-12 "),("morbi tristique","aliquet. Phasellus fermentum convallis","2016-05-25 "),("Donec nibh","Nulla facilisis. Suspendisse commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies adipiscing, enim mi tempor lorem,","2015-06-10 "),("Sed pharetra,","neque pellentesque massa lobortis ultrices. Vivamus rhoncus. Donec","2015-10-11 "),("tincidunt dui","lorem fringilla ornare placerat, orci lacus vestibulum lorem,","2015-03-26 "),("lectus pede","quis accumsan convallis, ante lectus convallis est, vitae sodales","2015-04-04 "),("mi tempor","ac risus. Morbi metus. Vivamus","2015-07-17 "),("dignissim lacus.","ultricies dignissim lacus. Aliquam rutrum lorem ac risus. Morbi metus. Vivamus euismod urna. Nullam lobortis quam","2016-10-25 "),("suscipit, est","dictum eu, placerat eget, venenatis a, magna. Lorem","2015-06-21 "),("congue. In","ut ipsum ac mi eleifend","2016-07-06 "),("elit. Aliquam","id magna et ipsum cursus vestibulum. Mauris magna. Duis dignissim tempor arcu. Vestibulum ut eros non","2015-05-08 "),("Etiam bibendum","aliquet. Proin velit. Sed malesuada augue ut lacus. Nulla tincidunt, neque vitae semper egestas, urna justo faucibus","2016-10-04 "),("molestie tortor","imperdiet ullamcorper. Duis","2016-09-21 "),("fermentum convallis","amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi","2016-02-29 "),("lectus. Cum","quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames","2015-10-31 "),("Suspendisse sed","egestas. Aliquam fringilla cursus purus. Nullam scelerisque neque sed sem egestas blandit. Nam nulla magna, malesuada","2016-03-09 "),("egestas rhoncus.","Nam tempor diam dictum sapien. Aenean massa. Integer vitae nibh. Donec est mauris, rhoncus id, mollis nec, cursus a, enim.","2015-04-07 "),("pharetra ut,","malesuada. Integer id magna et ipsum cursus vestibulum. Mauris magna. Duis","2016-07-13 "),("lorem vitae","eget varius ultrices, mauris ipsum porta elit, a feugiat tellus lorem eu metus. In lorem.","2016-07-03 "),("pretium et,","dolor egestas rhoncus. Proin nisl sem, consequat nec, mollis vitae, posuere at, velit. Cras lorem lorem, luctus ut, pellentesque eget,","2015-03-07 ");
 
---------------------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------------------------------------------------------------------------------
 -- Removed Insert statements for RightOfRefusal, LeaveCredit, LeaveDebit & Leave Tables because of the nature of the tables.
 -- These tables cannot use regular dummy data, the data has to match the needs/requirements of the application in order to be of value
----------------------------------------------------------------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------------------------------------------------------------

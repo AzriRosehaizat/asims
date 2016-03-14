@@ -46,7 +46,7 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                             field: 'tenureDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }, {
-                            name: 'Cont\' appointment date',
+                            name: 'Continuing Appt. Date',
                             field: 'contAppDate',
                             cellFilter: 'date:\'MM-dd-yyyy\''
                         }]

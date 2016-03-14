@@ -1,4 +1,4 @@
-application.controller('taCASController', function($scope, staffs, taCASService, taCASTabService, SearchHelper, toaster) {
+application.controller('taCASController', function($scope, staffs, taCASService, taCASTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Contract Staff';
     $scope.cStaff = staffs.data;
@@ -14,6 +14,7 @@ application.controller('taCASController', function($scope, staffs, taCASService,
     SearchHelper.init($scope.gridOptions, $scope.cStaff);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'taCAS');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
             $scope.tabRow = null;
@@ -41,6 +42,7 @@ application.controller('taCASController', function($scope, staffs, taCASService,
     };
     
     $scope.tabs.teachingActivity.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'taCASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taCASTabService.initEditForm($scope.formData, $scope.tab, row);
@@ -48,6 +50,7 @@ application.controller('taCASController', function($scope, staffs, taCASService,
     };
     
     $scope.tabs.rightToRefuse.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'rtrCASTA');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.tabRow = row;
             taCASTabService.initEditForm($scope.formData, $scope.tab, row);

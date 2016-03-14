@@ -23,7 +23,7 @@ application.service('debitRASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'FCE Debit';
+            formData.title = 'Owed';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
@@ -36,11 +36,8 @@ application.service('debitRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued"
-            }, {
-                type: "text",
-                name: "FCEDebitType",
-                label: "Debit Type"
+                label: "Date Issued",
+                required: true
             }];
 
             formService.init(formData, gridData, null, 'debitRASTA', false);
@@ -50,7 +47,7 @@ application.service('debitRASTA', function($http, _, formService) {
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'FCE Debit';
+            formData.title = 'Owed';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
@@ -63,11 +60,8 @@ application.service('debitRASTA', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued"
-            }, {
-                type: "text",
-                name: "FCEDebitType",
-                label: "Debit Type"
+                label: "Date Issued",
+                required: true
             }];
             
             formService.init(formData, gridData, row, 'debitRASTA', false);

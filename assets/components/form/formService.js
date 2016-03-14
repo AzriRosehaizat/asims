@@ -123,7 +123,9 @@ application.service('formService', function($injector, $mdDialog, _, moment, toa
                 max = new Date().getFullYear() + 1;
 
             for (var i = max; i >= min; i--) {
-                years.push(i);
+                var nextYear = (i + 1).toString().slice(2);
+                var academicYear = i.toString() + '-' + nextYear;
+                years.push(academicYear);
             }
         }
         return years;

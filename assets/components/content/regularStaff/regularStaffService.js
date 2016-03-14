@@ -23,7 +23,7 @@ application.service('regularStaffService', function($http, _, formService) {
                     field: 'tenureDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }, {
-                    name: 'Cont\' Appointment Date',
+                    name: 'Continuing Appt. Date',
                     field: 'contAppDate',
                     cellFilter: 'date:\'MM-dd-yyyy\''
                 }]
@@ -41,14 +41,9 @@ application.service('regularStaffService', function($http, _, formService) {
                 });
         },
         create: function(formData) {
-            return $http.post('/academicStaff', formData.model)
-                .then(function(aStaff) {
-                    // retrieve newly created academicStaffID
-                    formData.model.academicStaffID = aStaff.data.academicStaffID;
-                    return $http.post('/regularStaff', formData.model)
-                        .then(function(rStaff) {
-                            return $http.get('/regularStaff/getAllRegularStaff/' + rStaff.data.regularStaffID);
-                        });
+            return $http.post('/regularStaff/createRAS', formData.model)
+                .then(function(res) {
+                    return $http.get('/regularStaff/getAllRegularStaff/' + res.data.regularStaffID);
                 });
         },
         delete: function(formData) {
@@ -64,25 +59,85 @@ application.service('regularStaffService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "text",
                 name: "employeeNo",
                 label: "Employee No."
             }, {
+                type: "autocomplete",
+                name: "department",
+                label: "Department",
+                url: {
+                    start: "/department?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.department",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
+                assign: [{
+                    from: "department.obj.departmentID",
+                    to: "deptID"
+                }],
+                reset: ["rank", "rankID"]
+            }, {
+                type: "date",
+                name: "deptStartDate",
+                label: "Dept. Start Date",
+                hide: "fs.form.department.$pristine",
+                required: "fs.form.department.$dirty"
+            }, {
+                type: "date",
+                name: "deptEndDate",
+                label: "Dept. End Date",
+                minDate: "deptStartDate",
+                hide: "fs.form.department.$pristine"
+            }, {
+                type: "autocomplete",
+                name: "rank",
+                label: "Rank",
+                url: {
+                    start: "/rank?where={",
+                    end: "\"title\":{\"startsWith\":\""
+                },
+                link: "application.rank",
+                output: {
+                    obj: {},
+                    name: "title"
+                },
+                assign: [{
+                    from: "rank.obj.rankID",
+                    to: "rankID"
+                }],
+                disabled: "!fs.formData.model.deptID"
+            }, {
+                type: "date",
+                name: "rankStartDate",
+                label: "Rank Start Date",
+                hide: "fs.form.rank.$pristine",
+                required: "fs.form.rank.$dirty"
+            }, {
+                type: "date",
+                name: "rankEndDate",
+                label: "Rank End Date",
+                minDate: "rankStartDate",
+                hide: "fs.form.rank.$pristine"
+            }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Continuing Appt. Date"
             }];
 
             formService.init(formData, gridData, null, 'regularStaffService', true);
@@ -97,12 +152,12 @@ application.service('regularStaffService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First name",
+                label: "First Name",
                 required: true
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last name",
+                label: "Last Name",
                 required: true
             }, {
                 type: "text",
@@ -111,11 +166,11 @@ application.service('regularStaffService', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure date"
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Cont' appointment date"
+                label: "Continuing Appt. Date"
             }];
 
             formService.init(formData, gridData, row, 'regularStaffService', true);
