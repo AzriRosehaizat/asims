@@ -24,10 +24,6 @@ module.exports = {
 		contAppDate: {
 			type: 'date'
 		},
-		RegularStaffEmployment: {
-			collection: 'RegularStaffEmployment',
-			via: 'regularStaffID'
-		},
 		Chair:{
 			collection: 'Chair',
 			via: 'regularStaffID'
