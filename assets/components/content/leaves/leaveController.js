@@ -61,26 +61,7 @@ application
             .selection
             .on
             .rowSelectionChanged($scope, function(row) {
-                var index = (
-                        $scope
-                        .gridApi
-                        .selection
-                        .getSelectedRows()
-                        .indexOf(
-                            row
-                            .entity
-                        )
-                    );
-                    
-                if(index === -1){
-                    $scope  
-                    .gridApi
-                    .selection
-                    .selectRow( 
-                        row.entity 
-                    );  
-                    return;
-                }
+                console.log(row);
                 
                 $scope
                 .row = (
@@ -99,6 +80,8 @@ application
                         setTimeout(wait, 20);
                         return;
                     }
+                    
+                    
                     
                     leaveService
                     .setForm(

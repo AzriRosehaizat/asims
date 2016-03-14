@@ -52,28 +52,8 @@ application
                             .selection
                             .on
                             .rowSelectionChanged( 
-                                $scope, 
+                                null, 
                                 function( row ){
-                                    
-                                    var index = (
-                                        gridApi
-                                        .selection
-                                        .getSelectedRows()
-                                        .indexOf(
-                                            row
-                                            .entity
-                                        )
-                                    );
-                                    
-                                    if(index === -1){
-                                        gridApi
-                                        .selection
-                                        .selectRow( 
-                                            row.entity 
-                                        );  
-                                        return;
-                                    }
-                                    
                                     initializeEdit(
                                         $scope
                                         .formData,
