@@ -75,7 +75,7 @@ application
                 
                 (function wait(){
                     if( row.entity.completed !== 2 ){
-                        setTimeout(wait, 50);
+                        setTimeout(wait, 20);
                         return;
                     }
                     
@@ -88,6 +88,9 @@ application
                         .data,
                         row
                     );
+                    
+                    $scope
+                    .$apply();
                     
                 })();
 
@@ -150,8 +153,13 @@ application
                     $scope.tabRow
                 );
             };
+            
+            if ($scope.row) {
+                $scope
+                .addTabRow();
+            }
         };
-
+        
         $scope
         .selectTab(
             $scope
