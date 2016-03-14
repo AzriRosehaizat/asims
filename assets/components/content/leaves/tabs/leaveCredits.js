@@ -226,7 +226,9 @@ application
                     label: 
                         "End Date",
                     required: 
-                        true
+                        true,
+                    minDate: 
+                        "startDate"
                 }, {
                     type: 
                         "select",
