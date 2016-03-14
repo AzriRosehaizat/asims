@@ -1,5 +1,4 @@
 application
-<<<<<<< HEAD
     .controller('gridController', function(navRightBarService, CurrentUser) {
     
         var self = this;
@@ -106,19 +105,4 @@ application
 			};
 			return gridOptions;
 		});
-=======
-	.controller('gridController', function(navRightBarService, CurrentUser) {
-
-		var self = this;
-		var userRole;
-
-		self.toggle = function() {
-			navRightBarService.toggle();
-		};
-
-		self.isReader = function() {
-			if (!userRole) userRole = CurrentUser.getRole();
-			return (userRole === "reader");
-		};
->>>>>>> 2ce56afad4973409276148ab7de310b66208b0b1
 	});
