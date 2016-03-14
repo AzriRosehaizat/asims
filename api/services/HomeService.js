@@ -18,10 +18,11 @@ module.exports = {
             Home.query(sSQL, callback);
     },
     getRegularStaff: function(callback){
-        var sSQL = mysql.select('r.*')
-            .from('CountEmployment_Regular as r');
+        var sSQL = mysql.count(`r.regularStaffID AS NoOfRegularStaff`).from('RegularStaffRank AS r')
+            .where(`r.endDate`, '>', new Date())
+            .orWhereNull(`r.endDate`)
+            .toString();
             
-            sSQL = sSQL.toString();
             Home.query(sSQL, callback);
     },
     getContractStaff: function(callback){
