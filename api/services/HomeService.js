@@ -4,17 +4,19 @@ var mysql = require('knex')({
 
 module.exports = {
     getLeaveCount: function(callback) {
-        var sSQL = mysql.select('l.*')
-            .from('CountLeave as l');
-
-        sSQL = sSQL.toString();
+        var sSQL = mysql.count(`ld.leaveDebitID AS NoOfLeave`)
+            .from('LeaveDebit AS ld')
+            .where(`ld.endDate`, '>', new Date())
+            .orWhereNull(`ld.endDate`)
+            .toString();
         RegularStaff.query(sSQL, callback);
     },
-    getResearchCount: function(callback) {
-        var sSQL = mysql.select('re.*')
-            .from('CountResearch as re');
-
-        sSQL = sSQL.toString();
+    getContractStaffCount: function(callback) {
+        var sSQL = mysql.count(`c.contractStaffID AS NoOfContractStaff`)
+            .from('ContractStaffRank AS c')
+            .where(`c.endDate`, '>', new Date())
+            .orWhereNull(`c.endDate`)
+            .toString();
         RegularStaff.query(sSQL, callback);
     },
 
@@ -27,11 +29,12 @@ module.exports = {
 
         RegularStaff.query(sSQL, callback);
     },
-    getContractStaffCount: function(callback) {
-        var sSQL = mysql.select('c.*')
-            .from('CountEmployment_Contract as c');
-
-        sSQL = sSQL.toString();
+    getResearchCount: function(callback) {
+        var sSQL = mysql.count(`r.researchID AS NoOfResearch`)
+            .from('Research AS r')
+            .where(`r.endDate`, '>', new Date())
+            .orWhereNull(`r.endDate`)
+            .toString();
         RegularStaff.query(sSQL, callback);
     },
     // Get information current employed regular staff
@@ -83,7 +86,7 @@ module.exports = {
             .where(`r.endDate`, '>', new Date())
             .orWhereNull(`r.endDate`)
             // limit to show only one research grant
-            .groupBy('r.researchID');  
+            .groupBy('r.researchID');
         sSQL = sSQL.toString();
         RegularStaff.query(sSQL, callback);
     },
