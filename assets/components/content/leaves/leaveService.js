@@ -30,65 +30,65 @@ application
                 },
                 setForm: function(formData, gridData, row) {
                     gridData
-                        .readOnly = (
-                            true
-                        );
+                    .readOnly = (
+                        true
+                    );
 
                     formData
-                        .model = (
-                            _
-                            .cloneDeep(
-                                row
-                                .entity
-                            )
-                        );
+                    .model = (
+                        _
+                        .cloneDeep(
+                            row
+                            .entity
+                        )
+                    );
 
                     formData
-                        .isEditing = (
-                            true
-                        );
+                    .isEditing = (
+                        true
+                    );
 
                     formData
-                        .title = (
-                            'Regular Staff Details'
-                        );
+                    .title = (
+                        'Regular Staff Details'
+                    );
 
                     formData
-                        .inputs = [{
-                            type: "text",
-                            name: "firstName",
-                            label: "First name"
-                        }, {
-                            type: "text",
-                            name: "lastName",
-                            label: "Last name"
-                        }, {
-                            type: "number",
-                            name: "researchBalance",
-                            label: "Research Balance"
-                        }, {
-                            type: "number",
-                            name: "administrativeBalance",
-                            label: "Administrative Balance"
-                        }];
+                    .inputs = [{
+                        type: "text",
+                        name: "firstName",
+                        label: "First name"
+                    }, {
+                        type: "text",
+                        name: "lastName",
+                        label: "Last name"
+                    }, {
+                        type: "number",
+                        name: "researchBalance",
+                        label: "Research Balance"
+                    }, {
+                        type: "number",
+                        name: "administrativeBalance",
+                        label: "Administrative Balance"
+                    }];
 
                     formService
-                        .init(
-                            formData,
-                            gridData,
-                            row,
-                            'leaveService',
-                            true
-                        );
+                    .init(
+                        formData,
+                        gridData,
+                        row,
+                        'leaveService',
+                        true
+                    );
                 },
                 getRow: function(row) {
                     return $q
-                        .resolve({
-                            data: [
-                                row
-                                .entity
-                            ]
-                        });
+                    .resolve({
+                        data: [
+                            row
+                            .entity
+                        ]
+                    });
                 }
             };
         }
