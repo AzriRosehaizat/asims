@@ -8,24 +8,28 @@ application.service('counterService', function($http) {
         title: "On Leave",
         data: '',
         footer: "Staff",
-        link: "application.leaves"
+        link: "application.leaves",
+        rest: "Home/getInfo?type=leave"
     }, {
         title: "Researches",
         data: '',
         footer: "In Progress",
-        link: "application.research"
+        link: "application.research",
+        rest: "Home/getInfo?type=research"
     }]);
 
     self.rows.push([{
         title: "Regular Staff",
         data: '',
         footer: "Currently Employed",
-        link: "application.regularStaff"
+        link: "application.regularStaff",
+        rest: "Home/getInfo?type=regularStaff"
     }, {
         title: "Contract Staff",
         data: '',
         footer: "Currently Employed",
-        link: "application.contractStaff"
+        link: "application.contractStaff",
+        rest: "Home/getInfo?type=contractStaff"
     }]);
 
 
