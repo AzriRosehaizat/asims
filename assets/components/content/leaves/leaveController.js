@@ -49,8 +49,11 @@ application
         $scope
         .gridOptions
         .onRegisterApi = function(gridApi) {
-            gridService
-            .setMain($scope, gridApi, 'leave');
+            gridService.setMain(
+                $scope, 
+                gridApi, 
+                'leave'
+            );
             
             $scope
             .gridApi = (
