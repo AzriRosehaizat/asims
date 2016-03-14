@@ -39,6 +39,7 @@ application
 					},
 					order: 1
 				}];
+				
 				return initOptions;
 			};
 			return gridOptions;
