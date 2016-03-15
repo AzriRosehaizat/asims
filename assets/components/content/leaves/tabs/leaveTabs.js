@@ -90,27 +90,28 @@ application
             )
             .then( 
                 function( res ) {
-                    Object.
-                    assign(
-                        res
-                        .data,
-                        {
-                            startDate : 
-                                formService
-                                .formatDate(
-                                    res
-                                    .data
-                                    .startDate
-                                ),
-                            endDate : 
-                                formService
-                                .formatDate(
-                                    res
-                                    .data
-                                    .endDate
-                                )
-                        }   
-                    );
+                    res
+                    .data
+                    .map(function( value ){
+                        return Object.
+                        assign(
+                            value,
+                            {
+                                startDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .startDate
+                                    ),
+                                endDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .endDate
+                                    )
+                            }   
+                        );    
+                    });
                     
                     rowEntity.administrativeBalance += res
                     .data
@@ -158,27 +159,31 @@ application
             .then( 
                 function( res ) {
                     
-                    Object.
-                    assign(
-                        res
-                        .data,
-                        {
-                            startDate : 
-                                formService
-                                .formatDate(
-                                    res
-                                    .data
-                                    .startDate
-                                ),
-                            endDate : 
-                                formService
-                                .formatDate(
-                                    res
-                                    .data
-                                    .endDate
-                                )
-                        }   
-                    );
+                    res
+                    .data
+                    .map(function( value ){
+                        return Object.
+                        assign(
+                            value,
+                            {
+                                startDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .startDate
+                                    ),
+                                endDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .endDate
+                                    )
+                            }   
+                        );    
+                    });
+
+                    
+                    console.log(res.data);
                     
                     rowEntity.administrativeBalance -= res
                     .data
