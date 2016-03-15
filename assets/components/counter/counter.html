@@ -11,12 +11,12 @@
                     <md-icon md-font-set="material-icons">more_vert</md-icon>
                 </md-button>
                 <md-menu-content>
-                    <md-menu-item hide-xs hide-sm>
-                        <md-button ng-click="showModal(counter.rest)">
+                    <md-menu-item hide-xs>
+                        <md-button ng-click="showModal(counter, $event)">
                             Details
                         </md-button>
                     </md-menu-item>
-                    <md-menu-divider hide-xs hide-sm></md-menu-divider>
+                    <md-menu-divider hide-xs></md-menu-divider>
                     <md-menu-item>
                         <md-button ui-sref="{{ counter.link }}">
                             View Page

@@ -1,4 +1,4 @@
-application.controller('counterController', function(counterService, $http, modalService, $rootScope, $interval, $scope, $timeout) {
+application.controller('counterController', function(counterService, $http, $scope, $mdDialog) {
 
     var self = this;
     $http.get('/Home/getCountInfo?type=leave').then(function(res) {
@@ -20,75 +20,41 @@ application.controller('counterController', function(counterService, $http, moda
     self.rows = counterService.rows;
 
 
+    $scope.showModal = function(data, ev) {
 
-    $scope.showModal = function(data) {
-        var myModal = new modalService();
-        $rootScope.hideGrid = true;
-        $rootScope.gridOptions = ""
-        $rootScope.gridOptions = {
-            onRegisterApi: function(gridApi) {
-                $rootScope.gridApi = gridApi;
+    // define dialog 
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: 'components/counter/modalDialog.tmpl.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true
+        });
+        
+        // Instatiate grid properties based on data
+        function DialogController($scope, $mdDialog) {
+            $scope.hideGrid = true;
+            $scope.gridOptions = {
+                onRegisterApi: function(gridApi) {
+                    $scope.gridApi = gridApi;
 
-                // call resize every 500 ms for 5 s after modal finishes opening - usually only necessary on a bootstrap modal
-                $interval(function() {
-                    $rootScope.gridApi.core.handleWindowResize();
-                }, 500, 10);
-            }
-        };
+                }
+            };
+            
+            // get data
+            $http.get(data.restLink)
+                .success(function(restLink) {
+                    $scope.gridOptions.data = restLink;
+                });
 
-        $http.get(data)
-            .success(function(data) {
-                $rootScope.gridOptions.data = data;
-            });
-
-        myModal.open();
-
+            $scope.close = function() {
+                $mdDialog.hide();
+            };
+            
+            // grid title
+            $scope.gridTitle = data.gridTitle;
+        }
     };
 
 
 });
-
-application.service('modalService', ['$compile', '$rootScope', '$timeout', function($compile, $rootScope, $timeout) {
-    return function() {
-        var elm;
-        var modal = {
-            open: function() {
-
-                var html = '<div class="modal" ng-style="modalStyle"><div id="modalReport" class="modal-dialog"><div class="modal-content"><div class="modal-header"></div><div class="modal-body"><div ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div></div><div class="modal-footer"><md-button class="md-raised md-primary md-hue-1" ng-click="close()">Close</md-button></div></div></div></div>';
-                elm = angular.element(html);
-                angular.element(document.body).prepend(elm);
-
-                $rootScope.close = function() {
-                    modal.close();
-                };
-
-                $rootScope.modalStyle = {
-                    "display": "block"
-                };
-
-                $compile(elm)($rootScope);
-            },
-            close: function() {
-                if (elm) {
-                    elm.remove();
-                }
-                refresh();
-
-            },
-
-        };
-        refresh: function refresh() {
-            $rootScope.refresh = true;
-            $timeout(function() {
-                $rootScope.refresh = false;
-            }, 0);
-        }
-
-
-        return modal;
-
-
-    };
-
-
-}]);
