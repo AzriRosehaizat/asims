@@ -58,7 +58,7 @@ application
                             .selection
                             .on
                             .rowSelectionChanged( 
-                                $scope, 
+                                null, 
                                 function( row ){
                                     initializeEdit(
                                         $scope
