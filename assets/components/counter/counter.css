@@ -1,5 +1,4 @@
-#modalReport {
-    width: 850px;
-    height: 450px;
-    
+.dialogGrid {
+    width: 100%;
+    min-width: 750px;
 }
