@@ -374,28 +374,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 					dataPage: true
 				}
 			})
-			.state('application.FLC', {
-				url: '/facultyLoadChart',
-				views: {
-					'': {
-						templateUrl: '/components/report/report.html',
-						controller: 'reportController'
-					},
-				}
-			})
-			.state('application.LEC', {
-				url: '/leaveEntitlementChart',
-				views: {
-					'': {
-						templateUrl: '/components/report/report.html',
-						controller: 'reportController'
-					},
-					"chart@application.LEC": {
-						templateUrl: '/components/report/leaveChart/leaveChart.html',
-						controller: 'leaveChartController'
-					}
-				},
-			})
 			.state('application.403', {
 				url: '/Forbidden',
 				templateUrl: '/views/error/403.html',

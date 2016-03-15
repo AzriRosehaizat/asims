@@ -67,7 +67,7 @@ application
                             .selection
                             .on
                             .rowSelectionChanged( 
-                                $scope, 
+                                null, 
                                 function( row ){
                                     $scope
                                     .tabRow = (
