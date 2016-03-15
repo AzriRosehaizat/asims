@@ -10,7 +10,8 @@ application
         leaveTabs,
         SearchHelper,
         toaster,
-        gridService
+        gridService,
+        leaveChartService
     ) {
 
         $scope
@@ -81,6 +82,27 @@ application
                         setTimeout(wait, 20);
                         return;
                     }
+                    
+                    $scope
+                    .enableChart = true;
+                    
+                    $scope
+                    .openChart = function(ev) {
+                        console.log($scope.tabs);
+                        if ($scope.row)
+                            leaveChartService
+                            .openLoadDialog(
+                                ev, 
+                                $scope
+                                .row
+                                .entity, 
+                                $scope
+                                .tabs
+                            );
+                        else
+                            toaster
+                            .info("Select a row first.");
+                    };
                     
                     leaveService
                     .setForm(

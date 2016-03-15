@@ -71,20 +71,6 @@ application
       }]
     });
 
-    // sections.push({
-    //   name: 'Report',
-    //   type: 'toggle',
-    //   pages: [{
-    //     name: 'Faculty Load Chart',
-    //     type: 'link',
-    //     state: 'application.FLC'
-    //   }, {
-    //     name: 'Leave Entitlement Chart',
-    //     state: 'application.LEC',
-    //     type: 'link'
-    //   }]
-    // });
-
     var adminSection = {
       name: 'Admin',
       type: 'link',
