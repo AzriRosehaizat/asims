@@ -20,13 +20,13 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
     self.openLoadDialog = function(ev, entity, tabs) {
         $mdDialog.show({
                 controller: 'dialogController as ctrl',
-                templateUrl: 'components/report/loadChart/loadDialog.html',
+                templateUrl: 'components/report/dialog.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
+                locals: {title: "faculty load chart"},
                 clickOutsideToClose: true
             })
             .then(function(range) {
-                // console.log(tabs);
                 docDefinition.content = [];
 
                 var data = formatData(entity, tabs, range);
@@ -40,7 +40,6 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         // Convert academic year to interger year
         var startYear = getYear(range[0]);
         var endYear = getYear(range[1]);
-        console.log("Start year: " + startYear);
 
         /******************** Regular staff information ***********************/
         entity.name = entity.firstName + ' ' + entity.lastName;

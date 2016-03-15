@@ -35,7 +35,8 @@ application.service('toaster', function($mdToast) {
             // Return a truthy value if the substring is found, and a falsy value(0) if it isn't
             else if (err.message && ~err.message.indexOf("already exists")) {
                 text = "This record already exists.";
-            } else if (err.message && ~err.message.indexOf(("Cannot delete or update a parent row"))){
+            } 
+            else if (err.message && ~err.message.indexOf("Cannot delete or update a parent row")) {
                 text = "Row is referenced. Please delete all related infomation to this row first.";
             }
             else if (err.reason) {

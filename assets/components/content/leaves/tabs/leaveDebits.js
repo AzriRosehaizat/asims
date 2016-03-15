@@ -8,7 +8,8 @@ application
         $http, 
         _, 
         uiGridConstants,
-        formService
+        formService,
+        gridService
     ){
         return {
             gridOptions : function ( $scope ){
@@ -56,12 +57,17 @@ application
                         }
                     ],
                     onRegisterApi : function( gridApi ){
+                        gridService.set(
+                            gridApi, 
+                            'leaveDebit'
+                        );
+                        
                         (function( gridOptions ){
                             gridApi
                             .selection
                             .on
                             .rowSelectionChanged( 
-                                $scope, 
+                                null, 
                                 function( row ){
                                     $scope
                                     .tabRow = (
@@ -231,7 +237,9 @@ application
                     label: 
                         "End Date",
                     required: 
-                        true
+                        true,
+                    minDate: 
+                        "startDate"
                 }, {
                     type: 
                         "select",

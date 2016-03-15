@@ -26,7 +26,6 @@ application
 				initOptions.enableColumnMenus = false;
 				initOptions.enableGridMenu = true;
 				initOptions.enableColumnResizing = true;
-				initOptions.noUnselect = true;
 				initOptions.multiSelect = false;
 				initOptions.enableRowHeaderSelection = false;
 				initOptions.enableHorizontalScrollbar = 0;
@@ -40,6 +39,68 @@ application
 					},
 					order: 1
 				}];
+				
+				initOptions
+				.onRegisterApi = (function( callback ){
+					return function( gridApi ){
+						// call the onRegisterApi defined in the page service  
+						callback
+						.call( initOptions, gridApi );
+						
+						//get the list of onRowSelectionHandlers
+						var onRowSelectionHandlers = (
+							gridApi
+							.listeners
+							.filter(function( value ){
+								return value
+								.eventId
+								.indexOf(
+									'selectionrowSelectionChanged'
+								) != -1;
+							})
+						);
+						
+						//deregister all of them
+						for( var k in onRowSelectionHandlers){
+							onRowSelectionHandlers[k]
+							.dereg();
+						}
+						
+						//register our own rowSelectionHandler
+						gridApi
+						.selection
+						.on
+						.rowSelectionChanged( null, function( row ){
+							//test if deselection
+							var index = (
+								gridApi
+								.selection
+								.getSelectedRows()
+								.indexOf(
+									row
+									.entity
+								)
+							);
+							
+							//reselect the row and return if deselection
+							if(index === -1){
+								gridApi
+								.selection
+								.selectRow( 
+									row.entity 
+								);  
+								return;
+							}
+							
+							//call all the rowSelectionHandlers if seelection event
+							for( var k in onRowSelectionHandlers){
+								onRowSelectionHandlers[k]
+								.handler( row );
+							}
+						});
+					};
+				})( initOptions.onRegisterApi );
+				
 				return initOptions;
 			};
 			return gridOptions;
