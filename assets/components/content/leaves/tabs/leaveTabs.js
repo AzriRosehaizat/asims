@@ -8,7 +8,8 @@ application
     function(
         $http, 
         leaveCredits,
-        leaveDebits
+        leaveDebits,
+        formService
     ){
         return {
             tabs : function( $scope ){
@@ -89,6 +90,28 @@ application
             )
             .then( 
                 function( res ) {
+                    Object.
+                    assign(
+                        res
+                        .data,
+                        {
+                            startDate : 
+                                formService
+                                .formatDate(
+                                    res
+                                    .data
+                                    .startDate
+                                ),
+                            endDate : 
+                                formService
+                                .formatDate(
+                                    res
+                                    .data
+                                    .endDate
+                                )
+                        }   
+                    );
+                    
                     rowEntity.administrativeBalance += res
                     .data
                     .filter(function( value ){
@@ -134,6 +157,28 @@ application
             )
             .then( 
                 function( res ) {
+                    
+                    Object.
+                    assign(
+                        res
+                        .data,
+                        {
+                            startDate : 
+                                formService
+                                .formatDate(
+                                    res
+                                    .data
+                                    .startDate
+                                ),
+                            endDate : 
+                                formService
+                                .formatDate(
+                                    res
+                                    .data
+                                    .endDate
+                                )
+                        }   
+                    );
                     
                     rowEntity.administrativeBalance -= res
                     .data
