@@ -1,4 +1,4 @@
-application.controller('counterController', function(counterService, $http, $scope, $mdDialog, $mdMedia) {
+application.controller('counterController', function(counterService, $http, $scope, $mdDialog) {
 
     var self = this;
     $http.get('/Home/getCountInfo?type=leave').then(function(res) {
@@ -41,6 +41,7 @@ application.controller('counterController', function(counterService, $http, $sco
                 }
             };
             
+            // get data
             $http.get(data.restLink)
                 .success(function(restLink) {
                     $scope.gridOptions.data = restLink;
@@ -50,6 +51,7 @@ application.controller('counterController', function(counterService, $http, $sco
                 $mdDialog.hide();
             };
             
+            // grid title
             $scope.gridTitle = data.gridTitle;
         }
     };
