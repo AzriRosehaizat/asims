@@ -8,7 +8,8 @@ application
     function(
         $http, 
         leaveCredits,
-        leaveDebits
+        leaveDebits,
+        formService
     ){
         return {
             tabs : function( $scope ){
@@ -89,6 +90,29 @@ application
             )
             .then( 
                 function( res ) {
+                    res
+                    .data
+                    .map(function( value ){
+                        return Object.
+                        assign(
+                            value,
+                            {
+                                startDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .startDate
+                                    ),
+                                endDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .endDate
+                                    )
+                            }   
+                        );    
+                    });
+                    
                     rowEntity.administrativeBalance += res
                     .data
                     .filter(function( value ){
@@ -134,6 +158,32 @@ application
             )
             .then( 
                 function( res ) {
+                    
+                    res
+                    .data
+                    .map(function( value ){
+                        return Object.
+                        assign(
+                            value,
+                            {
+                                startDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .startDate
+                                    ),
+                                endDate : 
+                                    formService
+                                    .formatDate(
+                                        value
+                                        .endDate
+                                    )
+                            }   
+                        );    
+                    });
+
+                    
+                    console.log(res.data);
                     
                     rowEntity.administrativeBalance -= res
                     .data

@@ -84,29 +84,10 @@ application
 
             formData
             .model = (
-                Object.
-                assign(
-                    _
-                    .cloneDeep(
-                        row
-                        .entity
-                    ),
-                    {
-                        startDate : 
-                            formService
-                            .formatDate(
-                                row
-                                .entity
-                                .startDate
-                            ),
-                        endDate : 
-                            formService
-                            .formatDate(
-                                row
-                                .entity
-                                .endDate
-                            )
-                    }   
+                _
+                .cloneDeep(
+                    row
+                    .entity
                 )
             );
             

@@ -1,35 +1,39 @@
 application.service('counterService', function($http) {
 
     var self = this;
-    
+
     self.rows = [];
 
     self.rows.push([{
         title: "On Leave",
+        gridTitle: "Regular Staff Currently On Leave",
         data: '',
         footer: "Staff",
         link: "application.leaves",
-        rest: "Home/getInfo?type=leave"
+        restLink: "Home/getInfo?type=leave"
     }, {
         title: "Researches",
+        gridTitle: "Researches Currently In Progress",
         data: '',
         footer: "In Progress",
         link: "application.research",
-        rest: "Home/getInfo?type=research"
+        restLink: "Home/getInfo?type=research"
     }]);
 
     self.rows.push([{
         title: "Regular Staff",
+        gridTitle: "Currently Employed Regular Academic Staff",
         data: '',
         footer: "Currently Employed",
         link: "application.regularStaff",
-        rest: "Home/getInfo?type=regularStaff"
+        restLink: "Home/getInfo?type=regularStaff"
     }, {
         title: "Contract Staff",
+        gridTitle: "Currently Employed Contract Academic Staff",
         data: '',
         footer: "Currently Employed",
         link: "application.contractStaff",
-        rest: "Home/getInfo?type=contractStaff"
+        restLink: "Home/getInfo?type=contractStaff"
     }]);
 
 
