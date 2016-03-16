@@ -42,10 +42,17 @@ application.service('fceRASTA', function($http, _, formService) {
                 name: "description",
                 label: "Description"
             }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued",
-                required: true
+                label: "Date Issued"
             }];
 
             formService.init(formData, gridData, null, 'fceRASTA', false);
@@ -74,10 +81,17 @@ application.service('fceRASTA', function($http, _, formService) {
                 name: "description",
                 label: "Description"
             }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued",
-                required: true
+                label: "Date Issued"
             }];
 
             formService.init(formData, gridData, row, 'fceRASTA', false);

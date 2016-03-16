@@ -96,6 +96,9 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
                             name: 'Description',
                             field: 'description'
                         }, {
+                            name: 'Year',
+                            field: 'year',
+                        }, {
                             name: 'Date Issued',
                             field: 'dateIssued',
                             cellFilter: 'date:\'MM-dd-yyyy\''

@@ -29,6 +29,10 @@ module.exports = {
         description: {
             type: 'text'
         },
+		year: {
+			type: 'string',
+			required: true
+		},
         dateIssued: {
             type: 'date'
         }

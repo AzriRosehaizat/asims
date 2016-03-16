@@ -77,7 +77,7 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
             // Get banked/owed FCEs
             var banked = 0, owed = 0;
             _.forEach(fceData, function(fce) {
-                if (moment(fce.dateIssued).year() === year) {
+                if (getYear(fce.year) === year) {
                     if (fce.FCEType === 'Owed') 
                         owed += fce.FCEValue;
                     else 

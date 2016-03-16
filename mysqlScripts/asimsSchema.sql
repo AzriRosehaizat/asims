@@ -254,6 +254,7 @@ CREATE TABLE IF NOT EXISTS `FCE` (
   `FCEValue` FLOAT NOT NULL,
   `FCEType` VARCHAR(50) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
+  `year` VARCHAR(10) NOT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`FCEID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
