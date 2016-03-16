@@ -54,7 +54,6 @@ application.config(function($stateProvider, $urlRouterProvider, AccessLevels) {
 				views: {
 					'': {
 						templateUrl: '/views/application/root.html'
-
 					},
 					'homeHeader@application': {
 						templateUrl: '/components/homeHeader/homeHeader.html',
