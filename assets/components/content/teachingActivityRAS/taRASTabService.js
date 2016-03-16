@@ -1,4 +1,4 @@
-application.service('taRASTabService', function($http, taRASTA, overloadRASTA, creditRASTA, debitRASTA, loadRASTA, reductionRASTA, increaseRASTA) {
+application.service('taRASTabService', function($http, taRASTA, overloadRASTA, fceRASTA, creditRASTA, debitRASTA, loadRASTA, reductionRASTA, increaseRASTA) {
 
     return {
         tabs: function() {
@@ -79,6 +79,26 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                             name: 'Amount',
                             field: 'amount',
                             cellFilter: 'currency'
+                        }]
+                    }
+                },
+                FCE: {
+                    title: 'Banked/Owed',
+                    gridOptions: {
+                        columnDefs: [{
+                            name: 'FCE Value',
+                            displayName: 'FCE Value',
+                            field: 'FCEValue'
+                        }, {
+                            name: 'Type',
+                            field: 'FCEType'
+                        }, {
+                            name: 'Description',
+                            field: 'description'
+                        }, {
+                            name: 'Date Issued',
+                            field: 'dateIssued',
+                            cellFilter: 'date:\'MM-dd-yyyy\''
                         }]
                     }
                 },
@@ -179,6 +199,9 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                 case 'Overload':
                     overloadRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
+                case 'Banked/Owed':
+                    fceRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
+                    break;
                 case 'Banked':
                     creditRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -204,6 +227,9 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
                 case 'Overload':
                     overloadRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
+                case 'Banked/Owed':
+                    fceRASTA.initEditForm(formData, tab.gridOptions.data, row);
+                    break;
                 case 'Banked':
                     creditRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
@@ -224,6 +250,7 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
         getTabs: function(tabs, row) {
             this.getTeachingActivity(tabs.teachingActivity, row);
             this.getOverload(tabs.overload, row);
+            this.getFCE(tabs.FCE, row);
             this.getFCECredit(tabs.FCECredit, row);
             this.getFCEDebit(tabs.FCEDebit, row);
             this.getLoad(tabs.load, row);
@@ -240,6 +267,12 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, c
             $http.get('/regularStaff/getInfo?type=overload&id=' + row.entity.academicStaffID)
                 .then(function(res) {
                     overload.gridOptions.data = res.data;
+                });
+        },
+        getFCE: function(FCE, row) {
+            $http.get('/FCE?regularStaffID=' + row.entity.regularStaffID)
+                .then(function(res) {
+                    FCE.gridOptions.data = res.data;
                 });
         },
         getFCECredit: function(FCECredit, row) {

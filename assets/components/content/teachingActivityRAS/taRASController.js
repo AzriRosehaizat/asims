@@ -64,6 +64,14 @@ application.controller('taRASController', function($scope, staffs, taRASService,
             taRASTabService.initEditForm($scope.formData, $scope.tab, row);
         });
     };
+    
+    $scope.tabs.FCE.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.set(gridApi, 'fceRASTA');
+        gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+            $scope.tabRow = row;
+            taRASTabService.initEditForm($scope.formData, $scope.tab, row);
+        });
+    };
 
     $scope.tabs.FCECredit.gridOptions.onRegisterApi = function(gridApi) {
         gridService.set(gridApi, 'creditRASTA');

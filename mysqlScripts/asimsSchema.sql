@@ -281,6 +281,27 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
+-- Table `FCE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCE` ;
+
+CREATE TABLE IF NOT EXISTS `FCE` (
+  `FCEID` INT(11) NOT NULL AUTO_INCREMENT,
+  `regularStaffID` INT(11) NOT NULL,
+  `FCEValue` FLOAT NOT NULL,
+  `FCEType` VARCHAR(50) NOT NULL,
+  `description` TEXT NULL DEFAULT NULL,
+  `dateIssued` DATE NULL DEFAULT NULL,
+  PRIMARY KEY (`FCEID`) ,
+  INDEX `regularStaffID` (`regularStaffID` ASC) ,
+  CONSTRAINT `FCE_ibfk_1`
+    FOREIGN KEY (`regularStaffID`)
+    REFERENCES `RegularStaff` (`regularStaffID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+-- -----------------------------------------------------
 -- Table `LeaveCredit`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `LeaveCredit` ;

@@ -37,6 +37,7 @@ application.service('gridService', function($timeout, _, LocalService) {
     function reset() {
         self.gridApi = {};
         states = null;
+        main = null;
     }
 
     function restore(key) {
