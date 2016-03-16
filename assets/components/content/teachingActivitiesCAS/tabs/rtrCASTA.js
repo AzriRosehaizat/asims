@@ -26,11 +26,11 @@ application.service('rtrCASTA', function($http, _, formService) {
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Right To Refuse Course';
+            formData.title = 'Right of Refusal Course';
             formData.inputs = [{
                type: "autocomplete",
                 name: "courseSection",
-                label: "Course Section (ex. ACS-0000-001)",
+                label: "Course Section (code-course-section)",
                 url: {
                     start: "/regularStaff/getInfo?type=teaching&id=" + mainRow.entity.academicStaffID + "&search={",
                     end: "\"courseSection\":{\"startsWith\":\""
@@ -76,17 +76,15 @@ application.service('rtrCASTA', function($http, _, formService) {
                                        
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Right To Refuse Course';
+            formData.title = 'Right of Refusal Course';
             formData.inputs = [{
                 type: "text",
                 name: "courseSection",
-                label: "Course Section",
-                readonly: true
+                label: "Course Section"
             }, {
                 type: "text",
                 name: "title",
-                label: "Title",
-                readonly: true
+                label: "Title"
             },  {
                 type: "select",
                 name: "term",

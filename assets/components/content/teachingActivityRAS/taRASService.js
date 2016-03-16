@@ -46,28 +46,31 @@ application.service('taRASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First Name",
-                readonly: true
+                label: "First Name"
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last Name",
-                readonly: true
+                label: "Last Name"
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No.",
-                readonly: true
+                label: "Employee No."
+            }, {
+                type: "text",
+                name: "departmentCode",
+                label: "Department"
+            }, {
+                type: "text",
+                name: "rank",
+                label: "Rank"
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure Date",
-                readonly: true
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Continuing Appt. Date",
-                readonly: true
+                label: "Continuing Appt. Date"
             }];
 
             gridData.readOnly = this.gridOptions().readOnly;
@@ -83,28 +86,31 @@ application.service('taRASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First Name",
-                readonly: true
+                label: "First Name"
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last Name",
-                readonly: true
+                label: "Last Name"
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No.",
-                readonly: true
+                label: "Employee No."
+            }, {
+                type: "text",
+                name: "departmentCode",
+                label: "Department"
+            }, {
+                type: "text",
+                name: "rank",
+                label: "Rank"
             }, {
                 type: "date",
                 name: "tenureDate",
-                label: "Tenure Date",
-                readonly: true
+                label: "Tenure Date"
             }, {
                 type: "date",
                 name: "contAppDate",
-                label: "Continuing Appt. Date",
-                readonly: true
+                label: "Continuing Appt. Date"
             }];
 
             gridData.readOnly = this.gridOptions().readOnly;

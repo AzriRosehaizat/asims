@@ -13,11 +13,11 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                             name: 'Course No.',
                             field: 'courseNo'
                         }, {
-                            name: 'Section No.',
-                            field: 'sectionNo'
-                        }, {
                             name: 'Title',
                             field: 'title'
+                        }, {
+                            name: 'Section No.',
+                            field: 'sectionNo'
                         }, {
                             name: 'Term',
                             field: 'term'
@@ -43,7 +43,7 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                     }
                 },
                 rightToRefuse: {
-                    title: 'Right to Refusal',
+                    title: 'Right of Refusal',
                     gridOptions: {
                         columnDefs: [{
                             name: 'Dept. Code',
@@ -52,11 +52,11 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                             name: 'Course No.',
                             field: 'courseNo'
                         }, {
-                            name: 'Section No.',
-                            field: 'sectionNo'
-                        }, {
                             name: 'Title',
                             field: 'title'
+                        }, {
+                            name: 'Section No.',
+                            field: 'sectionNo'
                         }, {
                             name: 'Term',
                             field: 'term'
@@ -73,7 +73,7 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                 case 'Teaching Activity':
                     taCASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Right to Refusal':
+                case 'Right of Refusal':
                     rtrCASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
             }
@@ -83,7 +83,7 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                 case 'Teaching Activity':
                     taCASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Right to Refusal':
+                case 'Right of Refusal':
                     rtrCASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
             }

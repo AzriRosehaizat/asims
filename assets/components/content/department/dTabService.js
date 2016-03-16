@@ -11,7 +11,7 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                             name: 'Department',
                             field: 'departmentCode'
                         }, {
-                            name: 'Course',
+                            name: 'Course No.',
                             field: 'courseNo'
                         }, {
                             name: 'Title',
