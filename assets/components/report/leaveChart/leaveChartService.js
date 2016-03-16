@@ -37,11 +37,16 @@ application.service('leaveChartService', function($mdDialog, _, moment, reportSe
             });
     };
 
-    function formatData(entity, tabs, range) {
+    self.openChart = function(entity, tabs) {
+        docDefinition.content = [];
+
+        var data = formatData(entity, tabs);
+        generateReport(data);
+        openPdf();
+    };
+
+    function formatData(entity, tabs) {
         var data = {};
-        // Convert academic year to interger year
-        var startYear = getYear(range[0]);
-        var endYear = getYear(range[1]);
 
         /******************** Regular staff information ***********************/
         entity.name = entity.firstName + ' ' + entity.lastName;
@@ -51,40 +56,88 @@ application.service('leaveChartService', function($mdDialog, _, moment, reportSe
         var creditData = _.sortBy(tabs.credits.gridOptions.data, 'startDate');
         var debitData = _.sortBy(tabs.debits.gridOptions.data, 'startDate');
 
-        /**************************** Main table ******************************/
+        /************************* Leaves taken table **************************/
         data.main = [];
-        data.main.push(buildMainRow('Leaves Taken', 'Leave Period'));
+        data.main.push(buildLeaveRow('LEAVES TAKEN', 'LEAVE PERIOD'));
 
         // Get leaves taken
         _.forEach(debitData, function(debit) {
             var taken = debit.leaveDebitType + ' leave';
-            var startDate = (debit.startDate) ? moment(debit.startDate).format('MMM D, YYYY') : '';
-            var endDate = (debit.endDate) ? moment(debit.endDate).format('MMM D, YYYY') : '';
             var wage = (debit.wagePercentage) ? ' at ' + debit.wagePercentage + '%' : '';
-            var period = startDate + '~' + endDate + wage;
-            data.main.push(buildMainRow(taken, period));
+            var period = getPeriod(debit.startDate, debit.endDate) + wage;
+
+            data.main.push(buildLeaveRow(taken, period));
         });
 
-        for (var year = startYear; year <= endYear; year++) {
+        /************** Credit toward next research/study leave ***************/
+        data.RS = [];
+        data.RS.push(buildCreditRow('PERIOD WORKED', 'CREDITS', 'BALANCE', 'NOTES'));
 
-        }
+        var newCredits = getNewCredits(debitData, creditData, entity.researchBalance, 'Research');
+
+        _.forEach(newCredits, function(credit) {
+            var period = getPeriod(credit.startDate, credit.endDate);
+            var notes = (credit.description) ? credit.description : '';
+
+            data.RS.push(buildCreditRow(period, credit.amount, credit.balance, notes));
+        });
+
+        /************** Credit toward next administrative leave ***************/
+        data.Admin = [];
+        data.Admin.push(buildCreditRow('PERIOD WORKED', 'CREDITS', 'BALANCE', 'NOTES'));
+        
+        newCredits = getNewCredits(debitData, creditData, entity.administrativeBalance, 'Administrative');
+        
+        _.forEach(newCredits, function(credit) {
+            var period = getPeriod(credit.startDate, credit.endDate);
+            var notes = (credit.description) ? credit.description : '';
+
+            data.Admin.push(buildCreditRow(period, credit.amount, credit.balance, notes));
+        });
 
         return data;
     }
 
-    function getYear(academicYear) {
-        return parseInt(academicYear.slice(0, 4), 10);
+    function getPeriod(startDate, endDate) {
+        var start = moment(startDate).format('MMM DD, YYYY'); // startDate is required
+        var end = (endDate) ? moment(endDate).format('MMM DD, YYYY') : '';
+        return start + '-' + end;
     }
 
-    function getAcademicYear(year) {
-        var nextYear = (year + 1).toString().slice(2);
-        return year.toString() + '-' + nextYear;
+    function getNewCredits(debit, credit, curBalance, type) {
+        // Get the last research leave
+        var lastDebit = _.findLast(debit, function(d) {
+            return d.leaveDebitType === type;
+        });
+        
+        var newCredits = _.filter(credit, function(c) {
+            var isNew = (!lastDebit) || (c.startDate > lastDebit.startDate);
+            return c.leaveCreditType === type && isNew;
+        });
+        
+        var balance = curBalance;
+        // Iterate newCredits from the end reducing balance
+        _.forEachRight(newCredits, function(credit) {
+            credit.balance = balance;
+            balance -= credit.amount;
+        });
+        
+        return newCredits;
     }
 
-    function buildMainRow(leaveTaken, leavePeriod) {
+    function buildLeaveRow(leaveTaken, leavePeriod) {
         return {
             taken: leaveTaken,
             period: leavePeriod
+        };
+    }
+
+    function buildCreditRow(period, credit, balance, notes) {
+        return {
+            period: period,
+            credit: credit,
+            balance: balance,
+            notes: notes
         };
     }
 
@@ -94,20 +147,20 @@ application.service('leaveChartService', function($mdDialog, _, moment, reportSe
                 style: 'header'
             },
             reportService.getStaffInfo(data.info),
-            reportService.setTable(data.main), 
-            {
-                text: "Credits Accumilated Towards next Research Leave",
+            reportService.setTable(data.main, ['*', '*']), {
+                text: "Credit Accumulated Toward Next Research/Study Leave",
                 style: "tableHeader"
             },
-            // reportService.setTable(data.RS), 
-            {
-                text: "Credits Accumilated Towards next Admin Leave",
+            reportService.setTable(data.RS, ['auto', 'auto', 'auto', '*']), {
+                text: "Credit Accumulated Toward Next Administrative Leave",
                 style: "tableHeader"
             },
-            // reportService.setTable(data.Admin), 
-            {
-                text: 'As outline in Clause 26.14, Members shall make applications to the Chair by October 1st for leaves ' + 'commencing the following academic year. Please adhere to the dealine to ensure the Research/Study Leave ' + 'Committee has sufficient time to consider your application.' + '\n\n I HAVE READ THE ABOVE. \n\n',
+            reportService.setTable(data.Admin, ['auto', 'auto', 'auto', '*']), {
+                text: '\nAs outline in Clause 26.14, Members shall make applications to the Chair by OCTOBER 1st for leaves commencing the following academic year. Please adhere to the dealine to ensure the Research/Study Leave Committee has sufficient time to consider your application.',
                 style: 'tableHeader'
+            }, {
+                text: 'I HAVE READ THE ABOVE.',
+                style: 'section'
             },
             reportService.setFooter()
         );

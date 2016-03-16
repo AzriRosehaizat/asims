@@ -88,11 +88,9 @@ application
                     
                     $scope
                     .openChart = function(ev) {
-                        console.log($scope.tabs);
                         if ($scope.row)
                             leaveChartService
-                            .openLoadDialog(
-                                ev, 
+                            .openChart(
                                 $scope
                                 .row
                                 .entity, 
