@@ -5,10 +5,10 @@ application.service('counterService', function($http) {
     self.rows = [];
 
     self.rows.push([{
-        title: "On Leave",
+        title: "Regular Staff",
         gridTitle: "Regular Staff Currently On Leave",
         data: '',
-        footer: "Staff",
+        footer: "On Leave",
         link: "application.leaves",
         restLink: "Home/getInfo?type=leave"
     }, {
