@@ -19,7 +19,7 @@
                 <div layout="row">
                     <md-input-container class="md-block" flex>
                         <label>From</label>
-                        <md-select ng-model="ctrl.range[0]" md-on-close="ctrl.changeYears(true)" ng-required="true">
+                        <md-select ng-model="ctrl.range[0]" md-on-open="ctrl.changeYears(true)" ng-required="true">
                             <md-option ng-value="year" ng-repeat="year in ctrl.years">{{ year }}</md-option>
                         </md-select>
                     </md-input-container>
@@ -28,7 +28,7 @@
 
                     <md-input-container class="md-block" flex>
                         <label>To</label>
-                        <md-select ng-model="ctrl.range[1]" md-on-close="ctrl.changeYears(false)" ng-required="true">
+                        <md-select ng-model="ctrl.range[1]" md-on-open="ctrl.changeYears(false)" ng-required="true">
                             <md-option ng-value="year" ng-repeat="year in ctrl.years">{{ year }}</md-option>
                         </md-select>
                     </md-input-container>
