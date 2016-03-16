@@ -181,9 +181,6 @@ application
                             }   
                         );    
                     });
-
-                    
-                    console.log(res.data);
                     
                     rowEntity.administrativeBalance -= res
                     .data

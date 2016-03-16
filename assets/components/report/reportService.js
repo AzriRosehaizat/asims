@@ -1,4 +1,4 @@
-application.service('reportService', function() {
+application.service('reportService', function(_) {
 
     this.getStaffInfo = function(info) {
         return {
@@ -15,11 +15,12 @@ application.service('reportService', function() {
         };
     };
 
-    this.setTable = function(data) {
+    this.setTable = function(data, widths) {
         var columns = Object.keys(data[0]);
 
         return {
             table: {
+                widths: widths,
                 headerRows: 1,
                 style: 'table',
                 body: setTableBody(data, columns)
@@ -29,13 +30,20 @@ application.service('reportService', function() {
 
     function setTableBody(data, columns) {
         var body = [];
-
+        
         data.forEach(function(row) {
             var dataRow = [];
+            
             columns.forEach(function(column) {
-                if (row[column] === 0) row[column] = '';
-                dataRow.push(row[column].toString());
+                var str = (row[column] !== 0) ? row[column].toString() : '';
+
+                if (_.isNumber(row[column])) {
+                    str = {text: str, alignment: 'center'};
+                }
+
+                dataRow.push(str);
             });
+            
             body.push(dataRow);
         });
 

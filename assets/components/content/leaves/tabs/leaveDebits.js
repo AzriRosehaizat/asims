@@ -18,7 +18,7 @@ application
                     columnDefs: [
                         {
                             name: 
-                                'Amount',
+                                'Credit',
                             field: 
                                 'amount',
                             aggregationType: 

@@ -55,7 +55,7 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
 
         /**************************** Main table ******************************/
         data.main = [];
-        data.main.push(buildMainRow('Year', 'Normal Load', 'Reduced Load', 'Actual Teaching Load', 'Owed FCEs', 'Banked FCEs'));
+        data.main.push(buildMainRow('\nYear', 'Normal\nLoad in FCEs', 'Reduced\nLoad in FCEs', 'Actual Teaching Load -\nnumber/section/term', '\nOwed FCEs', '\nBanked FCEs'));
 
         for (var year = startYear; year <= endYear; year++) {
 
@@ -185,15 +185,15 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
                 style: 'header'
             },
             reportService.getStaffInfo(data.info),
-            reportService.setTable(data.main), {
+            reportService.setTable(data.main, ['auto', 'auto', 'auto', '*', 'auto', 'auto']), {
                 text: "Overload Teaching",
                 style: "tableHeader"
             },
-            reportService.setTable(data.overload), {
+            reportService.setTable(data.overload, ['auto', 58, 'auto', '*', 'auto']), {
                 text: "Load Reduction",
                 style: "tableHeader"
             },
-            reportService.setTable(data.reduction),
+            reportService.setTable(data.reduction, ['auto', 'auto', '*', 'auto']),
             reportService.setFooter()
         );
     }
