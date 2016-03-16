@@ -11,19 +11,19 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                             field: 'departmentCode'
                         }, {
                             name: 'Course No.',
-                            field: 'courseNo',
+                            field: 'courseNo'
                         }, {
                             name: 'Section No.',
-                            field: 'sectionNo',
+                            field: 'sectionNo'
                         }, {
                             name: 'Title',
-                            field: 'title',
+                            field: 'title'
                         }, {
                             name: 'Term',
-                            field: 'term',
+                            field: 'term'
                         }, {
                             name: 'Year',
-                            field: 'year',
+                            field: 'year'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
@@ -50,19 +50,19 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                             field: 'departmentCode'
                         }, {
                             name: 'Course No.',
-                            field: 'courseNo',
+                            field: 'courseNo'
                         }, {
                             name: 'Section No.',
-                            field: 'sectionNo',
+                            field: 'sectionNo'
                         }, {
                             name: 'Title',
-                            field: 'title',
+                            field: 'title'
                         }, {
                             name: 'Term',
-                            field: 'term',
+                            field: 'term'
                         }, {
                             name: 'Year',
-                            field: 'year',
+                            field: 'year'
                         }]
                     }
                 }
