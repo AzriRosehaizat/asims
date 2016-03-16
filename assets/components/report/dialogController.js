@@ -21,15 +21,15 @@ application.controller('dialogController', function($mdDialog, formService, titl
     self.changeYears = function(isFromSelected) {
         var min, max;
 
-        if (isFromSelected && self.range[0]) {
-            var minStr = self.range[0].slice(0, 4);
-            min = parseInt(minStr, 10);
-            max = new Date().getFullYear() + 1;
-        }
-        else if (self.range[1]) {
+        if (isFromSelected && self.range[1]) {
             var maxStr = self.range[1].slice(0, 4);
             min = 2000;
             max = parseInt(maxStr, 10);
+        }
+        else if (self.range[0]) {
+            var minStr = self.range[0].slice(0, 4);
+            min = parseInt(minStr, 10);
+            max = new Date().getFullYear() + 1;
         }
         else {
             // Don't change years when the input has no value
