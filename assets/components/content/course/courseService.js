@@ -4,13 +4,13 @@ application.service('courseService', function($http, $q, _, formService) {
         gridOptions: function() {
             return {
                 columnDefs: [{
-                    name: 'Department',
+                    name: 'Dept. Code',
                     field: 'departmentCode'
                 }, {
-                    name: 'Course No',
+                    name: 'Course No.',
                     field: 'courseNo'
                 }, {
-                    name: 'Name',
+                    name: 'Title',
                     field: 'title'
                 }]
             };
