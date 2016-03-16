@@ -51,8 +51,6 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         var tActivityData = tabs.teachingActivity.gridOptions.data;
         var overloadData = tabs.overload.gridOptions.data;
         var fceData = tabs.FCE.gridOptions.data;
-        var creditData = tabs.FCECredit.gridOptions.data;
-        var debitData = tabs.FCEDebit.gridOptions.data;
 
         /**************************** Main table ******************************/
         data.main = [];

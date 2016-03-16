@@ -1,4 +1,4 @@
-application.service('taRASTabService', function($http, taRASTA, overloadRASTA, fceRASTA, creditRASTA, debitRASTA, loadRASTA, reductionRASTA, increaseRASTA) {
+application.service('taRASTabService', function($http, taRASTA, overloadRASTA, fceRASTA, loadRASTA, reductionRASTA, increaseRASTA) {
 
     return {
         tabs: function() {
@@ -102,40 +102,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
                         }]
                     }
                 },
-                FCECredit: {
-                    title: 'Banked',
-                    gridOptions: {
-                        columnDefs: [{
-                            name: 'FCE Value',
-                            displayName: 'FCE Value',
-                            field: 'FCEValue'
-                        }, {
-                            name: 'Description',
-                            field: 'description'
-                        }, {
-                            name: 'Date Issued',
-                            field: 'dateIssued',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
-                        }]
-                    }
-                },
-                FCEDebit: {
-                    title: 'Owed',
-                    gridOptions: {
-                        columnDefs: [{
-                            name: 'FCE Value',
-                            displayName: 'FCE Value',
-                            field: 'FCEValue'
-                        }, {
-                            name: 'Description',
-                            field: 'description'
-                        }, {
-                            name: 'Date Issued',
-                            field: 'dateIssued',
-                            cellFilter: 'date:\'MM-dd-yyyy\''
-                        }]
-                    }
-                },
                 load: {
                     title: 'Load',
                     gridOptions: {
@@ -202,12 +168,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
                 case 'Banked/Owed':
                     fceRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
-                case 'Banked':
-                    creditRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
-                    break;
-                case 'Owed':
-                    debitRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
-                    break;
                 case 'Load':
                     loadRASTA.initAddForm(formData, tab.gridOptions.data, mainRow);
                     break;
@@ -230,12 +190,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
                 case 'Banked/Owed':
                     fceRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
-                case 'Banked':
-                    creditRASTA.initEditForm(formData, tab.gridOptions.data, row);
-                    break;
-                case 'Owed':
-                    debitRASTA.initEditForm(formData, tab.gridOptions.data, row);
-                    break;
                 case 'Load':
                     loadRASTA.initEditForm(formData, tab.gridOptions.data, row);
                     break;
@@ -251,8 +205,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
             this.getTeachingActivity(tabs.teachingActivity, row);
             this.getOverload(tabs.overload, row);
             this.getFCE(tabs.FCE, row);
-            this.getFCECredit(tabs.FCECredit, row);
-            this.getFCEDebit(tabs.FCEDebit, row);
             this.getLoad(tabs.load, row);
             this.getLoadReduction(tabs.loadReduction, row);
             this.getLoadIncrease(tabs.loadIncrease, row);
@@ -273,18 +225,6 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
             $http.get('/FCE?regularStaffID=' + row.entity.regularStaffID)
                 .then(function(res) {
                     FCE.gridOptions.data = res.data;
-                });
-        },
-        getFCECredit: function(FCECredit, row) {
-            $http.get('/FCECredit?regularStaffID=' + row.entity.regularStaffID)
-                .then(function(res) {
-                    FCECredit.gridOptions.data = res.data;
-                });
-        },
-        getFCEDebit: function(FCEDebit, row) {
-            $http.get('/FCEDebit?regularStaffID=' + row.entity.regularStaffID)
-                .then(function(res) {
-                    FCEDebit.gridOptions.data = res.data;
                 });
         },
         getLoad: function(load, row) {
