@@ -4,6 +4,9 @@ application.service('departmentService', function($http, $q, _, formService) {
         gridOptions: function() {
             return {
                 columnDefs: [{
+                    name: 'Faculty',
+                    field: 'facultyTitle'
+                }, {
                     name: 'Code',
                     field: 'departmentCode'
                 }, {
@@ -15,9 +18,6 @@ application.service('departmentService', function($http, $q, _, formService) {
                 }, {
                     name: 'Description',
                     field: 'description'
-                }, {
-                    name: 'Faculty',
-                    field: 'facultyTitle'
                 }]
             };
         },
@@ -41,16 +41,6 @@ application.service('departmentService', function($http, $q, _, formService) {
             formData.isEditing = false;
             formData.title = 'Department';
             formData.inputs = [{
-                type: "text",
-                name: "departmentCode",
-                label: "Code",
-                required: true
-            }, {
-                type: "text",
-                name: "title",
-                label: "Department",
-                required: true
-            }, {
                 type: "autocomplete",
                 name: "facultyTitle",
                 label: "Faculty",
@@ -67,6 +57,16 @@ application.service('departmentService', function($http, $q, _, formService) {
                     from: "facultyTitle.obj.facultyID",
                     to: "facultyID"
                 }],
+                required: true
+            }, {
+                type: "text",
+                name: "departmentCode",
+                label: "Code",
+                required: true
+            }, {
+                type: "text",
+                name: "title",
+                label: "Department",
                 required: true
             }, {
                 type: "textarea",
@@ -81,16 +81,6 @@ application.service('departmentService', function($http, $q, _, formService) {
             formData.isEditing = true;
             formData.title = 'Department';
             formData.inputs = [{
-                type: "text",
-                name: "departmentCode",
-                label: "Code",
-                required: true
-            }, {
-                type: "text",
-                name: "title",
-                label: "Department",
-                required: true
-            }, {
                 type: "autocomplete",
                 name: "facultyTitle",
                 label: "Faculty",
@@ -107,6 +97,16 @@ application.service('departmentService', function($http, $q, _, formService) {
                     from: "facultyTitle.obj.facultyID",
                     to: "facultyID"
                 }],
+                required: true
+            }, {
+                type: "text",
+                name: "departmentCode",
+                label: "Code",
+                required: true
+            }, {
+                type: "text",
+                name: "title",
+                label: "Department",
                 required: true
             }, {
                 type: "textarea",

@@ -81,8 +81,7 @@ application.service('taCASTA', function($http, _, formService) {
                  type: "text",
                 name: "title",
                 label: "Title",
-                required: true,
-                readonly: true
+                required: true
             }, {
                 type: "autocomplete",
                 name: "sectionNo",
@@ -204,8 +203,7 @@ application.service('taCASTA', function($http, _, formService) {
                 type: "text",
                 name: "title",
                 label: "Title",
-                required: true,
-                readonly: true
+                required: true
             }, {
                 type: "autocomplete",
                 name: "sectionNo",

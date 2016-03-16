@@ -18,8 +18,7 @@ application.service('taCASService', function($http, _, formService) {
                 }, {
                     name: 'Rank',
                     field: 'rank'
-                }],
-                readOnly: true
+                }]
             };
         },
         update: function(formData) {
@@ -38,18 +37,23 @@ application.service('taCASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First Name",
-                readonly: true
+                label: "First Name"
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last Name",
-                readonly: true
+                label: "Last Name"
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No.",
-                readonly: true
+                label: "Employee No."
+            }, {
+                type: "text",
+                name: "departmentCode",
+                label: "Department"
+            }, {
+                type: "text",
+                name: "rank",
+                label: "Rank"
             }];
 
             gridData.readOnly = this.gridOptions().readOnly;
@@ -63,18 +67,23 @@ application.service('taCASService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "firstName",
-                label: "First Name",
-                readonly: true
+                label: "First Name"
             }, {
                 type: "text",
                 name: "lastName",
-                label: "Last Name",
-                readonly: true
+                label: "Last Name"
             }, {
                 type: "text",
                 name: "employeeNo",
-                label: "Employee No.",
-                readonly: true
+                label: "Employee No."
+            }, {
+                type: "text",
+                name: "departmentCode",
+                label: "Department"
+            }, {
+                type: "text",
+                name: "rank",
+                label: "Rank"
             }];
 
             gridData.readOnly = this.gridOptions().readOnly;

@@ -21,18 +21,15 @@ application.service('fDepartment', function($http, $q, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "departmentCode",
-                label: "Department Code",
-                readonly: true
+                label: "Code"
             },{
                 type: "text",
                 name: "title",
-                label: "Title",
-                readonly: true
+                label: "Name"
             },{
                 type: "text",
                 name: "description",
-                label: "Description",
-                readonly: true
+                label: "Description"
             }];
             
             formService.init(formData, gridData, null, 'fDepartment', false);
@@ -45,18 +42,15 @@ application.service('fDepartment', function($http, $q, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "departmentCode",
-                label: "Department Code",
-                readonly: true
+                label: "Code"
             },{
                 type: "text",
                 name: "title",
-                label: "Title",
-                readonly: true
+                label: "Name"
             },{
                 type: "text",
                 name: "description",
-                label: "Description",
-                readonly: true
+                label: "Description"
             }];
             
             formService.init(formData, gridData, row, 'fDepartment', false);
