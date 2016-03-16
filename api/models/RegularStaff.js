@@ -32,12 +32,8 @@ module.exports = {
 			collection: 'RegularStaff_Rank',
 			via: 'regularStaffID'
 		},
-		FCECredit:{
-			collection: 'FCECredit',
-			via: 'regularStaffID'
-		},
-		FCEDebit:{
-			collection: 'FCEDebit',
+		FCE:{
+			collection: 'FCE',
 			via: 'regularStaffID'
 		},
 		LoadIncrease:{
