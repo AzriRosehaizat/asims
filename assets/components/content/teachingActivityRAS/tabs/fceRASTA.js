@@ -1,11 +1,11 @@
-application.service('creditRASTA', function($http, _, formService) {
+application.service('fceRASTA', function($http, _, formService) {
 
     var mainRow;
 
     return {
         update: function(formData) {
             formData.model.regularStaffID = mainRow.entity.regularStaffID;
-            return $http.put('/FCECredit/' + formData.model.FCECreditID, formData.model)
+            return $http.put('/FCE/' + formData.model.FCEID, formData.model)
                 .then(function(res) {
                     res.data.regularStaffID = res.data.regularStaffID.regularStaffID;
                     return res;
@@ -13,58 +13,88 @@ application.service('creditRASTA', function($http, _, formService) {
         },
         create: function(formData) {
             formData.model.regularStaffID = mainRow.entity.regularStaffID;
-            return $http.post('/FCECredit', formData.model);
+            return $http.post('/FCE', formData.model);
         },
         delete: function(formData) {
-            return $http.delete('/FCECredit/' + formData.model.FCECreditID);
+            return $http.delete('/FCE/' + formData.model.FCEID);
         },
         initAddForm: function(formData, gridData, mRow) {
             mainRow = mRow;
 
             formData.model = {};
             formData.isEditing = false;
-            formData.title = 'Banked';
+            formData.title = 'Banked/Owed';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
                 required: true
             }, {
+                type: "select",
+                name: "FCEType",
+                label: "Type",
+                items: ["Banked", "Owed"],
+                path: "FCEType",
+                text: "Select a type",
+                required: true
+            }, {
                 type: "textarea",
                 name: "description",
                 label: "Description"
             }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued",
-                required: true
+                label: "Date Issued"
             }];
 
-            formService.init(formData, gridData, null, 'creditRASTA', false);
+            formService.init(formData, gridData, null, 'fceRASTA', false);
         },
         initEditForm: function(formData, gridData, row) {
             row.entity.dateIssued = formService.formatDate(row.entity.dateIssued);
 
             formData.model = _.cloneDeep(row.entity);
             formData.isEditing = true;
-            formData.title = 'Banked';
+            formData.title = 'Banked/Owed';
             formData.inputs = [{
                 type: "number",
                 name: "FCEValue",
                 label: "FCE Value",
                 required: true
             }, {
+                type: "select",
+                name: "FCEType",
+                label: "Type",
+                items: ["Banked", "Owed"],
+                path: "FCEType",
+                text: "Select a type",
+                required: true
+            }, {
                 type: "textarea",
                 name: "description",
                 label: "Description"
             }, {
+                type: "select",
+                name: "year",
+                label: "Year",
+                items: formService.getYears(),
+                path: "year",
+                text: "Select a year",
+                required: true
+            }, {
                 type: "date",
                 name: "dateIssued",
-                label: "Date Issued",
-                required: true
+                label: "Date Issued"
             }];
 
-            formService.init(formData, gridData, row, 'creditRASTA', false);
+            formService.init(formData, gridData, row, 'fceRASTA', false);
         },
     };
 });

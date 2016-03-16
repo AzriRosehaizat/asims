@@ -20,7 +20,7 @@ application.service('cTabService', function($http, cSection) {
                             field: 'term',
                         }, {
                             name: 'Year',
-                            field: 'year',
+                            field: 'year'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',

@@ -50,8 +50,7 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
         var reductionData = tabs.loadReduction.gridOptions.data;
         var tActivityData = tabs.teachingActivity.gridOptions.data;
         var overloadData = tabs.overload.gridOptions.data;
-        var creditData = tabs.FCECredit.gridOptions.data;
-        var debitData = tabs.FCEDebit.gridOptions.data;
+        var fceData = tabs.FCE.gridOptions.data;
 
         /**************************** Main table ******************************/
         data.main = [];
@@ -75,19 +74,14 @@ application.service('loadChartService', function($mdDialog, _, moment, reportSer
                 }
             });
 
-            // Get owed FCEs
-            var owed = 0;
-            _.forEach(creditData, function(credit) {
-                if (moment(credit.dateIssued).year() === year) {
-                    owed += credit.FCEValue;
-                }
-            });
-
-            // Get banked FCEs
-            var banked = 0;
-            _.forEach(debitData, function(debit) {
-                if (moment(debit.dateIssued).year() === year) {
-                    banked += debit.FCEValue;
+            // Get banked/owed FCEs
+            var banked = 0, owed = 0;
+            _.forEach(fceData, function(fce) {
+                if (getYear(fce.year) === year) {
+                    if (fce.FCEType === 'Owed') 
+                        owed += fce.FCEValue;
+                    else 
+                        banked += fce.FCEValue;
                 }
             });
 

@@ -8,12 +8,11 @@ application.controller('navTopBarController', function($scope, $state, $mdSidena
     Auth.logout();
   };
 
-  /* Set search string to SearchHelper service */
-  $scope.search = {};
-  SearchHelper.setSearch($scope.search);
+  /* Bind SearchHelper service */
+  $scope.search = SearchHelper;
 
-  $scope.update = function(searchData) {
-    SearchHelper.setInput(searchData);
+  $scope.update = function() {
+    SearchHelper.search();
   };
 
   /* Toggle left navigation bar */

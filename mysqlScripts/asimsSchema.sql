@@ -184,6 +184,7 @@ CREATE TABLE IF NOT EXISTS `ContractStaff` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
+
 -- -----------------------------------------------------
 -- Table `ContractStaff_Rank`
 -- -----------------------------------------------------
@@ -208,6 +209,7 @@ CREATE TABLE `ContractStaff_Rank` (
     REFERENCES `ContractStaff` (`contractStaffID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
+
 
 -- -----------------------------------------------------
 -- Table `Crosslisting`
@@ -240,40 +242,23 @@ CREATE TABLE IF NOT EXISTS `Rank` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
--- -----------------------------------------------------
--- Table `FCECredit`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `FCECredit` ;
 
-CREATE TABLE IF NOT EXISTS `FCECredit` (
-  `FCECreditID` INT(11) NOT NULL AUTO_INCREMENT,
+-- -----------------------------------------------------
+-- Table `FCE`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `FCE` ;
+
+CREATE TABLE IF NOT EXISTS `FCE` (
+  `FCEID` INT(11) NOT NULL AUTO_INCREMENT,
   `regularStaffID` INT(11) NOT NULL,
   `FCEValue` FLOAT NOT NULL,
+  `FCEType` VARCHAR(50) NOT NULL,
   `description` TEXT NULL DEFAULT NULL,
+  `year` VARCHAR(10) NOT NULL,
   `dateIssued` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`FCECreditID`) ,
+  PRIMARY KEY (`FCEID`) ,
   INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  CONSTRAINT `FCECredit_ibfk_1`
-    FOREIGN KEY (`regularStaffID`)
-    REFERENCES `RegularStaff` (`regularStaffID`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1;
-
-
--- -----------------------------------------------------
--- Table `FCEDebit`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `FCEDebit` ;
-
-CREATE TABLE IF NOT EXISTS `FCEDebit` (
-  `FCEDebitID` INT(11) NOT NULL AUTO_INCREMENT,
-  `regularStaffID` INT(11) NOT NULL,
-  `FCEValue` FLOAT NOT NULL,
-  `description` TEXT NULL DEFAULT NULL,
-  `dateIssued` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`FCEDebitID`) ,
-  INDEX `regularStaffID` (`regularStaffID` ASC) ,
-  CONSTRAINT `FCEDebit_ibfk_1`
+  CONSTRAINT `FCE_ibfk_1`
     FOREIGN KEY (`regularStaffID`)
     REFERENCES `RegularStaff` (`regularStaffID`))
 ENGINE = InnoDB

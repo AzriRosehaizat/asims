@@ -12,19 +12,19 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                             field: 'departmentCode'
                         }, {
                             name: 'Course No.',
-                            field: 'courseNo',
+                            field: 'courseNo'
                         }, {
                             name: 'Section No.',
-                            field: 'sectionNo',
+                            field: 'sectionNo'
                         }, {
                             name: 'Title',
-                            field: 'title',
+                            field: 'title'
                         }, {
                             name: 'Term',
-                            field: 'term',
+                            field: 'term'
                         }, {
                             name: 'Year',
-                            field: 'year',
+                            field: 'year'
                         }, {
                             name: 'Start Date',
                             field: 'startDate',
