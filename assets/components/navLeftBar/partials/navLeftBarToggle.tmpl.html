@@ -1,7 +1,6 @@
 <md-button class="md-button-toggle" ng-class="{'toggled' : isOpen()}"
 	ng-click="toggle()"
 	aria-controls="docs-menu-{{section.name | nospace}}"
-	flex layout="row"
 	aria-expanded="{{isOpen()}}">
   {{section.name}}
   <md-icon md-font-set="fa fa-chevron-down" style="height:40px" class="md-toggle-icon" ng-class="{'toggled' : isOpen()}"></md-icon>
