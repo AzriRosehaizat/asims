@@ -104,9 +104,9 @@ application.service('reportService', function(_) {
         return {
             header: {
                 bold: true,
-                fontSize: 12,
+                fontSize: 14,
                 margin: [0, 0, 0, 10],
-                alignment: "left",
+                alignment: "center",
                 decoration: 'underline'
             },
             sectionHeader: {
