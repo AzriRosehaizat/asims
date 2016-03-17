@@ -26,7 +26,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
   
-  // '*': ['hasJsonWebToken'], // Everything resctricted here
+  '*': ['hasJsonWebToken'], // Everything resctricted here
   
   'AuthController': {
     'login': true, // We dont need authorization here, allowing public access
