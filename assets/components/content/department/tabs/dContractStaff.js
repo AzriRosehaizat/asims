@@ -27,7 +27,7 @@ application.service('dContractStaff', function($http, _, formService) {
             formData.inputs = [{
                 type: "autocomplete",
                 name: "fullName",
-                label: "Full name",
+                label: "Full Name",
                 url: {
                     start: "/academicStaff/searchFullName?type=ContractStaff&where={",
                     end: "\"fullName\":{\"startsWith\":\"",
@@ -71,7 +71,7 @@ application.service('dContractStaff', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "fullName",
-                label: "Full name",
+                label: "Full Name",
                 readonly: true
             }, {
                 type: "date",

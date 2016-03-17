@@ -20,13 +20,18 @@ application.service('dCourse', function($http, _, formService) {
             formData.title = 'Course';
             formData.inputs = [{
                 type: "text",
+                name: "departmentCode",
+                label: "Department",
+                required: true
+            }, {
+                type: "text",
                 name: "courseNo",
-                label: "Course No",
+                label: "Course No.",
                 required: true
             }, {
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Title",
                 required: true
             }, {
                 type: "textarea",
@@ -42,13 +47,18 @@ application.service('dCourse', function($http, _, formService) {
             formData.title = 'Course';
             formData.inputs = [{
                 type: "text",
+                name: "departmentCode",
+                label: "Department",
+                required: true
+            }, {
+                type: "text",
                 name: "courseNo",
-                label: "Course No",
+                label: "Course No.",
                 required: true
             }, {
                 type: "text",
                 name: "title",
-                label: "Name",
+                label: "Title",
                 required: true
             }, {
                 type: "textarea",

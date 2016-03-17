@@ -4,7 +4,7 @@ application.service('facultyService', function($http, _, formService) {
         gridOptions: function() {
             return {
                 columnDefs: [{
-                    name: 'Title',
+                    name: 'Name',
                     field: 'title'
                 }]
             };
@@ -30,7 +30,7 @@ application.service('facultyService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "title",
-                label: "Title",
+                label: "Name",
                 required: true
             }];
             
@@ -43,7 +43,7 @@ application.service('facultyService', function($http, _, formService) {
             formData.inputs = [{
                 type: "text",
                 name: "title",
-                label: "Title",
+                label: "Name",
                 required: true
             }];
             

@@ -143,7 +143,7 @@ application.service('leaveChartService', function($mdDialog, _, moment, reportSe
 
     function generateReport(data) {
         docDefinition.content.push({
-                text: 'LEAVE ENTITLEMENT CHART',
+                text: 'HISTORY OF LEAVE ENTITLEMENT',
                 style: 'header'
             },
             reportService.getStaffInfo(data.info),
