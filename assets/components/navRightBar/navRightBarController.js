@@ -30,7 +30,6 @@ application.controller('navRightBarController', function($scope, $state, _, form
     };
 
     $scope.changeState = function(link) {
-        console.log("change state to " + link);
         $state.go(link);
     };
     

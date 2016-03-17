@@ -10,7 +10,6 @@ application.service('acService', function($http, _) {
         }
         if (searchText === undefined) searchText = ""; // Why: deleting searchText in form sets the value to undefined and below query does not work
         query += url.end + searchText + "\"}}";
-        // console.log(query);
 
         return $http.get(query)
             .then(function(res) {

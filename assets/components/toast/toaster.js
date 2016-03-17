@@ -26,7 +26,6 @@ application.service('toaster', function($mdToast) {
             this.open("error_outline", text);
         },
         error: function(err) {
-            console.log(err);
             var text;
 
             if (err.originalError && err.originalError.errno === 1451) {

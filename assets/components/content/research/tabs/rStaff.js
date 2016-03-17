@@ -5,7 +5,7 @@ application.service('rStaff', function($http, _, formService) {
         update: function(formData) {
             return $http.put('/RegularStaff_Research/' + formData.model.regularStaffResearchID, formData.model)
                 .then(function(res) {
-                    return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.researchID.researchID + 
+                    return $http.get('/regularStaff/getInfo?type=researchStaff&id=' + res.data.researchID.researchID + 
                                      '&where=' + res.data.regularStaffResearchID);
                 });
         },
@@ -13,7 +13,7 @@ application.service('rStaff', function($http, _, formService) {
             formData.model.researchID = mainRow.entity.researchID;
             return $http.post('/RegularStaff_Research/', formData.model)
                 .then(function(res) {
-                    return $http.get('/regularStaff/getInfo?type=research&id=' + res.data.researchID + 
+                    return $http.get('/regularStaff/getInfo?type=researchStaff&id=' + res.data.researchID + 
                                      '&where=' + res.data.regularStaffResearchID);
                 });
         },
