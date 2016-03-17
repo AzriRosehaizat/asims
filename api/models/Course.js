@@ -33,10 +33,6 @@ module.exports = {
 	TeachingActivities: {
 		collection: 'TeachingActivities',
 		via: 'courseID'
-	},
-	Crosslisting: {
-		collection: 'Crosslisting',
-		via: 'courseID'
 	}
   },
   tableName: 'Course'
