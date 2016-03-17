@@ -63,6 +63,6 @@ md-tabs.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > m
   outline: none; }
 
 /*Hacky fix to center ui grid button*/
-[class^="ui-grid-icon"]:before, [class*=" ui-grid-icon"]:before {
+[class^="ui-grid-icon-menu"]:before, [class*=" ui-grid-icon-menu"]:before {
   margin-right: -.3em !important;
 }
