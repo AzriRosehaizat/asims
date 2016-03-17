@@ -160,7 +160,7 @@ INSERT INTO `User` (`auth`,`username`,`firstName`,`lastName`,`email`,`role`,`id`
   (8,'craig','Craig','Warketin','craig@asims.ca',3,8),
   (9,'darren','darren','darren','darren@asims.ca',3,9);
 -- Records other than Support should be deleted when going to production
-INSERT INTO `Auth`(`user`, `username`,`password`,`id`) VALUES
+INSERT INTO `Auth` VALUES
   (1,'support','$2a$10$voVXI41FVwkXEj48KeZwu.x/5inCTFELD5mxrOeTO4FGerJWg5z3K',NULL,1),
   (2,'reader','$2a$10$6irsoPdqXQWNFldkHNj5meG.wcR15Fc7irjOGRfJQf4RkKGOyBvZO',NULL,2),
   (3,'writer','$2a$10$Q1rmD1mFuEJiG0GMZCiFB.PJRyZbGnJBHFbqD5AKwc2sRD4wvzCSS',NULL,3),
