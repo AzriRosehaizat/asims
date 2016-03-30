@@ -148,25 +148,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- INSERT into ROLE Table
 INSERT INTO Role(role,id) VALUES ('reader',1),('writer',2),('admin',3);
 -- INSERT credentials for users
--- Accounts Other than Support should be deleted when going to production
 INSERT INTO `User` (`auth`,`username`,`firstName`,`lastName`,`email`,`role`,`id`) VALUES 
-  (1,'support','support','account','support@asims.ca',3,1),
-  (2,'reader','read','account','reader@asims.ca',1,2),
-  (3,'writer','writer','account','writer@asims.ca',2,3),
-  (4,'azri','Azri','Ahmad','azri@asims.ca',3,4),
-  (5,'anita','Anita','Nelson','anita@asims.ca',3,5),
-  (6,'james','James','MacKay','james@asims.ca',3,6),
-  (7,'youn','Youn','Kim','youn@asims.ca',3,7),
-  (8,'craig','Craig','Warketin','craig@asims.ca',3,8),
-  (9,'darren','darren','darren','darren@asims.ca',3,9);
--- Records other than Support should be deleted when going to production
+  (1,'support','support','account','support@asims.ca',3,1);
 INSERT INTO `Auth` VALUES
-  (1,'support','$2a$10$voVXI41FVwkXEj48KeZwu.x/5inCTFELD5mxrOeTO4FGerJWg5z3K',NULL,1),
-  (2,'reader','$2a$10$6irsoPdqXQWNFldkHNj5meG.wcR15Fc7irjOGRfJQf4RkKGOyBvZO',NULL,2),
-  (3,'writer','$2a$10$Q1rmD1mFuEJiG0GMZCiFB.PJRyZbGnJBHFbqD5AKwc2sRD4wvzCSS',NULL,3),
-	(4,'azri','$2a$10$q/UmBTRCNwVfyhrWh8QRneCJA.wa3Z6dUvSC9Eh1/NdHejjtHkWFm',NULL,4),
-	(5,'anita','$2a$10$MY9Bt2CLCDoARLcpsZbc/ORIFW1UK9n1YJabFdWhK1dk7b/7xTYrq',NULL,5),
-	(6,'james','$2a$10$lUv8WidKVAKrRUZVJ5jszuOeefuO2hbHVMqxPqYYoVFdH2.06UGqu',NULL,6),
-	(7,'youn','$2a$10$Tu6oSJZfxupdIZzZ3jtyQuxs2PyJjU4G/OtuDt/O33xH7Q5cpEKWG',NULL,7),
-	(8,'craig','$2a$10$VwNcdFX1DzQhCp1mefGoHuRhTMRZoCPUICo6H/S7MzLDZ1w1ahhlm',NULL,8),
-	(9,'darren','$2a$10$lqFvdQP6qdGhTLSheo6K1O6yIxhfbXdfIq2dsWtP3Wve8L7GocAre',NULL,9);
+  (1,'support','$2a$10$voVXI41FVwkXEj48KeZwu.x/5inCTFELD5mxrOeTO4FGerJWg5z3K',NULL,1);
