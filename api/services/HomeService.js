@@ -6,7 +6,8 @@ module.exports = {
     getLeaveCount: function(callback) {
         var sSQL = mysql.count(`ld.leaveDebitID AS NoOfLeave`)
             .from('LeaveDebit AS ld')
-            .where(`ld.endDate`, '>', new Date())
+            .where(`ld.startDate`, '<=', new Date())
+            .andWhere(`ld.endDate`, '>', new Date())
             .orWhereNull(`ld.endDate`)
             .toString();
         RegularStaff.query(sSQL, callback);
@@ -14,7 +15,8 @@ module.exports = {
     getContractStaffCount: function(callback) {
         var sSQL = mysql.count(`c.contractStaffID AS NoOfContractStaff`)
             .from('ContractStaffRank AS c')
-            .where(`c.endDate`, '>', new Date())
+            .where(`c.startDate`, '<=', new Date())
+            .andWhere(`c.endDate`, '>', new Date())
             .orWhereNull(`c.endDate`)
             .toString();
         RegularStaff.query(sSQL, callback);
@@ -23,7 +25,8 @@ module.exports = {
     getRegularStaffCount: function(callback) {
         var sSQL = mysql.count(`r.regularStaffID AS NoOfRegularStaff`)
             .from('RegularStaffRank AS r')
-            .where(`r.endDate`, '>', new Date())
+            .where(`r.startDate`, '<=', new Date())
+            .andWhere(`r.endDate`, '>', new Date())
             .orWhereNull(`r.endDate`)
             .toString();
 
@@ -32,7 +35,8 @@ module.exports = {
     getResearchCount: function(callback) {
         var sSQL = mysql.count(`r.researchID AS NoOfResearch`)
             .from('Research AS r')
-            .where(`r.endDate`, '>', new Date())
+            .where(`r.startDate`, '<=', new Date())
+            .andWhere(`r.endDate`, '>', new Date())
             .orWhereNull(`r.endDate`)
             .toString();
         RegularStaff.query(sSQL, callback);
@@ -46,7 +50,8 @@ module.exports = {
             .leftJoin('Rank AS rk', 'rv.rankID', 'rk.rankID')
             .leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
             .leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
-            .where(`rv.endDate`, '>', new Date())
+            .where(`rv.startDate`, '<=', new Date())
+            .andWhere(`rv.endDate`, '>', new Date())
             .orWhereNull(`rv.endDate`)
             .toString();
         RegularStaff.query(sSQL, callback);
@@ -59,7 +64,8 @@ module.exports = {
             .leftJoin('Rank AS rk', 'cv.rankID', 'rk.rankID')
             .leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
             .leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
-            .where(`cv.endDate`, '>', new Date())
+            .where(`cv.startDate`, '<=', new Date())
+            .andWhere(`cv.endDate`, '>', new Date())
             .orWhereNull(`cv.endDate`)
             .toString();
         RegularStaff.query(sSQL, callback);
@@ -73,7 +79,8 @@ module.exports = {
             .leftJoin('Rank AS rk', 'rv.rankID', 'rk.rankID')
             .leftJoin('MostRecentDepartment AS dv', `a.academicStaffID`, 'dv.academicStaffID')
             .leftJoin('Department AS d', 'dv.departmentID', 'd.departmentID')
-            .where(`ld.endDate`, '>', new Date())
+            .where(`ld.startDate`, '<=', new Date())
+            .andWhere(`ld.endDate`, '>', new Date())
             .orWhereNull(`ld.endDate`)
             .toString();
         RegularStaff.query(sSQL, callback);
@@ -83,7 +90,8 @@ module.exports = {
         var sSQL = mysql.select('r.title AS Title', 'r.startDate As Start Date', 'r.endDate As End Date', 'rg.grantingAgency AS Granting Agency', 'rg.dateAwarded AS Date Awarded', 'rg.duration AS Duration', 'rg.amount AS Amount $')
             .from('Research AS r')
             .leftJoin('ResearchGrant AS rg', 'r.researchID', 'rg.researchID')
-            .where(`r.endDate`, '>', new Date())
+            .where(`r.startDate`, '<=', new Date())
+            .andWhere(`r.endDate`, '>', new Date())
             .orWhereNull(`r.endDate`)
             // limit to show only one research grant
             .groupBy('r.researchID');
