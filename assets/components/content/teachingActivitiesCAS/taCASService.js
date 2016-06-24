@@ -18,7 +18,8 @@ application.service('taCASService', function($http, _, formService) {
                 }, {
                     name: 'Rank',
                     field: 'rank'
-                }]
+                }],
+                readOnly: true
             };
         },
         update: function(formData) {
