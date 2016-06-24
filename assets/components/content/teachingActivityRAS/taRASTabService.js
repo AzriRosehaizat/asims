@@ -37,7 +37,7 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
                             displayName: 'FCE',
                             field: 'FCEValue'
                         }, {
-                            name: 'Role',
+                            name: 'Rank',
                             field: 'role'
                         }]
                     }
