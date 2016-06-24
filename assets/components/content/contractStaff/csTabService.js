@@ -38,7 +38,7 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank) 
                             displayName: 'FCE',
                             field: 'FCEValue'
                         }, {
-                            name: 'Role',
+                            name: 'Rank',
                             field: 'role'
                         }]
                     }

@@ -37,7 +37,7 @@ application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
                             displayName: 'FCE',
                             field: 'FCEValue'
                         }, {
-                            name: 'Role',
+                            name: 'Rank',
                             field: 'role'
                         }]
                     }

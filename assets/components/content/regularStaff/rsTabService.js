@@ -38,7 +38,7 @@ application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, 
                             displayName: 'FCE',
                             field: 'FCEValue'
                         }, {
-                            name: 'Role',
+                            name: 'Rank',
                             field: 'role'
                         }]
                     }

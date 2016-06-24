@@ -138,7 +138,7 @@ application.service('rsTA', function($http, $q, _, formService) {
             }, {
                 type: "text",
                 name: "role",
-                label: "Role"
+                label: "Rank"
             }];
 
             formService.init(formData, gridData, null, 'rsTA', false);
@@ -261,7 +261,7 @@ application.service('rsTA', function($http, $q, _, formService) {
             }, {
                 type: "text",
                 name: "role",
-                label: "Role"
+                label: "Rank"
             }];
 
             formService.init(formData, gridData, row, 'rsTA', false);

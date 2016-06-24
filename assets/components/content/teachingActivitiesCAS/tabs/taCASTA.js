@@ -137,7 +137,7 @@ application.service('taCASTA', function($http, _, formService) {
             }, {
                 type: "text",
                 name: "role",
-                label: "Role"
+                label: "Rank"
             }];
 
             formService.init(formData, gridData, null, 'taCASTA', false);
@@ -259,7 +259,7 @@ application.service('taCASTA', function($http, _, formService) {
             }, {
                 type: "text",
                 name: "role",
-                label: "Role"
+                label: "Rank"
             }];
 
             formService.init(formData, gridData, row, 'taCASTA', false);
