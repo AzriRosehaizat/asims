@@ -1,4 +1,4 @@
-application.service('loginService', ['$state', 'Auth', 'toaster', function($state, Auth, toaster) {
+application.service('loginService', function($state, Auth, toaster) {
     return {
         submit: function(formData) {
             formData.mode = 'indeterminate';
@@ -15,4 +15,4 @@ application.service('loginService', ['$state', 'Auth', 'toaster', function($stat
                 });
         }
     };
-}]);
+});

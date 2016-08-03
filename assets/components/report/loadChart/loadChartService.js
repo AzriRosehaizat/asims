@@ -1,4 +1,4 @@
-application.service('loadChartService', ['$mdDialog', '_', 'moment', 'reportService', function($mdDialog, _, moment, reportService) {
+application.service('loadChartService', function($mdDialog, _, moment, reportService) {
 
     var self = this;
     var docDefinition = {
@@ -195,4 +195,4 @@ application.service('loadChartService', ['$mdDialog', '_', 'moment', 'reportServ
     function openPdf() {
         pdfMake.createPdf(docDefinition).open();
     }
-}]);
+});

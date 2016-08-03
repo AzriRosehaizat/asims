@@ -1,6 +1,4 @@
-application.controller('researchController', 
-    ['$scope', 'researches', 'researchService', 'rTabService', 'SearchHelper', 'toaster', 'gridService',
-    function($scope, researches, researchService, rTabService, SearchHelper, toaster, gridService) {
+application.controller('researchController', function($scope, researches, researchService, rTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Research';
     $scope.researchData = researches.data;
@@ -73,4 +71,4 @@ application.controller('researchController',
         else
             toaster.info("Select a row first in the tab table.");
     };
-}]);
+});

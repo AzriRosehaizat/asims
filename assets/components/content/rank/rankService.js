@@ -1,4 +1,4 @@
-application.service('rankService', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('rankService', function($http, _, formService) {
     
     return {
         gridOptions: function() {
@@ -60,4 +60,4 @@ application.service('rankService', ['$http', '_', 'formService', function($http,
             return $http.get('/rank/' + row.entity.rankID + '?populate');
         }
     };
-}]);
+});

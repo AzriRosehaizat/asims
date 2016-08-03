@@ -1,4 +1,4 @@
-application.service('taCASService', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('taCASService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -94,4 +94,4 @@ application.service('taCASService', ['$http', '_', 'formService', function($http
             return $http.get('/contractStaff/getAllContractStaff/' + row.entity.contractStaffID);
         }
     };
-}]);
+});

@@ -5,10 +5,6 @@
 application
 .service(
     'leaveTabs', 
-    ['$http', 
-    'leaveCredits', 
-    'leaveDebits', 
-    'formService',
     function(
         $http, 
         leaveCredits,
@@ -223,5 +219,5 @@ application
             );
         }
     }
-]);
+);
 

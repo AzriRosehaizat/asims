@@ -1,4 +1,4 @@
-application.service('dChair', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('dChair', function($http, _, formService) {
     var mainRow;
 
     return {
@@ -88,4 +88,4 @@ application.service('dChair', ['$http', '_', 'formService', function($http, _, f
             formService.init(formData, gridData, row, 'dChair', false);
         },
     };
-}]);
+});

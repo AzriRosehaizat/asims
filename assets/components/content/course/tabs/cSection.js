@@ -1,4 +1,4 @@
-application.service('cSection', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('cSection', function($http, _, formService) {
     // var mainRow;
 
     return {
@@ -114,4 +114,4 @@ application.service('cSection', ['$http', '_', 'formService', function($http, _,
             formService.init(formData, gridData, row, 'cSection', false);
         },
     };
-}]);
+});

@@ -1,5 +1,6 @@
 application
-    .controller('gridController', ['navRightBarService', 'CurrentUser', function(navRightBarService, CurrentUser) {
+    .controller('gridController', function(navRightBarService, CurrentUser) {
+    
         var self = this;
         var userRole;
         
@@ -12,9 +13,9 @@ application
             return (userRole === "reader");    
         };
     
-    }])
-	.config(['$provide', function($provide) {
-		$provide.decorator('GridOptions', ['$delegate', 'uiGridConstants', function($delegate, uiGridConstants) {
+    })
+	.config(function($provide) {
+		$provide.decorator('GridOptions', function($delegate, uiGridConstants) {
 			var gridOptions;
 			gridOptions = angular.copy($delegate);
 			gridOptions.initialize = function(options) {
@@ -103,5 +104,5 @@ application
 				return initOptions;
 			};
 			return gridOptions;
-		}]);
-	}]);
+		});
+	});

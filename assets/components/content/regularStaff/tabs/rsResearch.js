@@ -1,4 +1,4 @@
-application.service('rsResearch', ['$http', '_', 'formService', function($http, $q, _, formService) {
+application.service('rsResearch', function($http, $q, _, formService) {
 
     var mainRow;
 
@@ -96,4 +96,4 @@ application.service('rsResearch', ['$http', '_', 'formService', function($http, 
             formService.init(formData, gridData, row, 'rsResearch', false);
         },
     };
-}]);
+});

@@ -1,4 +1,4 @@
-application.service('CurrentUser', ['$http', '$state', '$q', 'LocalService', 'toaster', function($http, $state, $q, LocalService, toaster) {
+application.service('CurrentUser', function($http, $state, $q, LocalService, toaster) {
 
     var self = this;
     var user;
@@ -27,4 +27,4 @@ application.service('CurrentUser', ['$http', '$state', '$q', 'LocalService', 'to
     self.getRole = function() {
         return user.role.role;
     };
-}]);
+});

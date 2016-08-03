@@ -1,4 +1,4 @@
-application.service('facultyService', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('facultyService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -53,4 +53,4 @@ application.service('facultyService', ['$http', '_', 'formService', function($ht
             return $http.get('/faculty/' + row.entity.facultyID + '?populate');
         }
     };
-}]);
+});

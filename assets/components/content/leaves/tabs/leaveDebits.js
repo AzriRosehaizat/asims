@@ -4,11 +4,6 @@
 application
 .service(
     'leaveDebits', 
-    ['$http', 
-    '_', 
-    'uiGridConstants', 
-    'formService', 
-    'gridService',
     function(
         $http, 
         _, 
@@ -269,4 +264,4 @@ application
             ];
         }
     }
-]);
+);

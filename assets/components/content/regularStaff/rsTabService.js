@@ -1,6 +1,4 @@
-application.service('rsTabService', 
-    ['$http', 'rsTA', 'rsDepartment', 'rsRank', 'rsResearch', 
-    function($http, rsTA, rsDepartment, rsRank, rsResearch) {
+application.service('rsTabService', function($http, rsTA, rsDepartment, rsRank, rsResearch) {
 
     return {
         tabs: function() {
@@ -168,4 +166,4 @@ application.service('rsTabService',
                 });
         }
     };
-}]);
+});

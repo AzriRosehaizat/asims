@@ -1,4 +1,4 @@
-application.controller('dialogController', ['$mdDialog', 'formService', 'title', function($mdDialog, formService, title) {
+application.controller('dialogController', function($mdDialog, formService, title) {
 
     var self = this;
     self.title = title;
@@ -43,4 +43,4 @@ application.controller('dialogController', ['$mdDialog', 'formService', 'title',
             self.years.push(academicYear);
         }
     };
-}]);
+});

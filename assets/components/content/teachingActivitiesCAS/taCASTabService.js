@@ -1,4 +1,4 @@
-application.service('taCASTabService', ['$http', 'taCASTA', 'rtrCASTA', function($http, taCASTA, rtrCASTA) {
+application.service('taCASTabService', function($http, taCASTA, rtrCASTA) {
 
     return {
         tabs: function() {
@@ -105,4 +105,4 @@ application.service('taCASTabService', ['$http', 'taCASTA', 'rtrCASTA', function
                 });
         }
     };
-}]);
+});

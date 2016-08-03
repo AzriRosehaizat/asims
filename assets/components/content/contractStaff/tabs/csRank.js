@@ -1,4 +1,4 @@
-application.service('csRank', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('csRank', function($http, _, formService) {
 
     var mainRow;
 
@@ -98,4 +98,4 @@ application.service('csRank', ['$http', '_', 'formService', function($http, _, f
             formService.init(formData, gridData, row, 'csRank', false);
         },
     };
-}]);
+});

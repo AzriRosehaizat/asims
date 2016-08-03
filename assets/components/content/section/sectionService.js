@@ -1,4 +1,4 @@
-application.service('sectionService', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('sectionService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -62,4 +62,4 @@ application.service('sectionService', ['$http', '_', 'formService', function($ht
             return $http.get('/Section/' + row.entity.sectionID + '?populate');
         }
     };
-}]);
+});

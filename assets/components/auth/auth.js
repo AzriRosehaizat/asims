@@ -1,4 +1,4 @@
-application.service('Auth', ['$state', '$http', '$q', 'LocalService', 'CurrentUser', 'AccessLevels', function($state, $http, $q, LocalService, CurrentUser, AccessLevels) {
+application.service('Auth', function($state, $http, $q, LocalService, CurrentUser, AccessLevels) {
     return {
         authorize: function(access) {
             if (access === AccessLevels.admin) {
@@ -35,9 +35,9 @@ application.service('Auth', ['$state', '$http', '$q', 'LocalService', 'CurrentUs
                 });
         }
     };
-}]);
+});
 
-application.service('AuthInterceptor', ['$q', '$injector', '_', 'LocalService', function($q, $injector, _, LocalService) {
+application.service('AuthInterceptor', function($q, $injector, _, LocalService) {
         return {
             request: function(config) {
                 var token;
@@ -60,7 +60,7 @@ application.service('AuthInterceptor', ['$q', '$injector', '_', 'LocalService', 
                 return $q.reject(res.data);
             }
         };
-    }])
-    .config(['$httpProvider', function($httpProvider) {
+    })
+    .config(function($httpProvider) {
         $httpProvider.interceptors.push('AuthInterceptor');
-    }]);
+    });

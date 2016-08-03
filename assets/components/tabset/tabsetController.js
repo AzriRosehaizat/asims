@@ -1,4 +1,4 @@
-application.controller('tabsetController', ['navRightBarService', 'CurrentUser', '$state', function(navRightBarService, CurrentUser, $state) {
+application.controller('tabsetController', function(navRightBarService, CurrentUser, $state) {
 
     var self = this;
     var userRole;
@@ -20,4 +20,4 @@ application.controller('tabsetController', ['navRightBarService', 'CurrentUser',
         if (tab)
         return (tab.link) ? true : false;
     };
-}]);
+});
