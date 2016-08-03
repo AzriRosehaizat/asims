@@ -1,4 +1,4 @@
-application.controller('counterController', ['$http', '$mdDialog', 'counterService', function($http, $mdDialog, counterService) {
+application.controller('counterController', function($http, $mdDialog, counterService) {
 
     var self = this;
 
@@ -75,4 +75,4 @@ application.controller('counterController', ['$http', '$mdDialog', 'counterServi
         
     };
     
-}]);
+});

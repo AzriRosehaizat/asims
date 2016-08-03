@@ -1,4 +1,4 @@
-application.service('dContractStaff', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('dContractStaff', function($http, _, formService) {
     var mainRow;
 
     return {
@@ -88,4 +88,4 @@ application.service('dContractStaff', ['$http', '_', 'formService', function($ht
             formService.init(formData, gridData, row, 'dContractStaff', false);
         },
     };
-}]);
+});

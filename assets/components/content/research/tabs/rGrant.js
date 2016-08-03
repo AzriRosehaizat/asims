@@ -1,4 +1,4 @@
-application.service('rGrant', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('rGrant', function($http, _, formService) {
     var mainRow;
 
     return {
@@ -71,4 +71,4 @@ application.service('rGrant', ['$http', '_', 'formService', function($http, _, f
             formService.init(formData, gridData, row, 'rGrant', false);
         },
     };
-}]);
+});

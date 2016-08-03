@@ -1,4 +1,4 @@
-application.controller('toDoListController', ['$scope', 'user', '$http', '_', 'toDoListService', function($scope, user, $http, _, toDoListService) {
+application.controller('toDoListController', function($scope, user, $http, _, toDoListService) {
 
     var userid = user.data.id;
     $scope.formData = {};
@@ -64,4 +64,4 @@ application.controller('toDoListController', ['$scope', 'user', '$http', '_', 't
                     });
             });
     };
-}]);
+})

@@ -1,4 +1,4 @@
-application.service('rtrCASTA', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('rtrCASTA', function($http, _, formService) {
 
     var mainRow;
 
@@ -106,4 +106,4 @@ application.service('rtrCASTA', ['$http', '_', 'formService', function($http, _,
             formService.init(formData, gridData, row, 'rtrCASTA', false);
         }
     };
-}]);
+});

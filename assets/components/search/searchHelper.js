@@ -1,4 +1,4 @@
-application.service('SearchHelper', ['$filter', function($filter) {
+application.service('SearchHelper', function($filter) {
 
     var input, grid, model;
     var self = this;
@@ -34,4 +34,4 @@ application.service('SearchHelper', ['$filter', function($filter) {
             input = (searchArray.length !== 0) ? searchArray.join(' ') : '';
         }
     }
-}]);
+});

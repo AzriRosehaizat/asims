@@ -1,4 +1,4 @@
-application.service('acService', ['$http', '_', function($http, _) {
+application.service('acService', function($http, _) {
 
     this.querySearch = function(formData, searchText, url, output) {
         var query = url.start;
@@ -64,4 +64,4 @@ application.service('acService', ['$http', '_', function($http, _) {
             return item[name];
         }
     }
-}]);
+});

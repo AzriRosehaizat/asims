@@ -1,6 +1,4 @@
-application.controller('taCASController', 
-    ['$scope', 'staffs', 'taCASService', 'taCASTabService', 'SearchHelper', 'toaster', 'gridService',
-    function($scope, staffs, taCASService, taCASTabService, SearchHelper, toaster, gridService) {
+application.controller('taCASController', function($scope, staffs, taCASService, taCASTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Contract Staff';
     $scope.cStaff = staffs.data;
@@ -72,4 +70,4 @@ application.controller('taCASController',
         else
             toaster.info("Select a row first in the tab table.");
     };
-}]);
+});

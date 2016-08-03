@@ -1,4 +1,4 @@
-application.controller('homeHeaderController', ['$http', '$scope', 'user', 'moment', function($http, $scope, user, moment) {
+application.controller('homeHeaderController', function($http, $scope, user, moment) {
 
     $scope.user = user.data;
 
@@ -7,4 +7,4 @@ application.controller('homeHeaderController', ['$http', '$scope', 'user', 'mome
         .then(function(res) {
             $scope.lastLogin = (res.data[1]) ? moment(res.data[1].createdAt).fromNow() : "Welcome New User";
         });
-}]);
+});

@@ -5,11 +5,6 @@
 application
 .service(
     'leaveCredits', 
-    ['$http', 
-    '_', 
-    'uiGridConstants', 
-    'formService', 
-    'gridService',
     function(
         $http, 
         _, 
@@ -244,4 +239,4 @@ application
             ];
         }
     }
-]);
+);

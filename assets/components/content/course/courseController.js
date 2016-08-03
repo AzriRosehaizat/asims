@@ -1,6 +1,4 @@
-application.controller('courseController', 
-    ['$scope', 'courses', 'courseService', 'cTabService', 'SearchHelper', 'toaster', 'gridService', 
-    function($scope, courses, courseService, cTabService, SearchHelper, toaster, gridService) {
+application.controller('courseController', function($scope, courses, courseService, cTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Course';
     $scope.courseData = courses.data;
@@ -66,4 +64,4 @@ application.controller('courseController',
         else
             toaster.info("Select a row first in the tab table.");
     };
-}]);
+});

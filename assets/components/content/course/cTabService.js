@@ -1,4 +1,4 @@
-application.service('cTabService', ['$http', 'cSection', function($http, cSection) {
+application.service('cTabService', function($http, cSection) {
 
     return {
         tabs: function() {
@@ -64,4 +64,4 @@ application.service('cTabService', ['$http', 'cSection', function($http, cSectio
                 });
         }
     };
-}]);
+});

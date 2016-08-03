@@ -1,4 +1,4 @@
-application.service('csDepartment', ['$http', '_', 'formService', function($http, _, formService) {
+application.service('csDepartment', function($http, _, formService) {
 
     var mainRow;
 
@@ -99,4 +99,4 @@ application.service('csDepartment', ['$http', '_', 'formService', function($http
             formService.init(formData, gridData, row, 'csDepartment', false);
         },
     };
-}]);
+});

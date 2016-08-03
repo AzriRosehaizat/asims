@@ -1,6 +1,4 @@
-application.controller('sectionController', 
-    ['$scope', 'section', 'sectionService', 'SearchHelper', 'toaster', 'gridService',
-    function($scope, section, sectionService, SearchHelper, toaster, gridService) {
+application.controller('sectionController', function($scope, section, sectionService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Section';
     $scope.sectionData = section.data;
@@ -39,4 +37,4 @@ application.controller('sectionController',
     };
 
     // Add functionality for tabs if they exist
-}]);
+});

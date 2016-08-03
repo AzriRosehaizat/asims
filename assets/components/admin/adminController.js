@@ -1,4 +1,4 @@
-application.controller('adminController', ['$scope', 'users', 'adminService', 'SearchHelper', 'toaster', 'gridService', function($scope, users, adminService, SearchHelper, toaster, gridService) {
+application.controller('adminController', function($scope, users, adminService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Admin Page';
     $scope.users = users.data;
@@ -32,4 +32,4 @@ application.controller('adminController', ['$scope', 'users', 'adminService', 'S
     $scope.lastLogin = function(row) {
         adminService.lastLogin(row);
     };
-}]);
+});
