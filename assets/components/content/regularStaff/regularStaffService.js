@@ -122,7 +122,8 @@ application.service('regularStaffService', ['$http', '_', 'formService', functio
                 type: "date",
                 name: "rankStartDate",
                 label: "Rank Start Date",
-                hide: "fs.form.rank.$pristine"
+                hide: "fs.form.rank.$pristine",
+                required: "fs.form.rank.$dirty"
             }, {
                 type: "date",
                 name: "rankEndDate",
