@@ -1,4 +1,6 @@
-application.service('taRASTabService', function($http, taRASTA, overloadRASTA, fceRASTA, loadRASTA, reductionRASTA, increaseRASTA) {
+application.service('taRASTabService', 
+    ['$http', 'taRASTA', 'overloadRASTA', 'fceRASTA', 'loadRASTA', 'reductionRASTA', 'increaseRASTA', 
+    function($http, taRASTA, overloadRASTA, fceRASTA, loadRASTA, reductionRASTA, increaseRASTA) {
 
     return {
         tabs: function() {
@@ -249,4 +251,4 @@ application.service('taRASTabService', function($http, taRASTA, overloadRASTA, f
                 });
         }
     };
-});
+}]);

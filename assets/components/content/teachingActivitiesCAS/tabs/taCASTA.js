@@ -1,4 +1,4 @@
-application.service('taCASTA', function($http, _, formService) {
+application.service('taCASTA', ['$http', '_', 'formService', function($http, _, formService) {
 
     var mainRow;
 
@@ -265,4 +265,4 @@ application.service('taCASTA', function($http, _, formService) {
             formService.init(formData, gridData, row, 'taCASTA', false);
         },
     };
-});
+}]);

@@ -1,4 +1,4 @@
-application.service('loadRASTA', function($http, _, formService) {
+application.service('loadRASTA', ['$http', '_', 'formService', function($http, _, formService) {
 
     var mainRow;
 
@@ -62,4 +62,4 @@ application.service('loadRASTA', function($http, _, formService) {
             formService.init(formData, gridData, row, 'loadRASTA', false);
         },
     };
-});
+}]);

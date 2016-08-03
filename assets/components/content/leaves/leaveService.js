@@ -5,6 +5,10 @@
 application
 .service(
     'leaveService',
+    ['$http',
+    '_',
+    'formService',
+    '$q',
     function(
         $http,
         _,
@@ -92,4 +96,4 @@ application
             }
         };
     }
-);
+]);

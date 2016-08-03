@@ -1,4 +1,4 @@
-application.service('toDoListService', function($http) {
+application.service('toDoListService', ['$http', function($http) {
     
     return {
         getList: function(userid) {
@@ -9,4 +9,4 @@ application.service('toDoListService', function($http) {
                 });
         }
     };
-})
+}]);

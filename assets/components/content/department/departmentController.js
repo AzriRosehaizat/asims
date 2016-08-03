@@ -1,4 +1,6 @@
-application.controller('departmentController', function($scope, departments, departmentService, dTabService, SearchHelper, toaster, gridService) {
+application.controller('departmentController', 
+    ['$scope', 'departments', 'departmentService', 'dTabService', 'SearchHelper', 'toaster', 'gridService', 
+    function($scope, departments, departmentService, dTabService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Department';
     $scope.department = departments.data;
@@ -86,4 +88,4 @@ application.controller('departmentController', function($scope, departments, dep
         else
             toaster.info("Select a row first in the tab table.");
     };
-});
+}]);

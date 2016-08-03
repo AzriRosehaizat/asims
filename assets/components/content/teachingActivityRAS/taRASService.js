@@ -1,4 +1,4 @@
-application.service('taRASService', function($http, _, formService) {
+application.service('taRASService', ['$http', '_', 'formService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -120,4 +120,4 @@ application.service('taRASService', function($http, _, formService) {
             return $http.get('/regularStaff/getAllRegularStaff/' + row.entity.regularStaffID);
         }
     };
-});
+}]);

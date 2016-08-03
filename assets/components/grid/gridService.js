@@ -1,5 +1,4 @@
-application.service('gridService', function($timeout, _, LocalService) {
-
+application.service('gridService', ['$timeout', '_', 'LocalService', function($timeout, _, LocalService) {
     var self = this;
     var $scope, main, states;
 
@@ -50,4 +49,4 @@ application.service('gridService', function($timeout, _, LocalService) {
             if (state) self.gridApi[key].saveState.restore($scope, state);
         });
     }
-});
+}]);

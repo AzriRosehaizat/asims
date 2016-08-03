@@ -1,4 +1,4 @@
-application.service('courseService', function($http, $q, _, formService) {
+application.service('courseService', ['$http', '$q', '_', 'formService', function($http, $q, _, formService) {
 
     return {
         gridOptions: function() {
@@ -116,4 +116,4 @@ application.service('courseService', function($http, $q, _, formService) {
             return $http.get('/course/getAllCourse/' + row.entity.courseID);
         }
     };
-});
+}]);

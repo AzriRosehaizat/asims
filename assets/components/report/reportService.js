@@ -1,4 +1,4 @@
-application.service('reportService', function(_) {
+application.service('reportService', ['_', function(_) {
 
     this.getStaffInfo = function(info) {
         return {
@@ -145,4 +145,4 @@ application.service('reportService', function(_) {
             }
         };
     };
-});
+}]);

@@ -1,4 +1,4 @@
-application.service('navRightBarService', function($mdSidenav) {
+application.service('navRightBarService', ['$mdSidenav', function($mdSidenav) {
     
     var self = this;
     self.isLockedOpen;
@@ -17,4 +17,4 @@ application.service('navRightBarService', function($mdSidenav) {
             }
         });
     };
-});
+}]);

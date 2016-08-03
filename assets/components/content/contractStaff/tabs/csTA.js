@@ -1,4 +1,4 @@
-application.service('csTA', function($http, _, formService) {
+application.service('csTA', ['$http', '_', 'formService', function($http, _, formService) {
 
     var mainRow;
 
@@ -267,4 +267,4 @@ application.service('csTA', function($http, _, formService) {
             formService.init(formData, gridData, row, 'csTA', false);
         },
     };
-});
+}]);

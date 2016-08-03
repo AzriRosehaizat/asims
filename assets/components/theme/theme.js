@@ -1,4 +1,4 @@
-application.config(function($mdThemingProvider) {
+application.config(['$mdThemingProvider', function($mdThemingProvider) {
 
     $mdThemingProvider.theme('default')
         .primaryPalette('grey')
@@ -10,4 +10,4 @@ application.config(function($mdThemingProvider) {
 
     $mdThemingProvider.theme('dark')
         .dark();
-});
+}]);

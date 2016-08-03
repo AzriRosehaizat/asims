@@ -1,4 +1,4 @@
-application.service('counterService', function($http) {
+application.service('counterService', ['$http', function($http) {
 
     var self = this;
 
@@ -36,5 +36,4 @@ application.service('counterService', function($http) {
         restLink: "Home/getInfo?type=contractStaff"
     }]);
 
-
-});
+}]);

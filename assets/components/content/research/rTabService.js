@@ -1,4 +1,4 @@
-application.service('rTabService', function($http, rGrant, rStaff) {
+application.service('rTabService', ['$http', 'rGrant', 'rStaff', function($http, rGrant, rStaff) {
 
     return {
         tabs: function() {
@@ -85,4 +85,4 @@ application.service('rTabService', function($http, rGrant, rStaff) {
                 });
         }
     };
-});
+}]);
