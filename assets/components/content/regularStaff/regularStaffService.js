@@ -1,4 +1,4 @@
-application.service('regularStaffService', function($http, _, formService) {
+application.service('regularStaffService', ['$http', '_', 'formService', function($http, _, formService) {
 
     return {
         gridOptions: function() {
@@ -179,4 +179,4 @@ application.service('regularStaffService', function($http, _, formService) {
             return $http.get('/regularStaff/getAllRegularStaff/' + row.entity.regularStaffID);
         }
     };
-});
+}]);

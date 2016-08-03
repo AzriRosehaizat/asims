@@ -1,4 +1,6 @@
-application.controller('taRASController', function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster, gridService, loadChartService) {
+application.controller('taRASController', 
+    ['$scope', 'staffs', 'taRASService', 'taRASTabService', 'SearchHelper', 'toaster', 'gridService', 'loadChartService', 
+    function($scope, staffs, taRASService, taRASTabService, SearchHelper, toaster, gridService, loadChartService) {
 
     $scope.gridTitle = 'Regular Staff';
     $scope.rStaffData = staffs.data;
@@ -110,4 +112,4 @@ application.controller('taRASController', function($scope, staffs, taRASService,
         else
             toaster.info("Select a row first in the tab table.");
     };
-});
+}]);

@@ -1,4 +1,4 @@
-application.service('fTabService', function($http, fDepartment) {
+application.service('fTabService', ['$http', 'fDepartment', function($http, fDepartment) {
 
     return {
         tabs: function() {
@@ -45,4 +45,4 @@ application.service('fTabService', function($http, fDepartment) {
                 });
         }
     };
-});
+}]);

@@ -2,7 +2,7 @@
  * menuLink directive use for creating links to the sub-items ui-route state
  */
 application
-  .directive('menuLink',  function($mdSidenav) {
+  .directive('menuLink', ['$mdSidenav', function($mdSidenav) {
     return {
       scope: {
         section: '='
@@ -20,4 +20,4 @@ application
         };
       }
     };
-  });
+  }]);

@@ -3,6 +3,14 @@
 application
 .controller(
     'leaveController',
+    ['$scope',
+    'staff',
+    'leaveService',
+    'leaveTabs',
+    'SearchHelper',
+    'toaster',
+    'gridService',
+    'leaveChartService',
     function(
         $scope,
         staff,
@@ -216,4 +224,4 @@ application
             );
         }
     }
-);
+]);

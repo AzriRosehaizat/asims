@@ -1,4 +1,4 @@
-application.config(function($mdDateLocaleProvider, moment) {
+application.config(['$mdDateLocaleProvider', 'moment', function($mdDateLocaleProvider, moment) {
     
     $mdDateLocaleProvider.formatDate = function(date) {
         return moment(date).format('MM-DD-YYYY');
@@ -8,4 +8,4 @@ application.config(function($mdDateLocaleProvider, moment) {
         var m = moment(dateString, 'MM-DD-YYYY', true);
         return m.isValid() ? m.toDate() : new Date(NaN);
     };
-});
+}]);

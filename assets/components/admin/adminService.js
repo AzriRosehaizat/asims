@@ -1,4 +1,4 @@
-application.service('adminService', function($http, _, moment, formService) {
+application.service('adminService', ['$http', '_', 'moment', 'formService', function($http, _, moment, formService) {
 
     return {
         gridOptions: function() {
@@ -170,4 +170,4 @@ application.service('adminService', function($http, _, moment, formService) {
         formData.model.password = '';
         formData.model.passwordConfirm = '';
     }
-});
+}]);

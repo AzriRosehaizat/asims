@@ -1,4 +1,4 @@
-application.service('formService', function($injector, $mdDialog, _, moment, toaster, CurrentUser) {
+application.service('formService', ['$injector', '$mdDialog', '_', 'moment', 'toaster', 'CurrentUser', function($injector, $mdDialog, _, moment, toaster, CurrentUser) {
 
     var self = this;
     self.form;
@@ -178,4 +178,4 @@ application.service('formService', function($injector, $mdDialog, _, moment, toa
             input.readonly = true;
         });
     }
-});
+}]);

@@ -1,4 +1,4 @@
-application.service('profileService', function($http, _, toaster) {
+application.service('profileService', ['$http', '_', 'toaster', function($http, _, toaster) {
 
     return {
         updateUser: function(user, formData) {
@@ -33,4 +33,4 @@ application.service('profileService', function($http, _, toaster) {
             formData.title = user.username;
         }
     };
-});
+}]);

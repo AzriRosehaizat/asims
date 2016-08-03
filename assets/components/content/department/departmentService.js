@@ -1,4 +1,4 @@
-application.service('departmentService', function($http, $q, _, formService) {
+application.service('departmentService', ['$http', '$q', '_', 'formService', function($http, $q, _, formService) {
 
     return {
         gridOptions: function() {
@@ -120,4 +120,4 @@ application.service('departmentService', function($http, $q, _, formService) {
             return $http.get('/Department/getAllDepartment/' + row.entity.departmentID);
         }
     };
-});
+}]);

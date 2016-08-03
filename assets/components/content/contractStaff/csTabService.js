@@ -1,4 +1,4 @@
-application.service('csTabService', function($http, csTA, csDepartment, csRank) {
+application.service('csTabService', ['$http', 'csTA', 'csDepartment', 'csRank', function($http, csTA, csDepartment, csRank) {
 
     return {
         tabs: function() {
@@ -134,4 +134,4 @@ application.service('csTabService', function($http, csTA, csDepartment, csRank) 
                 });
         }
     };
-});
+}]);

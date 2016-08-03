@@ -1,4 +1,4 @@
-application.controller('navRightBarController', function($scope, $state, _, formService, acService, navRightBarService) {
+application.controller('navRightBarController', ['$scope', '$state', '_', 'formService', 'acService', 'navRightBarService', function($scope, $state, _, formService, acService, navRightBarService) {
 
     $scope.$state = $state;
     $scope.fs = formService;
@@ -58,4 +58,4 @@ application.controller('navRightBarController', function($scope, $state, _, form
         }
         // Otherwise, use z-index: 58 in navRightBar.css
     }
-});
+}]);

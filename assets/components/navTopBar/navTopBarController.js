@@ -1,4 +1,4 @@
-application.controller('navTopBarController', function($scope, $state, $mdSidenav, user, _, Auth, SearchHelper) {
+application.controller('navTopBarController', ['$scope', '$state', '$mdSidenav', 'user', '_', 'Auth', 'SearchHelper', function($scope, $state, $mdSidenav, user, _, Auth, SearchHelper) {
 
   $scope.$state = $state;
   $scope.user = user.data;
@@ -23,4 +23,4 @@ application.controller('navTopBarController', function($scope, $state, $mdSidena
       $mdSidenav(navID).toggle();
     };
   }
-});
+}]);

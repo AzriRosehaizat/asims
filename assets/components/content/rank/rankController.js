@@ -1,4 +1,6 @@
-application.controller('rankController', function($scope, ranks, rankService, SearchHelper, toaster, gridService) {
+application.controller('rankController', 
+    ['$scope', 'ranks', 'rankService', 'SearchHelper', 'toaster', 'gridService', 
+    function($scope, ranks, rankService, SearchHelper, toaster, gridService) {
 
     $scope.gridTitle = 'Rank';
     $scope.rankData = ranks.data;
@@ -37,4 +39,4 @@ application.controller('rankController', function($scope, ranks, rankService, Se
     };
 
     // Add functionality for tabs if they exist
-});
+}]);

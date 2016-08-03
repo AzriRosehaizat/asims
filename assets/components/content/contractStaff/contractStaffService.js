@@ -1,4 +1,4 @@
-application.service('contractStaffService', function($http, $q, _, formService) {
+application.service('contractStaffService', ['$http', '$q', '_', 'formService', function($http, $q, _, formService) {
 
     return {
         gridOptions: function() {
@@ -148,4 +148,4 @@ application.service('contractStaffService', function($http, $q, _, formService) 
             return $http.get('/contractStaff/getAllContractStaff/' + row.entity.contractStaffID);
         }
     };
-});
+}]);

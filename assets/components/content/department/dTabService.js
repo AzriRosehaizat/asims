@@ -1,4 +1,6 @@
-application.service('dTabService', function($http, dCourse, dChair, dRegularStaff, dContractStaff, $mdDialog) {
+application.service('dTabService', 
+    ['$http', 'dCourse', 'dChair', 'dRegularStaff', 'dContractStaff', '$mdDialog', 
+    function($http, dCourse, dChair, dRegularStaff, dContractStaff, $mdDialog) {
 
     return {
         tabs: function() {
@@ -163,4 +165,4 @@ application.service('dTabService', function($http, dCourse, dChair, dRegularStaf
                 });
         }
     };
-});
+}]);

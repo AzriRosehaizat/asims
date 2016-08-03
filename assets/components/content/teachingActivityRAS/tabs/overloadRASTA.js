@@ -1,4 +1,4 @@
-application.service('overloadRASTA', function($http, _, formService) {
+application.service('overloadRASTA', ['$http', '_', 'formService', function($http, _, formService) {
 
     var mainRow;
 
@@ -97,4 +97,4 @@ application.service('overloadRASTA', function($http, _, formService) {
             formService.init(formData, gridData, row, 'overloadRASTA', false);
         }
     };
-});
+}]);

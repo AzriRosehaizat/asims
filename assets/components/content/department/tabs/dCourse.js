@@ -1,4 +1,4 @@
-application.service('dCourse', function($http, _, formService) {
+application.service('dCourse', ['$http', '_', 'formService', function($http, _, formService) {
    var mainRow;
    
    return {
@@ -69,4 +69,4 @@ application.service('dCourse', function($http, _, formService) {
             formService.init(formData, gridData, row, 'dCourse', false);
         },
    };
-});
+}]);

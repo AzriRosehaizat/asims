@@ -1,4 +1,4 @@
-application.service('toaster', function($mdToast) {
+application.service('toaster', ['$mdToast', function($mdToast) {
 
     return {
         open: function(type, text) {
@@ -48,4 +48,4 @@ application.service('toaster', function($mdToast) {
             this.open("error_outline", text);
         }
     };
-})
+}])

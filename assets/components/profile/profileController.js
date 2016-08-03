@@ -1,4 +1,4 @@
-application.controller('profileController', function($scope, _, user, profileService) {
+application.controller('profileController', ['$scope', '_', 'user', 'profileService', function($scope, _, user, profileService) {
     
     $scope.user = user.data;
     $scope.formData = {};
@@ -11,4 +11,4 @@ application.controller('profileController', function($scope, _, user, profileSer
     $scope.cancel = function() {
         profileService.cancel($scope.formData, $scope.user);
     };
-});
+}]);
