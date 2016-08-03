@@ -1,0 +1,28 @@
+#searchBox md-icon {
+    margin-left: 0.2em;
+}
+
+#searchBox input {
+    border-width: 0px;
+    border: none;
+    margin-left: 0.5em;
+}
+
+#searchBox input:focus {
+    outline: none;
+}
+#navbar-top {
+	padding-right: 20px;
+}
+#navbar-top #username {
+    margin-left: 4px;
+}
+
+.smallMargin {
+    margin-right: 8px !important;
+}
+
+.userBtn {
+    text-transform: none;
+    
+}

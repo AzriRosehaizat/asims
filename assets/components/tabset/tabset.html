@@ -1,5 +1,30 @@
-<uib-tabset>
-    <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" select="view.tabShown = !view.tabShown" deselect="view.tabShown = !view.tabShown">
-        <div ui-grid="tab.gridOptions"  ng-if="view.tabShown" class="grid"></div>
-    </uib-tab>
-</uib-tabset>
+<div style="position:relative;" class="md-whiteframe-1dp" ng-cloak>
+    <md-tabs id="gridTabs" md-dynamic-height md-border-bottom class="md-warn md-hue-2">
+        <md-tab ng-repeat="tab in tabs" ng-click="selectTab(tab)" label="{{tab.title}}">
+            <div ui-grid="tab.gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-save-state ui-grid-auto-resize ui-grid-move-columns class="grid"></div>
+        </md-tab>
+    </md-tabs>
+
+    <md-fab-speed-dial id="tabMenu" class="md-scale md-fab-top-right" md-direction="left" md-open="tabMenu.isOpen" ng-mouseenter="tabMenu.isOpen=true" ng-mouseleave="tabMenu.isOpen=false">
+        <md-fab-trigger ng-hide="tab.readOnly || ctrl.isReader()">
+            <md-button id="menuFab" class="md-fab md-warn md-hue-2" aria-label="menu">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Menu</md-tooltip>
+                <md-icon md-font-set="material-icons">more_horiz</md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button class="md-fab md-raised md-mini" ng-click="addTabRow(); ctrl.toggle()" aria-label="Add">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Add</md-tooltip>
+                <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">add</md-icon>
+            </md-button>
+            <md-button class="md-fab md-raised md-mini" ng-click="editTabRow(); ctrl.toggle()" aria-label="Edit">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Edit</md-tooltip>
+                <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">create</md-icon>
+            </md-button>
+            <md-button ng-show="ctrl.pageExist(tab)" class="md-fab md-raised md-mini" ng-click="ctrl.redirect(tab); ctrl.toggle()" aria-label="Edit">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Go To Page</md-tooltip>
+                <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">open_in_browser</md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>

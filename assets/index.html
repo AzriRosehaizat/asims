@@ -1,16 +1,24 @@
 <!DOCTYPE html>
-<html ng-app="application">
-    <head>
-        <title>Application</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <!--<base href="/">-->
-        <link rel="icon" type="image/png" href="/images/favicon.png">
-        <!--STYLES-->
-        <!--STYLES END-->
-    </head>
-    <body>
-        <div ui-view></div>
-    </body>
-    <!--SCRIPTS-->
-    <!--SCRIPTS END-->
+<html ng-app="application" ng-strict-di>
+<!-- © Background Photo By AJ Batac -->
+<!-- https://www.flickr.com/photos/ajbatac/7166816501/in/photolist-fkgsbb-bViNRK-aZLu7T -->
+
+<head>
+    <title>ASIMS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!--STYLES-->
+    <!--STYLES END-->
+</head>
+
+<body>
+    <div ui-view layout="row" layout-fill></div>
+</body>
+<!--SCRIPTS-->
+<!--SCRIPTS END-->
+
 </html>

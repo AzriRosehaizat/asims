@@ -1,9 +1,9 @@
 /**
-* LeaveDebit.js
-*
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
-* @docs        :: http://sailsjs.org/#!documentation/models
-*/
+ * LeaveDebit.js
+ *
+ * @description :: TODO: You might write a short summary of how this model works and what it represents here.
+ * @docs        :: http://sailsjs.org/#!documentation/models
+ */
 
 module.exports = {
 	attributes: {
@@ -24,17 +24,22 @@ module.exports = {
 		description: {
 			type: 'text'
 		},
-		dateIssued: {
+		startDate: {
+			type: 'date',
+			required: true
+		},
+		endDate: {
 			type: 'date'
 		},
 		leaveDebitType: {
 			type: 'String',
 			size: 50
 		},
-		//Identifies leaves 1:M
-		StaffLeave:{
-			collection: 'StaffLeave',
-			via: 'leaveDebitID'
+		leavePercentage: {
+			type: 'float'
+		},
+		wagePercentage: {
+			type: 'float'
 		}
 	},
 	tableName: 'LeaveDebit'

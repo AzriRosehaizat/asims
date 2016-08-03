@@ -20,7 +20,7 @@ module.exports = {
 			required: true
 		},
 		//has many Department 1:M
-		hasDept:{
+		Department:{
 			collection: 'Department',
 			via: 'facultyID'
 		}

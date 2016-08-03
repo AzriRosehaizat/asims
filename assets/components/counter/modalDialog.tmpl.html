@@ -1,0 +1,19 @@
+<md-dialog aria-label="{{ gridTitle }}" ng-cloak>
+    <md-toolbar class="md-warn md-hue-2">
+        <div class="md-toolbar-tools">
+            <h2>{{ gridTitle }}</h2>
+            <span flex></span>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div class="dialogGrid md-whiteframe-1dp" ng-cloak>
+                <div ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter class="grid"></div>
+            </div>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+        <md-button class="md-raised md-hue-2" ng-click="close()" style="margin-right:20px;">
+            Close
+        </md-button>
+    </md-dialog-actions>
+</md-dialog>

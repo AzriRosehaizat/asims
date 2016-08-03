@@ -1,0 +1,47 @@
+<md-dialog aria-label="Faculty Load Chart" ng-cloak>
+    <form name="loadForm">
+
+        <md-toolbar class="md-warn md-hue-2">
+            <div class="md-toolbar-tools">
+                <h2>Faculty Load Chart</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="ctrl.cancel()" aria-label="Cancel">
+                    <md-icon md-font-set="material-icons">clear</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <div class="md-dialog-content" layout="column">
+                
+                <h5>Please select the academic year period to generate the {{ ctrl.title }}.</h5>
+
+                <div layout="row">
+                    <md-input-container class="md-block" flex>
+                        <label>From</label>
+                        <md-select ng-model="ctrl.range[0]" md-on-open="ctrl.changeYears(true)" ng-required="true">
+                            <md-option ng-value="year" ng-repeat="year in ctrl.years">{{ year }}</md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <span flex="5"></span>
+
+                    <md-input-container class="md-block" flex>
+                        <label>To</label>
+                        <md-select ng-model="ctrl.range[1]" md-on-open="ctrl.changeYears(false)" ng-required="true">
+                            <md-option ng-value="year" ng-repeat="year in ctrl.years">{{ year }}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-margin>
+            <md-button class="md-raised" ng-click="ctrl.submit()" ng-disabled="loadForm.$invalid">
+                Generate
+            </md-button>
+        </md-dialog-actions>
+
+    </form>
+</md-dialog>

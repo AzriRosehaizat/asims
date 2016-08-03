@@ -7,7 +7,7 @@
 
 module.exports = {
 	attributes: {
-		staffID: {
+		academicStaffID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
@@ -26,16 +26,12 @@ module.exports = {
 		employeeNo: {
 			type: 'string',
 			size: 50
+
 		},
 		//Join table AcademicStaff_Department 1:M
 		AcademicStaff_Department: {
 			collection: 'AcademicStaff_Department',
-			via: 'staffID'
-		},
-		//Join table AcademicStaff_Section 1:M
-		AcademicStaff_Section: {
-			collection: 'AcademicStaff_Section',
-			via: 'staffID'
+			via: 'academicStaffID'
 		},
 		//has contract staffs 1:M
 		ContractStaff: {
@@ -45,6 +41,11 @@ module.exports = {
 		//has regular staffs 1:M
 		RegularStaff: {
 			collection: 'RegularStaff',
+			via: 'academicStaffID'
+		},
+		//teaching activites 1:M
+		TeachingActivities: {
+			collection: 'TeachingActivities',
 			via: 'academicStaffID'
 		}
 	},

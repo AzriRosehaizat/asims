@@ -6,7 +6,7 @@
 */
 module.exports = {
 	attributes: {
-		loadReductionId: {
+		loadReductionID: {
 			type: 'integer',
 			primaryKey: true,
 			autoIncrement: true,
@@ -20,14 +20,16 @@ module.exports = {
 			type: 'float',
 			required: true
 		},
-		startDate: {
-			type: 'date',
+		description: {
+			type: 'text'
+		},
+		year: {
+			type: 'string',
 			required: true
 		},
-		endDate: {
-			type: 'date',
-			required: true
+		dateIssued: {
+			type: 'date'
 		}
 	},
-	tableName: 'LoadIncrease'
+	tableName: 'LoadReduction'
 };

@@ -1,64 +1,140 @@
 <!DOCTYPE html>
 <html ng-app="application">
     <head>
-        <title>Application</title>
+        <title>ASIMS</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <!--STYLES-->
         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/bower_components/angular-ui-grid/ui-grid.css">
+        <link rel="stylesheet" href="/bower_components/angular-material/angular-material.min.css">
+        <link rel="stylesheet" href="/bower_components/angular-ui-grid/ui-grid.min.css">
+        <link rel="stylesheet" href="/components/counter/counter.css">
+        <link rel="stylesheet" href="/components/form/form.css">
+        <link rel="stylesheet" href="/components/grid/grid.css">
+        <link rel="stylesheet" href="/components/homeHeader/homeHeader.css">
+        <link rel="stylesheet" href="/components/login/login.css">
+        <link rel="stylesheet" href="/components/navLeftBar/navLeftBar.css">
+        <link rel="stylesheet" href="/components/navRightBar/navRightBar.css">
+        <link rel="stylesheet" href="/components/navTopBar/navTopBar.css">
+        <link rel="stylesheet" href="/components/tabset/tabset.css">
+        <link rel="stylesheet" href="/components/toDoList/toDoList.css">
         <link rel="stylesheet" href="/custom.css">
+        <link rel="stylesheet" href="/views/index/index.css">
         <!--STYLES END-->
     </head>
     <body>
         <div ui-view></div>
     </body>
     <!--SCRIPTS-->
-    <script src="/dependencies/sails.io.js"></script>
+    <script src="/bower_components/lodash/dist/lodash.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/angular-lodash-module/angular-lodash-module.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.min.js"></script>
     <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="/bower_components/angular-material/angular-material.min.js"></script>
+    <script src="/bower_components/angular-messages/angular-messages.min.js"></script>
     <script src="/bower_components/angular-route/angular-route.min.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="/bower_components/angular-ui-grid/ui-grid.js"></script>
+    <script src="/bower_components/angular-ui-grid/ui-grid.min.js"></script>
     <script src="/bower_components/moment/min/moment.min.js"></script>
     <script src="/bower_components/angular-moment/angular-moment.min.js"></script>
-    <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>
-    <script src="/bower_components/tv4/tv4.js"></script>
-    <script src="/bower_components/objectpath/lib/ObjectPath.js"></script>
-    <script src="/bower_components/angular-schema-form/dist/schema-form.min.js"></script>
-    <script src="/bower_components/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
+    <script src="/bower_components/pdfmake/build/pdfmake.min.js"></script>
+    <script src="/bower_components/pdfmake/build/vfs_fonts.js"></script>
     <script src="/app.js"></script>
+    <script src="/components/navLeftBar/navLeftBarController.js"></script>
+    <script src="/components/navLeftBar/navLeftBarLinkDirective.js"></script>
+    <script src="/components/navLeftBar/navLeftBarService.js"></script>
+    <script src="/components/navLeftBar/navLeftBarToggleDirective.js"></script>
     <script src="/components/admin/adminController.js"></script>
-    <script src="/components/anchorScroll/anchorScroll.js"></script>
+    <script src="/components/admin/adminService.js"></script>
     <script src="/components/auth/accessLevels.js"></script>
     <script src="/components/auth/auth.js"></script>
     <script src="/components/auth/currentUser.js"></script>
     <script src="/components/auth/localStorage.js"></script>
-    <script src="/components/content/academicStaff/academicStaffController.js"></script>
-    <script src="/components/content/professor/professorController.js"></script>
+    <script src="/components/content/contractStaff/contractStaffController.js"></script>
+    <script src="/components/content/contractStaff/contractStaffService.js"></script>
+    <script src="/components/content/contractStaff/csTabService.js"></script>
+    <script src="/components/content/contractStaff/tabs/csDepartment.js"></script>
+    <script src="/components/content/contractStaff/tabs/csRank.js"></script>
+    <script src="/components/content/contractStaff/tabs/csTA.js"></script>
+    <script src="/components/content/course/cTabService.js"></script>
+    <script src="/components/content/course/courseController.js"></script>
+    <script src="/components/content/course/courseService.js"></script>
+    <script src="/components/content/course/tabs/cSection.js"></script>
+    <script src="/components/content/department/dTabService.js"></script>
+    <script src="/components/content/department/departmentController.js"></script>
+    <script src="/components/content/department/departmentService.js"></script>
+    <script src="/components/content/department/tabs/dChair.js"></script>
+    <script src="/components/content/department/tabs/dContractStaff.js"></script>
+    <script src="/components/content/department/tabs/dCourse.js"></script>
+    <script src="/components/content/department/tabs/dRegularStaff.js"></script>
+    <script src="/components/content/faculty/fTabService.js"></script>
+    <script src="/components/content/faculty/facultyController.js"></script>
+    <script src="/components/content/faculty/facultyService.js"></script>
+    <script src="/components/content/faculty/tabs/fDepartment.js"></script>
+    <script src="/components/content/leaves/leaveController.js"></script>
+    <script src="/components/content/leaves/leaveService.js"></script>
+    <script src="/components/content/leaves/tabs/leaveCredits.js"></script>
+    <script src="/components/content/leaves/tabs/leaveDebits.js"></script>
+    <script src="/components/content/leaves/tabs/leaveTabs.js"></script>
+    <script src="/components/content/rank/rankController.js"></script>
+    <script src="/components/content/rank/rankService.js"></script>
     <script src="/components/content/regularStaff/regularStaffController.js"></script>
-    <script src="/components/data/dataService.js"></script>
-    <script src="/components/details/detailsController.js"></script>
+    <script src="/components/content/regularStaff/regularStaffService.js"></script>
+    <script src="/components/content/regularStaff/rsTabService.js"></script>
+    <script src="/components/content/regularStaff/tabs/rsDepartment.js"></script>
+    <script src="/components/content/regularStaff/tabs/rsRank.js"></script>
+    <script src="/components/content/regularStaff/tabs/rsResearch.js"></script>
+    <script src="/components/content/regularStaff/tabs/rsTA.js"></script>
+    <script src="/components/content/research/rTabService.js"></script>
+    <script src="/components/content/research/researchController.js"></script>
+    <script src="/components/content/research/researchService.js"></script>
+    <script src="/components/content/research/tabs/rGrant.js"></script>
+    <script src="/components/content/research/tabs/rStaff.js"></script>
+    <script src="/components/content/section/sectionController.js"></script>
+    <script src="/components/content/section/sectionService.js"></script>
+    <script src="/components/content/teachingActivitiesCAS/taCASController.js"></script>
+    <script src="/components/content/teachingActivitiesCAS/taCASService.js"></script>
+    <script src="/components/content/teachingActivitiesCAS/taCASTabService.js"></script>
+    <script src="/components/content/teachingActivitiesCAS/tabs/rtrCASTA.js"></script>
+    <script src="/components/content/teachingActivitiesCAS/tabs/taCASTA.js"></script>
+    <script src="/components/content/teachingActivityRAS/taRASController.js"></script>
+    <script src="/components/content/teachingActivityRAS/taRASService.js"></script>
+    <script src="/components/content/teachingActivityRAS/taRASTabService.js"></script>
+    <script src="/components/content/teachingActivityRAS/tabs/fceRASTA.js"></script>
+    <script src="/components/content/teachingActivityRAS/tabs/increaseRASTA.js"></script>
+    <script src="/components/content/teachingActivityRAS/tabs/loadRASTA.js"></script>
+    <script src="/components/content/teachingActivityRAS/tabs/overloadRASTA.js"></script>
+    <script src="/components/content/teachingActivityRAS/tabs/reductionRASTA.js"></script>
+    <script src="/components/content/teachingActivityRAS/tabs/taRASTA.js"></script>
+    <script src="/components/counter/counterController.js"></script>
+    <script src="/components/counter/counterService.js"></script>
+    <script src="/components/form/acService.js"></script>
+    <script src="/components/form/formConfig.js"></script>
+    <script src="/components/form/formService.js"></script>
     <script src="/components/grid/gridController.js"></script>
     <script src="/components/grid/gridService.js"></script>
-    <script src="/components/gridRow/rowAddController.js"></script>
-    <script src="/components/gridRow/rowDeleteController.js"></script>
-    <script src="/components/gridRow/rowEditController.js"></script>
-    <script src="/components/gridRow/rowEditor.js"></script>
-    <script src="/components/loginButton/loginButtonController.js"></script>
-    <script src="/components/loginModal/loginModalController.js"></script>
-    <script src="/components/loginModal/loginModalService.js"></script>
-    <script src="/components/modal/deleteModalController.js"></script>
-    <script src="/components/modal/modalLoader.js"></script>
-    <script src="/components/navigationBar/navigationBarController.js"></script>
+    <script src="/components/homeHeader/homeHeaderController.js"></script>
+    <script src="/components/login/loginController.js"></script>
+    <script src="/components/login/loginService.js"></script>
+    <script src="/components/navRightBar/navRightBarController.js"></script>
+    <script src="/components/navRightBar/navRightBarService.js"></script>
+    <script src="/components/navTopBar/navTopBarController.js"></script>
     <script src="/components/profile/profileController.js"></script>
-    <script src="/components/profile/profileModalController.js"></script>
     <script src="/components/profile/profileService.js"></script>
-    <script src="/components/schemaForm/login.js"></script>
-    <script src="/components/schemaForm/passwordConfirm.js"></script>
-    <script src="/components/schemaForm/regularStaff.js"></script>
-    <script src="/components/schemaForm/staff.js"></script>
-    <script src="/components/schemaForm/user.js"></script>
+    <script src="/components/report/dialogController.js"></script>
+    <script src="/components/report/leaveChart/leaveChartService.js"></script>
+    <script src="/components/report/loadChart/fonts/opensans.js"></script>
+    <script src="/components/report/loadChart/fonts/opensans.map.js"></script>
+    <script src="/components/report/loadChart/loadChartService.js"></script>
+    <script src="/components/report/reportService.js"></script>
+    <script src="/components/search/searchHelper.js"></script>
     <script src="/components/tabset/tabsetController.js"></script>
+    <script src="/components/theme/theme.js"></script>
+    <script src="/components/toDoList/toDoListController.js"></script>
+    <script src="/components/toDoList/toDoListService.js"></script>
+    <script src="/components/toast/toastController.js"></script>
+    <script src="/components/toast/toaster.js"></script>
+    <script src="/components/validate/match.js"></script>
     <!--SCRIPTS END-->
 </html>

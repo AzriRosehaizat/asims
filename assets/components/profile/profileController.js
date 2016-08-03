@@ -1,37 +1,14 @@
-application.controller('profileController', function($scope, $uibModal, CurrentUser) {
+application.controller('profileController', function($scope, _, user, profileService) {
+    
+    $scope.user = user.data;
+    $scope.formData = {};
+    profileService.initEditForm($scope.formData, $scope.user);
 
-    $scope.url = '/user/update/';
-
-    if (!angular.isObject($scope.user)) {
-        getUser();
-    }
-
-    $scope.openEditModal = function() {
-        var modalInstance = $uibModal.open({
-            templateUrl: '/components/profile/profileModal.html',
-            controller: 'profileModalController',
-            resolve: {
-                user: function() {
-                    return $scope.user;
-                },
-                url: function() {
-                    return $scope.url;
-                }
-            }
-        });
-
-        modalInstance.result.then(function(data) {
-            if (angular.isObject(data))
-                $scope.user = data;
-        });
+    $scope.submit = function() {
+        profileService.updateUser($scope.user, $scope.formData);
     };
 
-    function getUser() {
-        CurrentUser.getUser()
-            .then(function(data) {
-                $scope.user = data;
-            }, function(err) {
-                console.warn(err);
-            });
-    }
+    $scope.cancel = function() {
+        profileService.cancel($scope.formData, $scope.user);
+    };
 });

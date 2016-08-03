@@ -1,0 +1,95 @@
+.formContent {
+    overflow-x: hidden;
+}
+
+#selectInput {
+    height: 58px;
+    margin: 18px 0;
+}
+
+#dateInput {
+    height: 58px;
+    margin: 18px 0;
+}
+
+#dateInput md-datepicker {
+    height: 40px;
+    width: 60px;
+    margin-top: 0;
+    margin-bottom: 14px;
+}
+
+#dateInput .md-datepicker-input,
+.md-datepicker-triangle-button {
+    display: none;
+}
+
+
+/*Remove native browser date picker*/
+
+.noBrowserPicker::-webkit-inner-spin-button,
+.noBrowserPicker::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+md-input-container textarea[md-no-autogrow].md-input {
+    height: inherit;
+    overflow-y: auto;
+}
+
+md-autocomplete[md-floating-label] md-autocomplete-wrap {
+    top: -18px;
+    height: 58px;
+    margin: 18px 0;
+}
+
+md-autocomplete[md-floating-label] md-input-container {
+    padding-bottom: 0;
+}
+
+md-autocomplete > md-autocomplete-wrap > md-progress-linear {
+    display: none;
+}
+
+
+/*Delete button*/
+
+.md-icon-button.md-warn.md-hue-2 {
+    margin-top: 4px;
+}
+
+#changePassword .md-button {
+    margin: 0 0 6px 0;
+}
+
+
+/*Custom autocomplete*/
+
+.autocomplete-custom-template li {
+    border-bottom: 1px solid #ccc;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    white-space: normal;
+}
+
+.autocomplete-custom-template li:last-child {
+    border-bottom-width: 0;
+}
+
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
+    display: block;
+    line-height: 2;
+}
+
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    height: 200px !important;
+    max-height: 200px !important;
+}
+
+.md-scroll-mask{
+    position: inherit;
+}

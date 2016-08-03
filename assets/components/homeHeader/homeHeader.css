@@ -1,0 +1,10 @@
+.custom-header {
+    height: 105px;
+    min-height: 105px;
+    max-height: 105px;
+    padding: 24px;
+    background-image: url("../../images/backgrounds/header-bg.png");
+    background-size: cover;
+    background-color: rgb(238,34,46);
+    color: rgba(255,255,255,1);
+}

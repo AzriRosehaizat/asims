@@ -1,26 +1,33 @@
 var cssFilesToInject = [
   'bower_components/bootstrap/dist/css/bootstrap.min.css',
-  'bower_components/angular-ui-grid/ui-grid.css',
+  'bower_components/angular-material/angular-material.min.css',
+  'bower_components/angular-ui-grid/ui-grid.min.css',
   'components/**/*.css',
-  'custom.css'
+  'custom.css',
+  'views/**/*.css'
 ];
 
 var jsFilesToInject = [
-  'dependencies/sails.io.js',
+  'bower_components/lodash/dist/lodash.min.js',
   'bower_components/angular/angular.min.js',
+  'bower_components/angular-lodash-module/angular-lodash-module.js',
+  'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+  'bower_components/angular-aria/angular-aria.min.js',
   'bower_components/angular-animate/angular-animate.min.js',
+  'bower_components/angular-material/angular-material.min.js',
+  'bower_components/angular-messages/angular-messages.min.js',
   'bower_components/angular-route/angular-route.min.js',
   'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-  'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-  'bower_components/angular-ui-grid/ui-grid.js',
+  'bower_components/angular-ui-grid/ui-grid.min.js',
   'bower_components/moment/min/moment.min.js',
   'bower_components/angular-moment/angular-moment.min.js',
-  'bower_components/angular-sanitize/angular-sanitize.min.js',
-  'bower_components/tv4/tv4.js',
-  'bower_components/objectpath/lib/ObjectPath.js',
-  'bower_components/angular-schema-form/dist/schema-form.min.js',
-  'bower_components/angular-schema-form/dist/bootstrap-decorator.min.js',
+  'bower_components/pdfmake/build/pdfmake.min.js',
+  'bower_components/pdfmake/build/vfs_fonts.js',
   'app.js',
+  'components/navLeftBar/navLeftBarController.js',
+  'components/navLeftBar/navLeftBarLinkDirective.js',
+  'components/navLeftBar/navLeftBarService.js',
+  'components/navLeftBar/navLeftBarToggleDirective.js',
   'components/**/*.js'
 ];
 

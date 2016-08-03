@@ -14,33 +14,26 @@ module.exports = {
 			primaryKey: true,
 			index: true
 		},
-		tenureDate: {
-			type: 'date'
-		},
-		contApptDate: {
-			type: 'date'
-		},
 		academicStaffID: {
 			model: 'AcademicStaff',
 			required: true
 		},
-		startDate:{
-			type: 'date',
-			required: true 
+		tenureDate: {
+			type: 'date'
 		},
-		endDate:{
+		contAppDate: {
 			type: 'date'
 		},
 		Chair:{
 			collection: 'Chair',
 			via: 'regularStaffID'
 		},
-		FCECredit:{
-			collection: 'FCECredit',
+		RegularStaff_Rank: {
+			collection: 'RegularStaff_Rank',
 			via: 'regularStaffID'
 		},
-		FCEDebit:{
-			collection: 'FCEDebit',
+		FCE:{
+			collection: 'FCE',
 			via: 'regularStaffID'
 		},
 		LoadIncrease:{
@@ -55,10 +48,6 @@ module.exports = {
 			collection: 'RegularStaff_Research',
 			via: 'regularStaffID'
 		},
-		StaffLeave: {
-			collection: 'StaffLeave',
-			via: 'regularStaffID'
-		},
 		LeaveCredit: {
 			collection: 'LeaveCredit',
 			via: 'regularStaffID'
@@ -66,7 +55,11 @@ module.exports = {
 		LeaveDebit: {
 			collection: 'LeaveDebit',
 			via: 'regularStaffID'
-		}
+		},
+		Load:{
+			collection: 'Load',
+			via: 'regularStaffID'
+		},
 	},
 	tableName: 'RegularStaff'
 };

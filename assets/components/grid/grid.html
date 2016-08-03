@@ -1,8 +1,30 @@
-<div class="container">
-    <div class="addButton pull-right">
-        <button type="button" class="btn btn-primary btn-sm" ng-click="addRow()">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        </button>
-    </div>
+<div style="position:relative;" class="grid md-whiteframe-1dp" ng-cloak>
+    <md-toolbar class="md-warn md-hue-2">
+        <div class="md-toolbar-tools">
+            <h3><span>{{gridTitle}}</span></h3>
+            <span flex></span>
+            <md-button ng-show="enableChart" ng-click="openChart($event)">Generate Chart</md-button>
+        </div>
+    </md-toolbar>
+
+    <md-fab-speed-dial id="tabMenu" class="md-scale md-fab-top-right" md-direction="left" md-open="tabMenu.isOpen" ng-mouseenter="tabMenu.isOpen=true" ng-mouseleave="tabMenu.isOpen=false">
+        <md-fab-trigger ng-hide="gridOptions.readOnly || ctrl.isReader()">
+            <md-button id="menuFab" class="md-fab md-warn md-hue-2" aria-label="menu">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Menu</md-tooltip>
+                <md-icon md-font-set="material-icons">more_horiz</md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button class="md-fab md-raised md-mini" ng-click="addRow(); ctrl.toggle()" aria-label="Add">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Add</md-tooltip>
+                <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">add</md-icon>
+            </md-button>
+            <md-button class="md-fab md-raised md-mini" ng-click="editRow(); ctrl.toggle()" aria-label="Edit">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Edit</md-tooltip>
+                <md-icon md-font-set="material-icons" ng-style="{color: '#333'}">create</md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+
+    <div ui-grid="gridOptions" ui-grid-selection ui-grid-resize-columns ui-grid-exporter ui-grid-save-state ui-grid-auto-resize ui-grid-move-columns class="grid"></div>
 </div>
-<div ui-grid="gridOptions" ui-grid-selection ui-grid-expandable class="grid"></div>

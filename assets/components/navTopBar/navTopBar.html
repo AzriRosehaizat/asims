@@ -1,0 +1,37 @@
+<md-toolbar id="navbar-top" class="md-hue-3 md-whiteframe-1dp" ng-cloak>
+    <div class="md-toolbar-tools" flex layout="row">
+        <!-- Toggle Button for navLeftBar -->
+        <md-button class="md-icon-button" ng-click="toggleLeft()" aria-label="Left Sidebar">
+            <md-icon md-font-set="material-icons">menu</md-icon>
+        </md-button>
+        <!-- Search Box -->
+        <div id="searchBox" ng-show="$state.current.data.dataPage" flex-gt-sm="70" flex-sm="60" layout="row" layout-align="start center">
+            <md-icon md-font-set="material-icons">search</md-icon>
+            <input type="text" ng-model="search.data" ng-change="update()" placeholder="Search" style="width:100%" aria-label="Search" />
+        </div>
+        <!-- Menu bar for My Profile -->
+        <md-menu md-offset="0 50">
+            <md-button class="userBtn md-body-2" ng-click="$mdOpenMenu($event)" aria-label="My Profile">
+                <span id="username" >
+                    <md-icon md-font-set="material-icons">account_circle</md-icon>
+                    {{user.firstName}} {{user.lastName}}
+                </span>
+            </md-button>
+            <md-menu-content width="3">
+                <md-menu-item>
+                    <md-button ui-sref="application.profile">
+                        <md-icon class="smallMargin" md-font-set="material-icons">account_circle</md-icon>
+                        My Profile
+                    </md-button>
+                </md-menu-item>
+                <md-menu-divider></md-menu-divider>
+                <md-menu-item>
+                    <md-button ng-click="logout()">
+                        <md-icon class="smallMargin" md-font-set="material-icons">exit_to_app</md-icon>
+                        Logout
+                    </md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+</md-toolbar>

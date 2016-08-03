@@ -19,12 +19,12 @@ module.exports = {
 			size: 10,
 			unique: true
 		},
-		title: {
+		sectionType: {
 			type: 'string',
 			size: 50
 		},
-		Course_Section: {
-			collection: 'Course_Section',
+		TeachingActivities: {
+			collection: 'TeachingActivities',
 			via: 'sectionID'
 		}
 	},

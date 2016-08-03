@@ -1,4 +1,15 @@
-<div class="container">
-    <div ui-view="navigationBar"></div>
-    <div ui-view></div>
+<md-sidenav id="navbar-left" class="md-sidenav-left" md-component-id="left">
+    <div ui-view="navLeftBar"></div>
+</md-sidenav>
+
+<div flex layout="column">
+    <div ui-view="navTopBar"></div>
+    <div ui-view="homeHeader"></div>
+    <div flex layout="row">
+        <div id="content" flex layout-padding>
+            <div ui-view></div>
+        </div>
+        
+        <div id="rightNavDiv" ui-view="navRightBar" ng-cloak></div>
+    </div>
 </div>

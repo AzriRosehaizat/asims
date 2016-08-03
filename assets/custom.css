@@ -1,3 +1,165 @@
-.addButton {
-    margin: 0.5em 1.1em 0.5em 0.5em;
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  overflow: hidden;
+}
+
+.md-dialog-container {
+  overflow: hidden;
+}
+
+#content {
+  background-color: #F5F5F5;
+  overflow-y: scroll;
+}
+
+#rightNavDiv {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Counters Text Color */
+.textColor {
+  color: #B71C1C;
+}
+
+/* Error Pages */
+
+.error .main {
+  display: block;
+  position: fixed;
+  top: 52.7%;
+  left: 15%;
+}
+
+.error .top {
+  color: #B71C1C;
+  font-size: 2.5em;
+}
+
+.error h1 {
+  font-family: "Open Sans", "Myriad Pro", Arial, sans-serif;
+  font-weight: bold;
+  font-size: 2.2em;
+  color: #001c20;
+}
+
+.error h2 {
+  font-family: "Open Sans", "Myriad Pro", Arial, sans-serif;
+  font-weight: 300;
+  font-size: 1.25em;
+  color: #001c20;
+}
+
+.error a {
+  color: #B71C1C;
+  text-decoration: none;
+  font-weight: normal;
+  font-family: inherit
+}
+
+.error a:hover {
+  color: #D50000;
+}
+
+
+/* material icons */
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+
+/* Rules for sizing the icon. */
+
+.material-icons.md-18 {
+  font-size: 18px;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+}
+
+.material-icons.md-36 {
+  font-size: 36px;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
+}
+
+.material-icons.md-96 {
+  font-size: 96px;
+}
+
+
+/* Rules for using icons as black on a light background. */
+
+.material-icons.md-dark {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.material-icons.md-dark.md-inactive {
+  color: rgba(0, 0, 0, 0.26);
+}
+
+
+/* Rules for using icons as white on a dark background. */
+
+.material-icons.md-light {
+  color: rgba(255, 255, 255, 1);
+}
+
+.material-icons.md-light.md-inactive {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.md-grid-list {
+  margin: 8px;
+}
+
+.gray {
+  background: #f5f5f5;
+}
+
+.green {
+  background: #b9f6ca;
+}
+
+.yellow {
+  background: #ffff8d;
+}
+
+.blue {
+  background: #84ffff;
+}
+
+.purple {
+  background: #b388ff;
+}
+
+.red {
+  background: #ff8a80;
+}
+
+.md-grid-tile {
+  transition: all 400ms ease-out 50ms;
 }

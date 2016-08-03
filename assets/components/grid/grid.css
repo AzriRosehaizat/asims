@@ -1,0 +1,68 @@
+#grid md-toolbar {
+  border-top-left-radius: 0.1em;
+  border-top-right-radius: 0.1em;
+  height: 64px;
+}
+
+.grid {
+  margin: 0.5em;
+  border-radius: 0.2em;
+}
+
+#menuFab {
+  box-shadow: 0 0 0 0 rgba(0,0,0,.26);
+}
+
+.ui-grid,
+.ui-grid-cell,
+.ui-grid-menu-inner {
+  border: none !important; }
+
+.ui-grid-menu-inner {
+  padding: 1em !important;
+  background: white !important; }
+
+.ui-grid-top-panel {
+  background: none !important; }
+
+.ui-grid-filter-input {
+  border: 1px solid rgba(0, 0, 0, 0.15) !important; }
+
+.ui-grid-menu-button,
+.ui-grid-menu {
+  border: none !important;
+  background: none !important; }
+
+.ui-grid-menu-mid {
+  overflow-x: hidden !important;
+  border: none !important;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12) !important; }
+
+.ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid.ng-hide-remove {
+  transition: opacity 400ms;
+  opacity: 1;
+  transform: none !important; }
+
+.ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid.ng-hide {
+  transition: opacity 400ms;
+  opacity: 0;
+  transform: none !important; }
+
+.ui-grid-menu-inner ul li button {
+  box-shadow: none !important;
+  background: white !important; }
+
+.md-datepicker-input,
+.md-datepicker-triangle-button {
+  display: none; }
+
+md-tabs.md-accent > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]) {
+  color: rgba(0, 0, 0, 0.8); }
+
+*:focus {
+  outline: none; }
+
+/*Hacky fix to center ui grid button*/
+[class^="ui-grid-icon-menu"]:before, [class*=" ui-grid-icon-menu"]:before {
+  margin-right: -.3em !important;
+}

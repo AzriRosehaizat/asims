@@ -8,9 +8,9 @@ Technical Lead: Anita N.
 
 Systems Analyst: James M.
 
-Lead Programmer: Azri A. , Darren K.
+Lead Programmer: Azri A. , Daeyoun K.
 
-Lead QA: Daeyoun K.
+Lead QA: Darren K.
 
 How to deploy application in development:
 -------------------------------------------
@@ -32,11 +32,6 @@ Development Workflow
 7. Push and commit to your own branch first and reference the issue from github
 8. Create a pull request on GitHub detailing the merge
 9. Code will be reviewed by me and I will merge it
-
-
-Agile testing
------------------
-Suggestions??
 
 Docs:
 

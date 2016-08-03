@@ -1,0 +1,28 @@
+<md-sidenav id="navbar-right" ng-show="$state.current.data.dataPage" ng-style="style" class="md-sidenav-right" md-component-id="right" md-is-locked-open="$mdMedia('gt-md')" layout-margin>
+
+    <div id="rightNavTitle" layout="row">
+        <h4>{{fs.formData.title}}</h4>
+    </div>
+
+    <md-progress-linear class="md-hue-2" md-mode="{{fs.formData.mode}}"></md-progress-linear>
+
+    <md-content class="formContent md-padding">
+        <form name="fs.form" class="md-inline-form" ng-submit="submit()" novalidate>
+
+            <div ng-repeat="input in fs.formData.inputs" ng-include="'components/form/tmpl/' + input.type + '.html'"></div>
+
+            <div ng-hide="fs.readOnly" layout="row">
+                <md-button type="submit" class="md-raised" ng-disabled="fs.form.$invalid">Submit</md-button>
+                <md-button class="md-raised" ng-click="cancel()">Cancel</md-button>
+
+                <span flex></span>
+
+                <md-button class="md-icon-button md-warn md-hue-2" ng-show="fs.formData.isEditing" ng-click="delete($event)" aria-label="Delete">
+                    <md-icon md-font-set="material-icons">delete</md-icon>
+                </md-button>
+            </div>
+
+        </form>
+    </md-content>
+
+</md-sidenav>

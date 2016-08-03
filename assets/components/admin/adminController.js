@@ -1,83 +1,35 @@
-// To create a controller that uses ui-grid,
-// copy and paste this code except updateRole().
-// Then, change $scope.girdOptions.columnDefs and getUsers().
+application.controller('adminController', function($scope, users, adminService, SearchHelper, toaster, gridService) {
 
-application.controller('adminController', function($scope, DataService, RowEditor, UserSchema, AddUserForm, EditUserForm) {
+    $scope.gridTitle = 'Admin Page';
+    $scope.users = users.data;
+    $scope.formData = {};
 
-    $scope.gridOptions = {
-        multiSelect: false,
-        enableRowHeaderSelection: false,
-        enableExpandableRowHeader: false,
-        expandableRowTemplate: '/components/gridRow/expandableRow.html',
-        expandableRowHeight: 27,
+    $scope.gridOptions = adminService.gridOptions();
+    $scope.gridOptions.data = $scope.users;
 
-        columnDefs: [{
-            name: 'Name',
-            field: 'username'
-        }, {
-            name: 'Email',
-            field: 'email'
-        }, {
-            name: 'Role',
-            field: 'role.role'
-        }]
-    };
-
-    if (!angular.isObject($scope.gridOptions.data)) {
-        getUsers();
-    }
+    adminService.initAddForm($scope.formData, $scope.gridOptions.data);
+    SearchHelper.init($scope.gridOptions, $scope.users);
 
     $scope.gridOptions.onRegisterApi = function(gridApi) {
+        gridService.setMain($scope, gridApi, 'admin');
         gridApi.selection.on.rowSelectionChanged($scope, function(row) {
             $scope.row = row;
-            // open/close expandable row
-            row.isExpanded = !row.isExpanded;
-            if (row.isExpanded) {
-                row.isSelected = true;
-                // close the last expanded row
-                if (angular.isObject($scope.lastRow) && row.uid !== $scope.lastRow.uid)
-                    $scope.lastRow.isExpanded = false;
-                $scope.lastRow = row;
-            }
+            adminService.initEditForm($scope.formData, $scope.gridOptions.data, row);
         });
     };
 
     $scope.addRow = function() {
-        RowEditor.addRow(UserSchema, AddUserForm, '/user/create/')
-            .result.then(function(data) {
-                if (angular.isObject(data)) {
-                    // reload grid data. better idea?
-                    getUsers();
-                }
-            });
+        adminService.initAddForm($scope.formData, $scope.gridOptions.data);
     };
 
     $scope.editRow = function() {
-        RowEditor.editRow(UserSchema, EditUserForm, $scope.row, '/user/update/')
-            .result.then(function(data) {
-                if (angular.isObject(data)) {
-                    // I'm doing this because only role.id gets modified by the edit form
-                    // role.role is updated corresponding to role.id here. or we can just run getUsers()
-                    updateRole(data.role.id);
-                    // close the expanded row
-                    $scope.row.isExpanded = false;
-                }
-            });
+        if ($scope.row)
+            adminService.initEditForm($scope.formData, $scope.gridOptions.data, $scope.row);
+        else
+            toaster.info("Select a row first.");
     };
 
-    $scope.deleteRow = function() {
-        RowEditor.deleteRow($scope.row, '/user/delete/');
+    $scope.lastLogin = function(row) {
+        adminService.lastLogin(row);
     };
-
-    function getUsers() {
-        DataService.get('/user/')
-            .then(function(data) {
-                $scope.gridOptions.data = data;
-            });
-    }
-
-    function updateRole(roleID) {
-        var roles = ['reader', 'writer', 'admin'];
-        $scope.row.entity.role.role = roles[roleID - 1];
-    }
 });
