@@ -21,6 +21,7 @@
 
 module.exports.connections = {
   
+  /*
   //Adapter asims business application database
   MySQLServer: {
     adapter: 'sails-mysql',
@@ -39,4 +40,5 @@ module.exports.connections = {
     database: 'asimsMeta',
     timezone: 'America/Winnipeg'
   }
+  */
 };

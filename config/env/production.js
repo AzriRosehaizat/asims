@@ -17,15 +17,40 @@ module.exports = {
    * environment (see config/connections.js and config/models.js )           *
    ***************************************************************************/
 
-  // models: {
-  //   connection: 'someMysqlServer'
-  // },
+  connections: {
+    MySQLServer: {
+      adapter: 'sails-mysql',
+      host: process.env.ASIMS_IP,
+      user: process.env.ASIMS_USER,
+      password: process.env.ASIMS_PW,
+      database: 'asims',
+      timezone: 'America/Winnipeg'
+    },
+    
+    MySQLServerMeta: {
+      adapter: 'sails-mysql',
+      host: process.env.ASIMS_IP,
+      user: process.env.ASIMS_USER,
+      password: process.env.ASIMS_PW,
+      database: 'asimsMeta',
+      timezone: 'America/Winnipeg'
+    }
+  },
+    
+  models: {
+     connection: 'MySQLServer',
+     schema: true,
+     autoPK: false,
+     autoCreatedAt: false,
+     autoUpdatedAt: false,
+     migrate: 'safe'
+  },
 
   /***************************************************************************
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  // port: 80,
+  port: 80,
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
@@ -34,5 +59,7 @@ module.exports = {
   // log: {
   //   level: "silent"
   // }
+
+  hookTimeout: 500000
 
 };
