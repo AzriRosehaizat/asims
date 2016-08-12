@@ -39,5 +39,9 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/AzriAhmad/asims.git"
+  },
+  "devDependencies": {
+    "connect-redis": "^3.1.0",
+    "express-session": "^1.14.0"
   }
 }
