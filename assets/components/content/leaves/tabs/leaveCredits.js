@@ -196,18 +196,14 @@ application
                     name: 
                         "startDate",
                     label: 
-                        "Start Date",
-                    required: 
-                        true
+                        "Start Date"
                 }, {
                     type: 
                         "date",
                     name: 
                         "endDate",
                     label: 
-                        "End Date",
-                    required: 
-                        true,
+                        "End Date"
                     minDate: 
                         "startDate"
                 }, {
