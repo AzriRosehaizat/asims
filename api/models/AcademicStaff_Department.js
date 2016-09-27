@@ -16,8 +16,7 @@ module.exports = {
 			required: true
 		},
 		startDate:{
-			type: 'date',
-			required: true
+			type: 'date'
 		},
 		endDate:{
 			type: 'date'
