@@ -12,7 +12,7 @@ application.service('counterService', function($http) {
         link: "application.leaves",
         restLink: "Home/getInfo?type=leave"
     }, {
-        title: "Researches",
+        title: "Research",
         gridTitle: "Researches Currently In Progress",
         data: '',
         footer: "In Progress",
