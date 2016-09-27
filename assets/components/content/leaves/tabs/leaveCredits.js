@@ -203,7 +203,7 @@ application
                     name: 
                         "endDate",
                     label: 
-                        "End Date"
+                        "End Date",
                     minDate: 
                         "startDate"
                 }, {
