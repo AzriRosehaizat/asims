@@ -207,9 +207,7 @@ application
                     name: 
                         "startDate",
                     label: 
-                        "Start Date",
-                    required: 
-                        true
+                        "Start Date"
                 }, {
                     type: 
                         "date",
@@ -217,8 +215,6 @@ application
                         "endDate",
                     label: 
                         "End Date",
-                    required: 
-                        true,
                     minDate: 
                         "startDate"
                 }, {

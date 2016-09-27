@@ -42,8 +42,7 @@ application.service('researchService', function($http, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start Date",
-                required: true
+                label: "Start Date"
             }, {
                 type: "date",
                 name: "endDate",
@@ -72,8 +71,7 @@ application.service('researchService', function($http, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start Date",
-                required: true
+                label: "Start Date"
             }, {
                 type: "date",
                 name: "endDate",

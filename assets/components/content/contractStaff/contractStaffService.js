@@ -76,8 +76,7 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 type: "date",
                 name: "deptStartDate",
                 label: "Dept. Start Date",
-                hide: "fs.form.department.$pristine",
-                required: "fs.form.department.$dirty"
+                hide: "fs.form.department.$pristine"
             }, {
                 type: "date",
                 name: "deptEndDate",
@@ -106,8 +105,7 @@ application.service('contractStaffService', function($http, $q, _, formService) 
                 type: "date",
                 name: "rankStartDate",
                 label: "Rank Start Date",
-                hide: "fs.form.rank.$pristine",
-                required: "fs.form.rank.$dirty"
+                hide: "fs.form.rank.$pristine"
             }, {
                 type: "date",
                 name: "rankEndDate",
