@@ -156,7 +156,7 @@ application.service('leaveChartService', function($mdDialog, _, moment, reportSe
                 style: "tableHeader"
             },
             reportService.setTable(data.Admin, ['auto', 'auto', 'auto', '*']), {
-                text: '\nAs outline in Clause 26.14, Members shall make applications to the Chair by OCTOBER 1st for leaves commencing the following academic year. Please adhere to the dealine to ensure the Research/Study Leave Committee has sufficient time to consider your application.',
+                text: '\nAs outlined by Clause 26.14, Members shall make application to the Chair by OCTOBER 1st for leaves commencing the following academic year. Please adhere to the deadline to ensure the Research/Study Leave Committee has sufficient time to consider your application.',
                 style: 'tableHeader'
             }, {
                 text: 'I HAVE READ THE ABOVE.',
