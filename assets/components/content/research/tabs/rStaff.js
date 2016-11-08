@@ -51,8 +51,7 @@ application.service('rStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start Date",
-                required: true
+                label: "Start Date"
             }, {
                 type: "date",
                 name: "endDate",
@@ -78,8 +77,7 @@ application.service('rStaff', function($http, _, formService) {
             }, {
                 type: "date",
                 name: "startDate",
-                label: "Start Date",
-                required: true
+                label: "Start Date"
             }, {
                 type: "date",
                 name: "endDate",

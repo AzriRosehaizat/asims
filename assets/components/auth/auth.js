@@ -46,7 +46,8 @@ application.service('AuthInterceptor', function($q, $injector, _, LocalService) 
                 }
                 if (token) {
                     config.headers.access_token = token;
-                }
+               	}	
+
                 return config;
             },
             responseError: function(res) {

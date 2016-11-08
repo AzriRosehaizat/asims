@@ -25,8 +25,7 @@ module.exports = {
 			type: 'text'
 		},
 		startDate: {
-			type: 'date',
-			required: true
+			type: 'date'
 		},
 		endDate: {
 			type: 'date'
